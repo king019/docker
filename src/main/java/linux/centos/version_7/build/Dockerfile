@@ -14,6 +14,9 @@ RUN mkdir -p /opt/soft
 
 RUN cd /opt/soft
 
+ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.8/bin/apache-tomcat-9.0.8.tar.gz /opt/soft/apache-tomcat-9.0.8.tar.gz
+ADD https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.12.v20180830/jetty-distribution-9.4.12.v20180830.tar.gz /opt/soft/jetty-distribution-9.4.12.v20180830.tar.gz
+
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh
 CMD /docker.sh

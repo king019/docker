@@ -8,7 +8,7 @@ RUN yum -y install  net-tools unzip which openssh-server openssh-clients go logr
 
 RUN yum -y install  zlib-devel rubygems ruby gem  ruby-devel ruby-docs ruby-ri ruby-irb ruby-rdoc
 
-RUN yum -y install  traceroute
+RUN yum -y install  traceroute lsof sysstat
 
 RUN mkdir -p /opt/soft
 

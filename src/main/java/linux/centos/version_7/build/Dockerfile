@@ -17,3 +17,11 @@ RUN cd /opt/soft
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh
 CMD /docker.sh
+EXPOSE 80
+EXPOSE 8080
+EXPOSE 22
+EXPOSE 8000
+EXPOSE 8443
+EXPOSE 3128
+EXPOSE 4000
+EXPOSE 443

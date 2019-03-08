@@ -4,10 +4,9 @@ MAINTAINER king019
 
 RUN mkdir -p /opt/soft
 
+COPY docker.sh /docker.sh
 
 RUN git clone https://gitee.com/king019/rocketmq.git /opt/soft/rocketmq
-
-COPY docker.sh /docker.sh
 
 RUN chmod 755 /*.sh
 

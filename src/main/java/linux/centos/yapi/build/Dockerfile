@@ -32,6 +32,7 @@ RUN sudo apt-get install git -y
 
 RUN sudo service mongodb start
 
+EXPOSE 9090
 
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh

@@ -30,8 +30,6 @@ RUN sudo apt-get install -y mongodb-org
 
 RUN sudo apt-get install git -y
 
-RUN sudo service mongodb start
-
 EXPOSE 9090
 
 COPY docker.sh /docker.sh

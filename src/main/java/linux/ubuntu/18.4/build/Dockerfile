@@ -3,8 +3,8 @@ FROM  ubuntu:18.04
 MAINTAINER king019
 
 
-COPY docker.sh /docker.sh
-COPY sources.list /sources.list
+ADD https://raw.githubusercontent.com/king019/docker/master/src/main/java/linux/ubuntu/18.4/build/docker.sh /docker.sh
+ADD https://raw.githubusercontent.com/king019/docker/master/src/main/java/linux/ubuntu/18.4/build/sources.list /sources.list
 
 RUN cat /sources.list>/etc/apt/sources.list
 

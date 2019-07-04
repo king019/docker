@@ -4,6 +4,8 @@ MAINTAINER king019
 
 RUN cd /opt/soft
 
+RUN atp-get  -y install  git wget maven net-tools unzip which traceroute lsof
+
 ADD https://raw.githubusercontent.com/king019/docker/master/src/main/java/linux/ubuntu/18.4/build/docker.sh /docker.sh
 ADD https://raw.githubusercontent.com/king019/docker/master/src/main/java/linux/ubuntu/18.4/build/sources.list /sources.list
 

@@ -6,8 +6,12 @@ RUN cd /opt/soft
 
 RUN atp-get  -y install  git wget maven net-tools unzip which traceroute lsof
 
-ADD https://raw.githubusercontent.com/king019/docker/master/src/main/java/linux/ubuntu/18.4/build/docker.sh /docker.sh
-ADD https://raw.githubusercontent.com/king019/docker/master/src/main/java/linux/ubuntu/18.4/build/sources.list /sources.list
+#ADD https://raw.githubusercontent.com/king019/docker/master/src/main/java/linux/ubuntu/18.4/build/docker.sh /docker.sh
+#ADD https://raw.githubusercontent.com/king019/docker/master/src/main/java/linux/ubuntu/18.4/build/sources.list /sources.list
+
+COPY docker.sh /docker.sh
+COPY sources.list /sources.list
+
 
 ADD https://mirrors.aliyun.com/apache/tomcat/tomcat-8/v8.5.29/bin/apache-tomcat-8.5.29.tar.gz /opt/soft/apache-tomcat-8.5.29.tar.gz
 

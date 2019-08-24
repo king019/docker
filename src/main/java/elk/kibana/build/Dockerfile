@@ -1,4 +1,4 @@
-FROM  registry.cn-hangzhou.aliyuncs.com/king019/kibana
+FROM  docker.elastic.co/kibana/kibana:7.3.0
 
 MAINTAINER king019
 

@@ -1,4 +1,4 @@
-FROM  registry.cn-hangzhou.aliyuncs.com/king019/filebeat
+FROM  docker.elastic.co/beats/filebeat:7.3.0
 
 MAINTAINER king019
 

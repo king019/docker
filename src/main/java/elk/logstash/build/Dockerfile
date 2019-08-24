@@ -1,4 +1,4 @@
-FROM  registry.cn-hangzhou.aliyuncs.com/king019/logstash
+FROM  docker.elastic.co/logstash/logstash:7.3.0
 
 MAINTAINER king019
 

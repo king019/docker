@@ -2,7 +2,7 @@
 set -x
 
 cd /soft/
-tar -xzf openjdk-9_linux-x64_bin.tar.gz
+tar -xzf openjdk-10_linux-x64_bin.tar.gz
 mv jdk-10 jdk
 
 echo 'export JAVA_HOME=/soft/jdk' >> /etc/profile

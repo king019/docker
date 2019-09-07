@@ -2,6 +2,9 @@
 set -x
 
 cd /soft/
+tar -xzf apache-tomcat-9.0.24.tar.gz
+
+cd /soft/
 tar -xzf openjdk-9_linux-x64_bin.tar.gz
 mv jdk-9 jdk
 

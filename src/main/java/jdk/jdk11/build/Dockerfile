@@ -28,3 +28,16 @@ ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.24/bin/apache-to
 COPY docker.sh /docker.sh
 CMD /docker.sh
 
+EXPOSE 80
+EXPOSE 8080
+EXPOSE 8081
+EXPOSE 22
+EXPOSE 8000
+EXPOSE 8443
+EXPOSE 3128
+EXPOSE 4000
+EXPOSE 443
+EXPOSE 9876
+EXPOSE 10909
+EXPOSE 10911
+EXPOSE 7000

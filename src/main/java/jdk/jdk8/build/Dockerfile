@@ -10,7 +10,7 @@ RUN mkdir -p /soft
 RUN yum -y install maven git
 COPY settings.xml /root/.m2/settings.xml
 RUN cd /soft/ ; git clone https://github.com/king019/springbootmvc.git
-
+RUN cd /soft/springbootmvc/mvc_lib ;mvn compile
 
 #ADD https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.24/bin/apache-tomcat-9.0.24.tar.gz /soft/apache-tomcat-9.0.24.tar.gz
 ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.24/bin/apache-tomcat-9.0.24.tar.gz /soft/apache-tomcat-9.0.24.tar.gz

@@ -8,7 +8,7 @@ RUN mkdir -p /soft/
 RUN yum -y install maven git
 COPY settings.xml /root/.m2/settings.xml
 RUN cd /soft/ ; git clone https://github.com/king019/springbootmvc.git
-
+RUN cd /soft/springbootmvc/mvc_lib ;mvn compile
 
 ADD https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_linux-x64_bin.tar.gz /soft/openjdk-11.0.1_linux-x64_bin.tar.gz
 
@@ -27,6 +27,7 @@ ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.24/bin/apache-to
 
 COPY docker.sh /docker.sh
 CMD /docker.sh
+
 
 EXPOSE 80
 EXPOSE 8080

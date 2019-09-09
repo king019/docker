@@ -7,7 +7,7 @@ RUN mkdir -p /soft/
 RUN yum -y install maven git
 COPY settings.xml /root/.m2/settings.xml
 RUN cd /soft/ ; git clone https://github.com/king019/springbootmvc.git
-RUN cd /soft/springbootmvc/mvc_lib ;mvn compile
+RUN cd /soft/springbootmvc/mvc_lib ;mvn package
 
 
 ADD https://download.java.net/java/GA/jdk9/9.0.1/binaries/openjdk-9.0.1_linux-x64_bin.tar.gz /soft/openjdk-9.0.1_linux-x64_bin.tar.gz

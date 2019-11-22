@@ -1,4 +1,4 @@
-FROM  arm32v7/centos
+FROM  registry.cn-hangzhou.aliyuncs.com/king019/arm_centos:centos_base
 
 MAINTAINER king019
 

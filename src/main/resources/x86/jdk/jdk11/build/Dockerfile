@@ -2,13 +2,13 @@ FROM  registry.cn-hangzhou.aliyuncs.com/king019/centos_proto
 
 MAINTAINER king019
 
-RUN mkdir -p /soft/
+RUN mkdir -p /opt/soft/version
 
 
 RUN yum -y install maven git
 COPY settings.xml /root/.m2/settings.xml
-RUN cd /soft/ ; git clone https://github.com/king019/springbootmvc.git
-RUN cd /soft/springbootmvc/mvc_lib ;mvn package
+
+RUN cd /opt/soft/version ; git clone https://github.com/king019/hub_git.git
 
 ADD https://download.java.net/java/GA/jdk11/13/GPL/openjdk-11.0.1_linux-x64_bin.tar.gz /soft/openjdk-11.0.1_linux-x64_bin.tar.gz
 

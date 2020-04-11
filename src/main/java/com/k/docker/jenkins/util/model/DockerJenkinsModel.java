@@ -3,6 +3,7 @@ package com.k.docker.jenkins.util.model;
 
 import com.google.common.collect.Lists;
 import lombok.Data;
+import org.apache.commons.lang3.StringUtils;
 
 import java.util.List;
 
@@ -25,7 +26,11 @@ public class DockerJenkinsModel {
         sb.append("\r\n");
         List<String> hostVersions = Lists.newArrayList();
         for (String version : versions) {
-            hostVersions.add(host + "/" + version);
+            if (StringUtils.isBlank(host)) {
+                hostVersions.add(version);
+            } else {
+                hostVersions.add(host + "/" + version);
+            }
         }
         for (String hostVersion : hostVersions) {
             {

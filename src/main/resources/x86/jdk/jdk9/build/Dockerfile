@@ -9,9 +9,9 @@ COPY settings.xml /root/.m2/settings.xml
 RUN cd /opt/soft/version ; git clone https://github.com/king019/hub_git.git
 
 
-ADD https://download.java.net/java/GA/jdk9/9.0.1/binaries/openjdk-9.0.1_linux-x64_bin.tar.gz /opt/soft/openjdk-9.0.1_linux-x64_bin.tar.gz
+#ADD https://download.java.net/java/GA/jdk9/9.0.1/binaries/openjdk-9.0.1_linux-x64_bin.tar.gz /opt/soft/openjdk-9.0.1_linux-x64_bin.tar.gz
 
-ADD https://download.java.net/java/GA/jdk9/9.0.4/binaries/openjdk-9.0.4_linux-x64_bin.tar.gz /opt/soft/openjdk-9.0.4_linux-x64_bin.tar.gz
+#ADD https://download.java.net/java/GA/jdk9/9.0.4/binaries/openjdk-9.0.4_linux-x64_bin.tar.gz /opt/soft/openjdk-9.0.4_linux-x64_bin.tar.gz
 
 
 

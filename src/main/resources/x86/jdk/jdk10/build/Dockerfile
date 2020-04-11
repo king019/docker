@@ -9,9 +9,9 @@ RUN yum -y install maven git
 COPY settings.xml /root/.m2/settings.xml
 RUN cd /opt/soft/version ; git clone https://github.com/king019/hub_git.git
 
-ADD https://download.java.net/java/GA/jdk10/10.0.1/fb4372174a714e6b8c52526dc134031e/10/openjdk-10.0.1_linux-x64_bin.tar.gz /opt/soft//openjdk-10.0.1_linux-x64_bin.tar.gz
+#ADD https://download.java.net/java/GA/jdk10/10.0.1/fb4372174a714e6b8c52526dc134031e/10/openjdk-10.0.1_linux-x64_bin.tar.gz /opt/soft//openjdk-10.0.1_linux-x64_bin.tar.gz
 
-ADD https://download.java.net/java/GA/jdk10/10.0.2/19aef61b38124481863b1413dce1855f/13/openjdk-10.0.2_linux-x64_bin.tar.gz /opt/soft//openjdk-10.0.2_linux-x64_bin.tar.gz
+#ADD https://download.java.net/java/GA/jdk10/10.0.2/19aef61b38124481863b1413dce1855f/13/openjdk-10.0.2_linux-x64_bin.tar.gz /opt/soft//openjdk-10.0.2_linux-x64_bin.tar.gz
 
 
 

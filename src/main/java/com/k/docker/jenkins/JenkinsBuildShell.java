@@ -9,6 +9,7 @@ import com.k.docker.jenkins.util.model.enums.BuildItemEnum;
 import com.k.docker.jenkins.util.model.enums.DockerRegionEnum;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Test;
 
 import java.io.File;
@@ -39,7 +40,7 @@ public class JenkinsBuildShell {
         Collections.sort(sortIndex, (o1, o2) -> {
             String index1 = map.get(o1).getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef());
             String index2 = map.get(o2).getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef());
-            return StringUtils.compare(index1, index2);
+            return NumberUtils.compare(Integer.parseInt(index1), Integer.parseInt(index2));
         });
         return sortIndex;
     }

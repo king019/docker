@@ -19,7 +19,7 @@ RUN cd /opt/soft/version ; git clone https://github.com/king019/hub_git.git
 
 
 
-ADD https://repo.huaweicloud.com/openjdk/11.0.2/openjdk-11.0.2_linux-x64_bin.tar.gz /opt/soft/openjdk-11_linux-x64_bin.tar.gz
+ADD https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk11u-2020-04-09-17-31/OpenJDK11U-jdk_arm_linux_hotspot_2020-04-09-17-31.tar.gz /opt/soft/OpenJDK11U-jdk_arm_linux_hotspot_2020-04-09-17-31.tar.gz
 
 RUN mkdir -p /opt/soft/
 #ADD https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.24/bin/apache-tomcat-9.0.24.tar.gz /opt/soft/apache-tomcat-9.0.24.tar.gz

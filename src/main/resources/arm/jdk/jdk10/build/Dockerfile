@@ -17,7 +17,7 @@ RUN cd /opt/soft/version ; git clone https://github.com/king019/hub_git.git
 
 
 
-ADD https://repo.huaweicloud.com/openjdk/10/openjdk-10_linux-x64_bin.tar.gz /opt/soft/openjdk-10_linux-x64_bin.tar.gz
+ADD https://github.com/AdoptOpenJDK/openjdk10-binaries/releases/download/jdk-10.0.2%2B13.1/OpenJDK10U-jdk_arm_linux_hotspot_10.0.2_13.tar.gz /opt/soft/OpenJDK10U-jdk_arm_linux_hotspot_10.0.2_13.tar.gz
 
 RUN mkdir -p /opt/soft/
 #ADD https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.24/bin/apache-tomcat-9.0.24.tar.gz /opt/soft/apache-tomcat-9.0.24.tar.gz

@@ -12,7 +12,8 @@ public class DockerJenkinsModel {
     private String path;
     private String host;
     private String[] versions;
-    private String index;
+    private int index;
+    private String platform;
 
     @Override
     public String toString() {

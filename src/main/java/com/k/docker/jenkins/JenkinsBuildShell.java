@@ -1,7 +1,9 @@
 package com.k.docker.jenkins;
 
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
 import com.k.docker.jenkins.util.PathBaseUtil;
 import com.k.docker.jenkins.util.PathUtil;
 import com.k.docker.jenkins.util.model.DockerJenkinsModel;
@@ -13,59 +15,83 @@ import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Test;
 
 import java.io.File;
+import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.stream.Collectors;
 
 public class JenkinsBuildShell {
+
     @Test
     public void test() throws Exception {
         String resource = PathUtil.getResource();
         File file = new File(resource);
-        for (File listFile : Objects.requireNonNull(file.listFiles((dir, name) -> name.contains("x86") | name.contains("arm")))) {
-            writeFirst(listFile);
+        List<DockerJenkinsModel> models = Lists.newArrayList();
+        for (File listFile : Objects.requireNonNull(file.listFiles())) {
+            models.addAll(writeFirst(listFile));
+        }
+        models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
+        Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
+        models.forEach(model -> multimap.put(model.getPlatform(), model));
+        multimap.asMap().forEach(this::writePlat);
+    }
+
+    private void writePlat(String plat, Collection<DockerJenkinsModel> models) {
+        List<String> lines = models.stream().map(DockerJenkinsModel::toString).collect(Collectors.toList());
+        String target = PathUtil.getTargetPath(plat + ".txt");
+        File targetFile = new File(target);
+        try {
+            FileUtils.writeLines(targetFile, lines);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 
-    private void writeFirst(File file) throws Exception {
+    private List<DockerJenkinsModel> writeFirst(File file) throws Exception {
         Map<String, Map<BuildItemEnum, String>> map = Maps.newLinkedHashMap();
         readDir(file, map);
-        String target = PathUtil.getTargetPath(file.getName() + ".txt");
-        File targetFile = new File(target);
-        List<String> sortIndex = sort(map);
-        FileUtils.writeLines(targetFile, writeLines(map, sortIndex));
+        return writeLines(map, file);
     }
 
-    private List<String> sort(Map<String, Map<BuildItemEnum, String>> map) {
-        List<String> sortIndex = Lists.newArrayList(map.keySet());
-        Collections.sort(sortIndex, (o1, o2) -> {
-            String index1 = map.get(o1).getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef());
-            String index2 = map.get(o2).getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef());
-            return NumberUtils.compare(Integer.parseInt(index1), Integer.parseInt(index2));
-        });
-        return sortIndex;
-    }
-
-    private List<String> writeLines(Map<String, Map<BuildItemEnum, String>> map, List<String> sortIndex) {
-        List<String> lines = Lists.newArrayList();
-        sortIndex.forEach(path -> {
-            Map<BuildItemEnum, String> enumMap = map.get(path);
+    private List<DockerJenkinsModel> writeLines(Map<String, Map<BuildItemEnum, String>> map, File firstFile) {
+        List<DockerJenkinsModel> models = Lists.newArrayList();
+        map.forEach((path, enumMap) -> {
             if (Objects.nonNull(enumMap.get(BuildItemEnum.IGNORE))) {
                 return;
             }
             DockerJenkinsModel model = new DockerJenkinsModel();
             model.setPath(path);
-            model.setIndex(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef()));
+            model.setIndex(Integer.parseInt(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef())));
             model.setHost(DockerRegionEnum.getRegion(enumMap.get(BuildItemEnum.REGION)).getHost());
             String versions = enumMap.get(BuildItemEnum.VERSION);
             if (StringUtils.isBlank(versions)) {
                 return;
             }
+            String plat = getPlat(firstFile, enumMap);
+            if (Objects.isNull(plat)) {
+                return;
+            }
+            model.setPlatform(plat);
             model.setVersions(StringUtils.split(versions, ","));
-            lines.add(model.toString());
+            models.add(model);
         });
+        return models;
+    }
 
-
-        return lines;
+    private String getPlat(File firstFile, Map<BuildItemEnum, String> enumMap) {
+        String plat = null;
+        try {
+            plat = enumMap.get(BuildItemEnum.PLATFORM);
+            if (StringUtils.isBlank(plat)) {
+                File file = new File(firstFile.getAbsolutePath() + "/" + BuildItemEnum.PLATFORM.getItem());
+                if (file.exists()) {
+                    plat = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
+                }
+            }
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return plat;
     }
 
     private void readDir(File file, Map<String, Map<BuildItemEnum, String>> map) throws Exception {

@@ -13,7 +13,8 @@ public enum BuildItemEnum {
     REGION("region.txt"),
     VERSION("version.txt"),
     INDEX("index.txt", "10000"),
-    IGNORE("ignore.txt");
+    IGNORE("ignore.txt"),
+    PLATFORM("platform.txt");
 
     private String item;
     private String def;

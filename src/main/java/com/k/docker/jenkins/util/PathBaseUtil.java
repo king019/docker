@@ -12,7 +12,7 @@ public class PathBaseUtil {
 
     static {
         try {
-            PRE_PATH = FileUtils.readFileToString(new File(PathUtil.getResource("prefix.txt")), StandardCharsets.UTF_8);
+            PRE_PATH = FileUtils.readFileToString(new File(PathUtil.getResource("txt/prefix.txt")), StandardCharsets.UTF_8);
         } catch (IOException e) {
             e.printStackTrace();
         }

@@ -1,0 +1,10 @@
+https://code.aliyun.com/king019/docker.git
+https://github.com/king019/docker.git
+
+
+jenkins
+
+docker login --username=906451283@qq.com registry.cn-hangzhou.aliyuncs.com
+docker login -u king019
+
+

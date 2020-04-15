@@ -1,2 +1,2 @@
-king019/centos:p8
-king019/centos:p
+king019/centos:ap8
+king019/centos:ap

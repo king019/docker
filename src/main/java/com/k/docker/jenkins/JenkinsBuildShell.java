@@ -10,6 +10,7 @@ import com.k.docker.jenkins.util.model.DockerJenkinsModel;
 import com.k.docker.jenkins.util.model.enums.BuildItemEnum;
 import com.k.docker.jenkins.util.model.enums.DockerRegionEnum;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Test;
@@ -19,7 +20,7 @@ import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
-import java.util.stream.Collectors;
+import java.util.function.Consumer;
 
 public class JenkinsBuildShell {
 
@@ -38,7 +39,11 @@ public class JenkinsBuildShell {
     }
 
     private void writePlat(String plat, Collection<DockerJenkinsModel> models) {
-        List<String> lines = models.stream().map(DockerJenkinsModel::toString).collect(Collectors.toList());
+        List<String> lines = Lists.newArrayList();
+        for (DockerJenkinsModel model : models) {
+            lines.add(model.toString());
+            lines.add(model.getMap().get(model.getPlatform()));
+        }
         String target = PathUtil.getTargetPath(plat + ".txt");
         File targetFile = new File(target);
         try {
@@ -65,21 +70,27 @@ public class JenkinsBuildShell {
                         if (Objects.nonNull(enumMap.get(BuildItemEnum.IGNORE))) {
                             return;
                         }
-                        DockerJenkinsModel model = new DockerJenkinsModel();
-                        model.setPath(path);
-                        model.setIndex(Integer.parseInt(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef())));
-                        model.setHost(DockerRegionEnum.getRegion(enumMap.get(BuildItemEnum.REGION)).getHost());
                         String versions = enumMap.get(BuildItemEnum.VERSION);
                         if (StringUtils.isBlank(versions)) {
                             return;
                         }
-                        String plat = getPlat(firstFile, enumMap);
-                        if (Objects.isNull(plat)) {
+                        String[] plats = getPlat(firstFile, enumMap);
+                        if (ArrayUtils.isEmpty(plats)) {
                             return;
                         }
-                        model.setPlatform(plat);
-                        model.setVersions(StringUtils.split(versions, ","));
-                        models.add(model);
+
+                        String[] versionSplits = StringUtils.split(versions, ",");
+                        Arrays.stream(versionSplits).forEach(new Consumer<>() {
+                            @Override
+                            public void accept(String version) {
+                                Arrays.stream(plats).forEach(new Consumer<>() {
+                                    @Override
+                                    public void accept(String plat) {
+                                        models.add(buildModel(path, plat, version, enumMap));
+                                    }
+                                });
+                            }
+                        });
                     }
                 });
             }
@@ -87,7 +98,17 @@ public class JenkinsBuildShell {
         return models;
     }
 
-    private String getPlat(File firstFile, Map<BuildItemEnum, String> enumMap) {
+    private DockerJenkinsModel buildModel(String path, String plat, String version, Map<BuildItemEnum, String> enumMap) {
+        DockerJenkinsModel model = new DockerJenkinsModel();
+        model.setPath(path);
+        model.setIndex(Integer.parseInt(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef())));
+        model.setHost(DockerRegionEnum.getRegion(enumMap.get(BuildItemEnum.REGION)).getHost());
+        model.setPlatform(plat);
+        model.setVersion(version);
+        return model;
+    }
+
+    private String[] getPlat(File firstFile, Map<BuildItemEnum, String> enumMap) {
         String plat = null;
         try {
             plat = enumMap.get(BuildItemEnum.PLATFORM);
@@ -100,7 +121,7 @@ public class JenkinsBuildShell {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return plat;
+        return StringUtils.split(plat, ",");
     }
 
     private void readDir(File file, Map<String, Map<String, Map<BuildItemEnum, String>>> map) throws Exception {

@@ -1,19 +1,20 @@
 package com.k.docker.jenkins.util.model;
 
 
-import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import lombok.Data;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.List;
+import java.util.Map;
 
 @Data
 public class DockerJenkinsModel {
     private String path;
     private String host;
-    private String[] versions;
+    private String version;
     private int index;
     private String platform;
+    private Map<String, String> map = Maps.newHashMap();
 
     @Override
     public String toString() {
@@ -25,27 +26,48 @@ public class DockerJenkinsModel {
         sb.append("${WORKSPACE}/");
         sb.append(path);
         sb.append("\r\n");
-        List<String> hostVersions = Lists.newArrayList();
-        for (String version : versions) {
-            if (StringUtils.isBlank(host)) {
-                hostVersions.add(version);
-            } else {
-                hostVersions.add(host + "/" + version);
-            }
+        if (StringUtils.isNotBlank(host)) {
+            version = host + "/" + version;
         }
-        for (String hostVersion : hostVersions) {
-            {
-                sb.append("docker build -t ");
-                sb.append(hostVersion);
-                sb.append(" .");
-                sb.append("\r\n");
-            }
-            {
-                sb.append("docker push ");
-                sb.append(hostVersion);
-                sb.append("\r\n");
-            }
+        {
+            sb.append("docker build -t ");
+            sb.append(buildVersion(version, platform));
+            sb.append(" .");
+            sb.append("\r\n");
         }
+        {
+            sb.append("docker push ");
+            sb.append(buildVersion(version, platform));
+            sb.append("\r\n");
+        }
+        map.put(platform, buildMainfest(version, platform));
         return sb.toString();
+    }
+
+    private String buildMainfest(String hostVersion, String platform) {
+        StringBuilder sb = new StringBuilder();
+        //docker manifest create huxl/myapp:v1 huxl/myapp-x86_64:v1 huxl/myapp-ppc64le:v1
+        //docker manifest annotate huxl/myapp:v1 huxl/myapp-x86_64:v1 --os linux --arch amd64
+        ///docker manifest push huxl/myapp:v1
+        sb.append("docker manifest create ");
+        sb.append(hostVersion);
+        sb.append(" ");
+        sb.append(buildVersion(hostVersion, platform));
+        sb.append("\r\n");
+        sb.append("docker manifest annotate ");
+        sb.append(hostVersion);
+        sb.append(" ");
+        sb.append(buildVersion(hostVersion, platform));
+        sb.append(" --os linux");
+        sb.append(" --arch " + platform);
+        sb.append("\r\n");
+        sb.append("docker manifest push ");
+        sb.append(hostVersion);
+        sb.append("\r\n");
+        return sb.toString();
+    }
+
+    private String buildVersion(String hostVersion, String platform) {
+        return hostVersion + "_" + platform;
     }
 }

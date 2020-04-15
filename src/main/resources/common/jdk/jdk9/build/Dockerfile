@@ -1,4 +1,4 @@
-FROM  registry.cn-hangzhou.aliyuncs.com/king019/centos_proto
+FROM  centos
 
 MAINTAINER king019
 

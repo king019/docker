@@ -50,6 +50,7 @@ public class DockerJenkinsModel {
         //docker manifest annotate huxl/myapp:v1 huxl/myapp-x86_64:v1 --os linux --arch amd64
         ///docker manifest push huxl/myapp:v1
         sb.append("docker manifest create ");
+        sb.append(" -a ");
         sb.append(hostVersion);
         sb.append(" ");
         sb.append(buildVersion(hostVersion, platform));
@@ -58,10 +59,11 @@ public class DockerJenkinsModel {
         sb.append(hostVersion);
         sb.append(" ");
         sb.append(buildVersion(hostVersion, platform));
-        sb.append(" --os linux");
-        sb.append(" --arch " + platform);
+        //sb.append(" --os-features linux");
+        sb.append(" --os-features linux");
+        sb.append("/" + platform);
         sb.append("\r\n");
-        sb.append("docker manifest push ");
+        sb.append("docker manifest push -p ");
         sb.append(hostVersion);
         sb.append("\r\n");
         return sb.toString();

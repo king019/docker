@@ -18,6 +18,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
+import java.util.function.BiConsumer;
 import java.util.stream.Collectors;
 
 public class JenkinsBuildShell {
@@ -48,32 +49,40 @@ public class JenkinsBuildShell {
     }
 
     private List<DockerJenkinsModel> writeFirst(File file) throws Exception {
-        Map<String, Map<BuildItemEnum, String>> map = Maps.newLinkedHashMap();
+        Map<String, Map<String, Map<BuildItemEnum, String>>> map = Maps.newLinkedHashMap();
         readDir(file, map);
         return writeLines(map, file);
     }
 
-    private List<DockerJenkinsModel> writeLines(Map<String, Map<BuildItemEnum, String>> map, File firstFile) {
+    private List<DockerJenkinsModel> writeLines(Map<String, Map<String, Map<BuildItemEnum, String>>> map, File firstFile) {
         List<DockerJenkinsModel> models = Lists.newArrayList();
-        map.forEach((path, enumMap) -> {
-            if (Objects.nonNull(enumMap.get(BuildItemEnum.IGNORE))) {
-                return;
+        map.forEach(new BiConsumer<>() {
+            @Override
+            public void accept(String path, Map<String, Map<BuildItemEnum, String>> pathMap) {
+                pathMap.forEach(new BiConsumer<>() {
+                    @Override
+                    public void accept(String nextPath, Map<BuildItemEnum, String> enumMap) {
+                        if (Objects.nonNull(enumMap.get(BuildItemEnum.IGNORE))) {
+                            return;
+                        }
+                        DockerJenkinsModel model = new DockerJenkinsModel();
+                        model.setPath(path);
+                        model.setIndex(Integer.parseInt(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef())));
+                        model.setHost(DockerRegionEnum.getRegion(enumMap.get(BuildItemEnum.REGION)).getHost());
+                        String versions = enumMap.get(BuildItemEnum.VERSION);
+                        if (StringUtils.isBlank(versions)) {
+                            return;
+                        }
+                        String plat = getPlat(firstFile, enumMap);
+                        if (Objects.isNull(plat)) {
+                            return;
+                        }
+                        model.setPlatform(plat);
+                        model.setVersions(StringUtils.split(versions, ","));
+                        models.add(model);
+                    }
+                });
             }
-            DockerJenkinsModel model = new DockerJenkinsModel();
-            model.setPath(path);
-            model.setIndex(Integer.parseInt(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef())));
-            model.setHost(DockerRegionEnum.getRegion(enumMap.get(BuildItemEnum.REGION)).getHost());
-            String versions = enumMap.get(BuildItemEnum.VERSION);
-            if (StringUtils.isBlank(versions)) {
-                return;
-            }
-            String plat = getPlat(firstFile, enumMap);
-            if (Objects.isNull(plat)) {
-                return;
-            }
-            model.setPlatform(plat);
-            model.setVersions(StringUtils.split(versions, ","));
-            models.add(model);
         });
         return models;
     }
@@ -94,7 +103,7 @@ public class JenkinsBuildShell {
         return plat;
     }
 
-    private void readDir(File file, Map<String, Map<BuildItemEnum, String>> map) throws Exception {
+    private void readDir(File file, Map<String, Map<String, Map<BuildItemEnum, String>>> map) throws Exception {
         if (Objects.isNull(file)) {
             return;
         }
@@ -104,9 +113,11 @@ public class JenkinsBuildShell {
                 BuildItemEnum item = BuildItemEnum.getItem(name);
                 String doc = StringUtils.join(FileUtils.readLines(file, StandardCharsets.UTF_8), ",");
                 String path = file.getParentFile().getParentFile().getParentFile().getAbsolutePath();
+                String pathNext = file.getParentFile().getAbsolutePath();
                 int prePathIndex = path.indexOf(PathBaseUtil.PRE_PATH);
                 path = path.substring(prePathIndex);
-                Map<BuildItemEnum, String> enumMap = map.computeIfAbsent(path, path1 -> Maps.newHashMap());
+                Map<String, Map<BuildItemEnum, String>> pathMap = map.computeIfAbsent(path, s -> Maps.newHashMap());
+                Map<BuildItemEnum, String> enumMap = pathMap.computeIfAbsent(pathNext, nextPath -> Maps.newHashMap());
                 enumMap.put(item, doc);
             }
         } else if (file.isDirectory()) {

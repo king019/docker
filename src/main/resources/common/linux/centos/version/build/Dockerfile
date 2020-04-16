@@ -1,4 +1,4 @@
-FROM  registry.cn-hangzhou.aliyuncs.com/king019/centos:centos_base
+FROM  king019/centos:b
 
 MAINTAINER king019
 

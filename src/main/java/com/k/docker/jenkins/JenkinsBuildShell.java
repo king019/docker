@@ -86,7 +86,7 @@ public class JenkinsBuildShell {
                                 Arrays.stream(plats).forEach(new Consumer<>() {
                                     @Override
                                     public void accept(String plat) {
-                                        models.add(buildModel(path, plat, version, enumMap));
+                                        models.add(buildModel(path, plats, plat, version, enumMap));
                                     }
                                 });
                             }
@@ -98,13 +98,14 @@ public class JenkinsBuildShell {
         return models;
     }
 
-    private DockerJenkinsModel buildModel(String path, String plat, String version, Map<BuildItemEnum, String> enumMap) {
+    private DockerJenkinsModel buildModel(String path, String[] plats, String plat, String version, Map<BuildItemEnum, String> enumMap) {
         DockerJenkinsModel model = new DockerJenkinsModel();
         model.setPath(path);
         model.setIndex(Integer.parseInt(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef())));
         model.setHost(DockerRegionEnum.getRegion(enumMap.get(BuildItemEnum.REGION)).getHost());
         model.setPlatform(plat);
         model.setVersion(version);
+        model.setPlatforms(plats);
         return model;
     }
 

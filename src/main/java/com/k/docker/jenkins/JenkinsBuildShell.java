@@ -46,8 +46,11 @@ public class JenkinsBuildShell {
         List<String> lines = Lists.newArrayList();
         for (DockerJenkinsModel model : models) {
             lines.add(model.toString());
-            if (mix)
+        }
+        for (DockerJenkinsModel model : models) {
+            if (mix) {
                 lines.add(model.getMap().get(model.getPlatform()));
+            }
         }
         String target = PathUtil.getTargetPath(plat + "_" + mix + ".txt");
         File targetFile = new File(target);

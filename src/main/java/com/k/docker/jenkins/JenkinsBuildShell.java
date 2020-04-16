@@ -35,16 +35,21 @@ public class JenkinsBuildShell {
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
         models.forEach(model -> multimap.put(model.getPlatform(), model));
-        multimap.asMap().forEach(this::writePlat);
+        multimap.asMap().forEach((plat, dockerJenkinsModels) -> {
+            writePlat(plat, dockerJenkinsModels, true);
+            writePlat(plat, dockerJenkinsModels, false);
+        });
+
     }
 
-    private void writePlat(String plat, Collection<DockerJenkinsModel> models) {
+    private void writePlat(String plat, Collection<DockerJenkinsModel> models, boolean mix) {
         List<String> lines = Lists.newArrayList();
         for (DockerJenkinsModel model : models) {
             lines.add(model.toString());
-            lines.add(model.getMap().get(model.getPlatform()));
+            if (mix)
+                lines.add(model.getMap().get(model.getPlatform()));
         }
-        String target = PathUtil.getTargetPath(plat + ".txt");
+        String target = PathUtil.getTargetPath(plat + "_" + mix + ".txt");
         File targetFile = new File(target);
         try {
             FileUtils.writeLines(targetFile, lines);

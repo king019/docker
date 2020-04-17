@@ -9,6 +9,7 @@ import java.util.Map;
 
 @Data
 public class DockerJenkinsModel {
+    private static String WORKSPACE;
     private String path;
     private String host;
     private String version;
@@ -24,7 +25,8 @@ public class DockerJenkinsModel {
         sb.append(index);
         sb.append("\r\n");
         sb.append("cd ");
-        sb.append("${WORKSPACE}/");
+        sb.append(WORKSPACE + "/");
+        //sb.append("${WORKSPACE}/");
         sb.append(path);
         sb.append("\r\n");
         if (StringUtils.isNotBlank(host)) {
@@ -81,7 +83,7 @@ public class DockerJenkinsModel {
     private String buildVersions(String hostVersion, String[] platforms) {
         String version = "";
         for (String plat : platforms) {
-            version += hostVersion + "_" + plat+"  ";
+            version += hostVersion + "_" + plat + "  ";
         }
 
         return version;

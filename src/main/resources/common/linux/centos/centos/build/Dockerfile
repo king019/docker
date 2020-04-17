@@ -3,8 +3,8 @@ FROM king019/centos:p
 MAINTAINER king019
 
 COPY settings.xml /root/.m2/settings.xml
-COPY run.sh /run.sh
-COPY run_env.sh /run_env.sh
+COPY run/run.sh /run.sh
+COPY run/run_env.sh /run_env.sh
 
 #RUN yum list|sed -n '7,1111111p' |awk '{print "yum -y install  " $1}'
 #可以使用临时关闭
@@ -57,7 +57,7 @@ RUN cd /opt/soft/tool;tar -xzf apache-maven-3.6.3-bin.tar.gz
 
 RUN mv /opt/soft/tool/apache-maven-3.6.3 /opt/soft/tool/maven
 
-RUN echo 'export MAVEN_HOME=/opt/soft/maven' >> /root/.bashrc
+RUN echo 'export MAVEN_HOME=/opt/soft/tool/maven' >> /root/.bashrc
 RUN echo 'export PATH=$MAVEN_HOME/bin:$PATH' >> /root/.bashrc
 
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile

@@ -1,4 +1,4 @@
-FROM  registry.cn-hangzhou.aliyuncs.com/king019/fedora:fedora_base
+FROM  king019/fedora:p
 
 MAINTAINER king019
 

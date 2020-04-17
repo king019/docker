@@ -21,8 +21,7 @@ public class DockerJenkinsModel {
     private Map<String, String> map = Maps.newHashMap();
     private String nextLine = "\n";
 
-    @Override
-    public String toString() {
+    public String buildBuild() {
         StringBuilder sb = new StringBuilder();
         sb.append("# index ");
         sb.append(index);

@@ -82,7 +82,11 @@ public class JenkinsBuildShell {
                 String prefix = "king019/";
                 int index = from.indexOf(prefix);
                 if (index > 0) {
-                    host = host + from.substring(index);
+                    if (StringUtils.isNotBlank(host)) {
+                        host = host + "/" + from.substring(index);
+                    } else {
+                        host = host + from.substring(index);
+                    }
                     from = from.substring(0, index) + host;
                     lines.add(0, from);
                 }

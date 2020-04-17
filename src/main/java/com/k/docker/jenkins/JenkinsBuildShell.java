@@ -53,12 +53,16 @@ public class JenkinsBuildShell {
         lines.add("set -x");
         for (DockerJenkinsModel model : models) {
             lines.add(model.buildBuild());
+        }
+        for (DockerJenkinsModel model : models) {
             lines.add(model.buildPush());
+        }
+        for (DockerJenkinsModel model : models) {
             if (mix) {
                 lines.add(model.getMap().get(model.getPlatform()));
             }
         }
-         
+
         String target = PathUtil.getTargetPath(plat + "_" + mix + ".sh");
         File targetFile = new File(target);
         try {

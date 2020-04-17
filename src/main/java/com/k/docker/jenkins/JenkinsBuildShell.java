@@ -35,7 +35,7 @@ public class JenkinsBuildShell {
         String resource = PathUtil.getResource();
         File file = new File(resource);
         String copyDest = PathUtil.getTargetPath("dockerDest/");
-        File copyDestFile = new File(resource);
+        File copyDestFile = new File(copyDest);
         {
             copyDir(file, file.getAbsolutePath() + "/", copyDest);
         }

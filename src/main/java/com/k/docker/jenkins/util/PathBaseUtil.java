@@ -21,7 +21,7 @@ public class PathBaseUtil {
 
     static {
         try {
-            REGION = FileUtils.readFileToString(new File(PathUtil.getResource("txt/region.txt")), StandardCharsets.UTF_8);
+            REGION = FileUtils.readFileToString(new File(PathUtil.getResource("txt/region_def.txt")), StandardCharsets.UTF_8);
         } catch (IOException e) {
             //e.printStackTrace();
         }

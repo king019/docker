@@ -206,6 +206,9 @@ public class JenkinsBuildShell {
                 String path = file.getParentFile().getParentFile().getParentFile().getAbsolutePath();
                 String pathNext = file.getParentFile().getAbsolutePath();
                 int prePathIndex = path.indexOf(PathBaseUtil.PRE_PATH);
+                if(prePathIndex==-1){
+                    System.out.println(-1);
+                }
                 path = path.substring(prePathIndex);
                 Map<String, Map<BuildItemEnum, String>> pathMap = map.computeIfAbsent(path, s -> Maps.newHashMap());
                 Map<BuildItemEnum, String> enumMap = pathMap.computeIfAbsent(pathNext, nextPath -> Maps.newHashMap());

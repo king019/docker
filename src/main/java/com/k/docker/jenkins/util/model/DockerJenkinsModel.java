@@ -39,7 +39,7 @@ public class DockerJenkinsModel {
             version = host + "/" + version;
         }
         {
-            sb.append("docker build --pull -t ");
+            sb.append("docker build -t ");
             sb.append(buildVersion(version, platform));
             sb.append(" .");
             sb.append(nextLine);

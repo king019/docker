@@ -9,6 +9,7 @@ import com.k.docker.jenkins.util.PathUtil;
 import com.k.docker.jenkins.util.model.DockerJenkinsModel;
 import com.k.docker.jenkins.util.model.enums.BuildItemEnum;
 import com.k.docker.jenkins.util.model.enums.DockerRegionEnum;
+import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -33,8 +34,14 @@ public class JenkinsBuildShell {
     public void test() throws Exception {
         String resource = PathUtil.getResource();
         File file = new File(resource);
+        String copyDest = PathUtil.getTargetPath("dockerDest/");
+        File copyDestFile = new File(resource);
+        {
+            copyDir(file, file.getAbsolutePath() + "/", copyDest);
+        }
+
         List<DockerJenkinsModel> models = Lists.newArrayList();
-        for (File listFile : Objects.requireNonNull(file.listFiles())) {
+        for (File listFile : Objects.requireNonNull(copyDestFile.listFiles())) {
             models.addAll(writeFirst(listFile));
         }
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
@@ -44,7 +51,44 @@ public class JenkinsBuildShell {
             writePlat(plat, dockerJenkinsModels, true);
             writePlat(plat, dockerJenkinsModels, false);
         });
+    }
 
+    private void copyDir(File dir, String src, String dest) throws Exception {
+        for (File listFile : Objects.requireNonNull(dir.listFiles())) {
+            if (listFile.isFile()) {
+                copyFile(listFile, src, dest);
+
+            } else {
+                copyDir(listFile, src, dest);
+            }
+        }
+    }
+
+    private void copyFile(File srcfile, String src, String dest) throws Exception {
+        String absolutePath = srcfile.getAbsolutePath();
+        absolutePath = absolutePath.replace(src, dest);
+        File destfile = new File(absolutePath);
+        copyFile(srcfile, destfile);
+    }
+
+    private void copyFile(File srcfile, File destfile) throws Exception {
+        String region = PathBaseUtil.REGION;
+        String host = DockerRegionEnum.getRegion(region).getHost();
+        List<String> lines = FileUtils.readLines(srcfile, StandardCharsets.UTF_8);
+        if (CollectionUtils.isNotEmpty(lines)) {
+            if (srcfile.getName().equals("Dockerfile")) {
+                String from = lines.get(0);
+                lines.remove(0);
+                String prefix = "king019/";
+                int index = from.indexOf(prefix);
+                if (index > 0) {
+                    host = host + from.substring(index);
+                    from = from.substring(0, index) + host;
+                    lines.add(0, from);
+                }
+            }
+        }
+        FileUtils.writeLines(destfile, lines);
     }
 
     private void writePlat(String plat, Collection<DockerJenkinsModel> models, boolean mix) {
@@ -121,7 +165,9 @@ public class JenkinsBuildShell {
         DockerJenkinsModel model = new DockerJenkinsModel();
         model.setPath(path);
         model.setIndex(Integer.parseInt(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef())));
-        model.setHost(DockerRegionEnum.getRegion(enumMap.get(BuildItemEnum.REGION)).getHost());
+        String region = PathBaseUtil.REGION;
+        //StringUtils.defaultIfBlank(enumMap.get(BuildItemEnum.REGION), PathBaseUtil.REGION);
+        model.setHost(DockerRegionEnum.getRegion(region).getHost());
         model.setPlatform(plat);
         model.setVersion(version);
         model.setPlatforms(plats);

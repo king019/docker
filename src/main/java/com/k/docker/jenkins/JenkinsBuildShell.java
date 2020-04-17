@@ -49,6 +49,7 @@ public class JenkinsBuildShell {
 
     private void writePlat(String plat, Collection<DockerJenkinsModel> models, boolean mix) {
         List<String> lines = Lists.newArrayList();
+        lines.add("#!/bin/sh");
         for (DockerJenkinsModel model : models) {
             lines.add(model.toString());
         }
@@ -57,7 +58,7 @@ public class JenkinsBuildShell {
                 lines.add(model.getMap().get(model.getPlatform()));
             }
         }
-        String target = PathUtil.getTargetPath(plat + "_" + mix + ".txt");
+        String target = PathUtil.getTargetPath(plat + "_" + mix + ".sh");
         File targetFile = new File(target);
         try {
             FileUtils.writeLines(targetFile, lines);

@@ -1,4 +1,8 @@
 mvn clean
-mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell"
-sh ./target/aarch64_true.txt
+mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args=${WORKSPACE}
+
+
+
+
+sh ./target/aarch64_true.sh
 

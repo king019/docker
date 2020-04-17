@@ -27,8 +27,11 @@ public class DockerJenkinsModel {
         sb.append(index);
         sb.append("\r\n");
         sb.append("cd ");
-        sb.append(WORKSPACE + "/");
-        //sb.append("${WORKSPACE}/");
+        if (StringUtils.isNotBlank(WORKSPACE)) {
+            sb.append(WORKSPACE + "/");
+        } else {
+            sb.append("${WORKSPACE}/");
+        }
         sb.append(path);
         sb.append("\r\n");
         if (StringUtils.isNotBlank(host)) {

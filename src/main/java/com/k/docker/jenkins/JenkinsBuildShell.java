@@ -23,6 +23,10 @@ import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 
 public class JenkinsBuildShell {
+    public static void main(String[] args) throws Exception {
+        JenkinsBuildShell shell = new JenkinsBuildShell();
+        shell.test();
+    }
 
     @Test
     public void test() throws Exception {

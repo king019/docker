@@ -1,0 +1,4 @@
+mvn clean
+mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell"
+sh ./target/aarch64_true.txt
+

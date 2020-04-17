@@ -44,12 +44,17 @@ public class DockerJenkinsModel {
             sb.append(" .");
             sb.append(nextLine);
         }
+        map.put(platform, buildMainfest(version, platform));
+        return sb.toString();
+    }
+
+    public String buildPush() {
+        StringBuilder sb = new StringBuilder();
         {
             sb.append("docker push ");
             sb.append(buildVersion(version, platform));
             sb.append(nextLine);
         }
-        map.put(platform, buildMainfest(version, platform));
         return sb.toString();
     }
 

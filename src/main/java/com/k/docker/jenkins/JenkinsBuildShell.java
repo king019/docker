@@ -54,6 +54,9 @@ public class JenkinsBuildShell {
             lines.add(model.toString());
         }
         for (DockerJenkinsModel model : models) {
+            lines.add(model.buildPush());
+        }
+        for (DockerJenkinsModel model : models) {
             if (mix) {
                 lines.add(model.getMap().get(model.getPlatform()));
             }

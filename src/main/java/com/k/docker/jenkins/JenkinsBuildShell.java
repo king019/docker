@@ -50,7 +50,6 @@ public class JenkinsBuildShell {
     private void writePlat(String plat, Collection<DockerJenkinsModel> models, boolean mix) {
         List<String> lines = Lists.newArrayList();
         lines.add("#!/bin/sh");
-        lines.add("set fileformat=unix");
         for (DockerJenkinsModel model : models) {
             lines.add(model.toString());
         }

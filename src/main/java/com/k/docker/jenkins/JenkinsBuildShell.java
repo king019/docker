@@ -78,10 +78,10 @@ public class JenkinsBuildShell {
         if (CollectionUtils.isNotEmpty(lines)) {
             if (srcfile.getName().equals("Dockerfile")) {
                 String from = lines.get(0);
-                lines.remove(0);
                 String prefix = "king019/";
                 int index = from.indexOf(prefix);
                 if (index > 0) {
+                    lines.remove(0);
                     if (StringUtils.isNotBlank(host)) {
                         host = host + "/" + from.substring(index);
                     } else {

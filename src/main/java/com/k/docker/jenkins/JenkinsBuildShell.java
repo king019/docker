@@ -24,6 +24,7 @@ import java.util.function.Consumer;
 
 public class JenkinsBuildShell {
     public static void main(String[] args) throws Exception {
+        DockerJenkinsModel.setWORKSPACE(args[0]);
         JenkinsBuildShell shell = new JenkinsBuildShell();
         shell.test();
     }

@@ -3,12 +3,14 @@ package com.k.docker.jenkins.util.model;
 
 import com.google.common.collect.Maps;
 import lombok.Data;
+import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
 
 @Data
 public class DockerJenkinsModel {
+    @Setter
     private static String WORKSPACE;
     private String path;
     private String host;

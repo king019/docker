@@ -9,6 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <properties>
         <jdk.version>11</jdk.version>
+        <jdk.encoding>utf-8</jdk.encoding>
     </properties>
     <dependencies>
         <dependency>
@@ -50,6 +51,7 @@
                 <configuration>
                     <source>${jdk.version}</source>
                     <target>${jdk.version}</target>
+                    <encoding>${jdk.encoding}</encoding>
                 </configuration>
             </plugin>
         </plugins>

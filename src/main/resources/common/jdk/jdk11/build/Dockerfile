@@ -1,20 +1,10 @@
-FROM  centos
+FROM  king019/centos:b
 
 MAINTAINER king019
-
-RUN mkdir -p /opt/soft/version
-
-
-RUN yum -y install maven git
-RUN yum -y install java-11-openjdk-devel
 
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile
 RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
-
-COPY settings.xml /root/.m2/settings.xml
-
-RUN cd /opt/soft/version ; git clone https://github.com/king019/hub_git.git
 
 
 RUN mkdir -p /opt/soft/

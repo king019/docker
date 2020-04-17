@@ -24,8 +24,8 @@ public class DockerJenkinsModel {
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
-        //sb.append("# index ");
-        //sb.append(index);
+        sb.append("# index ");
+        sb.append(index);
         sb.append(nextLine);
         sb.append("cd ");
         if (StringUtils.isNotBlank(WORKSPACE)) {

@@ -63,7 +63,7 @@ RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
 
 
-RUN cd /root/soft ; sh /git.sh
+RUN cd /root/soft ; sh ./git.sh
 
 
 

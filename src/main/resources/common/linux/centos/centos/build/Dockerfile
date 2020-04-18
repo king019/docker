@@ -22,9 +22,9 @@ COPY run/git.sh /opt/soft/git.sh
 #RUN wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.huaweicloud.com/repository/conf/CentOS-AltArch-7.repo
 #RUN wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo
 
-RUN yum clean all
-RUN yum makecache
-RUN yum -y update
+#RUN yum clean all
+#RUN yum makecache
+#RUN yum -y update
 #base
 #RUN yum -y install  maven
 RUN yum -y install  java-11-openjdk-devel git

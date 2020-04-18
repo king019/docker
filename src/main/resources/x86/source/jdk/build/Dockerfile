@@ -5,7 +5,7 @@ RUN yum -y install git
 
 
 
-RUN cd /opt/soft;git clone https://github.com/mysql/mysql-server.git
+RUN cd /opt/soft;git clone https://github.com/openjdk/jdk.git
 
 
 

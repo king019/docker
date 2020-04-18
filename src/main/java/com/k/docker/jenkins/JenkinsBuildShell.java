@@ -102,11 +102,11 @@ public class JenkinsBuildShell {
         Map<Integer, List<DockerJenkinsModel>> map = models.stream().collect(Collectors.groupingBy(DockerJenkinsModel::getIndex));
         buildBuildLines(lines, map, multi, (lines1, model) -> lines1.add(model.buildBuild()));
         buildBuildLines(lines, map, multi, (lines1, model) -> lines1.add(model.buildPush()));
-        for (DockerJenkinsModel model : models) {
+        buildBuildLines(lines, map, multi, (lines1, model) -> {
             if (mix) {
-                lines.add(model.getMap().get(model.getPlatform()));
+                lines1.add(model.getMap().get(model.getPlatform()));
             }
-        }
+        });
         String target = PathUtil.getTargetPath(plat + "_" + mix + ".sh");
         File targetFile = new File(target);
         try {

@@ -2,10 +2,12 @@ FROM king019/centos:p
 
 MAINTAINER king019
 
+RUN mkdir -p /root/soft
+
 COPY settings.xml /root/.m2/settings.xml
 COPY run/run.sh /run.sh
 COPY run/run_env.sh /run_env.sh
-COPY run/git.sh /git.sh
+COPY run/git.sh /root/soft/git.sh
 
 #RUN yum list|sed -n '7,1111111p' |awk '{print "yum -y install  " $1}'
 #可以使用临时关闭
@@ -61,13 +63,13 @@ RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
 
 
-RUN cd /opt/soft/version ; sh /git.sh
+RUN cd /root/soft ; sh /git.sh
 
 
 
 
 
-RUN echo '/run.sh' >> /etc/rc.local
+#RUN echo '/run.sh' >> /etc/rc.local
 
 
 
@@ -76,6 +78,8 @@ COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh
 #RUN curl -H "Content-Type: application/json" --data '{"build": true}' -X POST https://registry.hub.docker.com/u/king019/centos7/trigger/d72d64e6-ba5e-4d71-acc8-98c10ead59db/
 CMD /docker.sh
+
+#RUN sh /etc/rc.local
 
 EXPOSE 21
 EXPOSE 22

@@ -1,5 +1,5 @@
 #!/bin/bash
 set -x
-source /etc/profile
+/run.sh
 tail -f /docker.sh
 

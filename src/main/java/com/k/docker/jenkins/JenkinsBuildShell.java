@@ -22,6 +22,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
 public class JenkinsBuildShell {
     public static void main(String[] args) throws Exception {
@@ -39,7 +40,6 @@ public class JenkinsBuildShell {
         {
             copyDir(file, file.getAbsolutePath() + "/", copyDest);
         }
-
         List<DockerJenkinsModel> models = Lists.newArrayList();
         for (File listFile : Objects.requireNonNull(copyDestFile.listFiles())) {
             models.addAll(writeFirst(listFile));
@@ -57,7 +57,6 @@ public class JenkinsBuildShell {
         for (File listFile : Objects.requireNonNull(dir.listFiles())) {
             if (listFile.isFile()) {
                 copyFile(listFile, src, dest);
-
             } else {
                 copyDir(listFile, src, dest);
             }
@@ -96,27 +95,41 @@ public class JenkinsBuildShell {
     }
 
     private void writePlat(String plat, Collection<DockerJenkinsModel> models, boolean mix) {
+        int multi = 10;
         List<String> lines = Lists.newArrayList();
         lines.add("#!/bin/sh");
         lines.add("set -x");
-        for (DockerJenkinsModel model : models) {
-            lines.add(model.buildBuild());
-        }
-        for (DockerJenkinsModel model : models) {
-            lines.add(model.buildPush());
-        }
+        Map<Integer, List<DockerJenkinsModel>> map = models.stream().collect(Collectors.groupingBy(DockerJenkinsModel::getIndex));
+        buildBuildLines(lines, map, multi, (lines1, model) -> lines1.add(model.buildBuild()));
+        buildBuildLines(lines, map, multi, (lines1, model) -> lines1.add(model.buildPush()));
         for (DockerJenkinsModel model : models) {
             if (mix) {
                 lines.add(model.getMap().get(model.getPlatform()));
             }
         }
-
         String target = PathUtil.getTargetPath(plat + "_" + mix + ".sh");
         File targetFile = new File(target);
         try {
             FileUtils.writeLines(targetFile, lines);
         } catch (IOException e) {
             e.printStackTrace();
+        }
+    }
+
+    private void buildBuildLines(List<String> lines, Map<Integer, List<DockerJenkinsModel>> map, int multi, BiConsumer<List<String>, DockerJenkinsModel> consumer) {
+        List<Integer> indexs = Lists.newArrayList(map.keySet());
+        Collections.sort(indexs);
+        for (Integer index : indexs) {
+            List<DockerJenkinsModel> indexModels = map.get(index);
+            List<List<DockerJenkinsModel>> partitionss = Lists.partition(indexModels, multi);
+            for (List<DockerJenkinsModel> partitions : partitionss) {
+                for (DockerJenkinsModel model : partitions) {
+                    lines.add("{");
+                    consumer.accept(lines, model);
+                    lines.add("}&");
+                }
+                lines.add("wait");
+            }
         }
     }
 

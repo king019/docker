@@ -7,5 +7,3 @@ set -x
 source ~/.bashrc
 
 source ~/.bash_profile
-
-source /etc/profile

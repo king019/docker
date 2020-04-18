@@ -3,11 +3,13 @@ FROM king019/centos:p
 MAINTAINER king019
 
 RUN mkdir -p /root/soft
+RUN mkdir -p /opt/soft
 
 COPY settings.xml /root/.m2/settings.xml
 COPY run/run.sh /run.sh
 COPY run/run_env.sh /run_env.sh
-COPY run/git.sh /root/soft/git.sh
+COPY run/profile.sh /profile.sh
+COPY run/git.sh /opt/soft/git.sh
 
 #RUN yum list|sed -n '7,1111111p' |awk '{print "yum -y install  " $1}'
 #可以使用临时关闭
@@ -24,14 +26,18 @@ RUN yum clean all
 RUN yum makecache
 RUN yum -y update
 #base
-RUN yum -y install  java-1.8.0-openjdk-devel  java-11-openjdk-devel
+#RUN yum -y install  maven
+RUN yum -y install  java-11-openjdk-devel git
 RUN yum -y install  git wget net-tools unzip which traceroute lsof vim telnet
 #base
-#RUN yum -y install   maven
+
 RUN yum -y install  automake make gcc-c++ boost-devel git wget hg
 RUN yum -y install  net-tools unzip which openssh-server openssh-clients go logrotate socat
-#RUN yum -y install  zlib-devel rubygems ruby gem  ruby-devel ruby-docs ruby-ri ruby-irb ruby-rdoc
 RUN yum -y install  traceroute lsof sysstat mercurial
+
+
+#RUN yum -y install  zlib-devel rubygems ruby gem  ruby-devel ruby-docs ruby-ri ruby-irb ruby-rdoc
+
 
 #nodejs
 #RUN curl --silent --location https://rpm.nodesource.com/setup_12.x | bash -
@@ -39,6 +45,8 @@ RUN yum -y install  traceroute lsof sysstat mercurial
 #ADD https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.22/bin/apache-tomcat-9.0.22.tar.gz /opt/soft/apache-tomcat-9.0.22.tar.gz
 #ADD https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.43/bin/apache-tomcat-8.5.43.tar.gz /opt/soft/apache-tomcat-8.5.43.tar.gz
 #ADD https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.94/bin/apache-tomcat-7.0.94.tar.gz /opt/soft/apache-tomcat-7.0.94.tar.gz
+
+
 ADD http://maven.aliyun.com/nexus/content/groups/public/org/eclipse/jetty/jetty-distribution/9.4.19.v20190610/jetty-distribution-9.4.19.v20190610.tar.gz /opt/soft/tool/jetty-distribution-9.4.19.v20190610.tar.gz
 ADD https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz /opt/soft/tool/apache-maven-3.6.3-bin.tar.gz
 ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.24/bin/apache-tomcat-9.0.24.tar.gz /opt/soft/tool/apache-tomcat-9.0.24.tar.gz
@@ -63,7 +71,7 @@ RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
 
 
-RUN cd /root/soft ; sh ./git.sh
+RUN cd /opt/soft ; sh ./git.sh
 
 
 

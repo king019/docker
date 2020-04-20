@@ -21,7 +21,7 @@ RUN cat /sources.list>/etc/apt/sources.list
 
 
 
-RUN apt -y update
+#RUN apt -y update
 RUN apt -y upgrade
 RUN chmod 755 /*.sh
 

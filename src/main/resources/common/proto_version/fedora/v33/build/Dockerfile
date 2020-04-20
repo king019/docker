@@ -4,7 +4,7 @@ MAINTAINER king019
 
 COPY docker.sh /docker.sh
 
-RUN dnf -y update
+#RUN dnf -y update
 
 RUN chmod 755 /*.sh
 

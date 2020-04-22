@@ -6,7 +6,8 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 public enum DockerRegionEnum {
     HANG_ZHOU("hangzhou", "registry.cn-hangzhou.aliyuncs.com"),
-    DOCKER("", "");
+    BEI_JING("beijing", "registry.cn-beijing.aliyuncs.com"),
+    DOCKER("docker", "");
     private String region;
     private String host;
 

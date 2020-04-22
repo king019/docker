@@ -35,14 +35,20 @@ public class JenkinsBuildShell {
     public void test() throws Exception {
         String resource = PathUtil.getResource();
         File file = new File(resource);
-        String copyDest = PathUtil.getTargetPath("dockerDest/");
-        File copyDestFile = new File(copyDest);
-        {
-            copyDir(file, file.getAbsolutePath() + "/", copyDest);
+        String dockerDest = "dockerDest/";
+        List<File> dests = Lists.newArrayList();
+        for (DockerRegionEnum regionEnum : DockerRegionEnum.values()) {
+            String copyDest = PathUtil.getTargetPath(dockerDest);
+            File copyDestFile = new File(copyDest + "/" + regionEnum.getRegion());
+            copyDir(file, file.getAbsolutePath() + "/", copyDest, regionEnum.getRegion());
+            dests.add(copyDestFile);
         }
+
         List<DockerJenkinsModel> models = Lists.newArrayList();
-        for (File listFile : Objects.requireNonNull(copyDestFile.listFiles())) {
-            models.addAll(writeFirst(listFile));
+        for (File copyDestFile : dests) {
+            for (File listFile : Objects.requireNonNull(copyDestFile.listFiles())) {
+                models.addAll(writeFirst(listFile));
+            }
         }
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
@@ -53,25 +59,26 @@ public class JenkinsBuildShell {
         });
     }
 
-    private void copyDir(File dir, String src, String dest) throws Exception {
+    private void copyDir(File dir, String src, String dest, String region) throws Exception {
         for (File listFile : Objects.requireNonNull(dir.listFiles())) {
             if (listFile.isFile()) {
-                copyFile(listFile, src, dest);
+                copyFile(listFile, src, dest, region);
             } else {
-                copyDir(listFile, src, dest);
+                copyDir(listFile, src, dest, region);
             }
         }
     }
 
-    private void copyFile(File srcfile, String src, String dest) throws Exception {
+    private void copyFile(File srcfile, String src, String dest, String region) throws Exception {
         String absolutePath = srcfile.getAbsolutePath();
-        absolutePath = absolutePath.replace(src, dest);
+        absolutePath = absolutePath.replace(src, dest+region+"/");
         File destfile = new File(absolutePath);
-        copyFile(srcfile, destfile);
+        copyFile(srcfile, destfile, region);
     }
 
-    private void copyFile(File srcfile, File destfile) throws Exception {
-        String region = PathBaseUtil.REGION;
+    private void copyFile(File srcfile, File destfile, String region) throws Exception {
+        //String region = PathBaseUtil.REGION;
+        //String region = "beijing";
         String host = DockerRegionEnum.getRegion(region).getHost();
         List<String> lines = FileUtils.readLines(srcfile, StandardCharsets.UTF_8);
         if (CollectionUtils.isNotEmpty(lines)) {
@@ -166,7 +173,19 @@ public class JenkinsBuildShell {
                                 Arrays.stream(plats).forEach(new Consumer<>() {
                                     @Override
                                     public void accept(String plat) {
-                                        models.add(buildModel(path, plats, plat, version, enumMap));
+                                        List<String> regions;
+                                        String regionStr = enumMap.get(BuildItemEnum.REGION);
+                                        if (StringUtils.isBlank(regionStr)) {
+                                            regions = PathBaseUtil.REGIONS;
+                                        } else {
+                                            regions = Arrays.asList(StringUtils.split(regionStr, ","));
+                                        }
+                                        regions.forEach(new Consumer<String>() {
+                                            @Override
+                                            public void accept(String region) {
+                                                models.add(buildModel(path, plats, plat, version, enumMap, region));
+                                            }
+                                        });
                                     }
                                 });
                             }
@@ -178,11 +197,10 @@ public class JenkinsBuildShell {
         return models;
     }
 
-    private DockerJenkinsModel buildModel(String path, String[] plats, String plat, String version, Map<BuildItemEnum, String> enumMap) {
+    private DockerJenkinsModel buildModel(String path, String[] plats, String plat, String version, Map<BuildItemEnum, String> enumMap, String region) {
         DockerJenkinsModel model = new DockerJenkinsModel();
         model.setPath(path);
         model.setIndex(Integer.parseInt(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef())));
-        String region = PathBaseUtil.REGION;
         //StringUtils.defaultIfBlank(enumMap.get(BuildItemEnum.REGION), PathBaseUtil.REGION);
         model.setHost(DockerRegionEnum.getRegion(region).getHost());
         model.setPlatform(plat);

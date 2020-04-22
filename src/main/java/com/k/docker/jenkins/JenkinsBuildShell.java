@@ -36,20 +36,21 @@ public class JenkinsBuildShell {
         String resource = PathUtil.getResource();
         File file = new File(resource);
         String dockerDest = "dockerDest/";
-        List<File> dests = Lists.newArrayList();
+        Map<DockerRegionEnum,File>map=Maps.newHashMap();
         for (DockerRegionEnum regionEnum : DockerRegionEnum.values()) {
             String copyDest = PathUtil.getTargetPath(dockerDest);
             File copyDestFile = new File(copyDest + "/" + regionEnum.getRegion());
             copyDir(file, file.getAbsolutePath() + "/", copyDest, regionEnum.getRegion());
-            dests.add(copyDestFile);
+            map.put(regionEnum,copyDestFile);
         }
 
         List<DockerJenkinsModel> models = Lists.newArrayList();
-        for (File copyDestFile : dests) {
-            for (File listFile : Objects.requireNonNull(copyDestFile.listFiles())) {
-                models.addAll(writeFirst(listFile));
+        for (DockerRegionEnum regionEnum : map.keySet()) {
+            for (File listFile : Objects.requireNonNull(map.get(regionEnum).listFiles())) {
+                models.addAll(writeFirst(  regionEnum,listFile));
             }
         }
+
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
         models.forEach(model -> multimap.put(model.getPlatform(), model));
@@ -140,13 +141,13 @@ public class JenkinsBuildShell {
         }
     }
 
-    private List<DockerJenkinsModel> writeFirst(File file) throws Exception {
+    private List<DockerJenkinsModel> writeFirst(DockerRegionEnum regionEnum,File file) throws Exception {
         Map<String, Map<String, Map<BuildItemEnum, String>>> map = Maps.newLinkedHashMap();
         readDir(file, map);
-        return writeLines(map, file);
+        return writeLines(  regionEnum,map, file);
     }
 
-    private List<DockerJenkinsModel> writeLines(Map<String, Map<String, Map<BuildItemEnum, String>>> map, File firstFile) {
+    private List<DockerJenkinsModel> writeLines(DockerRegionEnum regionEnum,Map<String, Map<String, Map<BuildItemEnum, String>>> map, File firstFile) {
         List<DockerJenkinsModel> models = Lists.newArrayList();
         map.forEach(new BiConsumer<>() {
             @Override
@@ -173,19 +174,7 @@ public class JenkinsBuildShell {
                                 Arrays.stream(plats).forEach(new Consumer<>() {
                                     @Override
                                     public void accept(String plat) {
-                                        List<String> regions;
-                                        String regionStr = enumMap.get(BuildItemEnum.REGION);
-                                        if (StringUtils.isBlank(regionStr)) {
-                                            regions = PathBaseUtil.REGIONS;
-                                        } else {
-                                            regions = Arrays.asList(StringUtils.split(regionStr, ","));
-                                        }
-                                        regions.forEach(new Consumer<String>() {
-                                            @Override
-                                            public void accept(String region) {
-                                                models.add(buildModel(path, plats, plat, version, enumMap, region));
-                                            }
-                                        });
+                                        models.add(buildModel(path, plats, plat, version, enumMap, regionEnum.getRegion()));
                                     }
                                 });
                             }

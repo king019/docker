@@ -58,7 +58,7 @@ public class JenkinsBuildShell {
         }
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
-        models.forEach(model -> multimap.put(model.getRegion() + "_" + model.getPlatform(), model));
+        models.forEach(model -> multimap.put(model.getPlatform() + "_" + model.getRegion(), model));
         models.forEach(model -> multimap.put(model.getPlatform(), model));
         multimap.asMap().forEach((regionPlat, dockerJenkinsModels) -> {
             writePlat(regionPlat, dockerJenkinsModels, true);

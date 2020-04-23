@@ -2,3 +2,12 @@ mvn clean
 mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args=${WORKSPACE}
 sh ./target/aarch64_true.sh
 sh ./target/x86_64_true.sh
+
+sh ./target/aarch64_true.sh
+sh ./target/beijing_aarch64_true.sh
+sh ./target/beijing_x86_64_true.sh
+sh ./target/docker_aarch64_true.sh
+sh ./target/docker_x86_64_true.sh
+sh ./target/hangzhou_aarch64_true.sh
+sh ./target/hangzhou_x86_64_true.sh
+sh ./target/x86_64_true.sh

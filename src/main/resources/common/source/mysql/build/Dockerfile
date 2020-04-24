@@ -2,6 +2,8 @@ FROM alpine
 
 MAINTAINER king019
 
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g"
+
 COPY docker.sh /docker.sh
 
 RUN apk add git

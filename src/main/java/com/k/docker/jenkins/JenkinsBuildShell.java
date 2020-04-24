@@ -37,13 +37,7 @@ public class JenkinsBuildShell {
         File file = new File(resource);
         String dockerDest = "dockerDest/";
         Map<DockerRegionEnum, File> map = Maps.newHashMap();
-        for (DockerRegionEnum regionEnum : DockerRegionEnum.values()) {
-            String copyDest = PathUtil.getTargetPath(dockerDest);
-            File copyDestFile = new File(copyDest + "/" + regionEnum.getRegion());
-            copyDir(file, file.getAbsolutePath() + "/", copyDest, regionEnum.getRegion());
-            map.put(regionEnum, copyDestFile);
-        }
-
+        copyFile(file, dockerDest, map);
         List<DockerJenkinsModel> models = Lists.newArrayList();
         for (DockerRegionEnum regionEnum : map.keySet()) {
             for (File listFile : Objects.requireNonNull(map.get(regionEnum).listFiles())) {
@@ -52,12 +46,22 @@ public class JenkinsBuildShell {
         }
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
-        models.forEach(model -> multimap.put(model.getPlatform() + "_" + model.getRegion(), model));
-        //models.forEach(model -> multimap.put(model.getPlatform(), model));
+        //models.forEach(model -> multimap.put(model.getPlatform() + "_" + model.getRegion(), model));
+        models.forEach(model -> multimap.put(model.getPlatform(), model));
         multimap.asMap().forEach((regionPlat, dockerJenkinsModels) -> {
             writePlat(regionPlat, dockerJenkinsModels, true);
             //writePlat(regionPlat, dockerJenkinsModels, false);
         });
+    }
+
+    private void copyFile(File file, String dockerDest, Map<DockerRegionEnum, File> map) throws Exception {
+        for (String region : PathBaseUtil.REGIONS) {
+            DockerRegionEnum regionEnum = DockerRegionEnum.getRegion(region);
+            String copyDest = PathUtil.getTargetPath(dockerDest);
+            File copyDestFile = new File(copyDest + "/" + regionEnum.getRegion());
+            copyDir(file, file.getAbsolutePath() + "/", copyDest, regionEnum.getRegion());
+            map.put(regionEnum, copyDestFile);
+        }
     }
 
     private void copyDir(File dir, String src, String dest, String region) throws Exception {

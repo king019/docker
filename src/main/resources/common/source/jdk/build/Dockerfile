@@ -10,7 +10,6 @@ COPY docker.sh /docker.sh
 RUN apk add git
 
 RUN mkdir -p /opt/soft/version
-RUN yum -y install git
 
 
 

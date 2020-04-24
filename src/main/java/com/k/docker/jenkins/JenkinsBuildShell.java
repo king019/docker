@@ -19,7 +19,13 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
@@ -36,27 +42,27 @@ public class JenkinsBuildShell {
         String resource = PathUtil.getResource();
         File file = new File(resource);
         String dockerDest = "dockerDest/";
-        Map<DockerRegionEnum,File>map=Maps.newHashMap();
+        Map<DockerRegionEnum, File> map = Maps.newHashMap();
         for (DockerRegionEnum regionEnum : DockerRegionEnum.values()) {
             String copyDest = PathUtil.getTargetPath(dockerDest);
             File copyDestFile = new File(copyDest + "/" + regionEnum.getRegion());
             copyDir(file, file.getAbsolutePath() + "/", copyDest, regionEnum.getRegion());
-            map.put(regionEnum,copyDestFile);
+            map.put(regionEnum, copyDestFile);
         }
 
         List<DockerJenkinsModel> models = Lists.newArrayList();
         for (DockerRegionEnum regionEnum : map.keySet()) {
             for (File listFile : Objects.requireNonNull(map.get(regionEnum).listFiles())) {
-                models.addAll(writeFirst(  regionEnum,listFile));
+                models.addAll(readFirst(regionEnum, listFile));
             }
         }
-
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
-        models.forEach(model -> multimap.put(model.getPlatform(), model));
-        multimap.asMap().forEach((plat, dockerJenkinsModels) -> {
-            writePlat(plat, dockerJenkinsModels, true);
-            writePlat(plat, dockerJenkinsModels, false);
+        models.forEach(model -> multimap.put(model.getPlatform() + "_" + model.getRegion(), model));
+        //models.forEach(model -> multimap.put(model.getPlatform(), model));
+        multimap.asMap().forEach((regionPlat, dockerJenkinsModels) -> {
+            writePlat(regionPlat, dockerJenkinsModels, true);
+            //writePlat(regionPlat, dockerJenkinsModels, false);
         });
     }
 
@@ -72,7 +78,7 @@ public class JenkinsBuildShell {
 
     private void copyFile(File srcfile, String src, String dest, String region) throws Exception {
         String absolutePath = srcfile.getAbsolutePath();
-        absolutePath = absolutePath.replace(src, dest+region+"/");
+        absolutePath = absolutePath.replace(src, dest + region + "/");
         File destfile = new File(absolutePath);
         copyFile(srcfile, destfile, region);
     }
@@ -108,13 +114,20 @@ public class JenkinsBuildShell {
         lines.add("#!/bin/sh");
         lines.add("set -x");
         Map<Integer, List<DockerJenkinsModel>> map = models.stream().collect(Collectors.groupingBy(DockerJenkinsModel::getIndex));
-        buildBuildLines(lines, map, multi, (lines1, model) -> lines1.add(model.buildBuild()));
-        buildBuildLines(lines, map, multi, (lines1, model) -> lines1.add(model.buildPush()));
-        buildBuildLines(lines, map, multi, (lines1, model) -> {
+        buildBuildLines(lines, map, multi, (strings, model) -> {
+            lines.add(model.buildBuild());
+            lines.add(model.buildPush());
             if (mix) {
-                lines1.add(model.getMap().get(model.getPlatform()));
+                lines.add(model.getMap().get(model.getPlatform()));
             }
         });
+//        buildBuildLines(lines, map, multi, (lines1, model) -> lines1.add(model.buildBuild()));
+//        buildBuildLines(lines, map, multi, (lines1, model) -> lines1.add(model.buildPush()));
+//        buildBuildLines(lines, map, multi, (lines1, model) -> {
+//            if (mix) {
+//                lines1.add(model.getMap().get(model.getPlatform()));
+//            }
+//        });
         String target = PathUtil.getTargetPath(plat + "_" + mix + ".sh");
         File targetFile = new File(target);
         try {
@@ -141,13 +154,13 @@ public class JenkinsBuildShell {
         }
     }
 
-    private List<DockerJenkinsModel> writeFirst(DockerRegionEnum regionEnum,File file) throws Exception {
+    private List<DockerJenkinsModel> readFirst(DockerRegionEnum regionEnum, File file) throws Exception {
         Map<String, Map<String, Map<BuildItemEnum, String>>> map = Maps.newLinkedHashMap();
         readDir(file, map);
-        return writeLines(  regionEnum,map, file);
+        return writeLines(regionEnum, map, file);
     }
 
-    private List<DockerJenkinsModel> writeLines(DockerRegionEnum regionEnum,Map<String, Map<String, Map<BuildItemEnum, String>>> map, File firstFile) {
+    private List<DockerJenkinsModel> writeLines(DockerRegionEnum regionEnum, Map<String, Map<String, Map<BuildItemEnum, String>>> map, File firstFile) {
         List<DockerJenkinsModel> models = Lists.newArrayList();
         map.forEach(new BiConsumer<>() {
             @Override
@@ -192,6 +205,7 @@ public class JenkinsBuildShell {
         model.setIndex(Integer.parseInt(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef())));
         //StringUtils.defaultIfBlank(enumMap.get(BuildItemEnum.REGION), PathBaseUtil.REGION);
         model.setHost(DockerRegionEnum.getRegion(region).getHost());
+        model.setRegion(region);
         model.setPlatform(plat);
         model.setVersion(version);
         model.setPlatforms(plats);

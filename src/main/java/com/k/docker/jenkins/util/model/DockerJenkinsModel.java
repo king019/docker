@@ -20,6 +20,7 @@ public class DockerJenkinsModel {
     private String[] platforms;
     private Map<String, String> map = Maps.newHashMap();
     private String nextLine = "\n";
+    private String region;
 
     public String buildBuild() {
         StringBuilder sb = new StringBuilder();
@@ -34,16 +35,14 @@ public class DockerJenkinsModel {
         }
         sb.append(path);
         sb.append(nextLine);
-        if (StringUtils.isNotBlank(host)) {
-            version = host + "/" + version;
-        }
+
         {
             sb.append("docker build -t ");
-            sb.append(buildVersion(version, platform));
+            sb.append(buildVersion(getWriteVersion(), platform));
             sb.append(" .");
             sb.append(nextLine);
         }
-        map.put(platform, buildMainfest(version, platform));
+        map.put(platform, buildMainfest(getWriteVersion(), platform));
         return sb.toString();
     }
 
@@ -51,7 +50,7 @@ public class DockerJenkinsModel {
         StringBuilder sb = new StringBuilder();
         {
             sb.append("docker push ");
-            sb.append(buildVersion(version, platform));
+            sb.append(buildVersion(getWriteVersion(), platform));
             sb.append(nextLine);
         }
         return sb.toString();
@@ -107,5 +106,13 @@ public class DockerJenkinsModel {
             version += hostVersion + ":" + platform + "  ";
         }
         return version;
+    }
+
+    private String getWriteVersion() {
+        String writeVersion = version;
+        if (StringUtils.isNotBlank(host)) {
+            writeVersion = host + "/" + version;
+        }
+        return writeVersion;
     }
 }

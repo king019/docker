@@ -1,4 +1,4 @@
-package com.k.docker.jenkins.util.model.enums;
+package com.k.docker.jenkins.model.emums;
 
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;

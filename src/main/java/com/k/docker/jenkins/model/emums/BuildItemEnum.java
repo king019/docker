@@ -1,13 +1,11 @@
-package com.k.docker.jenkins.util.model.enums;
+package com.k.docker.jenkins.model.emums;
 
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import lombok.Getter;
 
 import java.util.Arrays;
 import java.util.Map;
 import java.util.Set;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 @Getter

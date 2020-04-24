@@ -1,4 +1,4 @@
-package com.k.docker.jenkins.util.model.enums;
+package com.k.docker.jenkins.model;
 
 
 import com.google.common.collect.Maps;

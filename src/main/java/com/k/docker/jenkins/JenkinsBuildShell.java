@@ -6,7 +6,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.k.docker.jenkins.util.PathBaseUtil;
 import com.k.docker.jenkins.util.PathUtil;
-import com.k.docker.jenkins.util.model.DockerJenkinsModel;
+import com.k.docker.jenkins.util.model.enums.DockerJenkinsModel;
 import com.k.docker.jenkins.util.model.enums.BuildItemEnum;
 import com.k.docker.jenkins.util.model.enums.DockerRegionEnum;
 import org.apache.commons.collections4.CollectionUtils;

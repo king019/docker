@@ -107,7 +107,7 @@ public class JenkinsBuildShell {
     }
 
     private void writePlat(String plat, Collection<DockerJenkinsModel> models, boolean mix) {
-        int multi = 10;
+        int multi = 20;
         List<String> lines = Lists.newArrayList();
         lines.add("#!/bin/sh");
         lines.add("set -x");

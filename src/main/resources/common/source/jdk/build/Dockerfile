@@ -3,7 +3,7 @@ FROM alpine
 MAINTAINER king019
 
 
-RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g"
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories
 
 COPY docker.sh /docker.sh
 

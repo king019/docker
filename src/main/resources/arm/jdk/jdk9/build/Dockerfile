@@ -4,7 +4,9 @@ MAINTAINER king019
 
 RUN mkdir -p /opt/soft/version
 
-RUN yum -y install maven git
+RUN yum -y install maven
+RUN yum -y install git
+
 COPY settings.xml /root/.m2/settings.xml
 RUN cd /opt/soft/version ; git clone https://github.com/king019/hub_git.git
 

@@ -27,13 +27,34 @@ COPY run/git.sh /opt/soft/git.sh
 #RUN yum -y update
 #base
 #RUN yum -y install  maven
-RUN yum -y install  java-11-openjdk-devel git
-RUN yum -y install  git wget net-tools unzip which traceroute lsof vim telnet
+RUN yum -y install  java-11-openjdk-devel
+RUN yum -y install  git
+RUN yum -y install  wget
+RUN yum -y install  net-tools
+RUN yum -y install  unzip
+RUN yum -y install  which
+RUN yum -y install  traceroute
+RUN yum -y install  lsof
+RUN yum -y install  vim
+RUN yum -y install  telnet
 #base
 
-RUN yum -y install  automake make gcc-c++ boost-devel git wget hg
-RUN yum -y install  net-tools unzip which openssh-server openssh-clients go logrotate socat
-RUN yum -y install  traceroute lsof sysstat mercurial
+RUN yum -y install  automake
+RUN yum -y install  make
+RUN yum -y install  gcc-c++
+RUN yum -y install  boost-devel
+RUN yum -y install  wget
+RUN yum -y install  hg
+RUN yum -y install  net-tools
+RUN yum -y install  unzip
+RUN yum -y install  which
+RUN yum -y install  openssh-server
+RUN yum -y install  openssh-clients
+RUN yum -y install  go
+RUN yum -y install  logrotate
+RUN yum -y install  socat
+RUN yum -y install  sysstat
+RUN yum -y install  mercurial
 
 
 #RUN yum -y install  zlib-devel rubygems ruby gem  ruby-devel ruby-docs ruby-ri ruby-irb ruby-rdoc

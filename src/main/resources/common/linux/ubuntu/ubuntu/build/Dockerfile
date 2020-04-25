@@ -30,7 +30,7 @@ RUN chmod 755 /*.sh
 RUN apt-get  install -y  curl git wget maven net-tools unzip traceroute lsof
 
 
-RUN curl -H "Content-Type: application/json" --data '{"build": true}' -X POST https://cloud.docker.com/api/build/v1/source/3f88da41-bcf7-4eb2-8e60-85447aafd97b/trigger/a89b1189-391c-4335-bded-1838b44aea38/call/
+#RUN curl -H "Content-Type: application/json" --data '{"build": true}' -X POST https://cloud.docker.com/api/build/v1/source/3f88da41-bcf7-4eb2-8e60-85447aafd97b/trigger/a89b1189-391c-4335-bded-1838b44aea38/call/
 
 
 CMD /docker.sh

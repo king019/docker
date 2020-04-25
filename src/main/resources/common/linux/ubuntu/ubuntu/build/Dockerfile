@@ -8,7 +8,7 @@ RUN cd /opt/soft
 #ADD https://raw.githubusercontent.com/king019/docker/master/src/main/java/linux/ubuntu/18.4/build/sources.list /sources.list
 
 COPY docker.sh /docker.sh
-COPY sources.list /sources.list
+#COPY sources.list /sources.list
 
 #ADD https://mirrors.aliyun.com/apache/tomcat/tomcat-8/v8.5.42/bin/apache-tomcat-v8.5.42.tar.gz /opt/soft/apache-tomcat-v8.5.42.tar.gz
 
@@ -17,7 +17,7 @@ ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.20/bin/apache-to
 ADD http://maven.aliyun.com/nexus/content/groups/public/org/eclipse/jetty/jetty-distribution/9.4.12.v20180830/jetty-distribution-9.4.12.v20180830.tar.gz /opt/soft/jetty-distribution-9.4.12.v20180830.tar.gz
 
 
-RUN cat /sources.list>/etc/apt/sources.list
+#RUN cat /sources.list>/etc/apt/sources.list
 
 
 

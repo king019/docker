@@ -25,8 +25,13 @@ import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
 public class JenkinsBuildShell {
+    static int multi = 20;
+
     public static void main(String[] args) throws Exception {
         DockerJenkinsModel.setWORKSPACE(args[0]);
+        if (StringUtils.isNotBlank(args[1])) {
+            multi = Integer.parseInt(args[1]);
+        }
         JenkinsBuildShell shell = new JenkinsBuildShell();
         shell.test();
     }
@@ -49,7 +54,7 @@ public class JenkinsBuildShell {
         models.forEach(model -> multimap.put(model.getPlatform() + "_" + model.getRegion(), model));
         models.forEach(model -> multimap.put(model.getPlatform(), model));
         multimap.asMap().forEach((regionPlat, dockerJenkinsModels) -> {
-            writePlat(regionPlat, dockerJenkinsModels, true);
+            writePlat(regionPlat, dockerJenkinsModels, true, multi);
             //writePlat(regionPlat, dockerJenkinsModels, false);
         });
     }
@@ -106,8 +111,8 @@ public class JenkinsBuildShell {
         FileUtils.writeLines(destfile, lines);
     }
 
-    private void writePlat(String plat, Collection<DockerJenkinsModel> models, boolean mix) {
-        int multi = 20;
+    private void writePlat(String plat, Collection<DockerJenkinsModel> models, boolean mix, int multi) {
+
         List<String> lines = Lists.newArrayList();
         lines.add("#!/bin/sh");
         lines.add("set -x");

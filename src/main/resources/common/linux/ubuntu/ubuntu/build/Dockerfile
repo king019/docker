@@ -17,7 +17,7 @@ ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.20/bin/apache-to
 ADD http://maven.aliyun.com/nexus/content/groups/public/org/eclipse/jetty/jetty-distribution/9.4.12.v20180830/jetty-distribution-9.4.12.v20180830.tar.gz /opt/soft/jetty-distribution-9.4.12.v20180830.tar.gz
 
 
-#RUN cat /sources.list>/etc/apt/sources.list
+RUN cat /sources.list>/etc/apt/sources.list
 
 
 

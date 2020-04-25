@@ -29,7 +29,7 @@ public class JenkinsBuildShell {
 
     public static void main(String[] args) throws Exception {
         DockerJenkinsModel.setWORKSPACE(args[0]);
-        if (StringUtils.isNotBlank(args[1])) {
+        if (args.length > 1 && StringUtils.isNotBlank(args[1])) {
             multi = Integer.parseInt(args[1]);
         }
         JenkinsBuildShell shell = new JenkinsBuildShell();

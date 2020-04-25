@@ -14,15 +14,17 @@ COPY sources.list /sources.list
 
 ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.20/bin/apache-tomcat-9.0.20.tar.gz /opt/soft/apache-tomcat-9.0.20.tar.gz
 
-ADD http://maven.aliyun.com/nexus/content/groups/public//org/eclipse/jetty/jetty-distribution/9.4.12.v20180830/jetty-distribution-9.4.12.v20180830.tar.gz /opt/soft/jetty-distribution-9.4.12.v20180830.tar.gz
+ADD http://maven.aliyun.com/nexus/content/groups/public/org/eclipse/jetty/jetty-distribution/9.4.12.v20180830/jetty-distribution-9.4.12.v20180830.tar.gz /opt/soft/jetty-distribution-9.4.12.v20180830.tar.gz
 
 
 RUN cat /sources.list>/etc/apt/sources.list
 
 
 
-#RUN apt -y update
-RUN apt -y upgrade
+#RUN apt -y upgrade
+
+RUN apt -y update
+
 RUN chmod 755 /*.sh
 
 RUN apt-get  install -y  curl git wget maven net-tools unzip traceroute lsof

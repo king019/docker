@@ -22,15 +22,20 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class JenkinsBuildShell {
     static int multi = 20;
+    static String[] filters = new String[]{};
 
     public static void main(String[] args) throws Exception {
         DockerJenkinsModel.setWORKSPACE(args[0]);
         if (args.length > 1 && StringUtils.isNotBlank(args[1])) {
             multi = Integer.parseInt(args[1]);
+        }
+        if (args.length > 2 && StringUtils.isNotBlank(args[2])) {
+            filters = args[2].split(",");
         }
         JenkinsBuildShell shell = new JenkinsBuildShell();
         shell.test();
@@ -49,6 +54,7 @@ public class JenkinsBuildShell {
                 models.addAll(readFirst(regionEnum, listFile));
             }
         }
+        models = filter(models);
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
         models.forEach(model -> multimap.put(model.getPlatform() + "_" + model.getRegion(), model));
@@ -57,6 +63,14 @@ public class JenkinsBuildShell {
             writePlat(regionPlat, dockerJenkinsModels, true, multi);
             //writePlat(regionPlat, dockerJenkinsModels, false);
         });
+    }
+
+    private List<DockerJenkinsModel> filter(List<DockerJenkinsModel> models) {
+        if (ArrayUtils.isEmpty(filters)) {
+            return models;
+        } else {
+            return models.stream().filter(model -> StringUtils.indexOfAny(model.getVersion(), filters) > 0).collect(Collectors.toList());
+        }
     }
 
     private void copyFile(File file, String dockerDest, Map<DockerRegionEnum, File> map) throws Exception {

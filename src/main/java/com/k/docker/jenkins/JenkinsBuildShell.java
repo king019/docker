@@ -56,11 +56,36 @@ public class JenkinsBuildShell {
         }
         models = filter(models);
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
+        writeSpecile("specile/", models);
+        writeNormal("", models);
+    }
+
+    private List<DockerJenkinsModel> filterNormal(List<DockerJenkinsModel> models) {
+        return models.stream().filter(model -> !DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
+    }
+
+    private List<DockerJenkinsModel> filterSpecile(List<DockerJenkinsModel> models) {
+        return models.stream().filter(model -> DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
+    }
+
+    private void writeSpecile(String dir, List<DockerJenkinsModel> models) {
+        models = filterSpecile(models);
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
         models.forEach(model -> multimap.put(model.getPlatform() + "_" + model.getRegion(), model));
         models.forEach(model -> multimap.put(model.getPlatform(), model));
         multimap.asMap().forEach((regionPlat, dockerJenkinsModels) -> {
-            writePlat(regionPlat, dockerJenkinsModels, true, multi);
+            writePlat(dir, regionPlat, dockerJenkinsModels, true, multi);
+            //writePlat(regionPlat, dockerJenkinsModels, false);
+        });
+    }
+
+    private void writeNormal(String dir, List<DockerJenkinsModel> models) {
+        models = filterNormal(models);
+        Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
+        models.forEach(model -> multimap.put(model.getPlatform() + "_" + model.getRegion(), model));
+        models.forEach(model -> multimap.put(model.getPlatform(), model));
+        multimap.asMap().forEach((regionPlat, dockerJenkinsModels) -> {
+            writePlat(dir, regionPlat, dockerJenkinsModels, true, multi);
             //writePlat(regionPlat, dockerJenkinsModels, false);
         });
     }
@@ -125,8 +150,7 @@ public class JenkinsBuildShell {
         FileUtils.writeLines(destfile, lines);
     }
 
-    private void writePlat(String plat, Collection<DockerJenkinsModel> models, boolean mix, int multi) {
-
+    private void writePlat(String dir, String plat, Collection<DockerJenkinsModel> models, boolean mix, int multi) {
         List<String> lines = Lists.newArrayList();
         lines.add("#!/bin/sh");
         lines.add("set -x");
@@ -145,7 +169,7 @@ public class JenkinsBuildShell {
 //                lines1.add(model.getMap().get(model.getPlatform()));
 //            }
 //        });
-        String target = PathUtil.getTargetPath(plat + "_" + mix + ".sh");
+        String target = PathUtil.getTargetPath(dir + plat + "_" + mix + ".sh");
         File targetFile = new File(target);
         try {
             FileUtils.writeLines(targetFile, lines);

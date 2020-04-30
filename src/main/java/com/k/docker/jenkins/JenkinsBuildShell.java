@@ -22,7 +22,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class JenkinsBuildShell {
@@ -56,7 +55,7 @@ public class JenkinsBuildShell {
         }
         models = filter(models);
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
-        writeSpecile("specile/", models);
+        writeSpecial("special/", models);
         writeNormal("", models);
     }
 
@@ -64,12 +63,12 @@ public class JenkinsBuildShell {
         return models.stream().filter(model -> !DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
     }
 
-    private List<DockerJenkinsModel> filterSpecile(List<DockerJenkinsModel> models) {
+    private List<DockerJenkinsModel> filterSpecial(List<DockerJenkinsModel> models) {
         return models.stream().filter(model -> DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
     }
 
-    private void writeSpecile(String dir, List<DockerJenkinsModel> models) {
-        models = filterSpecile(models);
+    private void writeSpecial(String dir, List<DockerJenkinsModel> models) {
+        models = filterSpecial(models);
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
         models.forEach(model -> multimap.put(model.getPlatform() + "_" + model.getRegion(), model));
         models.forEach(model -> multimap.put(model.getPlatform(), model));

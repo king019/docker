@@ -1,9 +1,6 @@
 package com.k.docker.jenkins;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
+import com.google.common.collect.*;
 import com.k.docker.jenkins.model.emums.BuildItemEnum;
 import com.k.docker.jenkins.model.emums.DockerRegionEnum;
 import com.k.docker.jenkins.util.PathBaseUtil;
@@ -77,6 +74,13 @@ public class JenkinsBuildShell {
              model.setPlatforms(new String[]{});
              model.setPlatform(null);
              return model;
+         }).filter(model -> {
+             Set<String> ignoreRegions = model.getIgnoreRegions();
+             if (CollectionUtils.isNotEmpty(ignoreRegions)) {
+                 return !ignoreRegions.contains(model.getRegion());
+             } else {
+                 return true;
+             }
          }).collect(Collectors.toList());
         writeShell(dir, models, mix);
     }
@@ -228,13 +232,18 @@ public class JenkinsBuildShell {
                         }
 
                         String[] versionSplits = StringUtils.split(versions, ",");
+                        Set<String>ignoreRegionSplits= Sets.newHashSet();
+                        String ignoreRegion = enumMap.get(BuildItemEnum.IGNORE_REGION);
+                        if(StringUtils.isNotBlank(ignoreRegion)){
+                            ignoreRegionSplits.addAll(Sets.newHashSet(StringUtils.split(ignoreRegion, ",")));
+                        }
                         Arrays.stream(versionSplits).forEach(new Consumer<>() {
                             @Override
                             public void accept(String version) {
                                 Arrays.stream(plats).forEach(new Consumer<>() {
                                     @Override
                                     public void accept(String plat) {
-                                        models.add(buildModel(path, plats, plat, version, enumMap, regionEnum.getRegion()));
+                                        models.add(buildModel(path, plats, plat, version, enumMap, regionEnum.getRegion(),ignoreRegionSplits));
                                     }
                                 });
                             }
@@ -246,7 +255,7 @@ public class JenkinsBuildShell {
         return models;
     }
 
-    private DockerJenkinsModel buildModel(String path, String[] plats, String plat, String version, Map<BuildItemEnum, String> enumMap, String region) {
+    private DockerJenkinsModel buildModel(String path, String[] plats, String plat, String version, Map<BuildItemEnum, String> enumMap, String region,Set<String> ignoreRegions) {
         DockerJenkinsModel model = new DockerJenkinsModel();
         model.setPath(path);
         model.setIndex(Integer.parseInt(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef())));
@@ -256,6 +265,7 @@ public class JenkinsBuildShell {
         model.setPlatform(plat);
         model.setVersion(version);
         model.setPlatforms(plats);
+        model.setIgnoreRegions(  ignoreRegions);
         return model;
     }
 

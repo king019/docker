@@ -7,6 +7,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Map;
+import java.util.Set;
 
 @Data
 public class DockerJenkinsModel {
@@ -18,6 +19,7 @@ public class DockerJenkinsModel {
     private int index;
     private String platform;
     private String[] platforms;
+    private Set<String> ignoreRegions;
     private Map<String, String> map = Maps.newHashMap();
     private String nextLine = "\n";
     private String region;

@@ -14,8 +14,8 @@ public enum BuildItemEnum {
     VERSION("version.txt"),
     INDEX("index.txt", "10000"),
     IGNORE("ignore.txt"),
+    IGNORE_REGION("ignore_region.txt"),
     PLATFORM("platform.txt");
-
     private String item;
     private String def;
 

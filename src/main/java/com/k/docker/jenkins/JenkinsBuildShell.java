@@ -11,6 +11,7 @@ import com.k.docker.jenkins.util.PathUtil;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -22,6 +23,8 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class JenkinsBuildShell {
@@ -55,8 +58,9 @@ public class JenkinsBuildShell {
         }
         models = filter(models);
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
-        writeSpecial("special/", models);
-        writeNormal("", models);
+        writeNormal("", models, true);
+        writeSpecial("special/", models, false);
+
     }
 
     private List<DockerJenkinsModel> filterNormal(List<DockerJenkinsModel> models) {
@@ -67,24 +71,27 @@ public class JenkinsBuildShell {
         return models.stream().filter(model -> DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
     }
 
-    private void writeSpecial(String dir, List<DockerJenkinsModel> models) {
+    private void writeSpecial(String dir, List<DockerJenkinsModel> models, boolean mix) {
         models = filterSpecial(models);
-        Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
-        models.forEach(model -> multimap.put(model.getPlatform() + "_" + model.getRegion(), model));
-        models.forEach(model -> multimap.put(model.getPlatform(), model));
-        multimap.asMap().forEach((regionPlat, dockerJenkinsModels) -> {
-            writePlat(dir, regionPlat, dockerJenkinsModels, true, multi);
-            //writePlat(regionPlat, dockerJenkinsModels, false);
-        });
+         models = models.stream().filter(model -> StringUtils.equals("x86_64", model.getPlatform())).map(model -> {
+             model.setPlatforms(new String[]{});
+             model.setPlatform(null);
+             return model;
+         }).collect(Collectors.toList());
+        writeShell(dir, models, mix);
     }
 
-    private void writeNormal(String dir, List<DockerJenkinsModel> models) {
+    private void writeNormal(String dir, List<DockerJenkinsModel> models, boolean mix) {
         models = filterNormal(models);
+        writeShell(dir, models, mix);
+    }
+
+    private void writeShell(String dir, List<DockerJenkinsModel> models, boolean mix) {
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
         models.forEach(model -> multimap.put(model.getPlatform() + "_" + model.getRegion(), model));
         models.forEach(model -> multimap.put(model.getPlatform(), model));
         multimap.asMap().forEach((regionPlat, dockerJenkinsModels) -> {
-            writePlat(dir, regionPlat, dockerJenkinsModels, true, multi);
+            writePlat(dir, regionPlat, dockerJenkinsModels, mix, multi);
             //writePlat(regionPlat, dockerJenkinsModels, false);
         });
     }

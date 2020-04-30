@@ -100,10 +100,14 @@ public class DockerJenkinsModel {
 
     private String buildVersion(String hostVersion, String platform) {
         String version = "";
-        if (StringUtils.contains(hostVersion, ":")) {
-            version += hostVersion + "_" + platform + "  ";
+        if (StringUtils.isBlank(platform)) {
+            version += hostVersion;
         } else {
-            version += hostVersion + ":" + platform + "  ";
+            if (StringUtils.contains(hostVersion, ":")) {
+                version += hostVersion + "_" + platform + "  ";
+            } else {
+                version += hostVersion + ":" + platform + "  ";
+            }
         }
         return version;
     }

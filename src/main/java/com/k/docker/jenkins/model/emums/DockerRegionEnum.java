@@ -8,7 +8,7 @@ public enum DockerRegionEnum {
     HANG_ZHOU("hangzhou", "registry.cn-hangzhou.aliyuncs.com"),
     BEI_JING("beijing", "registry.cn-beijing.aliyuncs.com"),
     DOCKER("docker", ""),
-    LOCAL("local", "127.0.0.1:5000",true);
+    LOCAL("local", "docker:5000",true);
     private String region;
     private String host;
     private boolean specile;

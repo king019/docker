@@ -8,7 +8,7 @@ RUN cd /opt/soft
 #ADD https://raw.githubusercontent.com/king019/docker/master/src/main/java/linux/ubuntu/18.4/build/sources.list /sources.list
 
 COPY docker.sh /docker.sh
-#COPY sources.list /sources.list
+COPY sources.list /sources.list
 
 #ADD https://mirrors.aliyun.com/apache/tomcat/tomcat-8/v8.5.42/bin/apache-tomcat-v8.5.42.tar.gz /opt/soft/apache-tomcat-v8.5.42.tar.gz
 

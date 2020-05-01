@@ -2,11 +2,16 @@ package com.k.docker.jenkins.model;
 
 
 import com.google.common.collect.Maps;
+import com.k.docker.jenkins.model.emums.DockerFunctionEnum;
+import com.k.docker.jenkins.model.emums.DockerPlatformEnum;
+import com.k.docker.jenkins.model.emums.DockerRegionEnum;
 import lombok.Data;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
+import java.lang.management.PlatformLoggingMXBean;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 
 @Data
@@ -14,15 +19,16 @@ public class DockerJenkinsModel {
     @Setter
     private static String WORKSPACE;
     private String path;
-    private String host;
+    //private String host;
     private String version;
     private int index;
-    private String platform;
-    private String[] platforms;
-    private Set<String> ignoreRegions;
-    private Map<String, String> map = Maps.newHashMap();
+    private DockerPlatformEnum platform;
+    private Set< DockerPlatformEnum> platforms;
+    private Set<DockerRegionEnum> ignoreRegions;
+    private Set<DockerFunctionEnum> functions;
+    private Map<DockerPlatformEnum, String> map = Maps.newHashMap();
     private String nextLine = "\n";
-    private String region;
+    private DockerRegionEnum region;
 
     public String buildBuild() {
         StringBuilder sb = new StringBuilder();
@@ -58,7 +64,7 @@ public class DockerJenkinsModel {
         return sb.toString();
     }
 
-    private String buildMainfest(String hostVersion, String platform) {
+    private String buildMainfest(String hostVersion, DockerPlatformEnum platform) {
         StringBuilder sb = new StringBuilder();
         //docker manifest create huxl/myapp:v1 huxl/myapp-x86_64:v1 huxl/myapp-ppc64le:v1
         //docker manifest annotate huxl/myapp:v1 huxl/myapp-x86_64:v1 --os linux --arch amd64
@@ -78,7 +84,7 @@ public class DockerJenkinsModel {
     }
 
     private void buildAnnotate(StringBuilder sb, String hostVersion) {
-        for (String platform : platforms) {
+        for (DockerPlatformEnum platform : platforms) {
             sb.append("docker manifest annotate ");
             sb.append(hostVersion);
             sb.append(" ");
@@ -91,33 +97,32 @@ public class DockerJenkinsModel {
 
     }
 
-    private String buildVersions(String hostVersion, String[] platforms) {
+    private String buildVersions(String hostVersion, Set<DockerPlatformEnum> platforms) {
         String version = "";
-        for (String plat : platforms) {
+        for (DockerPlatformEnum plat : platforms) {
             version += buildVersion(hostVersion, plat);
         }
 
         return version;
     }
 
-    private String buildVersion(String hostVersion, String platform) {
+    private String buildVersion(String hostVersion, DockerPlatformEnum platform) {
         String version = "";
-        if (StringUtils.isBlank(platform)) {
-            version += hostVersion;
+        if (StringUtils.contains(hostVersion, ":")) {
+            version += hostVersion + getPlatformStr(  platform) + "  ";
         } else {
-            if (StringUtils.contains(hostVersion, ":")) {
-                version += hostVersion + "_" + platform + "  ";
-            } else {
-                version += hostVersion + ":" + platform + "  ";
-            }
+            version += hostVersion +getPlatformStr(  platform) + "  ";
         }
         return version;
+    }
+    private String getPlatformStr(DockerPlatformEnum platform){
+       return platform.isSuffix()?"_"+platform.getPlatform():"";
     }
 
     private String getWriteVersion() {
         String writeVersion = version;
-        if (StringUtils.isNotBlank(host)) {
-            writeVersion = host + "/" + version;
+        if (Objects.nonNull( region)) {
+            writeVersion = region.getHost() + "/" + version;
         }
         return writeVersion;
     }

@@ -2,13 +2,14 @@ package com.k.docker.jenkins;
 
 import com.google.common.collect.*;
 import com.k.docker.jenkins.model.emums.BuildItemEnum;
+import com.k.docker.jenkins.model.emums.DockerFunctionEnum;
+import com.k.docker.jenkins.model.emums.DockerPlatformEnum;
 import com.k.docker.jenkins.model.emums.DockerRegionEnum;
 import com.k.docker.jenkins.util.PathBaseUtil;
 import com.k.docker.jenkins.util.PathUtil;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.filefilter.FalseFileFilter;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
@@ -20,7 +21,6 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Function;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -56,7 +56,7 @@ public class JenkinsBuildShell {
         models = filter(models);
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         writeNormal("", models, true);
-        writeSpecial("special/", models, false);
+        writeLocal(DockerRegionEnum.LOCAL, models, false);
 
     }
 
@@ -68,32 +68,33 @@ public class JenkinsBuildShell {
         return models.stream().filter(model -> DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
     }
 
-    private void writeSpecial(String dir, List<DockerJenkinsModel> models, boolean mix) {
+    private void writeLocal(DockerRegionEnum regionEnum, List<DockerJenkinsModel> models, boolean mix) {
         models = filterSpecial(models);
-         models = models.stream().filter(model -> StringUtils.equals("x86_64", model.getPlatform())).map(model -> {
-             model.setPlatforms(new String[]{});
-             model.setPlatform(null);
-             return model;
-         }).filter(model -> {
-             Set<String> ignoreRegions = model.getIgnoreRegions();
-             if (CollectionUtils.isNotEmpty(ignoreRegions)) {
-                 return !ignoreRegions.contains(model.getRegion());
-             } else {
-                 return true;
-             }
-         }).collect(Collectors.toList());
-        writeShell(dir, models, mix);
+        models = models.stream().filter(model -> DockerPlatformEnum.ADM64.equals(model.getPlatform())).map(model -> {
+            model.setPlatforms(ImmutableSet.of());
+            model.setPlatform(DockerPlatformEnum.NO_SUFFIX);
+            return model;
+        }).filter(model -> {
+            Set<DockerRegionEnum> ignoreRegions = model.getIgnoreRegions();
+            if (CollectionUtils.isNotEmpty(ignoreRegions)) {
+                return !ignoreRegions.contains(model.getRegion());
+            } else {
+                return true;
+            }
+        }).collect(Collectors.toList());
+        writeShell(regionEnum.getRegion() + "/", models, mix);
     }
 
     private void writeNormal(String dir, List<DockerJenkinsModel> models, boolean mix) {
         models = filterNormal(models);
+        models=models.stream().filter(model -> !model.getFunctions().contains(DockerFunctionEnum.ONLY_LOCAL)).collect(Collectors.toList());
         writeShell(dir, models, mix);
     }
 
     private void writeShell(String dir, List<DockerJenkinsModel> models, boolean mix) {
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
-        models.forEach(model -> multimap.put(model.getPlatform() + "_" + model.getRegion(), model));
-        models.forEach(model -> multimap.put(model.getPlatform(), model));
+        models.forEach(model -> multimap.put(model.getPlatform().getPlatform() + "_" + model.getRegion().getRegion(), model));
+        models.forEach(model -> multimap.put(model.getPlatform().getPlatform(), model));
         multimap.asMap().forEach((regionPlat, dockerJenkinsModels) -> {
             writePlat(dir, regionPlat, dockerJenkinsModels, mix, multi);
             //writePlat(regionPlat, dockerJenkinsModels, false);
@@ -232,18 +233,28 @@ public class JenkinsBuildShell {
                         }
 
                         String[] versionSplits = StringUtils.split(versions, ",");
-                        Set<String>ignoreRegionSplits= Sets.newHashSet();
+                        Set<String> ignoreRegionSplits = Sets.newHashSet();
                         String ignoreRegion = enumMap.get(BuildItemEnum.IGNORE_REGION);
-                        if(StringUtils.isNotBlank(ignoreRegion)){
+                        if (StringUtils.isNotBlank(ignoreRegion)) {
                             ignoreRegionSplits.addAll(Sets.newHashSet(StringUtils.split(ignoreRegion, ",")));
+                        } Set<String> functionSplits = Sets.newHashSet();
+                        {
+
+                            String functions = enumMap.get(BuildItemEnum.FUNCTION);
+                            if (StringUtils.isNotBlank(functions)) {
+                                functionSplits.addAll(Sets.newHashSet(StringUtils.split(functions, ",")));
+                            }
+
                         }
+
+
                         Arrays.stream(versionSplits).forEach(new Consumer<>() {
                             @Override
                             public void accept(String version) {
                                 Arrays.stream(plats).forEach(new Consumer<>() {
                                     @Override
                                     public void accept(String plat) {
-                                        models.add(buildModel(path, plats, plat, version, enumMap, regionEnum.getRegion(),ignoreRegionSplits));
+                                        models.add(buildModel(path, plats, plat, version, enumMap, regionEnum.getRegion(), ignoreRegionSplits, functionSplits));
                                     }
                                 });
                             }
@@ -255,17 +266,18 @@ public class JenkinsBuildShell {
         return models;
     }
 
-    private DockerJenkinsModel buildModel(String path, String[] plats, String plat, String version, Map<BuildItemEnum, String> enumMap, String region,Set<String> ignoreRegions) {
+    private DockerJenkinsModel buildModel(String path, String[] plats, String plat, String version, Map<BuildItemEnum, String> enumMap, String region, Set<String> ignoreRegions, Set<String> functionSplits) {
         DockerJenkinsModel model = new DockerJenkinsModel();
         model.setPath(path);
         model.setIndex(Integer.parseInt(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef())));
         //StringUtils.defaultIfBlank(enumMap.get(BuildItemEnum.REGION), PathBaseUtil.REGION);
-        model.setHost(DockerRegionEnum.getRegion(region).getHost());
-        model.setRegion(region);
-        model.setPlatform(plat);
+        //model.setHost(DockerRegionEnum.getRegion(region).getHost());
+        model.setRegion(DockerRegionEnum.getRegion(region));
+        model.setPlatform(DockerPlatformEnum.getPlatform(plat));
         model.setVersion(version);
-        model.setPlatforms(plats);
-        model.setIgnoreRegions(  ignoreRegions);
+        model.setPlatforms(DockerPlatformEnum.getPlatforms(plats));
+        model.setIgnoreRegions(DockerRegionEnum.getRegions(ignoreRegions));
+        model.setFunctions(DockerFunctionEnum.getFunctions(functionSplits));
         return model;
     }
 

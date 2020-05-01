@@ -73,6 +73,7 @@ public class JenkinsBuildShell {
         models = models.stream().filter(model -> DockerPlatformEnum.ADM64.equals(model.getPlatform())).map(model -> {
             model.setPlatforms(ImmutableSet.of());
             model.setPlatform(DockerPlatformEnum.NO_SUFFIX);
+            model.setIndex(1);
             return model;
         }).filter(model -> {
             Set<DockerRegionEnum> ignoreRegions = model.getIgnoreRegions();

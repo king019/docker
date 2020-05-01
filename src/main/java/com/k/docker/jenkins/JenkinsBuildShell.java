@@ -73,7 +73,6 @@ public class JenkinsBuildShell {
         models = models.stream().filter(model -> DockerPlatformEnum.ADM64.equals(model.getPlatform())).map(model -> {
             model.setPlatforms(ImmutableSet.of());
             model.setPlatform(DockerPlatformEnum.NO_SUFFIX);
-            model.setIndex(1);
             return model;
         }).filter(model -> {
             Set<DockerRegionEnum> ignoreRegions = model.getIgnoreRegions();
@@ -88,7 +87,7 @@ public class JenkinsBuildShell {
 
     private void writeNormal(String dir, List<DockerJenkinsModel> models, boolean mix) {
         models = filterNormal(models);
-        models=models.stream().filter(model -> !model.getFunctions().contains(DockerFunctionEnum.ONLY_LOCAL)).collect(Collectors.toList());
+        models = models.stream().filter(model -> !model.getFunctions().contains(DockerFunctionEnum.ONLY_LOCAL)).collect(Collectors.toList());
         writeShell(dir, models, mix);
     }
 
@@ -238,7 +237,8 @@ public class JenkinsBuildShell {
                         String ignoreRegion = enumMap.get(BuildItemEnum.IGNORE_REGION);
                         if (StringUtils.isNotBlank(ignoreRegion)) {
                             ignoreRegionSplits.addAll(Sets.newHashSet(StringUtils.split(ignoreRegion, ",")));
-                        } Set<String> functionSplits = Sets.newHashSet();
+                        }
+                        Set<String> functionSplits = Sets.newHashSet();
                         {
 
                             String functions = enumMap.get(BuildItemEnum.FUNCTION);

@@ -23,7 +23,7 @@ public class DockerJenkinsModel {
     private String version;
     private int index;
     private DockerPlatformEnum platform;
-    private Set< DockerPlatformEnum> platforms;
+    private Set<DockerPlatformEnum> platforms;
     private Set<DockerRegionEnum> ignoreRegions;
     private Set<DockerFunctionEnum> functions;
     private Map<DockerPlatformEnum, String> map = Maps.newHashMap();
@@ -50,7 +50,7 @@ public class DockerJenkinsModel {
             sb.append(" .");
             sb.append(nextLine);
         }
-        map.put(platform, buildMainfest(getWriteVersion(), platform));
+        map.put(platform, buildMainfest(getWriteVersion()));
         return sb.toString();
     }
 
@@ -64,7 +64,7 @@ public class DockerJenkinsModel {
         return sb.toString();
     }
 
-    private String buildMainfest(String hostVersion, DockerPlatformEnum platform) {
+    private String buildMainfest(String hostVersion) {
         StringBuilder sb = new StringBuilder();
         //docker manifest create huxl/myapp:v1 huxl/myapp-x86_64:v1 huxl/myapp-ppc64le:v1
         //docker manifest annotate huxl/myapp:v1 huxl/myapp-x86_64:v1 --os linux --arch amd64
@@ -109,19 +109,20 @@ public class DockerJenkinsModel {
     private String buildVersion(String hostVersion, DockerPlatformEnum platform) {
         String version = "";
         if (StringUtils.contains(hostVersion, ":")) {
-            version += hostVersion + getPlatformStr(  platform) + "  ";
+            version += hostVersion + getPlatformStr(platform) + "  ";
         } else {
-            version += hostVersion +getPlatformStr(  platform) + "  ";
+            version += hostVersion + getPlatformStr(platform) + "  ";
         }
         return version;
     }
-    private String getPlatformStr(DockerPlatformEnum platform){
-       return platform.isSuffix()?"_"+platform.getPlatform():"";
+
+    private String getPlatformStr(DockerPlatformEnum platform) {
+        return platform.isSuffix() ? "_" + platform.getPlatform() : "";
     }
 
     private String getWriteVersion() {
         String writeVersion = version;
-        if (Objects.nonNull( region)) {
+        if (Objects.nonNull(region)) {
             writeVersion = region.getHost() + "/" + version;
         }
         return writeVersion;

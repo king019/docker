@@ -122,7 +122,7 @@ public class DockerJenkinsModel {
 
     private String getWriteVersion() {
         String writeVersion = version;
-        if (Objects.nonNull(region)) {
+        if (StringUtils.isNotBlank(region.getHost())) {
             writeVersion = region.getHost() + "/" + version;
         }
         return writeVersion;

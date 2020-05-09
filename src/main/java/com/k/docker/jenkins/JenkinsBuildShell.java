@@ -1,13 +1,18 @@
 package com.k.docker.jenkins;
 
-import com.google.common.collect.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
+import com.k.docker.jenkins.model.DockerJenkinsModel;
 import com.k.docker.jenkins.model.emums.BuildItemEnum;
 import com.k.docker.jenkins.model.emums.DockerFunctionEnum;
 import com.k.docker.jenkins.model.emums.DockerPlatformEnum;
 import com.k.docker.jenkins.model.emums.DockerRegionEnum;
 import com.k.docker.jenkins.util.PathBaseUtil;
 import com.k.docker.jenkins.util.PathUtil;
-import com.k.docker.jenkins.model.DockerJenkinsModel;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -18,14 +23,20 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class JenkinsBuildShell {
-    static int multi = 20;
+    static int multi = 1;
     static String[] filters = new String[]{};
 
     public static void main(String[] args) throws Exception {

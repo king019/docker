@@ -9,6 +9,7 @@ import com.google.common.collect.Sets;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
 import com.k.docker.jenkins.model.emums.BuildItemEnum;
 import com.k.docker.jenkins.model.emums.DockerFunctionEnum;
+import com.k.docker.jenkins.model.emums.DockerParamEnum;
 import com.k.docker.jenkins.model.emums.DockerPlatformEnum;
 import com.k.docker.jenkins.model.emums.DockerRegionEnum;
 import com.k.docker.jenkins.util.PathBaseUtil;
@@ -23,7 +24,6 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -34,25 +34,48 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
-import java.util.function.IntFunction;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class JenkinsBuildShell {
+    private static Map<DockerParamEnum, String> map = Maps.newHashMap();
     static int multi = 1;
-    static List<String> filters = Lists.newArrayList();
+    static List<String> includes = Lists.newArrayList();
+    static List<String> excludes = Lists.newArrayList();
 
     public static void main(String[] args) throws Exception {
-        DockerJenkinsModel.setWORKSPACE(args[0]);
-        if (args.length > 1 && StringUtils.isNotBlank(args[1])) {
-            multi = Integer.parseInt(args[1]);
+        String arg = args[0];
+        if (StringUtils.contains(arg, ",")) {
+            String[] splits = StringUtils.split(arg, ",");
+            for (String split : splits) {
+                if (StringUtils.contains(split, ":")) {
+                    String[] splitInner = split.split(":");
+                    DockerParamEnum paramEnum = DockerParamEnum.getEnum(splitInner[0]);
+                    if (Objects.nonNull(paramEnum)) {
+                        map.put(paramEnum, splitInner[1]);
+                    }
+                }
+            }
         }
-        if (args.length > 2 && StringUtils.isNotBlank(args[2])) {
-            filters.addAll(Lists.newArrayList(args[2].split(","))) ;
+        DockerJenkinsModel.setWORKSPACE(getVal(DockerParamEnum.WORK_SPACE));
+        {
+            multi = Integer.parseInt(getVal(DockerParamEnum.THREAD));
         }
-        filters.add("ubuntu");
+        {
+            String val = getVal(DockerParamEnum.INCLUDE);
+            includes.addAll(Lists.newArrayList(val.split(",")));
+        }
+        {
+            String val = getVal(DockerParamEnum.EXCLUDE);
+            excludes.addAll(Lists.newArrayList(val.split(",")));
+            excludes.add("ubuntu");
+        }
+
         JenkinsBuildShell shell = new JenkinsBuildShell();
         shell.test();
+    }
+
+    private static String getVal(DockerParamEnum paramEnum) {
+        return map.getOrDefault(paramEnum, paramEnum.getDef());
     }
 
     @Test
@@ -117,14 +140,18 @@ public class JenkinsBuildShell {
     }
 
     private List<DockerJenkinsModel> filter(List<DockerJenkinsModel> models) {
-        if (CollectionUtils.isEmpty(filters)) {
-            return models;
-        } else {
-            return models.stream().filter(model -> {
-                boolean exist = StringUtils.indexOfAny(model.getVersion(), filters.stream().toArray(value -> new String[filters.size()])) > 0;
+        if (CollectionUtils.isNotEmpty(includes)) {
+            models = models.stream().filter(model -> {
+                boolean exist = StringUtils.indexOfAny(model.getVersion(), includes.stream().toArray(value -> new String[includes.size()])) > 0;
                 return exist;
             }).collect(Collectors.toList());
         }
+        if (CollectionUtils.isNotEmpty(excludes)) {
+            models = models.stream().filter(model -> {
+                boolean exist = StringUtils.indexOfAny(model.getVersion(), excludes.stream().toArray(value -> new String[excludes.size()])) > 0;
+                return !exist;
+            }).collect(Collectors.toList());
+        }return models;
     }
 
     private void copyFile(File file, String dockerDest, Map<DockerRegionEnum, File> map) throws Exception {

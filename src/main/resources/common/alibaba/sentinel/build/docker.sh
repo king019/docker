@@ -1,4 +1,4 @@
-#!/bin/bin
+#!/bin/sh
 set -x
 cd /root/soft/Sentinel
 mvn clean package

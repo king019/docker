@@ -44,18 +44,16 @@ public class JenkinsBuildShell {
 
     public static void main(String[] args) throws Exception {
         String arg = args[0];
-        if (StringUtils.contains(arg, ",")) {
             String[] splits = StringUtils.split(arg, ",");
             for (String split : splits) {
-                if (StringUtils.contains(split, ":")) {
-                    String[] splitInner = split.split(":");
+                if (StringUtils.contains(split, "=")) {
+                    String[] splitInner = split.split("=");
                     DockerParamEnum paramEnum = DockerParamEnum.getEnum(splitInner[0]);
                     if (Objects.nonNull(paramEnum)) {
                         map.put(paramEnum, splitInner[1]);
                     }
                 }
             }
-        }
         DockerJenkinsModel.setWORKSPACE(getVal(DockerParamEnum.WORK_SPACE));
         {
             multi = Integer.parseInt(getVal(DockerParamEnum.THREAD));

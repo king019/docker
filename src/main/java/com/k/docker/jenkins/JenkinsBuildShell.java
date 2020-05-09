@@ -48,7 +48,7 @@ public class JenkinsBuildShell {
             multi = Integer.parseInt(args[1]);
         }
         if (args.length > 2 && StringUtils.isNotBlank(args[2])) {
-            filters = Lists.newArrayList(args[2].split(","));
+            filters.addAll(Lists.newArrayList(args[2].split(","))) ;
         }
         filters.add("ubuntu");
         JenkinsBuildShell shell = new JenkinsBuildShell();

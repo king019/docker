@@ -1,6 +1,7 @@
 package com.k.docker.jenkins.util;
 
 
+import com.google.common.collect.Lists;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -10,13 +11,13 @@ import java.util.List;
 
 public class PathBaseUtil {
     public static String PRE_PATH;
-    public static List<String> REGIONS;
+    public static List<String> REGIONS= Lists.newArrayList();
 
     static {
         try {
             PRE_PATH = FileUtils.readFileToString(new File(PathUtil.getResource("txt/prefix.txt")), StandardCharsets.UTF_8);
         } catch (IOException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
         }
     }
 

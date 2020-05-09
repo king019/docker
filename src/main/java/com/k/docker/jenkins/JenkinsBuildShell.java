@@ -23,6 +23,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -33,11 +34,13 @@ import java.util.Optional;
 import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.IntFunction;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class JenkinsBuildShell {
     static int multi = 1;
-    static String[] filters = new String[]{};
+    static List<String> filters = Lists.newArrayList();
 
     public static void main(String[] args) throws Exception {
         DockerJenkinsModel.setWORKSPACE(args[0]);
@@ -45,8 +48,9 @@ public class JenkinsBuildShell {
             multi = Integer.parseInt(args[1]);
         }
         if (args.length > 2 && StringUtils.isNotBlank(args[2])) {
-            filters = args[2].split(",");
+            filters = Lists.newArrayList(args[2].split(","));
         }
+        filters.add("ubuntu");
         JenkinsBuildShell shell = new JenkinsBuildShell();
         shell.test();
     }
@@ -113,10 +117,13 @@ public class JenkinsBuildShell {
     }
 
     private List<DockerJenkinsModel> filter(List<DockerJenkinsModel> models) {
-        if (ArrayUtils.isEmpty(filters)) {
+        if (CollectionUtils.isEmpty(filters)) {
             return models;
         } else {
-            return models.stream().filter(model -> StringUtils.indexOfAny(model.getVersion(), filters) > 0).collect(Collectors.toList());
+            return models.stream().filter(model -> {
+                boolean exist = StringUtils.indexOfAny(model.getVersion(), filters.stream().toArray(value -> new String[filters.size()])) > 0;
+                return exist;
+            }).collect(Collectors.toList());
         }
     }
 

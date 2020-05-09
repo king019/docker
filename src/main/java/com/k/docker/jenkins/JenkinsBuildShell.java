@@ -62,11 +62,16 @@ public class JenkinsBuildShell {
         }
         {
             String val = getVal(DockerParamEnum.INCLUDE);
-            includes.addAll(Lists.newArrayList(val.split(",")));
+            if (StringUtils.isNotBlank(val)) {
+                includes.addAll(Lists.newArrayList(val.split(",")));
+            }
+
         }
         {
             String val = getVal(DockerParamEnum.EXCLUDE);
-            excludes.addAll(Lists.newArrayList(val.split(",")));
+            if (StringUtils.isNotBlank(val)) {
+                excludes.addAll(Lists.newArrayList(val.split(",")));
+            }
             excludes.add("ubuntu");
         }
 
@@ -151,7 +156,8 @@ public class JenkinsBuildShell {
                 boolean exist = StringUtils.indexOfAny(model.getVersion(), excludes.stream().toArray(value -> new String[excludes.size()])) > 0;
                 return !exist;
             }).collect(Collectors.toList());
-        }return models;
+        }
+        return models;
     }
 
     private void copyFile(File file, String dockerDest, Map<DockerRegionEnum, File> map) throws Exception {

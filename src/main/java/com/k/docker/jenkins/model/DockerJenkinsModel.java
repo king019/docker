@@ -111,13 +111,16 @@ public class DockerJenkinsModel {
         if (StringUtils.contains(hostVersion, ":")) {
             version += hostVersion + getPlatformStr(platform) + "  ";
         } else {
-            version += hostVersion + getPlatformStr(platform) + "  ";
+            version += hostVersion + getPlatformSuffixStr(platform) + "  ";
         }
         return version;
     }
 
     private String getPlatformStr(DockerPlatformEnum platform) {
         return platform.isSuffix() ? "_" + platform.getPlatform() : "";
+    }
+    private String getPlatformSuffixStr(DockerPlatformEnum platform) {
+        return platform.isSuffix() ? ":" + platform.getPlatform() : "";
     }
 
     private String getWriteVersion() {

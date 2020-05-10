@@ -1,5 +1,6 @@
 #!/bin/sh
 set -x
+source /etc/profile
 cd /root/soft/Sentinel
 mvn clean package
 cd /root/soft/Sentinel/sentinel-dashboard

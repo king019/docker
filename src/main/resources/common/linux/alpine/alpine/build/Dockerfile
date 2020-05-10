@@ -15,7 +15,6 @@ RUN apk add openjdk11
 RUN apk add maven
 
 
-
 RUN chmod 755 /*.sh
 
 CMD /docker.sh

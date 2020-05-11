@@ -1,1 +1,0 @@
-king019/ubuntu:19.10docker

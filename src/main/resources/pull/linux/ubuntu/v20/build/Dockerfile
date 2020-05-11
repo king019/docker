@@ -1,3 +1,0 @@
-FROM ubuntu:20.04
-
-MAINTAINER king019

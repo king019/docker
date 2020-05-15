@@ -14,8 +14,8 @@ public enum DockerRegionEnum {
     HANG_ZHOU("hangzhou", "registry.cn-hangzhou.aliyuncs.com"),
     BEI_JING("beijing", "registry.cn-beijing.aliyuncs.com"),
     DOCKER("docker", ""),
-    SMP("smp", "docker:5000"),
-    LOCAL("local", "dockerlocal:5000", true);
+    //SMP("smp", "docker:5000"),
+    LOCAL("local", "docker:5000", true);
     private String region;
     private String host;
     private boolean special;

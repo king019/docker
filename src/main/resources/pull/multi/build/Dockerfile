@@ -27,12 +27,18 @@ FROM wurstmeister/kafka
 FROM docker:git
 
 
+FROM mysql:5.7
+FROM mysql
+
 FROM king019/centos
 FROM king019/alpine
 FROM king019/fedora
 FROM king019/linux
 FROM king019/ubuntu
 FROM king019/jdk
+
+
+
 
 
 MAINTAINER king019

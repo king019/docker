@@ -13,6 +13,8 @@ COPY docker.sh /docker.sh
 RUN apk add git
 RUN apk add openjdk11
 RUN apk add maven
+RUN apk add curl
+RUN apk add wget
 
 
 RUN chmod 755 /*.sh

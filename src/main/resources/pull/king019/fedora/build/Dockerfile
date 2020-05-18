@@ -1,4 +1,5 @@
-FROM alpine
+
+FROM king019/fedora
 
 
 

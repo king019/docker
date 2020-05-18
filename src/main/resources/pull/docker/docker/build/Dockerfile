@@ -1,4 +1,7 @@
-FROM alpine
+
+
+FROM docker:git
+
 
 
 

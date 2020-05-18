@@ -1,4 +1,6 @@
-FROM alpine
+
+FROM fedora
+
 
 
 

@@ -1,4 +1,5 @@
-FROM alpine
+
+FROM gitea/gitea
 
 
 

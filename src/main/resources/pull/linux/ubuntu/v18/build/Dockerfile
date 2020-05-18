@@ -1,4 +1,5 @@
-FROM alpine
+
+FROM ubuntu:18.10
 
 
 

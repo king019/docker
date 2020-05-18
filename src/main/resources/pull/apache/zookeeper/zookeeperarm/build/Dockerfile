@@ -1,4 +1,5 @@
-FROM alpine
+
+FROM arm64v8/zookeeper
 
 
 

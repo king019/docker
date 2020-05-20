@@ -1,4 +1,4 @@
-FROM docker:git
+FROM node
 
 
 

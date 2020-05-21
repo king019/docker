@@ -211,8 +211,7 @@ public class JenkinsBuildShell {
                         version = version.replace(":", "_");
                         String fileName = version.replace("/", "_");
                         version = "king019/mydocker_" + version.replace("/", "_") + ":docker";
-                        String fromVersion = "FROM "+version;
-                        List<String> innerLines = Lists.newArrayList(fromVersion);
+                        List<String> innerLines = Lists.newArrayList(line);
                         innerLines.add("MAINTAINER king019");
                         String dir = destfile.getParent() + "/" + fileName;
                         File newFile = new File(destfile.getParent() + "/" + fileName + "/Dockerfile");

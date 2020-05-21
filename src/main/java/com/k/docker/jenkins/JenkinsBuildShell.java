@@ -15,6 +15,7 @@ import com.k.docker.jenkins.model.emums.DockerRegionEnum;
 import com.k.docker.jenkins.util.PathBaseUtil;
 import com.k.docker.jenkins.util.PathUtil;
 import org.apache.commons.collections4.CollectionUtils;
+import org.apache.commons.collections4.functors.IfClosure;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -24,6 +25,7 @@ import org.junit.Test;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
@@ -170,10 +172,51 @@ public class JenkinsBuildShell {
 
     private void copyDir(File dir, String src, String dest, String region) throws Exception {
         for (File listFile : Objects.requireNonNull(dir.listFiles())) {
+            if (listFile.getName().equals("pull")) {
+                copyDirPull(listFile, src, dest, region);
+                continue;
+            }
             if (listFile.isFile()) {
                 copyFile(listFile, src, dest, region);
             } else {
                 copyDir(listFile, src, dest, region);
+            }
+        }
+    }
+
+    private void copyDirPull(File dir, String src, String dest, String region) throws Exception {
+        for (File listFile : Objects.requireNonNull(dir.listFiles())) {
+            if (listFile.isFile()) {
+                copyFilePull(listFile, src, dest, region);
+            } else {
+                copyDirPull(listFile, src, dest, region);
+            }
+        }
+    }
+
+    private void copyFilePull(File srcfile, String src, String dest, String region) throws Exception {
+        String absolutePath = srcfile.getAbsolutePath();
+        absolutePath = absolutePath.replace(src, dest + region + "/");
+        File destfile = new File(absolutePath);
+        copyFilePull(srcfile, destfile, region);
+    }
+
+    private void copyFilePull(File srcfile, File destfile, String region) throws Exception {
+        List<String> lines = FileUtils.readLines(srcfile, StandardCharsets.UTF_8);
+        if (CollectionUtils.isNotEmpty(lines)) {
+            if (srcfile.getName().equals("Dockerfile")) {
+                for (String line : lines) {
+                    if (line.startsWith("FROM")) {
+                        String version = line.replace("FROM", "").trim();
+                        version= version.replace(":", "_");
+                        String fileName = version.replace("/", "_");
+                        version = "FROM king019/mydocker_" + version.replace("/", "_")+":docker";
+                        List<String> innerLines = Lists.newArrayList(version);
+                        innerLines.add("MAINTAINER king019");
+                        File newFile = new File(destfile.getParent() + "/" + fileName);
+                        FileUtils.writeLines(newFile, innerLines);
+                    }
+                }
             }
         }
     }

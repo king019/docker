@@ -1,7 +1,0 @@
-FROM alpine
-
-
-
-
-
-MAINTAINER king019

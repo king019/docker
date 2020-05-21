@@ -208,17 +208,31 @@ public class JenkinsBuildShell {
                 for (String line : lines) {
                     if (line.startsWith("FROM")) {
                         String version = line.replace("FROM", "").trim();
-                        version= version.replace(":", "_");
+                        version = version.replace(":", "_");
                         String fileName = version.replace("/", "_");
-                        version = "FROM king019/mydocker_" + version.replace("/", "_")+":docker";
-                        List<String> innerLines = Lists.newArrayList(version);
+                        version = "king019/mydocker_" + version.replace("/", "_") + ":docker";
+                        String fromVersion = "FROM "+version;
+                        List<String> innerLines = Lists.newArrayList(fromVersion);
                         innerLines.add("MAINTAINER king019");
-                        File newFile = new File(destfile.getParent() + "/" + fileName);
+                        String dir = destfile.getParent() + "/" + fileName;
+                        File newFile = new File(destfile.getParent() + "/" + fileName + "/Dockerfile");
                         FileUtils.writeLines(newFile, innerLines);
+                        writeDef(dir, version);
                     }
                 }
             }
         }
+    }
+
+    private void writeDef(String dir, String version) throws Exception {
+        dir=dir+"/buildshell/docker";
+        File function = new File(dir + "/function.txt");
+        FileUtils.writeLines(function, Lists.newArrayList("only_local"));
+        File platform = new File(dir + "/platform.txt");
+        FileUtils.writeLines(platform, Lists.newArrayList("aarch64", "x86_64"));
+        File versionFile = new File(dir + "/version.txt");
+        FileUtils.writeLines(versionFile, Lists.newArrayList(version));
+
     }
 
     private void copyFile(File srcfile, String src, String dest, String region) throws Exception {

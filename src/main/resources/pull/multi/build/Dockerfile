@@ -41,8 +41,12 @@ FROM mysql
 
 FROM wurstmeister/kafka
 
+FROM portainer/portainer
+FROM uifd/ui-for-docker
+FROM hypriot/rpi-dockerui
 
 
+FROM sonatype/nexus3
 
 
 MAINTAINER king019

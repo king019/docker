@@ -14,7 +14,7 @@ RUN cd /root/soft/;mv apache-tomcat-9.0.35 tomcat
 RUN cd /root/soft/tomcat/;rm -fr * ./webapps
 RUN cd /root/soft/tomcat/;mkdir -p tomcat/webapps
 
-RUN cd /root/soft/tomcat/;cp /opt/soft/jenkins.war  /root/soft/tomcat/webapps/
+RUN cd /root/soft/tomcat/;cp /opt/soft/jenkins.war  /root/soft/tomcat/webapps/jenkins.war
 
 
 COPY docker.sh /docker.sh

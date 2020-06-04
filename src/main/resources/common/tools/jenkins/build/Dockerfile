@@ -12,9 +12,9 @@ RUN cp /opt/soft/jenkins.war /root/soft/jenkins.war
 RUN cd /root/soft/;tar -xzf apache-tomcat-9.0.35.tar.gz
 RUN cd /root/soft/;mv apache-tomcat-9.0.35 tomcat
 RUN cd /root/soft/tomcat/;rm -fr * ./webapps
-RUN cd /root/soft/tomcat/;mkdir -p tomcat/webapps
+RUN mkdir -p /root/soft/tomcat/webapps
 
-RUN cd /root/soft/tomcat/;cp /opt/soft/jenkins.war  /root/soft/tomcat/webapps/jenkins.war
+RUN cp /opt/soft/jenkins.war  /root/soft/tomcat/webapps/jenkins.war
 
 
 COPY docker.sh /docker.sh

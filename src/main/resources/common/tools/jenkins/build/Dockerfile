@@ -5,7 +5,7 @@ RUN apk add ttf-dejavu
 RUN mkdir -p /opt/soft
 RUN mkdir -p /root/tools/
 ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/apache-tomcat-9.0.35.tar.gz
-ADD https://mirrors.huaweicloud.com/jenkins/war/2.239/jenkins.war /opt/soft/jenkins.war
+ADD https://mirrors.huaweicloud.com/jenkins/war/latest/jenkins.war /opt/soft/jenkins.war
 
 
 RUN cp /opt/soft/apache-tomcat-9.0.35.tar.gz /root/tools/apache-tomcat-9.0.35.tar.gz

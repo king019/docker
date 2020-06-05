@@ -1,5 +1,5 @@
 mvn clean
-mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="${WORKSPACE} 20"
+mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="thread=1"
 
 sh ./target/aarch64_true.sh
 sh ./target/aarch64_docker_true.sh

@@ -23,6 +23,7 @@ FROM king019/fedora
 FROM king019/jdk
 FROM king019/linux
 FROM king019/ubuntu
+FROM king019/jenjins
 
 FROM alpine
 FROM centos:7

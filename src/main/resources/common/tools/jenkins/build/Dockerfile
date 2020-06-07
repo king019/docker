@@ -2,7 +2,7 @@ FROM  king019/alpine
 
 MAINTAINER king019
 RUN apk add ttf-dejavu
-RUN apk add docker
+#RUN apk add docker
 RUN mkdir -p /opt/soft
 RUN mkdir -p /root/tools/
 ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/apache-tomcat-9.0.35.tar.gz

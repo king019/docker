@@ -1,3 +1,12 @@
 {
-  "experimental": "enabled"
+  "experimental": true,
+  "registry-mirrors": [
+    "http://docker:5000",
+    "https://docker:5000",
+    "https://msb3wa7d.mirror.aliyuncs.com"
+  ],
+  "debug": true,
+  "insecure-registries": [
+    "docker:5000"
+  ]
 }

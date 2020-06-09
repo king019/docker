@@ -10,7 +10,8 @@ ADD http://download.sonatype.com/nexus/3/nexus-3.24.0-02-unix.tar.gz /opt/soft/n
 
 RUN cp /opt/soft/nexus-3.24.0-02-unix.tar.gz /root/tools/nexus-3.24.0-02-unix.tar.gz
 RUN cd /root/tools/;tar -xzf nexus-3.24.0-02-unix.tar.gz
-RUN cd /root/tools/;mv nexus-3.24.0-02 nexus
+RUN cd /root/tools/;mv nexus-3.24.0-02-unix nexus
+RUN cd /root/tools/nexus;mv nexus-3.24.0-02 nexus
 
 
 COPY docker.sh /docker.sh

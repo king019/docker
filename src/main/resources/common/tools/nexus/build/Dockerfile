@@ -10,9 +10,7 @@ COPY nexus-3.24.0-02-unix.tar.gz /opt/soft/nexus-3.24.0-02-unix.tar.gz
 
 RUN cp /opt/soft/nexus-3.24.0-02-unix.tar.gz /root/tools/nexus-3.24.0-02-unix.tar.gz
 RUN cd /root/tools/;tar -xzf nexus-3.24.0-02-unix.tar.gz
-RUN cd /root/tools/;mv nexus-3.24.0-02-unix nexus
-RUN cd /root/tools/nexus;mv nexus-3.24.0-02 nexus
-
+RUN cd /root/tools/;mv nexus-3.24.0-02 nexus
 
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh

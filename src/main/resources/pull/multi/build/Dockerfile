@@ -24,6 +24,7 @@ FROM king019/jdk
 FROM king019/linux
 FROM king019/ubuntu
 FROM king019/jenjins
+FROM king019/nexus
 
 FROM alpine
 FROM centos:7

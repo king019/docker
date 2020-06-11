@@ -39,6 +39,7 @@ FROM ubuntu:20.04
 
 FROM mysql:5.7
 FROM mysql
+FROM mariadb
 
 
 FROM wurstmeister/kafka

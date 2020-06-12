@@ -86,7 +86,7 @@ public class JenkinsUtil {
                         String fileName = substring.substring(lastIndexOf);
                         int fileIndex = line.indexOf(fileName);
                         String next = line.substring(fileIndex);
-                        next="COPY http://nginxdown:9500"+next;
+                        next="ADD http://nginxdown:9500"+next;
                         return next;
                     }
                 }

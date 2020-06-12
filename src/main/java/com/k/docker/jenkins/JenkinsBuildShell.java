@@ -5,6 +5,7 @@ import com.google.common.collect.Maps;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
 import com.k.docker.jenkins.model.emums.DockerParamEnum;
 import com.k.docker.jenkins.util.JenkinsUtil;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -15,7 +16,7 @@ import java.util.Objects;
 public class JenkinsBuildShell {
     private static Map<DockerParamEnum, String> map = Maps.newHashMap();
     static int multi = 1;
-    static boolean replace = true;
+    static boolean replace = false;
     static List<String> includes = Lists.newArrayList();
     static List<String> excludes = Lists.newArrayList();
 
@@ -34,6 +35,9 @@ public class JenkinsBuildShell {
         DockerJenkinsModel.setWORKSPACE(JenkinsUtil.getVal(DockerParamEnum.WORK_SPACE, map));
         {
             multi = Integer.parseInt(JenkinsUtil.getVal(DockerParamEnum.THREAD, map));
+        }
+        {
+            replace = StringUtils.equals("true",JenkinsUtil.getVal(DockerParamEnum.REPLACE, map));
         }
         {
             String val = JenkinsUtil.getVal(DockerParamEnum.INCLUDE, map);

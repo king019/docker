@@ -12,6 +12,7 @@ public enum DockerParamEnum {
     WORK_SPACE("ws","${WORKSPACE}"),
     THREAD("thread","1"),
     INCLUDE("in",""),
+    REPLACE("rep","false"),
      EXCLUDE  ("ex","");
     private String cmd;
     private String def;

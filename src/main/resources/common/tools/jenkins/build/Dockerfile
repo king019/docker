@@ -22,5 +22,10 @@ RUN cp /opt/soft/jenkins.war  /root/tools/tomcat/webapps/ROOT.war
 COPY docker.sh /docker.sh
 COPY config.json /config.json
 RUN mkdir /root/.docker;cp /config.json /root/.docker/config.json
+
+COPY daemon.json /daemon.json
+RUN mkdir /etc/docker;cp /daemon.json /etc/docker/daemon.json
+
+
 RUN chmod 755 /*.sh
 CMD /docker.sh

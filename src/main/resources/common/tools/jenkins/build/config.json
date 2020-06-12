@@ -1,5 +1,5 @@
 {
-  "experimental": true,
+  "experimental": "enabled",
   "registry-mirrors": [
     "http://docker:5000",
     "https://docker:5000",

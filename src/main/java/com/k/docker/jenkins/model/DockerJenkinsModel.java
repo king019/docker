@@ -10,6 +10,7 @@ import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
 import java.lang.management.PlatformLoggingMXBean;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
@@ -29,7 +30,7 @@ public class DockerJenkinsModel {
     private Map<DockerPlatformEnum, String> map = Maps.newHashMap();
     private String nextLine = "\n";
     private DockerRegionEnum region;
-
+    private List<String> dockerLines;
     public String buildBuild() {
         StringBuilder sb = new StringBuilder();
         sb.append("# index ");

@@ -23,8 +23,7 @@ RUN cd /opt/soft/version ; git clone https://github.com/king019/hub_git.git
 ADD https://github.com/AdoptOpenJDK/openjdk11-binaries/releases/download/jdk11u-2020-04-09-17-31/OpenJDK11U-jdk_arm_linux_hotspot_2020-04-09-17-31.tar.gz /opt/soft/OpenJDK11U-jdk_arm_linux_hotspot_2020-04-09-17-31.tar.gz
 
 RUN mkdir -p /opt/soft/
-#ADD https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.24/bin/apache-tomcat-9.0.24.tar.gz /opt/soft/apache-tomcat-9.0.24.tar.gz
-ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.24/bin/apache-tomcat-9.0.24.tar.gz /opt/soft/apache-tomcat-9.0.24.tar.gz
+ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/apache-tomcat-9.0.35.tar.gz
 
 COPY docker.sh /docker.sh
 CMD /docker.sh

@@ -15,6 +15,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class JenkinsUtil {
@@ -22,8 +23,10 @@ public class JenkinsUtil {
         return map.getOrDefault(paramEnum, paramEnum.getDef());
     }
 
-    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes,boolean replace) throws Exception {
-        List<DockerJenkinsModel> models = buildModel();
+    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace) throws Exception {
+        String dockerDest = "dockerDest/";
+        List<DockerJenkinsModel> models = buildModel(dockerDest);
+        replaceDir(dockerDest, replace);
         models = filter(models, includes, excludes);
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         writeNormal("", models, true, multi);
@@ -31,9 +34,14 @@ public class JenkinsUtil {
     }
 
     public List<DockerJenkinsModel> buildModel() throws Exception {
+        String dockerDest = "dockerDest/";
+        return buildModel(dockerDest);
+    }
+
+    public List<DockerJenkinsModel> buildModel(String dockerDest) throws Exception {
         String resource = PathUtil.getResource();
         File file = new File(resource);
-        String dockerDest = "dockerDest/";
+
         Map<DockerRegionEnum, File> map = Maps.newHashMap();
         copyFile(file, dockerDest, map);
         List<DockerJenkinsModel> models = Lists.newArrayList();
@@ -43,6 +51,50 @@ public class JenkinsUtil {
             }
         }
         return models;
+    }
+
+    private void replaceDir(String dockerDest, boolean replace) throws IOException {
+        if (!replace) {
+            return;
+        }
+        File dir = new File(PathUtil.getTargetPath(dockerDest));
+        replaceHttp(dir);
+    }
+
+    private void replaceHttp(File dir) throws IOException {
+        for (File file : dir.listFiles()) {
+            if (file.isDirectory()) {
+                replaceHttp(file);
+            } else if (file.getName().equals("Dockerfile")) {
+                List<String> lines = FileUtils.readLines(file, StandardCharsets.UTF_8);
+                lines = replaceLines(lines);
+                FileUtils.writeLines(file, lines);
+            }
+        }
+    }
+
+    private List<String> replaceLines(List<String> lines) {
+        return lines.stream().map(new Function<String, String>() {
+            @Override
+            public String apply(String line) {
+                line = line.trim();
+                if (line.startsWith("ADD")) {
+                    if (line.indexOf("http")>0) {
+                        int start = line.indexOf("http");
+                        int end = line.lastIndexOf(" ");
+                        String substring = line.substring(start, end);
+                        int lastIndexOf = substring.lastIndexOf("/");
+                        String fileName = substring.substring(lastIndexOf);
+                        int fileIndex = line.indexOf(fileName);
+                        String next = line.substring(fileIndex);
+                        next="COPY http://nginxdown://9500"+next;
+                        return next;
+                    }
+                }
+                return line;
+            }
+        }).collect(Collectors.toList());
+
     }
 
     private List<DockerJenkinsModel> filterNormal(List<DockerJenkinsModel> models) {

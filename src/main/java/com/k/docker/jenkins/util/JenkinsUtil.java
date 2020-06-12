@@ -41,7 +41,6 @@ public class JenkinsUtil {
     public List<DockerJenkinsModel> buildModel(String dockerDest) throws Exception {
         String resource = PathUtil.getResource();
         File file = new File(resource);
-
         Map<DockerRegionEnum, File> map = Maps.newHashMap();
         copyFile(file, dockerDest, map);
         List<DockerJenkinsModel> models = Lists.newArrayList();
@@ -87,7 +86,7 @@ public class JenkinsUtil {
                         String fileName = substring.substring(lastIndexOf);
                         int fileIndex = line.indexOf(fileName);
                         String next = line.substring(fileIndex);
-                        next="COPY http://nginxdown://9500"+next;
+                        next="COPY http://nginxdown:9500"+next;
                         return next;
                     }
                 }

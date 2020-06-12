@@ -14,7 +14,8 @@ import java.util.Objects;
 
 public class JenkinsBuildShell {
     private static Map<DockerParamEnum, String> map = Maps.newHashMap();
-    static int multi = 1;static boolean replace = true;
+    static int multi = 1;
+    static boolean replace = true;
     static List<String> includes = Lists.newArrayList();
     static List<String> excludes = Lists.newArrayList();
 
@@ -48,17 +49,18 @@ public class JenkinsBuildShell {
             excludes.add("ubuntu");
         }
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes,replace);
+        shell.jenkinsWrite(multi, includes, excludes, replace);
     }
 
     @Test
     public void testReplaceTrue() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes,true);
+        shell.jenkinsWrite(multi, includes, excludes, true);
     }
+
     @Test
     public void testReplaceFalse() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes,false);
+        shell.jenkinsWrite(multi, includes, excludes, false);
     }
 }

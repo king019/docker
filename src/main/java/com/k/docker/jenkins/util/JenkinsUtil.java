@@ -104,14 +104,14 @@ public class JenkinsUtil {
     }
 
     private String startGitClone(String line) {
-        if (line.contains("git clone") ) {
+        if (line.contains("git clone")) {
             line = line.trim();
             int start = line.indexOf("git clone") + 9;
             int end = line.lastIndexOf(".git") + 4;
             String gitAddr = line.substring(start, end).trim();
             int lastIndexOf = gitAddr.lastIndexOf("/");
             String replceDir = gitAddr.substring(lastIndexOf);
-            replceDir="http://gitea:3000/king019"+replceDir;
+            replceDir = "http://gitea:3000/king019" + replceDir;
             line = line.replace(gitAddr, replceDir);
             return line;
         }

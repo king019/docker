@@ -38,7 +38,9 @@ public class JenkinsBuildFile {
         }).collect(Collectors.toSet());
         String downPath = PathUtil.getTargetPath("down.txt");
         FileUtils.writeLines(new File(downPath), lines);
-    } @Test
+    }
+
+    @Test
     public void testGitClone() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
         List<DockerJenkinsModel> models = shell.buildModel();
@@ -54,7 +56,7 @@ public class JenkinsBuildFile {
         lines = lines.stream().map(line -> {
             line = line.trim();
             int start = line.indexOf("git clone");
-            int end = line.lastIndexOf(".git")+4;
+            int end = line.lastIndexOf(".git") + 4;
             return line.substring(start, end).trim();
         }).collect(Collectors.toSet());
         String downPath = PathUtil.getTargetPath("gitclone.txt");

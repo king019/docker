@@ -2,11 +2,10 @@ FROM  king019/alpine:jdk8
 
 MAINTAINER king019
 RUN mkdir -p /opt/soft
-RUN cd /opt/soft;git clone https://gitee.com/king019/nacos.git
-
+ADD https://github.com/alibaba/nacos/releases/download/1.3.0/nacos-server-1.3.0.zip  /opt/soft/nacos-server-1.3.0.zip
 RUN mkdir -p /root/tools
-RUN cp -r /opt/soft/nacos   /root/tools/nacos
-
+RUN cp /opt/soft/nacos-server-1.3.0.zip   /root/tools/nacos-server-1.3.0.zip
+RUN cd /root/tools;unzip nacos-server-1.3.0.zip
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh
 CMD /docker.sh

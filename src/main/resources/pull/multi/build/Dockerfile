@@ -15,6 +15,9 @@ FROM redis
 FROM registry
 FROM dorowu/ubuntu-desktop-lxde-vnc
 
+
+FROM nacos/nacos-server
+
 FROM gitea/gitea
 
 FROM king019/alpine

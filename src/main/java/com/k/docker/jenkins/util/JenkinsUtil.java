@@ -78,22 +78,44 @@ public class JenkinsUtil {
             public String apply(String line) {
                 line = line.trim();
                 if (line.startsWith("ADD")) {
-                    if (line.indexOf("http")>0) {
-                        int start = line.indexOf("http");
-                        int end = line.lastIndexOf(" ");
-                        String substring = line.substring(start, end);
-                        int lastIndexOf = substring.lastIndexOf("/");
-                        String fileName = substring.substring(lastIndexOf);
-                        int fileIndex = line.indexOf(fileName);
-                        String next = line.substring(fileIndex);
-                        next="ADD http://nginxdown:9500"+next;
-                        return next;
-                    }
+                    return startADD(line);
+                }
+                if (line.contains("git clone")) {
+                    return startGitClone(line);
                 }
                 return line;
             }
         }).collect(Collectors.toList());
+    }
 
+    private String startADD(String line) {
+        if (line.indexOf("http") > 0) {
+            int start = line.indexOf("http");
+            int end = line.lastIndexOf(" ");
+            String substring = line.substring(start, end);
+            int lastIndexOf = substring.lastIndexOf("/");
+            String fileName = substring.substring(lastIndexOf);
+            int fileIndex = line.indexOf(fileName);
+            String next = line.substring(fileIndex);
+            next = "ADD http://nginxdown:9500" + next;
+            return next;
+        }
+        return line;
+    }
+
+    private String startGitClone(String line) {
+        if (line.contains("git clone") ) {
+            line = line.trim();
+            int start = line.indexOf("git clone") + 9;
+            int end = line.lastIndexOf(".git") + 4;
+            String gitAddr = line.substring(start, end).trim();
+            int lastIndexOf = gitAddr.lastIndexOf("/");
+            String replceDir = gitAddr.substring(lastIndexOf);
+            replceDir="http://gitea:3000/king019"+replceDir;
+            line = line.replace(gitAddr, replceDir);
+            return line;
+        }
+        return line;
     }
 
     private List<DockerJenkinsModel> filterNormal(List<DockerJenkinsModel> models) {

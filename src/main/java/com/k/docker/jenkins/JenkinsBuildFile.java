@@ -11,17 +11,19 @@ import org.junit.Test;
 import java.io.File;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Consumer;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class JenkinsBuildFile {
 
     public static void main(String[] args) throws Exception {
         JenkinsBuildFile shell = new JenkinsBuildFile();
-        shell.test();
+        shell.testADD();
     }
 
     @Test
-    public void test() throws Exception {
+    public void testADD() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
         List<DockerJenkinsModel> models = shell.buildModel();
         Set<String> lines = Sets.newHashSet();
@@ -35,6 +37,27 @@ public class JenkinsBuildFile {
             return line.substring(start, end).trim();
         }).collect(Collectors.toSet());
         String downPath = PathUtil.getTargetPath("down.txt");
+        FileUtils.writeLines(new File(downPath), lines);
+    } @Test
+    public void testGitClone() throws Exception {
+        JenkinsUtil shell = new JenkinsUtil();
+        List<DockerJenkinsModel> models = shell.buildModel();
+        Set<String> lines = Sets.newHashSet();
+        for (DockerJenkinsModel model : models) {
+            ListUtils.emptyIfNull(model.getDockerLines()).stream().filter(new Predicate<String>() {
+                @Override
+                public boolean test(String line) {
+                    return line.contains("git clone");
+                }
+            }).forEach(lines::add);
+        }
+        lines = lines.stream().map(line -> {
+            line = line.trim();
+            int start = line.indexOf("git clone");
+            int end = line.lastIndexOf(".git")+4;
+            return line.substring(start, end).trim();
+        }).collect(Collectors.toSet());
+        String downPath = PathUtil.getTargetPath("gitclone.txt");
         FileUtils.writeLines(new File(downPath), lines);
     }
 }

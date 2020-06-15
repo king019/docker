@@ -1,5 +1,6 @@
 package com.k.docker.jenkins;
 
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
 import com.k.docker.jenkins.util.JenkinsUtil;
@@ -9,6 +10,8 @@ import org.apache.commons.io.FileUtils;
 import org.junit.Test;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -36,8 +39,10 @@ public class JenkinsBuildFile {
             int end = line.lastIndexOf(" ");
             return line.substring(start, end).trim();
         }).collect(Collectors.toSet());
+        List<String> linesSort = Lists.newArrayList(lines);
+        Collections.sort(linesSort);
         String downPath = PathUtil.getTargetPath("down.txt");
-        FileUtils.writeLines(new File(downPath), lines);
+        FileUtils.writeLines(new File(downPath), linesSort);
     }
 
     @Test

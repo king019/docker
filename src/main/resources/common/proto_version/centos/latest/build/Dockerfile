@@ -1,4 +1,4 @@
-FROM fedora:33
+FROM centos
 
 MAINTAINER king019
 

@@ -2,6 +2,6 @@
 set -x
 source /etc/profile
 cd /root/tools
-nohup java $JAVA_OPTS -jar  dubbo-consumer.jar &
+nohup java $JAVA_OPTS -jar  fw_rpc_dubbo_anno_api-1.0-SNAPSHOT.jar &
 
 tail -f /docker.sh

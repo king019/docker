@@ -8,6 +8,8 @@ RUN cp /opt/soft/dubbo-monitor-simple-2.0.0-assembly.tar.gz /root/tools/dubbo-mo
 RUN cd /root/tools; tar -xzf dubbo-monitor-simple-2.0.0-assembly.tar.gz
 RUN cd /root/tools; mv dubbo-monitor-simple-2.0.0 monitor
 
+EXPOSE 8080
+
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh
 CMD /docker.sh

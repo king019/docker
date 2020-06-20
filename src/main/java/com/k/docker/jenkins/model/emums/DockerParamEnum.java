@@ -13,6 +13,7 @@ public enum DockerParamEnum {
     THREAD("thread","1"),
     INCLUDE("in",""),
     REPLACE("rep","false"),
+    PUSH("push","true"),
      EXCLUDE  ("ex","");
     private String cmd;
     private String def;

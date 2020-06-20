@@ -16,6 +16,7 @@ public class JenkinsBuildShell {
     private static Map<DockerParamEnum, String> map = Maps.newHashMap();
     static int multi = 1;
     static boolean replace = false;
+    static boolean push = true;
     static List<String> includes = Lists.newArrayList();
     static List<String> excludes = Lists.newArrayList();
 
@@ -36,7 +37,10 @@ public class JenkinsBuildShell {
             multi = Integer.parseInt(JenkinsUtil.getVal(DockerParamEnum.THREAD, map));
         }
         {
-            replace = StringUtils.equals("true",JenkinsUtil.getVal(DockerParamEnum.REPLACE, map));
+            replace = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.REPLACE, map));
+        }
+        {
+            push = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.PUSH, map));
         }
         {
             String val = JenkinsUtil.getVal(DockerParamEnum.INCLUDE, map);
@@ -52,18 +56,18 @@ public class JenkinsBuildShell {
             excludes.add("ubuntu");
         }
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, replace);
+        shell.jenkinsWrite(multi, includes, excludes, replace, push);
     }
 
     @Test
     public void testReplaceTrue() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, true);
+        shell.jenkinsWrite(multi, includes, excludes, true, push);
     }
 
     @Test
     public void testReplaceFalse() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, false);
+        shell.jenkinsWrite(multi, includes, excludes, false, push);
     }
 }

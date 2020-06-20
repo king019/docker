@@ -23,14 +23,14 @@ public class JenkinsUtil {
         return map.getOrDefault(paramEnum, paramEnum.getDef());
     }
 
-    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace,boolean push) throws Exception {
+    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push) throws Exception {
         String dockerDest = "dockerDest/";
         List<DockerJenkinsModel> models = buildModel(dockerDest);
         replaceDir(dockerDest, replace);
         models = filter(models, includes, excludes);
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
-        writeNormal("", models, true, multi,  push);
-        writeLocal(DockerRegionEnum.LOCAL, models, false, multi,  push);
+        writeNormal("", models, true, multi, push);
+        writeLocal(DockerRegionEnum.LOCAL, models, false, multi, push);
     }
 
     public List<DockerJenkinsModel> buildModel() throws Exception {
@@ -126,7 +126,7 @@ public class JenkinsUtil {
         return models.stream().filter(model -> DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
     }
 
-    private void writeLocal(DockerRegionEnum regionEnum, List<DockerJenkinsModel> models, boolean mix, int multi,boolean push) {
+    private void writeLocal(DockerRegionEnum regionEnum, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push) {
         models = filterSpecial(models);
         models = models.stream().filter(model -> DockerPlatformEnum.ADM64.equals(model.getPlatform())).map(model -> {
             model.setPlatforms(ImmutableSet.of());
@@ -140,21 +140,21 @@ public class JenkinsUtil {
                 return true;
             }
         }).collect(Collectors.toList());
-        writeShell(regionEnum.getRegion() + "/", models, mix, multi,  push);
+        writeShell(regionEnum.getRegion() + "/", models, mix, multi, push);
     }
 
-    private void writeNormal(String dir, List<DockerJenkinsModel> models, boolean mix, int multi,boolean push) {
+    private void writeNormal(String dir, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push) {
         models = filterNormal(models);
         models = models.stream().filter(model -> !model.getFunctions().contains(DockerFunctionEnum.ONLY_LOCAL)).collect(Collectors.toList());
-        writeShell(dir, models, mix, multi,push);
+        writeShell(dir, models, mix, multi, push);
     }
 
-    private void writeShell(String dir, List<DockerJenkinsModel> models, boolean mix, int multi,boolean push) {
+    private void writeShell(String dir, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push) {
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
         models.forEach(model -> multimap.put(model.getPlatform().getPlatform() + "_" + model.getRegion().getRegion(), model));
         models.forEach(model -> multimap.put(model.getPlatform().getPlatform(), model));
         multimap.asMap().forEach((regionPlat, dockerJenkinsModels) -> {
-            writePlat(dir, regionPlat, dockerJenkinsModels, mix, multi,push);
+            writePlat(dir, regionPlat, dockerJenkinsModels, mix, multi, push);
             //writePlat(regionPlat, dockerJenkinsModels, false);
         });
     }
@@ -281,16 +281,16 @@ public class JenkinsUtil {
         FileUtils.writeLines(destfile, lines);
     }
 
-    private void writePlat(String dir, String plat, Collection<DockerJenkinsModel> models, boolean mix, int multi,boolean push) {
+    private void writePlat(String dir, String plat, Collection<DockerJenkinsModel> models, boolean mix, int multi, boolean push) {
         List<String> lines = Lists.newArrayList();
         lines.add("#!/bin/sh");
         lines.add("set -x");
         Map<Integer, List<DockerJenkinsModel>> map = models.stream().collect(Collectors.groupingBy(DockerJenkinsModel::getIndex));
         buildBuildLines(lines, map, multi, (strings, model) -> {
-            lines.add(model.buildBuild());if(push){
+            lines.add(model.buildBuild());
+            if (push) {
                 lines.add(model.buildPush());
             }
-
             if (mix) {
                 lines.add(model.getMap().get(model.getPlatform()));
             }

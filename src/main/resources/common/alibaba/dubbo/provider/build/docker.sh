@@ -1,7 +1,7 @@
 #!/bin/sh
 set -x
 source /etc/profile
-cd /root/tools
-nohup java $JAVA_OPTS -jar  fw_rpc_dubbo_anno_service-1.0-SNAPSHOT.jar >>log.txt &
+cd /root/soft
+nohup java $JAVA_OPTS -jar  /root/tools/fw_rpc_dubbo_anno_service-1.0-SNAPSHOT.jar >>log.txt &
 
 tail -f /docker.sh

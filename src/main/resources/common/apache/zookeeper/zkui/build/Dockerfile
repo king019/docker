@@ -2,7 +2,7 @@ FROM  king019/alpine
 
 MAINTAINER king019
 RUN mkdir -p /opt/soft
-ADD http://nginxdown/zkui-2.0-SNAPSHOT-jar-with-dependencies.jar /opt/soft/zkui-2.0-SNAPSHOT-jar-with-dependencies.jar
+ADD http://nginxdown:9500/zkui-2.0-SNAPSHOT-jar-with-dependencies.jar /opt/soft/zkui-2.0-SNAPSHOT-jar-with-dependencies.jar
 COPY config.cfg /opt/soft/config.cfg
 RUN mkdir -p /root/tools
 RUN cp /opt/soft/config.cfg   /root/tools/config.cfg

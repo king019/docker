@@ -2,7 +2,7 @@ FROM  king019/alpine
 
 MAINTAINER king019
 RUN mkdir -p /opt/soft
-ADD http://nginxdown/dubbo-monitor-simple-2.0.0-assembly.tar.gz /opt/soft/dubbo-monitor-simple-2.0.0-assembly.tar.gz
+ADD http://nginxdown:9500/dubbo-monitor-simple-2.0.0-assembly.tar.gz /opt/soft/dubbo-monitor-simple-2.0.0-assembly.tar.gz
 RUN mkdir -p /root/tools
 RUN cp /opt/soft/dubbo-monitor-simple-2.0.0-assembly.tar.gz /root/tools/dubbo-monitor-simple-2.0.0-assembly.tar.gz
 RUN cd /root/tools; tar -xzf dubbo-monitor-simple-2.0.0-assembly.tar.gz

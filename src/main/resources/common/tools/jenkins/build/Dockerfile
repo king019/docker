@@ -7,7 +7,6 @@ RUN mkdir -p /opt/soft
 RUN mkdir -p /root/tools/
 ADD https://mirrors.huaweicloud.com/jenkins/war/latest/jenkins.war /opt/soft/tools/jenkins.war
 
-RUN cd /root/tools/tomcat; ls
 RUN cd /root/tools/tomcat/webapps;rm -fr *
 RUN mkdir -p /root/tools/tomcat/webapps
 

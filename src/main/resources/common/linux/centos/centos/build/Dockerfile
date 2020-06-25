@@ -47,7 +47,6 @@ RUN yum -y install  wget
 RUN yum -y install  hg
 RUN yum -y install  net-tools
 RUN yum -y install  unzip
-RUN yum -y install  which
 RUN yum -y install  openssh-server
 RUN yum -y install  openssh-clients
 RUN yum -y install  go
@@ -78,7 +77,8 @@ RUN mv /opt/soft/tools/apache-maven-3.6.3 /opt/soft/tools/maven
 
 RUN cd /opt/soft/tools/;tar -xzf apache-tomcat-9.0.35.tar.gz
 RUN cd /opt/soft/tools/;mv apache-tomcat-9.0.35 tomcat
-RUN mv /opt/soft/tools/tomcat /root/tools
+RUN mkdir -p /root/tools/tomcat
+RUN mv /opt/soft/tools/tomcat /root/tools/tomcat
 
 
 #RUN echo 'export MAVEN_HOME=/opt/soft/tools/maven' >> /root/.bashrc

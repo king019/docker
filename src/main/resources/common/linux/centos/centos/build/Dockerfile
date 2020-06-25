@@ -3,6 +3,7 @@ FROM king019/centos:p
 MAINTAINER king019
 
 RUN mkdir -p /root/soft
+RUN mkdir -p /root/tools
 RUN mkdir -p /opt/soft
 
 COPY settings.xml /root/.m2/settings.xml
@@ -77,8 +78,7 @@ RUN mv /opt/soft/tools/apache-maven-3.6.3 /opt/soft/tools/maven
 
 RUN cd /opt/soft/tools/;tar -xzf apache-tomcat-9.0.35.tar.gz
 RUN cd /opt/soft/tools/;mv apache-tomcat-9.0.35 tomcat
-RUN mkdir -p /root/tools/tomcat
-RUN mv /opt/soft/tools/tomcat /root/tools/tomcat
+RUN mv /opt/soft/tools/tomcat /root/tools
 
 
 #RUN echo 'export MAVEN_HOME=/opt/soft/tools/maven' >> /root/.bashrc

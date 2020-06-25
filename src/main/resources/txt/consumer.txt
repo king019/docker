@@ -1,0 +1,10 @@
+https://github.com/SonarSource/docker-sonarqube.git
+只能x86
+cd 8/community
+
+docker build -t king019/sonarqube:aarch64   .
+docker push king019/sonarqube:aarch64
+docker manifest create  -a king019/sonarqube king019/sonarqube:aarch64  king019/sonarqube:x86_64
+docker manifest annotate king019/sonarqube king019/sonarqube:aarch64   --os-features linux/ARM64
+docker manifest annotate king019/sonarqube king019/sonarqube:x86_64   --os-features linux/ADM64
+docker manifest push -p king019/sonarqube

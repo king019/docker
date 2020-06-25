@@ -63,25 +63,28 @@ RUN yum -y install  mercurial
 #nodejs
 #RUN curl --silent --location https://rpm.nodesource.com/setup_12.x | bash -
 #RUN yum -y install nodejs
-#ADD https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.22/bin/apache-tomcat-9.0.22.tar.gz /opt/soft/apache-tomcat-9.0.22.tar.gz
-#ADD https://archive.apache.org/dist/tomcat/tomcat-8/v8.5.43/bin/apache-tomcat-8.5.43.tar.gz /opt/soft/apache-tomcat-8.5.43.tar.gz
 #ADD https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.94/bin/apache-tomcat-7.0.94.tar.gz /opt/soft/apache-tomcat-7.0.94.tar.gz
 
 
-ADD http://maven.aliyun.com/nexus/content/groups/public/org/eclipse/jetty/jetty-distribution/9.4.19.v20190610/jetty-distribution-9.4.19.v20190610.tar.gz /opt/soft/tool/jetty-distribution-9.4.19.v20190610.tar.gz
-ADD https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz /opt/soft/tool/apache-maven-3.6.3-bin.tar.gz
-ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/tool/apache-tomcat-9.0.35.tar.gz
+ADD http://maven.aliyun.com/nexus/content/groups/public/org/eclipse/jetty/jetty-distribution/9.4.19.v20190610/jetty-distribution-9.4.19.v20190610.tar.gz /opt/soft/tools/jetty-distribution-9.4.19.v20190610.tar.gz
+ADD https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz /opt/soft/tools/apache-maven-3.6.3-bin.tar.gz
+ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/tools/apache-tomcat-9.0.35.tar.gz
 
 
 
-RUN mkdir -p /opt/soft/tool
-RUN cd /opt/soft/tool;tar -xzf apache-maven-3.6.3-bin.tar.gz
-RUN mv /opt/soft/tool/apache-maven-3.6.3 /opt/soft/tool/maven
+RUN cd /opt/soft/tools;tar -xzf apache-maven-3.6.3-bin.tar.gz
+RUN mv /opt/soft/tools/apache-maven-3.6.3 /opt/soft/tools/maven
 
-#RUN echo 'export MAVEN_HOME=/opt/soft/tool/maven' >> /root/.bashrc
+
+RUN cd /opt/soft/tools/;tar -xzf apache-tomcat-9.0.35.tar.gz
+RUN cd /opt/soft/tools/;mv apache-tomcat-9.0.35 tomcat
+RUN cp -r /opt/soft/tools/tomcat/ /root/tools/tomcat
+
+
+#RUN echo 'export MAVEN_HOME=/opt/soft/tools/maven' >> /root/.bashrc
 #RUN echo 'export PATH=$MAVEN_HOME/bin:$PATH' >> /root/.bashrc
 
-RUN echo 'export MAVEN_HOME=/opt/soft/tool/maven' >> /etc/profile
+RUN echo 'export MAVEN_HOME=/opt/soft/tools/maven' >> /etc/profile
 RUN echo 'export PATH=$MAVEN_HOME/bin:$PATH' >> /etc/profile
 
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile

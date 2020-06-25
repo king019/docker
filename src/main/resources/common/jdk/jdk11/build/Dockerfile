@@ -1,14 +1,10 @@
-FROM  king019/centos:b
+FROM  king019/centos
 
 MAINTAINER king019
-
-RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile
-RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
 
 
 RUN mkdir -p /opt/soft/
-ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/apache-tomcat-9.0.35.tar.gz
 
 COPY docker.sh /docker.sh
 CMD /docker.sh

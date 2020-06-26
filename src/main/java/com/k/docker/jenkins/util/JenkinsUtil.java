@@ -22,10 +22,12 @@ public class JenkinsUtil {
     public static String getVal(DockerParamEnum paramEnum, Map<DockerParamEnum, String> map) {
         return map.getOrDefault(paramEnum, paramEnum.getDef());
     }
-
-    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push) throws Exception {
+    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push ) throws Exception {
+        jenkinsWrite(  multi,   includes,  excludes,   replace,   push ,   true);
+    }
+    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push, boolean inDocker) throws Exception {
         String dockerDest = "dockerDest/";
-        List<DockerJenkinsModel> models = buildModel(dockerDest);
+        List<DockerJenkinsModel> models = buildModel(dockerDest,inDocker);
         replaceDir(dockerDest, replace);
         models = filter(models, includes, excludes);
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
@@ -35,16 +37,21 @@ public class JenkinsUtil {
 
     public List<DockerJenkinsModel> buildModel() throws Exception {
         String dockerDest = "dockerDest/";
-        return buildModel(dockerDest);
+        return buildModel(dockerDest, true);
     }
 
-    public List<DockerJenkinsModel> buildModel(String dockerDest) throws Exception {
+    public List<DockerJenkinsModel> buildModel(String dockerDest, boolean inDocker) throws Exception {
         String resource = PathUtil.getResource();
         File file = new File(resource);
         Map<DockerRegionEnum, File> map = Maps.newHashMap();
         copyFile(file, dockerDest, map);
         List<DockerJenkinsModel> models = Lists.newArrayList();
         for (DockerRegionEnum regionEnum : map.keySet()) {
+            if (!inDocker) {
+                if (regionEnum.equals(DockerRegionEnum.DOCKER)) {
+                    continue;
+                }
+            }
             for (File listFile : Objects.requireNonNull(map.get(regionEnum).listFiles())) {
                 models.addAll(readFirst(regionEnum, listFile));
             }

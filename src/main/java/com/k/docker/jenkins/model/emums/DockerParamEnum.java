@@ -14,6 +14,7 @@ public enum DockerParamEnum {
     INCLUDE("in",""),
     REPLACE("rep","false"),
     PUSH("push","true"),
+    IN_DOCKER("inDk","false"),
      EXCLUDE  ("ex","");
     private String cmd;
     private String def;

@@ -3,8 +3,14 @@ https://github.com/king019/docker.git
 
 
 jenkins
+docker login --username=906451283@qq.com registry.cn-shanghai.aliyuncs.com
+docker login --username=906451283@qq.com registry.cn-huhehaote.aliyuncs.com
+docker login --username=906451283@qq.com registry.cn-shenzhen.aliyuncs.com
 docker login --username=906451283@qq.com registry.cn-beijing.aliyuncs.com
+
 docker login --username=906451283@qq.com registry.cn-hangzhou.aliyuncs.com
+
+beijing
 docker login -u king019
 
 

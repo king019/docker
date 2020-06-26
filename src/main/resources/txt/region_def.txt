@@ -3,4 +3,4 @@ aliyun_shanghai
 aliyun_huhehaote
 aliyun_shenzhen
 aliyun_beijing
-local
+local_region

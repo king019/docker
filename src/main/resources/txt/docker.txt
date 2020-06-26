@@ -1,6 +1,7 @@
 https://code.aliyun.com/king019/docker.git
 https://github.com/king019/docker.git
 
+docker exec -it jenkins /bin/sh
 
 jenkins
 docker login --username=906451283@qq.com registry.cn-shanghai.aliyuncs.com

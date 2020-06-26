@@ -1,3 +1,6 @@
 docker
+shanghai
+huhehaote
+shenzhen
 beijing
 local

@@ -11,7 +11,10 @@ import java.util.stream.Collectors;
 
 @Getter
 public enum DockerRegionEnum {
-    HANG_ZHOU("hangzhou", "registry.cn-hangzhou.aliyuncs.com"),
+    //HANG_ZHOU("hangzhou", "registry.cn-hangzhou.aliyuncs.com"),
+    SHANG_HAI("shanghai", "registry.cn-shanghai.aliyuncs.com"),
+    HUHEHAOTE("huhehaote", "registry.cn-huhehaote.aliyuncs.com"),
+    SHENZHEN("shenzhen", "registry.cn-shenzhen.aliyuncs.com"),
     BEI_JING("beijing", "registry.cn-beijing.aliyuncs.com"),
     DOCKER("docker", ""),
     //SMP("smp", "docker:5000"),

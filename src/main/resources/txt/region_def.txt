@@ -1,6 +1,6 @@
 docker
-shanghai
-huhehaote
-shenzhen
-beijing
+aliyun_shanghai
+aliyun_huhehaote
+aliyun_shenzhen
+aliyun_beijing
 local

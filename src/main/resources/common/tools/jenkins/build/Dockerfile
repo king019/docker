@@ -5,7 +5,8 @@ MAINTAINER king019
 #RUN apk add docker
 RUN mkdir -p /opt/soft
 RUN mkdir -p /root/tools/
-ADD https://mirrors.huaweicloud.com/jenkins/war/latest/jenkins.war /opt/soft/tools/jenkins.war
+#ADD https://mirrors.huaweicloud.com/jenkins/war/latest/jenkins.war /opt/soft/tools/jenkins.war
+ADD https://mirrors.huaweicloud.com/jenkins/war/2.242/jenkins.war /opt/soft/tools/jenkins.war
 
 RUN cd /root/tools/tomcat/webapps;rm -fr *
 RUN mkdir -p /root/tools/tomcat/webapps

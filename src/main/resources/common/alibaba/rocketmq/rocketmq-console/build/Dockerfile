@@ -1,9 +1,10 @@
 FROM king019/alpine
-RUN mkdir -p /opt/soft
-ADD http://nginxdown:9500/dubbo-admin-0.2.0.jar /opt/soft/dubbo-admin-0.2.0.jar
-RUN mkdir -p /root/tools
-RUN cp /opt/soft/dubbo-admin-0.2.0.jar /root/tools/dubbo-admin-0.2.0.jar
 
+MAINTAINER king019
+
+RUN mkdir -p /opt/soft/version
+
+RUN cd /opt/soft/version;http://gitea:3000/king019/rocketmq-externals.git
 EXPOSE 8080
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh

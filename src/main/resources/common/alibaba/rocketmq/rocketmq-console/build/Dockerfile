@@ -2,10 +2,10 @@ FROM king019/alpine
 
 MAINTAINER king019
 
-RUN mkdir -p /opt/soft/version
+ADD http://nginxdown:9500/rocketmq-console-ng.jar /opt/soft/rocketmq-console-ng.jar
 
-RUN cd /opt/soft/version;git clone http://gitea:3000/king019/rocketmq-externals.git
-EXPOSE 8080
+RUN mv /opt/soft/rocketmq-console-ng.jar /root/tools/rocketmq-console-ng.jar
+
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh
 CMD /docker.sh

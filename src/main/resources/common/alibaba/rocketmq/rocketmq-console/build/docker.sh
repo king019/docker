@@ -2,5 +2,5 @@
 set -x
 source /etc/profile
 cd /root/tools
-java $JAVA_OPTS -jar rocketmq-console-ng.jar
+nohup java $JAVA_OPTS -jar rocketmq-console-ng.jar >>log.txt &
 tail -f /docker.sh

@@ -29,6 +29,7 @@ COPY run/git.sh /opt/soft/git.sh
 #base
 #RUN yum -y install  maven
 RUN yum -y install  java-11-openjdk-devel
+RUN yum -y install  java-1.8.0-openjdk-devel
 RUN yum -y install  git
 RUN yum -y install  wget
 RUN yum -y install  net-tools

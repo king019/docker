@@ -6,7 +6,7 @@ RUN mkdir -p /root/tools
 
 ADD http://nginxdown:9500/rocketmq-4.7.1.zip /opt/soft/rocketmq-4.7.1.zip
 
-RUN /opt/soft/rocketmq-4.7.1.zip /root/tools/rocketmq-4.7.1.zip
+RUN cp /opt/soft/rocketmq-4.7.1.zip /root/tools/rocketmq-4.7.1.zip
 
 RUN cd /root/tools/;unzip rocketmq-4.7.1.zip
 

@@ -10,7 +10,7 @@ RUN cd /opt/soft/;unzip rocketmq-4.7.1.zip
 
 RUN cd /opt/soft/;mv rocketmq-4.7.1 rocketmq
 
-RUN mv /opt/soft/rocketmq /root/tools
+RUN mv /opt/soft/rocketmq /root/tools/rocketmq
 
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh

@@ -40,22 +40,8 @@ RUN yum -y install  lsof
 RUN yum -y install  vim
 RUN yum -y install  telnet
 #base
+#放入extra
 
-RUN yum -y install  automake
-RUN yum -y install  make
-RUN yum -y install  gcc-c++
-RUN yum -y install  boost-devel
-RUN yum -y install  wget
-RUN yum -y install  hg
-RUN yum -y install  net-tools
-RUN yum -y install  unzip
-RUN yum -y install  openssh-server
-RUN yum -y install  openssh-clients
-RUN yum -y install  go
-RUN yum -y install  logrotate
-RUN yum -y install  socat
-RUN yum -y install  sysstat
-RUN yum -y install  mercurial
 
 
 #RUN yum -y install  zlib-devel rubygems ruby gem  ruby-devel ruby-docs ruby-ri ruby-irb ruby-rdoc

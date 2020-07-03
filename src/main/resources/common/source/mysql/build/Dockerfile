@@ -1,12 +1,12 @@
-FROM alpine
+FROM king019/centos
 
 MAINTAINER king019
 
-RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories
+#RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories
 
 COPY docker.sh /docker.sh
 
-RUN apk add git
+#RUN apk add git
 
 
 RUN mkdir -p /opt/soft/version

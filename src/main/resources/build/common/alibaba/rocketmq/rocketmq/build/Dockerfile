@@ -6,11 +6,11 @@ RUN mkdir -p /root/tools
 
 ADD http://nginxdown:9500/rocketmq-4.7.1.zip /opt/soft/rocketmq-4.7.1.zip
 
-RUN cd /opt/soft/;unzip rocketmq-4.7.1.zip
+RUN /opt/soft/rocketmq-4.7.1.zip /root/tools/rocketmq-4.7.1.zip
 
-RUN cd /opt/soft/;mv rocketmq-4.7.1 rocketmq
+RUN cd /root/tools/;unzip rocketmq-4.7.1.zip
 
-RUN mv /opt/soft/rocketmq /root/tools/rocketmq
+RUN cd /root/tools/;mv rocketmq-4.7.1 rocketmq
 
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh

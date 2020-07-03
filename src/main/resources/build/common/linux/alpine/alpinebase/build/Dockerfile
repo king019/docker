@@ -6,9 +6,6 @@ COPY docker.sh /docker.sh
 
 RUN mkdir -p /root/soft
 
-RUN echo 'export JAVA_HOME=/usr/lib/jvm/default-jvm' >> /etc/profile
-
-RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
 RUN chmod 755 /*.sh
 

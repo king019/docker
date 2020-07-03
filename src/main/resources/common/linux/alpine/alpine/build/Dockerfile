@@ -2,6 +2,8 @@ FROM king019/alpine:p
 
 MAINTAINER king019
 
+ADD bashrc /root/.bashrc
+
 COPY settings.xml /root/.m2/settings.xml
 COPY run/run.sh /run.sh
 COPY run/run_env.sh /run_env.sh
@@ -12,20 +14,25 @@ COPY docker.sh /docker.sh
 
 RUN apk add git
 RUN apk add openjdk11
+RUN apk add openjdk8
 RUN apk add maven
 RUN apk add curl
 RUN apk add wget
+RUN apk add vim
 
-
-RUN apk update && \
-    apk add --no-cache openssh-server tzdata && \
-    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-    sed -i "s/#PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
-    ssh-keygen -t rsa -P "" -f /etc/ssh/ssh_host_rsa_key && \
-    ssh-keygen -t ecdsa -P "" -f /etc/ssh/ssh_host_ecdsa_key && \
-    ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key && \
-    echo "root:admin" | chpasswd
-
+# RUN apk update && \
+#     apk add --no-cache openssh-server tzdata && \
+#     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+#     sed -i "s/#PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
+#     ssh-keygen -t rsa -P "" -f /etc/ssh/ssh_host_rsa_key && \
+#     ssh-keygen -t ecdsa -P "" -f /etc/ssh/ssh_host_ecdsa_key && \
+#     ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key && \
+#     echo "root:admin" | chpasswd
+RUN set -x \
+    apk update \
+    && apk add --no-cache bash bash-doc bash-completion \
+    && sed -i 's/ash/bash/g' /etc/passwd \
+    && source /root/.bashrc
 
 # 开放22端口
 EXPOSE 22

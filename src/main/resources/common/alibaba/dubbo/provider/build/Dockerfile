@@ -1,4 +1,4 @@
-FROM king019/alpine
+FROM  king019/centos
 
 MAINTAINER king019
 RUN mkdir -p /opt/soft

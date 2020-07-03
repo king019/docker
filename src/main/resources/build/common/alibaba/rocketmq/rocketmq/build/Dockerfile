@@ -4,9 +4,11 @@ MAINTAINER king019
 RUN mkdir -p /opt/soft/rocketmq
 RUN mkdir -p /root/tools
 
-ADD http://nginxdown:9500/apache-rocketmq.zip /opt/soft/apache-rocketmq.zip
+ADD http://nginxdown:9500/rocketmq-4.7.1.zip /opt/soft/rocketmq-4.7.1.zip
 
-RUN cd /opt/soft/;unzip apache-rocketmq.zip -d rocketmq;
+RUN cd /opt/soft/;unzip rocketmq-4.7.1.zip
+
+RUN cd /opt/soft/;mv rocketmq-4.7.1 rocketmq
 
 RUN mv /opt/soft/rocketmq /root/tools
 

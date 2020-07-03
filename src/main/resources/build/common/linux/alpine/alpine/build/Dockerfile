@@ -19,6 +19,8 @@ RUN apk add maven
 RUN apk add curl
 RUN apk add wget
 RUN apk add vim
+#jenkins 需要这个
+RUN apk add ttf-dejavu
 
 # RUN apk update && \
 #     apk add --no-cache openssh-server tzdata && \

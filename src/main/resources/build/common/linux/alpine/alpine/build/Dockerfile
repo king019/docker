@@ -42,12 +42,17 @@ ADD http://maven.aliyun.com/nexus/content/groups/public/org/eclipse/jetty/jetty-
 ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/tools/apache-tomcat-9.0.35.tar.gz
 
 
+RUN cd /opt/soft/tools/apache-tomcat-9.0.35.tar.gz  /root/tools/apache-tomcat-9.0.35.tar.gz
+RUN cd /root/tools/;tar -xzf apache-tomcat-9.0.35.tar.gz
+RUN cd /root/tools/;mv apache-tomcat-9.0.35 tomcat
+
+
+RUN cd /opt/soft/tools/jetty-distribution-9.4.19.v20190610.tar.gz  /root/tools/jetty-distribution-9.4.19.v20190610.tar.gz
+RUN cd /root/tools/;tar -xzf jetty-distribution-9.4.19.v20190610.tar.gz
+RUN cd /root/tools/;mv jetty-distribution-9.4.19.v20190610 jetty
 
 
 
-RUN cd /opt/soft/tools/;tar -xzf apache-tomcat-9.0.35.tar.gz
-RUN cd /opt/soft/tools/;mv apache-tomcat-9.0.35 tomcat
-RUN mv /opt/soft/tools/tomcat /root/tools
 
 
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile

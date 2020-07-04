@@ -12,8 +12,7 @@ RUN apk add redis
 
 RUN mkdir -p /root/tools/conf
 
-ADD http://nginxdown:9500/redis-5.0.8.tar.gz /opt/soft/redis-5.0.8.tar.gz
-#ADD http://download.redis.io/releases/redis-5.0.8.tar.gz /opt/soft/redis-5.0.8.tar.gz
+ADD https://mirrors.huaweicloud.com/redis/redis-5.0.8.tar.gz /opt/soft/redis-5.0.8.tar.gz
 
 RUN cp /opt/soft/redis-5.0.8.tar.gz /root/tools/redis-5.0.8.tar.gz
 

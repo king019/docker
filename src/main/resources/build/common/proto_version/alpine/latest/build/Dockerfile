@@ -8,5 +8,6 @@ COPY docker.sh /docker.sh
 
 RUN chmod 755 /*.sh
 
+RUN source /etc/profile
 
 CMD /docker.sh

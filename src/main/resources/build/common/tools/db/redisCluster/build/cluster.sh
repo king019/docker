@@ -22,7 +22,7 @@ redis-server redis7009.conf
 
 
 
-redis-cli --cluster create redisCluster:7001 redisCluster:7002 redisCluster:7003 redisCluster:7004 redisCluster:7005 redisCluster:7006 redisCluster:7007 redisCluster:7008 redisCluster:7009 --cluster-replicas 2
+redis-cli --cluster create redis:7001 redis:7002 redis:7003 redis:7004 redis:7005 redis:7006 redis:7007 redis:7008 redis:7009 --cluster-replicas 2
 
 #./src/redis-trib.rb create --replicas 2 127.0.0.1:7001 127.0.0.1:7002 127.0.0.1:7003 127.0.0.1:7004 127.0.0.1:7005 127.0.0.1:7006 127.0.0.1:7007 127.0.0.1:7008 127.0.0.1:7009
 

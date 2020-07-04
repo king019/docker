@@ -36,20 +36,25 @@ RUN set -x \
     && sed -i 's/ash/bash/g' /etc/passwd \
     && source /root/.bashrc
 
+RUN mkdir -p /opt/soft/tools
 
+RUN mkdir -p /root/soft/
+
+RUN mkdir -p /root/tools
 
 ADD http://maven.aliyun.com/nexus/content/groups/public/org/eclipse/jetty/jetty-distribution/9.4.19.v20190610/jetty-distribution-9.4.19.v20190610.tar.gz /opt/soft/tools/jetty-distribution-9.4.19.v20190610.tar.gz
 ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/tools/apache-tomcat-9.0.35.tar.gz
 
 
+RUN cp /opt/soft/tools/jetty-distribution-9.4.19.v20190610.tar.gz  /root/tools/jetty-distribution-9.4.19.v20190610.tar.gz
+RUN cd /root/tools/;tar -xzf jetty-distribution-9.4.19.v20190610.tar.gz
+RUN cd /root/tools/;mv jetty-distribution-9.4.19.v20190610 jetty
+
+
+
 RUN cp /opt/soft/tools/apache-tomcat-9.0.35.tar.gz  /root/tools/apache-tomcat-9.0.35.tar.gz
 RUN cd /root/tools/;tar -xzf apache-tomcat-9.0.35.tar.gz
 RUN cd /root/tools/;mv apache-tomcat-9.0.35 tomcat
-
-
-RUN cd /opt/soft/tools/jetty-distribution-9.4.19.v20190610.tar.gz  /root/tools/jetty-distribution-9.4.19.v20190610.tar.gz
-RUN cd /root/tools/;tar -xzf jetty-distribution-9.4.19.v20190610.tar.gz
-RUN cd /root/tools/;mv jetty-distribution-9.4.19.v20190610 jetty
 
 
 

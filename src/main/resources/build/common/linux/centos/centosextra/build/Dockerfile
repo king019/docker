@@ -9,18 +9,18 @@ RUN mkdir -p /root/soft
 
 
 
-RUN yum -y install  automake
-RUN yum -y install  make
-RUN yum -y install  gcc-c++
-RUN yum -y install  boost-devel
-RUN yum -y install  hg
-RUN yum -y install  openssh-server
-RUN yum -y install  openssh-clients
-RUN yum -y install  go
-RUN yum -y install  logrotate
-RUN yum -y install  socat
-RUN yum -y install  sysstat
-RUN yum -y install  mercurial
+RUN dnf -y install  automake
+RUN dnf -y install  make
+RUN dnf -y install  gcc-c++
+RUN dnf -y install  boost-devel
+RUN dnf -y install  hg
+RUN dnf -y install  openssh-server
+RUN dnf -y install  openssh-clients
+RUN dnf -y install  go
+RUN dnf -y install  logrotate
+RUN dnf -y install  socat
+RUN dnf -y install  sysstat
+RUN dnf -y install  mercurial
 
 
 

@@ -21,15 +21,15 @@ RUN cd /root/tools;tar -xzf redis-5.0.8.tar.gz
 RUN cd /root/tools;mv redis-5.0.8 redis
 
 
-ADD conf/redis7001.conf /root/tools/conf/7001/redis7001.conf
-ADD conf/redis7002.conf /root/tools/conf/7002/redis7002.conf
-ADD conf/redis7003.conf /root/tools/conf/7003/redis7003.conf
-ADD conf/redis7004.conf /root/tools/conf/7004/redis7004.conf
-ADD conf/redis7005.conf /root/tools/conf/7005/redis7005.conf
-ADD conf/redis7006.conf /root/tools/conf/7006/redis7006.conf
-ADD conf/redis7007.conf /root/tools/conf/7007/redis7007.conf
-ADD conf/redis7008.conf /root/tools/conf/7008/redis7008.conf
-ADD conf/redis7009.conf /root/tools/conf/7009/redis7009.conf
+ADD conf/7001/redis7001.conf /root/tools/conf/7001/redis7001.conf
+ADD conf/7002/redis7002.conf /root/tools/conf/7002/redis7002.conf
+ADD conf/7003/redis7003.conf /root/tools/conf/7003/redis7003.conf
+ADD conf/7004/redis7004.conf /root/tools/conf/7004/redis7004.conf
+ADD conf/7005/redis7005.conf /root/tools/conf/7005/redis7005.conf
+ADD conf/7006/redis7006.conf /root/tools/conf/7006/redis7006.conf
+ADD conf/7007/redis7007.conf /root/tools/conf/7007/redis7007.conf
+ADD conf/7008/redis7008.conf /root/tools/conf/7008/redis7008.conf
+ADD conf/7009/redis7009.conf /root/tools/conf/7009/redis7009.conf
 
 
 

@@ -70,9 +70,8 @@ RUN cd /root/tools/;tar -xzf apache-tomcat-9.0.35.tar.gz
 RUN cd /root/tools/;mv apache-tomcat-9.0.35 tomcat
 
 
-RUN cp /opt/soft/tools/apache-maven-3.6.3-bin.tar.gz  /root/tools/apache-maven-3.6.3-bin.tar.gz
-RUN cd /root/tools/;tar -xzf apache-maven-3.6.3-bin.tar.gz
-RUN cd /root/tools/;mv apache-maven-3.6.3 maven
+RUN cd /opt/soft/tools/;tar -xzf apache-maven-3.6.3-bin.tar.gz
+RUN cd /opt/soft/tools/;mv apache-maven-3.6.3 maven
 
 
 #RUN echo 'export MAVEN_HOME=/opt/soft/tools/maven' >> /root/.bashrc

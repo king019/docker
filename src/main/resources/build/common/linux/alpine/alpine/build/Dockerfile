@@ -42,7 +42,7 @@ ADD http://maven.aliyun.com/nexus/content/groups/public/org/eclipse/jetty/jetty-
 ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/tools/apache-tomcat-9.0.35.tar.gz
 
 
-RUN cd /opt/soft/tools/apache-tomcat-9.0.35.tar.gz  /root/tools/apache-tomcat-9.0.35.tar.gz
+RUN cp /opt/soft/tools/apache-tomcat-9.0.35.tar.gz  /root/tools/apache-tomcat-9.0.35.tar.gz
 RUN cd /root/tools/;tar -xzf apache-tomcat-9.0.35.tar.gz
 RUN cd /root/tools/;mv apache-tomcat-9.0.35 tomcat
 

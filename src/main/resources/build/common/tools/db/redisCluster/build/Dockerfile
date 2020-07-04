@@ -12,13 +12,10 @@ RUN apk add redis
 
 RUN mkdir -p /root/tools/conf
 
-ADD https://mirrors.huaweicloud.com/redis/redis-5.0.8.tar.gz /opt/soft/redis-5.0.8.tar.gz
-
-RUN cp /opt/soft/redis-5.0.8.tar.gz /root/tools/redis-5.0.8.tar.gz
-
-RUN cd /root/tools;tar -xzf redis-5.0.8.tar.gz
-
-RUN cd /root/tools;mv redis-5.0.8 redis
+# ADD https://mirrors.huaweicloud.com/redis/redis-5.0.8.tar.gz /opt/soft/redis-5.0.8.tar.gz
+# RUN cp /opt/soft/redis-5.0.8.tar.gz /root/tools/redis-5.0.8.tar.gz
+# RUN cd /root/tools;tar -xzf redis-5.0.8.tar.gz
+# RUN cd /root/tools;mv redis-5.0.8 redis
 
 
 ADD conf/7001/redis7001.conf /root/tools/conf/7001/redis7001.conf

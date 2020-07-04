@@ -1,9 +1,7 @@
-FROM  alpine
+FROM  king019/alpine
 #FROM  ruby:alpine3.12
 
 MAINTAINER king019
-
-RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g" /etc/apk/repositories
 
 RUN apk add redis
 

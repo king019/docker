@@ -9,5 +9,10 @@ https://blog.csdn.net/h15637811412/article/details/86257607
 
 
 
+需要手工执行  cluster.sh才能启动
+
+
+
+
 
 

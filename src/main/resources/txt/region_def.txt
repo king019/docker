@@ -1,3 +1,6 @@
-docker
+aliyun_shanghai
+aliyun_huhehaote
+aliyun_shenzhen
 aliyun_beijing
+docker
 local_region

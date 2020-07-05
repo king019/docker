@@ -1,4 +1,4 @@
-FROM  king019/centos
+FROM  king019/alpine
 
 MAINTAINER king019
 #RUN apk add ttf-dejavu

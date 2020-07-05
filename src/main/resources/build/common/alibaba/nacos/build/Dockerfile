@@ -1,4 +1,4 @@
-FROM  king019/alpine:jdk8
+FROM  king019/centos:jdk8
 
 MAINTAINER king019
 RUN mkdir -p /opt/soft

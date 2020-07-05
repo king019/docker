@@ -1,9 +1,11 @@
-FROM  king019/alpine
+FROM  king019/centos
 #FROM  ruby:alpine3.12
 
 MAINTAINER king019
 
-RUN apk add redis
+#RUN apk add redis
+
+RUN dnf -y install redis
 
 #RUN gem sources  --remove https://rubygems.org/
 #RUN gem sources -a https://gems.ruby-china.com

@@ -1,1 +1,1 @@
-king019/jenkins
+king019/jenkins:centos

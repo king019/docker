@@ -1,4 +1,4 @@
-FROM king019/centos
+FROM king019/linux
 RUN mkdir -p /opt/soft
 ADD http://nginxdown:9500/dubbo-admin-0.2.0.jar /opt/soft/dubbo-admin-0.2.0.jar
 RUN mkdir -p /root/tools

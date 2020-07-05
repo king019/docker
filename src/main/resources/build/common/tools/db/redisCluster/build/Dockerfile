@@ -1,9 +1,9 @@
-FROM  king019/centos
+FROM  king019/linux
 #FROM  ruby:alpine3.12
 
 MAINTAINER king019
 
-#RUN apk add redis
+RUN apk add redis
 
 RUN dnf -y install redis
 

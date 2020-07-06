@@ -23,7 +23,7 @@ public class JenkinsBuildShell {
     static boolean inDocker = false;
 
     public static void main(String[] args) throws Exception {
-        if(ArrayUtils.isNotEmpty(args)){
+        if (ArrayUtils.isNotEmpty(args)) {
             String arg = args[0];
             String[] splits = StringUtils.split(arg, "@");
             for (String split : splits) {
@@ -43,7 +43,8 @@ public class JenkinsBuildShell {
         }
         {
             replace = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.REPLACE, map));
-        }{
+        }
+        {
             inDocker = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.IN_DOCKER, map));
         }
         {
@@ -61,9 +62,12 @@ public class JenkinsBuildShell {
                 excludes.addAll(Lists.newArrayList(val.split(",")));
             }
             excludes.add("ubuntu");
+            excludes.add("centos");
+            excludes.add("jenkins");
+            excludes.removeAll(includes);
         }
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, replace, push,inDocker);
+        shell.jenkinsWrite(multi, includes, excludes, replace, push, inDocker);
     }
 
     @Test

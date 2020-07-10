@@ -12,6 +12,9 @@ RUN cd /root/tools/;unzip rocketmq-4.7.1.zip
 
 RUN cd /root/tools/;mv rocketmq-4.7.1 rocketmq
 
+RUN cd /root/tools/rocketmq/conf;echo "brokerIP1=broker" > broker.properties
+
+
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh
 CMD /docker.sh

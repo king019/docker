@@ -51,7 +51,6 @@ FROM zookeeper:zookeeper:3.5.4-beta
 #FROM uifd/ui-for-docker
 #FROM hypriot/rpi-dockerui
 #
-#
 #FROM sonatype/nexus3
 
 

@@ -1,0 +1,18 @@
+kind: pipeline
+name: compile
+
+steps:
+  - name: compile
+    image: king019/alpine
+    privileged: true
+    volumes:
+      - name: maven
+        path: /root/.m2
+    commands:
+      - mvn clean
+      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="thread=1@rep=true@push=true"
+      -  sh ./target/local_region/noSuffix_false.sh
+volumes:
+  - name: maven
+    host:
+      path: /opt/soft/docker/data/maven/m2

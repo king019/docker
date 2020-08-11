@@ -11,6 +11,7 @@ steps:
       - name: docker
         path: /bin/docker
     commands:
+      - which docker
       - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true"
       - pwd;ls

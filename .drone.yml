@@ -12,7 +12,7 @@ steps:
         path: /bin/docker
     commands:
       - mvn clean
-      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone@thread=1@rep=true@push=true"
+      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true"
       - pwd;ls
       - sh ./target/local_region/noSuffix_false.sh
 volumes:

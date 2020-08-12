@@ -10,6 +10,8 @@ steps:
         path: /root/.m2
       - name: docker
         path: /bin/docker
+      - name: sock
+        path: /var/run/docker.sock
     commands:
       - chmod -R 777 /bin
       - which docker
@@ -25,3 +27,6 @@ volumes:
   - name: docker
     host:
       path: /usr/bin/docker
+  - name: sock
+    host:
+      path: /var/run/docker.sock

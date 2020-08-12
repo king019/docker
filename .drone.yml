@@ -3,7 +3,7 @@ name: compile
 
 steps:
   - name: compile
-    image: king019/centos
+    image: docker:5000/king019/centos
     privileged: true
     volumes:
       - name: maven

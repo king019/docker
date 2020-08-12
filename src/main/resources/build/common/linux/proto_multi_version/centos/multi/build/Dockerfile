@@ -97,6 +97,19 @@ RUN cd /opt/soft ; sh ./git.sh
 #RUN echo '/run.sh' >> /etc/rc.local
 
 
+COPY config.json /config.json
+RUN mkdir /root/.docker;cp /config.json /root/.docker/config.json
+
+COPY daemon.json /daemon.json
+RUN mkdir /etc/docker;cp /daemon.json /etc/docker/daemon.json
+
+
+
+
+
+
+
+
 
 
 COPY docker.sh /docker.sh

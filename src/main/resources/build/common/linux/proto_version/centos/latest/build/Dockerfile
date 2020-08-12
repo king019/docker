@@ -10,11 +10,7 @@ RUN wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Cen
 
 
 
-COPY config.json /config.json
-RUN mkdir /root/.docker;cp /config.json /root/.docker/config.json
 
-COPY daemon.json /daemon.json
-RUN mkdir /etc/docker;cp /daemon.json /etc/docker/daemon.json
 
 
 

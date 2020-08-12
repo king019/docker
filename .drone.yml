@@ -16,8 +16,8 @@ steps:
         path: /root/.docker/config.json
     commands:
       - chmod -R 777 /bin
-#      - which docker
-#      - docker version
+      - which docker
+      - docker version
       - source /etc/profile
       - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true"

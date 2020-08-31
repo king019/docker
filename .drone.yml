@@ -3,7 +3,7 @@ name: build
 
 steps:
   - name: build
-    image: docker:5000/king019/centos
+    image: king019/centos
     privileged: true
     volumes:
       - name: maven

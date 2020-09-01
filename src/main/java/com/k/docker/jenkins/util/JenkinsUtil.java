@@ -22,12 +22,14 @@ public class JenkinsUtil {
     public static String getVal(DockerParamEnum paramEnum, Map<DockerParamEnum, String> map) {
         return map.getOrDefault(paramEnum, paramEnum.getDef());
     }
-    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push ) throws Exception {
-        jenkinsWrite(  multi,   includes,  excludes,   replace,   push ,   true);
+
+    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push) throws Exception {
+        jenkinsWrite(multi, includes, excludes, replace, push, true);
     }
+
     public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push, boolean inDocker) throws Exception {
         String dockerDest = "dockerDest/";
-        List<DockerJenkinsModel> models = buildModel(dockerDest,inDocker);
+        List<DockerJenkinsModel> models = buildModel(dockerDest, inDocker);
         replaceDir(dockerDest, replace);
         models = filter(models, includes, excludes);
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));

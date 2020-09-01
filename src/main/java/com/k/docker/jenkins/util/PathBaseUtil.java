@@ -11,7 +11,7 @@ import java.util.List;
 
 public class PathBaseUtil {
     public static String PRE_PATH;
-    public static List<String> REGIONS= Lists.newArrayList();
+    public static List<String> REGIONS = Lists.newArrayList();
 
     static {
         try {

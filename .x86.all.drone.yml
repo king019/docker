@@ -12,6 +12,8 @@ steps:
         path: /bin/docker
       - name: sock
         path: /var/run/docker.sock
+      - name: docker_config
+        path: /root/.docker/config.json
     commands:
       - chmod -R 777 /bin
       - which docker
@@ -31,3 +33,6 @@ volumes:
   - name: sock
     host:
       path: /var/run/docker.sock
+  - name: docker_config
+    host:
+      path: /opt/soft/docker/data/jenkins/jkwk/config.json

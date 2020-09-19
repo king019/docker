@@ -1,7 +1,11 @@
-language: c
+language: java
+jdk:
+  - openjdk11
 services:
   - docker  #需要的docker环境
+install:
 
+  - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true"
 script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - pwd;ls

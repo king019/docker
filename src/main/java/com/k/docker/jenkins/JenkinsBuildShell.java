@@ -21,6 +21,7 @@ public class JenkinsBuildShell {
     static List<String> includes = Lists.newArrayList();
     static List<String> excludes = Lists.newArrayList();
     static boolean inDocker = false;
+    static boolean localRegion = false;
 
     public static void main(String[] args) throws Exception {
         if (ArrayUtils.isNotEmpty(args)) {
@@ -51,6 +52,9 @@ public class JenkinsBuildShell {
             push = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.PUSH, map));
         }
         {
+            localRegion = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.LOCAL_REGION, map));
+        }
+        {
             String val = JenkinsUtil.getVal(DockerParamEnum.INCLUDE, map);
             if (StringUtils.isNotBlank(val)) {
                 includes.addAll(Lists.newArrayList(val.split(",")));
@@ -67,7 +71,7 @@ public class JenkinsBuildShell {
             excludes.removeAll(includes);
         }
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, replace, push, inDocker);
+        shell.jenkinsWrite(multi, includes, excludes, replace, push, inDocker, localRegion);
     }
 
     @Test

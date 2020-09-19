@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 @Getter
 public enum DockerParamEnum {
     WORK_SPACE("ws","${WORKSPACE}"),
+    LOCAL_REGION("local","false"),
     THREAD("thread","1"),
     INCLUDE("in",""),
     REPLACE("rep","false"),

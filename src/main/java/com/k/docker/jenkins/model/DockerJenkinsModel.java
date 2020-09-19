@@ -16,7 +16,8 @@ import java.util.Set;
 @Data
 public class DockerJenkinsModel {
     @Setter
-    private static String WORKSPACE;@Setter
+    private static String WORKSPACE;
+    @Setter
     private static String EXPERIMENTAL;
     private String path;
     //private String host;

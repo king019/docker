@@ -4,7 +4,7 @@ jdk:
 services:
   - docker  #需要的docker环境
 install:
-  - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/travis/build/king019/docker@thread=10@rep=false@push=true"
+  - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/travis/build/king019/docker@thread=10@rep=false@push=true@exper=travisci"
 script:
   - ls target
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin

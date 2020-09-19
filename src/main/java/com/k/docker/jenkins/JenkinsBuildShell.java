@@ -22,6 +22,7 @@ public class JenkinsBuildShell {
     static List<String> excludes = Lists.newArrayList();
     static boolean inDocker = false;
     static boolean localRegion = false;
+    static String experimental;
 
     public static void main(String[] args) throws Exception {
         if (ArrayUtils.isNotEmpty(args)) {
@@ -39,6 +40,7 @@ public class JenkinsBuildShell {
         }
 
         DockerJenkinsModel.setWORKSPACE(JenkinsUtil.getVal(DockerParamEnum.WORK_SPACE, map));
+        DockerJenkinsModel.setEXPERIMENTAL(JenkinsUtil.getVal(DockerParamEnum.EXPERIMENTAL, map));
         {
             multi = Integer.parseInt(JenkinsUtil.getVal(DockerParamEnum.THREAD, map));
         }

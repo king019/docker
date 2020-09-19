@@ -9,16 +9,15 @@ import lombok.Data;
 import lombok.Setter;
 import org.apache.commons.lang3.StringUtils;
 
-import java.lang.management.PlatformLoggingMXBean;
 import java.util.List;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Set;
 
 @Data
 public class DockerJenkinsModel {
     @Setter
-    private static String WORKSPACE;
+    private static String WORKSPACE;@Setter
+    private static String EXPERIMENTAL;
     private String path;
     //private String host;
     private String version;
@@ -31,6 +30,7 @@ public class DockerJenkinsModel {
     private String nextLine = "\n";
     private DockerRegionEnum region;
     private List<String> dockerLines;
+
     public String buildBuild() {
         StringBuilder sb = new StringBuilder();
         sb.append("# index ");
@@ -70,7 +70,7 @@ public class DockerJenkinsModel {
         //docker manifest create huxl/myapp:v1 huxl/myapp-x86_64:v1 huxl/myapp-ppc64le:v1
         //docker manifest annotate huxl/myapp:v1 huxl/myapp-x86_64:v1 --os linux --arch amd64
         ///docker manifest push huxl/myapp:v1
-        sb.append("docker manifest create ");
+        sb.append("docker " + getEnvironment() + " manifest create ");
         sb.append(" -a ");
         sb.append(hostVersion);
         sb.append(" ");
@@ -78,7 +78,7 @@ public class DockerJenkinsModel {
         sb.append(nextLine);
         buildAnnotate(sb, hostVersion);
         sb.append(nextLine);
-        sb.append("docker manifest push -p ");
+        sb.append("docker " + getEnvironment() + " manifest push -p ");
         sb.append(hostVersion);
         sb.append(nextLine);
         return sb.toString();
@@ -86,7 +86,7 @@ public class DockerJenkinsModel {
 
     private void buildAnnotate(StringBuilder sb, String hostVersion) {
         for (DockerPlatformEnum platform : platforms) {
-            sb.append("docker manifest annotate ");
+            sb.append("docker " + getEnvironment() + " manifest annotate ");
             sb.append(hostVersion);
             sb.append(" ");
             sb.append(buildVersion(hostVersion, platform));
@@ -96,6 +96,13 @@ public class DockerJenkinsModel {
             sb.append(nextLine);
         }
 
+    }
+
+    private String getEnvironment() {
+        if ("travisci".equals(EXPERIMENTAL)) {
+            return "--config /home/travis/build/king019/docker/src/main/resources/config";
+        }
+        return "";
     }
 
     private String buildVersions(String hostVersion, Set<DockerPlatformEnum> platforms) {
@@ -120,6 +127,7 @@ public class DockerJenkinsModel {
     private String getPlatformStr(DockerPlatformEnum platform) {
         return platform.isSuffix() ? "_" + platform.getPlatform() : "";
     }
+
     private String getPlatformSuffixStr(DockerPlatformEnum platform) {
         return platform.isSuffix() ? ":" + platform.getPlatform() : "";
     }

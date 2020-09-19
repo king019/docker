@@ -22,6 +22,7 @@ steps:
       - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true"
       - pwd;ls
+      - sh ./target/aarch64_docker_true.sh
       - sh ./target/aarch64_true.sh
 volumes:
   - name: maven

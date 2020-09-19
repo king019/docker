@@ -98,18 +98,27 @@ public class JenkinsUtil {
     }
 
     private String startADD(String line) {
-        if (line.indexOf("http") > 0) {
-            int start = line.indexOf("http");
-            int end = line.lastIndexOf(" ");
-            String substring = line.substring(start, end);
-            int lastIndexOf = substring.lastIndexOf("/");
-            String fileName = substring.substring(lastIndexOf);
-            int fileIndex = line.indexOf(fileName);
-            String next = line.substring(fileIndex);
-            next = "ADD http://nginxdown:9500" + next;
-            return next;
+        String gitSave1 = "https://raw.githubusercontent.com/king019/";
+        String gitSave2 = "http";
+        String next = line;
+        if (line.indexOf(gitSave1) > 0) {
+            next = handleUrl(line, gitSave1);
+        } else if (line.indexOf(gitSave2) > 0) {
+            next = handleUrl(line, gitSave2);
         }
-        return line;
+        return next;
+    }
+
+    private String handleUrl(String line, String saveFilter) {
+        int start = line.indexOf(saveFilter);
+        int end = line.lastIndexOf(" ");
+        String downUrl = line.substring(start, end);
+        int lastIndexOf = downUrl.lastIndexOf("/");
+        String fileName = downUrl.substring(lastIndexOf);
+        int fileIndex = line.indexOf(fileName);
+        String next = line.substring(fileIndex);
+        next = "ADD http://nginxdown:9500" + next;
+        return next;
     }
 
     private String startGitClone(String line) {

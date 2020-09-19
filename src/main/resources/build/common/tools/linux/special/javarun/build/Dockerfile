@@ -3,7 +3,7 @@ FROM  king019/linux
 MAINTAINER king019
 RUN mkdir -p /opt/soft
 RUN mkdir -p /root/tools/
-ADD http://nginxdown:9500/javarun.jar /opt/soft/javarun.jar
+ADD https://raw.githubusercontent.com/king019/save_github/master/javarun.jar /opt/soft/javarun.jar
 
 RUN cp /opt/soft/javarun.jar /root/tools/javarun.jar
 

@@ -1,6 +1,6 @@
 FROM king019/linux
 RUN mkdir -p /opt/soft
-ADD http://nginxdown:9500/dubbo-admin-0.2.0.jar /opt/soft/dubbo-admin-0.2.0.jar
+ADD https://raw.githubusercontent.com/king019/save_github/master/dubbo-admin-0.2.0.jar /opt/soft/dubbo-admin-0.2.0.jar
 RUN mkdir -p /root/tools
 RUN cp /opt/soft/dubbo-admin-0.2.0.jar /root/tools/dubbo-admin-0.2.0.jar
 

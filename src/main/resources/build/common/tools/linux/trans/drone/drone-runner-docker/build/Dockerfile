@@ -13,6 +13,6 @@ ENV DRONE_PLATFORM_ARCH amd64
 COPY --from=alpine /etc/ssl/certs/ca-certificates.crt /etc/ssl/certs/
 
 LABEL com.centurylinklabs.watchtower.stop-signal="SIGINT"
-ADD http://nginxdown:9500/drone-runner-docker /bin/
+ADD https://raw.githubusercontent.com/king019/save_github/master/drone-runner-docker /bin/
 RUN chmod -R 777 /bin
 ENTRYPOINT ["/bin/drone-runner-docker"]

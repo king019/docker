@@ -7,18 +7,12 @@ install:
   - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/travis/build/king019/docker@thread=1@rep=false@push=true@exper=travisci"
 script:
   - ls target
+  - service docker restart
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
   - echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-shanghai.aliyuncs.com --password-stdin
   - echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-huhehaote.aliyuncs.com --password-stdin
   - echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-shenzhen.aliyuncs.com --password-stdin
   - echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-hangzhou.aliyuncs.com --password-stdin
   - echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-beijing.aliyuncs.com --password-stdin
-
-  - echo "$DOCKER_PASSWORD" | docker --config /home/travis/build/king019/docker/src/main/resources/config login -u "$DOCKER_USERNAME" --password-stdin
-  - echo "$DOCKER_PASSWORD" | docker --config /home/travis/build/king019/docker/src/main/resources/config login -u "$ALIYUN_USERNAME" registry.cn-shanghai.aliyuncs.com --password-stdin
-  - echo "$DOCKER_PASSWORD" | docker --config /home/travis/build/king019/docker/src/main/resources/config login -u "$ALIYUN_USERNAME" registry.cn-huhehaote.aliyuncs.com --password-stdin
-  - echo "$DOCKER_PASSWORD" | docker --config /home/travis/build/king019/docker/src/main/resources/config login -u "$ALIYUN_USERNAME" registry.cn-shenzhen.aliyuncs.com --password-stdin
-  - echo "$DOCKER_PASSWORD" | docker --config /home/travis/build/king019/docker/src/main/resources/config login -u "$ALIYUN_USERNAME" registry.cn-hangzhou.aliyuncs.com --password-stdin
-  - echo "$DOCKER_PASSWORD" | docker --config /home/travis/build/king019/docker/src/main/resources/config login -u "$ALIYUN_USERNAME" registry.cn-beijing.aliyuncs.com --password-stdin
 
   - sh ./target/x86_64_true.sh  # push

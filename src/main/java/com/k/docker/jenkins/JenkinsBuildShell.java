@@ -40,7 +40,6 @@ public class JenkinsBuildShell {
         }
 
         DockerJenkinsModel.setWORKSPACE(JenkinsUtil.getVal(DockerParamEnum.WORK_SPACE, map));
-        DockerJenkinsModel.setEXPERIMENTAL(JenkinsUtil.getVal(DockerParamEnum.EXPERIMENTAL, map));
         {
             multi = Integer.parseInt(JenkinsUtil.getVal(DockerParamEnum.THREAD, map));
         }

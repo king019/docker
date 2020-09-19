@@ -71,7 +71,7 @@ public class DockerJenkinsModel {
         //docker manifest create huxl/myapp:v1 huxl/myapp-x86_64:v1 huxl/myapp-ppc64le:v1
         //docker manifest annotate huxl/myapp:v1 huxl/myapp-x86_64:v1 --os linux --arch amd64
         ///docker manifest push huxl/myapp:v1
-        sb.append("docker " + getEnvironment() + " manifest create ");
+        sb.append("docker  manifest create ");
         sb.append(" -a ");
         sb.append(hostVersion);
         sb.append(" ");
@@ -79,7 +79,7 @@ public class DockerJenkinsModel {
         sb.append(nextLine);
         buildAnnotate(sb, hostVersion);
         sb.append(nextLine);
-        sb.append("docker " + getEnvironment() + " manifest push -p ");
+        sb.append("docker  manifest push -p ");
         sb.append(hostVersion);
         sb.append(nextLine);
         return sb.toString();
@@ -87,7 +87,7 @@ public class DockerJenkinsModel {
 
     private void buildAnnotate(StringBuilder sb, String hostVersion) {
         for (DockerPlatformEnum platform : platforms) {
-            sb.append("docker " + getEnvironment() + " manifest annotate ");
+            sb.append("docker  manifest annotate ");
             sb.append(hostVersion);
             sb.append(" ");
             sb.append(buildVersion(hostVersion, platform));
@@ -99,12 +99,6 @@ public class DockerJenkinsModel {
 
     }
 
-    private String getEnvironment() {
-        if ("travisci".equals(EXPERIMENTAL)) {
-            return "--config /home/travis/build/king019/docker/src/main/resources/config";
-        }
-        return "";
-    }
 
     private String buildVersions(String hostVersion, Set<DockerPlatformEnum> platforms) {
         String version = "";

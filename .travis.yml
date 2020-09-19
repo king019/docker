@@ -4,4 +4,5 @@ services:
 
 script:
   - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
+  - pwd;ls
   - sh x86_64_docker_true.sh  # push

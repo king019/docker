@@ -18,7 +18,7 @@ steps:
       - docker version
       - source /etc/profile
       - mvn clean
-      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=false"
+      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=false@local=true"
       - pwd;ls
       - sh ./target/local_region/noSuffix_false.sh
 #      - sh ./target/aarch64_true.sh

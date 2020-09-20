@@ -120,7 +120,7 @@ public class JenkinsUtil {
         String fileName = downUrl.substring(lastIndexOf);
         int fileIndex = line.indexOf(fileName);
         String next = line.substring(fileIndex);
-        next = "ADD http://nginxdown:9500" + next;
+        next = "ADD http://nginxdownInner:9500" + next;
         return next;
     }
 

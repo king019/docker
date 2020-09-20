@@ -1,0 +1,34 @@
+kind: pipeline
+name: build
+
+steps:
+  - name: build
+    image: king019/centos
+    privileged: true
+    volumes:
+      - name: maven
+        path: /root/.m2
+      - name: docker
+        path: /bin/docker
+      - name: sock
+        path: /var/run/docker.sock
+    commands:
+      - chmod -R 777 /bin
+      - which docker
+      - docker version
+      - source /etc/profile
+      - mvn clean
+      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=false@local=true@in=apollo,alibaba"
+      - pwd;ls
+      - sh ./target/local_region/noSuffix_false.sh
+#      - sh ./target/aarch64_true.sh
+volumes:
+  - name: maven
+    host:
+      path: /opt/soft/docker/data/maven/m2
+  - name: docker
+    host:
+      path: /usr/local/bin/docker
+  - name: sock
+    host:
+      path: /var/run/docker.sock

@@ -5,7 +5,11 @@ services:
   - docker  #需要的docker环境
 before_install:
   - echo '123'
-  - sudo tee /etc/docker/daemon.json <<-'EOF' { "registry-mirrors": ["https://msb3wa7d.mirror.aliyuncs.com"] } EOF
+  - sudo tee /etc/docker/daemon.json <<-'EOF'
+  -  {
+  -   "registry-mirrors": ["https://msb3wa7d.mirror.aliyuncs.com"]
+  -  }
+  -  EOF
 install:
   - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/travis/build/king019/docker@thread=1@rep=false@push=true"
 script:

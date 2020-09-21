@@ -6,9 +6,9 @@ services:
 before_install:
   - docker pull king019/docker:docker
   - docker run -d king019/docker:docker
-install:
-  - ls target
-  - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/root/soft/docker@thread=1@rep=false@push=true"
+#install:
+#  - ls target
+#  - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/root/soft/docker@thread=1@rep=false@push=true"
 script:
   - ls target
 #  - echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin

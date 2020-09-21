@@ -4,7 +4,7 @@ jdk:
 services:
   - docker  #需要的docker环境
 before_install:
-  - docker pull king019/docker:docker
+#  - docker pull king019/docker:docker
   - docker run -it -e DOCKER_PASSWORD=$DOCKER_PASSWORD -e DOCKER_USERNAME=$DOCKER_USERNAME -e ALIYUN_USERNAME=$ALIYUN_USERNAME king019/docker:docker
 #install:
 #  - ls target

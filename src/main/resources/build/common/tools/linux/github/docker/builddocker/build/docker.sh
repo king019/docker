@@ -1,7 +1,7 @@
 #!/bin/sh
 set -x
 
-
+source /etc/profile
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-shanghai.aliyuncs.com --password-stdin
 echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-huhehaote.aliyuncs.com --password-stdin

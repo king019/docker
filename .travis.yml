@@ -4,8 +4,8 @@ jdk:
 services:
   - docker  #需要的docker环境
 before_install:
-#  - docker pull king019/docker:docker
-  - docker run -it -e DOCKER_PASSWORD=$DOCKER_PASSWORD -e DOCKER_USERNAME=$DOCKER_USERNAME -e ALIYUN_USERNAME=$ALIYUN_USERNAME --privileged -v /var/run/docker.sock:/var/run/docker.sock king019/docker:docker
+#  - docker pull king019/docker:builddocker
+  - docker run -it -e DOCKER_PASSWORD=$DOCKER_PASSWORD -e DOCKER_USERNAME=$DOCKER_USERNAME -e ALIYUN_USERNAME=$ALIYUN_USERNAME --privileged -v /var/run/docker.sock:/var/run/docker.sock king019/docker:builddocker
 #install:
 #  - ls target
 #  - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/root/soft/docker@thread=1@rep=false@push=true"

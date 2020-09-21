@@ -2,7 +2,7 @@ FROM  centos:7
 
 MAINTAINER king019
 
-COPY settings.xml /root/.m2/settings.xml
+#COPY settings.xml /root/.m2/settings.xml
 
 RUN yum -y install  java-11-openjdk-devel
 RUN yum -y install  maven

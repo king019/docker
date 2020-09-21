@@ -1,4 +1,4 @@
-language: java1
+language: 1java1
 jdk:
   - openjdk11
 services:

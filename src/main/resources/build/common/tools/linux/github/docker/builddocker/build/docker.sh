@@ -1,24 +1,13 @@
 #!/bin/sh
-set -x
 
-source /etc/profile
 
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
-echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-shanghai.aliyuncs.com --password-stdin
-echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-huhehaote.aliyuncs.com --password-stdin
-echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-shenzhen.aliyuncs.com --password-stdin
-echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-hangzhou.aliyuncs.com --password-stdin
-echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-beijing.aliyuncs.com --password-stdin
+echo "$DOCKER_PASSWORD" | docker login --username="$ALIYUN_USERNAME" registry.cn-shanghai.aliyuncs.com --password-stdin
+echo "$DOCKER_PASSWORD" | docker login --username="$ALIYUN_USERNAME" registry.cn-huhehaote.aliyuncs.com --password-stdin
+echo "$DOCKER_PASSWORD" | docker login --username="$ALIYUN_USERNAME" registry.cn-shenzhen.aliyuncs.com --password-stdin
+echo "$DOCKER_PASSWORD" | docker login --username="$ALIYUN_USERNAME" registry.cn-hangzhou.aliyuncs.com --password-stdin
+echo "$DOCKER_PASSWORD" | docker login --username="$ALIYUN_USERNAME" registry.cn-beijing.aliyuncs.com --password-stdin
 
 
 
-
-
-mkdir -p /root/soft
-cd /root/soft
-git clone https://github.com/king019/docker.git
-cd docker
-source /etc/profile
-
-mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/root/soft/docker@thread=5@rep=false@push=true"
-sh ./target/x86_64_true.sh
+/docker_run.sh

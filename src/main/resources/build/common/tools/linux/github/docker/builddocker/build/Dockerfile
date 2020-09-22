@@ -23,5 +23,6 @@ COPY daemon.json /daemon.json
 RUN mkdir /etc/docker;cp /daemon.json /etc/docker/daemon.json
 
 COPY docker.sh /docker.sh
+COPY docker_run.sh /docker_run.sh
 RUN chmod 755 /*.sh
 CMD /docker.sh

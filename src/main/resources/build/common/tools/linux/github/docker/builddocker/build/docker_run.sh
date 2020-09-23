@@ -6,5 +6,5 @@ mkdir -p /root/soft
 cd /root/soft
 git clone https://github.com/king019/docker.git
 cd docker
-ls
+chmod -R 777 .
 ./src/main/resources/travis/travis.sh

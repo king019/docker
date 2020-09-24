@@ -16,6 +16,7 @@ import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class JenkinsUtil {
@@ -24,17 +25,18 @@ public class JenkinsUtil {
     }
 
     public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push) throws Exception {
-        jenkinsWrite(multi, includes, excludes, replace, push, true,true);
+        jenkinsWrite(multi, includes, excludes, replace, push, true, true, DockerRegionEnum.getAllRegionEnums());
     }
 
-    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push, boolean inDocker,boolean localRegion) throws Exception {
+    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push, boolean inDocker, boolean localRegion, List<DockerRegionEnum> regionEnums) throws Exception {
         String dockerDest = "dockerDest/";
         List<DockerJenkinsModel> models = buildModel(dockerDest, inDocker);
         replaceDir(dockerDest, replace);
         models = filter(models, includes, excludes);
+        models = models.stream().filter(dockerJenkinsModel -> regionEnums.contains(dockerJenkinsModel.getRegion())).collect(Collectors.toList());
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         writeNormal("", models, true, multi, push);
-        if(localRegion){
+        if (localRegion) {
             writeLocal(DockerRegionEnum.LOCAL, models, false, multi, push);
         }
 

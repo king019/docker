@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
 import com.k.docker.jenkins.model.emums.DockerParamEnum;
+import com.k.docker.jenkins.model.emums.DockerRegionEnum;
 import com.k.docker.jenkins.util.JenkinsUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -20,6 +21,7 @@ public class JenkinsBuildShell {
     static boolean push = true;
     static List<String> includes = Lists.newArrayList();
     static List<String> excludes = Lists.newArrayList();
+    static List<DockerRegionEnum> regions = Lists.newArrayList();
     static boolean inDocker = false;
     static boolean localRegion = false;
     static String experimental;
@@ -53,6 +55,9 @@ public class JenkinsBuildShell {
             push = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.PUSH, map));
         }
         {
+            regions = DockerRegionEnum.getRegionEnums(JenkinsUtil.getVal(DockerParamEnum.REGION, map));
+        }
+        {
             localRegion = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.LOCAL_REGION, map));
         }
         {
@@ -72,7 +77,7 @@ public class JenkinsBuildShell {
             excludes.removeAll(includes);
         }
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, replace, push, inDocker, localRegion);
+        shell.jenkinsWrite(multi, includes, excludes, replace, push, inDocker, localRegion, regions);
     }
 
     @Test

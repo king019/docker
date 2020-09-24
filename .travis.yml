@@ -20,3 +20,6 @@ script:
 #  - echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-beijing.aliyuncs.com --password-stdin
 
 #  - sh ./target/x86_64_true.sh  # push
+notifications:
+  email:
+    - "$DOCKER_NOTIFY_EMAIL"

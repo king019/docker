@@ -24,7 +24,6 @@ public class JenkinsBuildShell {
     static List<DockerRegionEnum> regions = Lists.newArrayList();
     static boolean inDocker = false;
     static boolean localRegion = false;
-    static String experimental;
 
     public static void main(String[] args) throws Exception {
         if (ArrayUtils.isNotEmpty(args)) {

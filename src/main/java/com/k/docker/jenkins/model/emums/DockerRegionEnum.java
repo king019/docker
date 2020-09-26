@@ -53,7 +53,9 @@ public enum DockerRegionEnum {
             }
         }
         return null;
-    } public static DockerRegionEnum getShortRegion(String shortRegion) {
+    }
+
+    public static DockerRegionEnum getShortRegion(String shortRegion) {
         for (DockerRegionEnum value : DockerRegionEnum.values()) {
             if (StringUtils.equals(value.shortRegion, shortRegion)) {
                 return value;
@@ -65,19 +67,22 @@ public enum DockerRegionEnum {
     public static Set<DockerRegionEnum> getRegions(Set<String> regions) {
         return regions.stream().map(DockerRegionEnum::getRegion).collect(Collectors.toSet());
     }
-    public static List<DockerRegionEnum> getAllRegionEnums( ) {
+
+    public static List<DockerRegionEnum> getAllRegionEnums() {
         return Arrays.stream(DockerRegionEnum.values()).collect(Collectors.toList());
     }
-    public static List<DockerRegionEnum> getRegionEnums( String shortRegions) {
-        List<DockerRegionEnum>regions= Lists.newArrayList();
+
+    public static List<DockerRegionEnum> getRegionEnums(String shortRegions) {
+        List<DockerRegionEnum> regions = Lists.newArrayList();
         for (String shortRegion : shortRegions.split(",")) {
             DockerRegionEnum region = getShortRegion(shortRegion);
             Optional.ofNullable(region).ifPresent(regions::add);
         }
         return regions;
     }
+
     public static String getAllRegion() {
-        Set<String> regions = Arrays.stream(DockerRegionEnum.values()).map(DockerRegionEnum::getRegion).collect(Collectors.toSet());
-        return StringUtils.join(regions);
+        Set<String> regions = Arrays.stream(DockerRegionEnum.values()).map(DockerRegionEnum::getShortRegion).collect(Collectors.toSet());
+        return StringUtils.join(regions, ",");
     }
 }

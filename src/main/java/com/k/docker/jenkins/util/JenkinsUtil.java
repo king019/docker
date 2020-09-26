@@ -33,7 +33,7 @@ public class JenkinsUtil {
         List<DockerJenkinsModel> models = buildModel(dockerDest, inDocker);
         replaceDir(dockerDest, replace);
         models = filter(models, includes, excludes);
-        models = models.stream().filter(dockerJenkinsModel -> regionEnums.contains(dockerJenkinsModel.getRegion())).collect(Collectors.toList());
+        //models = models.stream().filter(dockerJenkinsModel -> regionEnums.contains(dockerJenkinsModel.getRegion())).collect(Collectors.toList());
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         writeNormal("", models, true, multi, push);
         if (localRegion) {

@@ -16,7 +16,6 @@ public enum DockerParamEnum {
     REPLACE("rep", "false"),
     PUSH("push", "true"),
     IN_DOCKER("dk", "true"),
-    REGION("rg", DockerRegionEnum.getAllRegion()),
     EXCLUDE("ex", "");
     private String cmd;
     private String def;

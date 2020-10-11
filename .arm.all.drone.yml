@@ -3,26 +3,26 @@ name: build
 
 steps:
   - name: buildlocal
-      image: king019/centos
-      privileged: true
-      volumes:
-        - name: maven
-          path: /root/.m2
-        - name: docker
-          path: /bin/docker
-        - name: sock
-          path: /var/run/docker.sock
-        - name: docker_config
-          path: /root/.docker/config.json
-      commands:
-        - chmod -R 777 /bin
-        - which docker
-        - docker version
-        - source /etc/profile
-        - mvn clean
-        - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=false@local=true"
-        - pwd;ls
-        - sh ./target/local_region/noSuffix_false.sh
+    image: king019/centos
+    privileged: true
+    volumes:
+      - name: maven
+        path: /root/.m2
+      - name: docker
+        path: /bin/docker
+      - name: sock
+        path: /var/run/docker.sock
+      - name: docker_config
+        path: /root/.docker/config.json
+    commands:
+      - chmod -R 777 /bin
+      - which docker
+      - docker version
+      - source /etc/profile
+      - mvn clean
+      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=false@local=true"
+      - pwd;ls
+      - sh ./target/local_region/noSuffix_false.sh
   - name: buildall
     image: king019/centos
     privileged: true

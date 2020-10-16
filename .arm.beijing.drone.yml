@@ -29,7 +29,7 @@ volumes:
       path: /opt/soft/docker/data/maven/m2
   - name: docker
     host:
-      path: /usr/local/bin/docker
+      path: /usr/bin/docker
   - name: sock
     host:
       path: /var/run/docker.sock

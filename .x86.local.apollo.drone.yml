@@ -3,7 +3,7 @@ name: build
 
 steps:
   - name: build
-    image: king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
     volumes:
       - name: maven

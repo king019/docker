@@ -3,7 +3,7 @@ name: build
 
 steps:
   - name: buildlocal
-    image: king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
     volumes:
       - name: maven
@@ -24,7 +24,7 @@ steps:
       - pwd;ls
       - sh ./target/local_region/noSuffix_false.sh
   - name: buildall
-    image: king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
     volumes:
       - name: maven

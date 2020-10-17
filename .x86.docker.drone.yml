@@ -20,7 +20,7 @@ steps:
       - docker version
       - source /etc/profile
       - mvn clean
-      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=5@rep=true@push=true"
+      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true"
       - pwd;ls
       - sh ./target/x86_64_docker_true.sh
 volumes:

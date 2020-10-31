@@ -20,11 +20,11 @@ RUN apk add curl
 RUN apk add wget
 RUN apk add vim
 #jenkins 需要这个
-RUN apk add ttf-dejavu
+#RUN apk add ttf-dejavu
 #nodejs
-RUN apk add nodejs
-RUN apk add npm
-RUN npm config set registry https://registry.npm.taobao.org
+#RUN apk add nodejs
+#RUN apk add npm
+#RUN npm config set registry https://registry.npm.taobao.org
 
 # RUN apk update && \
 #     apk add --no-cache openssh-server tzdata && \

@@ -21,9 +21,9 @@
     <!-- mirrors | This is a list of mirrors to be used in downloading artifacts from remote repositories. | | It works like this: a POM may declare a repository to use in resolving certain artifacts. | However, this repository may have problems with heavy traffic at times, so people have mirrored | it to several places. | | That repository definition will have a unique id, so we can create a mirror reference for that | repository, to be used as an alternate download site. The mirror site will be the preferred | server for that repository. | -->
     <mirrors>
         <mirror>
-            <id>oschina</id>
-            <name>oschina</name>
-            <url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+            <id>aliyun</id>
+            <name>aliyun</name>
+            <url>https://maven.aliyun.com/repository/public</url>
             <!--            <url>http://smp:8081/repository/maven-public/</url>-->
             <mirrorOf>*</mirrorOf>
         </mirror>

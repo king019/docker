@@ -19,6 +19,8 @@ RUN apk add maven
 RUN apk add curl
 RUN apk add wget
 RUN apk add vim
+RUN apk add gnupg
+
 #jenkins 需要这个
 #RUN apk add ttf-dejavu
 #nodejs

@@ -5,6 +5,7 @@ steps:
   - name: buildlocal
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
+    detach: true
     volumes:
       - name: maven
         path: /root/.m2

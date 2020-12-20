@@ -15,5 +15,6 @@ jobs:
 #          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
 #          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
-           pwd|ls
+          pwd
+          ls
            sh ./src/main/resources/travis/travis.sh

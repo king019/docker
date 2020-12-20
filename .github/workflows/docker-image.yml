@@ -10,7 +10,6 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: king019/docker@master
       - name: docker
 #        with:
 #          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}

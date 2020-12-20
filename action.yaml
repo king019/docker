@@ -1,0 +1,19 @@
+name: 'docker'
+description: 'docker build'
+author: king019@aliyun.com
+inputs:
+  key:
+    description: key1
+    required: true
+  text:
+    description: val1
+    required: true
+  desp:
+    description: msg
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.key }}
+    - ${{ inputs.text }}
+    - ${{ inputs.desp }}

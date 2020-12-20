@@ -12,8 +12,8 @@ jobs:
     steps:
       - uses: ubuntu-latest
       - name: docker
-        with:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#        with:
+#          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: |
            sh ./src/main/resources/travis/travis.sh

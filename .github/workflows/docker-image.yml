@@ -15,6 +15,4 @@ jobs:
         DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
         DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
     - name: docker
-      run: |
-      ./src/main/resources/travis/travis.sh
-
+      run: ./src/main/resources/travis/travis.sh

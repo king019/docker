@@ -11,10 +11,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: docker
-#        with:
-#          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-#          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: |
-          pwd
-          ls
-           sh ./src/main/resources/travis/travis.sh
+        with:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: docker run -it -e DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }} -e DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} -e ALIYUN_USERNAME=$ALIYUN_USERNAME -e ALIYUN_PASSWORD=$ALIYUN_PASSWORD --privileged -v /var/run/docker.sock:/var/run/docker.sock king019/docker:builddocker

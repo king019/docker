@@ -10,7 +10,7 @@ jobs:
   build:
     runs-on: king019/docker:builddocker
     steps:
-#    - uses: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_PASSWORD }}
+    - uses: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_PASSWORD }}@master
     with:
       DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
       DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}

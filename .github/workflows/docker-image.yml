@@ -7,12 +7,11 @@ on:
     branches: [ master ]
 
 jobs:
-
   build:
-
-    runs-on: ubuntu-latest
-
+    runs-on: king019/docker:builddocker
     steps:
-    - uses: actions/checkout@v2
-    - name: Build the Docker image
-      run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)
+    - uses: ${{ secrets.DOCKER_USERNAME }}/${{ secrets.DOCKER_PASSWORD }}
+    - name: docker
+      run: |
+      ./src/main/resources/travis/travis.sh
+

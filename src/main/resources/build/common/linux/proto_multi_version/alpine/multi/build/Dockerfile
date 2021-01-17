@@ -19,10 +19,11 @@ RUN apk add maven
 RUN apk add curl
 RUN apk add wget
 RUN apk add vim
-RUN apk add gnupg
+#gnu
+#RUN apk add gnupg
 
 #jenkins 需要这个
-RUN apk add ttf-dejavu
+#RUN apk add ttf-dejavu
 #nodejs
 RUN apk add nodejs
 RUN apk add npm
@@ -48,19 +49,19 @@ RUN mkdir -p /root/soft/
 
 RUN mkdir -p /root/tools
 
-ADD http://maven.aliyun.com/nexus/content/groups/public/org/eclipse/jetty/jetty-distribution/9.4.19.v20190610/jetty-distribution-9.4.19.v20190610.tar.gz /opt/soft/tools/jetty-distribution-9.4.19.v20190610.tar.gz
-ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/tools/apache-tomcat-9.0.35.tar.gz
+#ADD http://maven.aliyun.com/nexus/content/groups/public/org/eclipse/jetty/jetty-distribution/9.4.19.v20190610/jetty-distribution-9.4.19.v20190610.tar.gz /opt/soft/tools/jetty-distribution-9.4.19.v20190610.tar.gz
+#ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/tools/apache-tomcat-9.0.35.tar.gz
 
 
-RUN cp /opt/soft/tools/jetty-distribution-9.4.19.v20190610.tar.gz  /root/tools/jetty-distribution-9.4.19.v20190610.tar.gz
-RUN cd /root/tools/;tar -xzf jetty-distribution-9.4.19.v20190610.tar.gz
-RUN cd /root/tools/;mv jetty-distribution-9.4.19.v20190610 jetty
+#RUN cp /opt/soft/tools/jetty-distribution-9.4.19.v20190610.tar.gz  /root/tools/jetty-distribution-9.4.19.v20190610.tar.gz
+#RUN cd /root/tools/;tar -xzf jetty-distribution-9.4.19.v20190610.tar.gz
+#RUN cd /root/tools/;mv jetty-distribution-9.4.19.v20190610 jetty
 
 
 
-RUN cp /opt/soft/tools/apache-tomcat-9.0.35.tar.gz  /root/tools/apache-tomcat-9.0.35.tar.gz
-RUN cd /root/tools/;tar -xzf apache-tomcat-9.0.35.tar.gz
-RUN cd /root/tools/;mv apache-tomcat-9.0.35 tomcat
+#RUN cp /opt/soft/tools/apache-tomcat-9.0.35.tar.gz  /root/tools/apache-tomcat-9.0.35.tar.gz
+#RUN cd /root/tools/;tar -xzf apache-tomcat-9.0.35.tar.gz
+#RUN cd /root/tools/;mv apache-tomcat-9.0.35 tomcat
 
 
 

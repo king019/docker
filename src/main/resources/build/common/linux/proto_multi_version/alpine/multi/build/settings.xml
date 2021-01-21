@@ -23,7 +23,8 @@
         <mirror>
             <id>oschina</id>
             <name>oschina</name>
-            <url>https://maven.aliyun.com/repository/public</url>
+<!--            <url>https://maven.aliyun.com/repository/public</url>-->
+            <url>https://mirrors.huaweicloud.com/repository/maven/</url>
             <!--            <url>http://smp:8081/repository/maven-public/</url>-->
             <mirrorOf>*</mirrorOf>
         </mirror>

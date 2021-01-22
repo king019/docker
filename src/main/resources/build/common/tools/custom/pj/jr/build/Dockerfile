@@ -1,4 +1,4 @@
-FROM  king019/linux:jdk11_maven
+FROM  king019/linux:jdk11
 
 MAINTAINER king019
 RUN mkdir -p /opt/soft/tool

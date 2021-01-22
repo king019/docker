@@ -1,4 +1,4 @@
-FROM  king019/linux
+FROM  king019/linux:jdk11_maven
 
 MAINTAINER king019
 RUN mkdir -p /root/tools

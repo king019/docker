@@ -1,4 +1,4 @@
-FROM  docker:5000/king019/linux:jdk11_maven
+FROM  king019/linux:jdk11_maven
 
 MAINTAINER king019
 RUN mkdir -p /opt/soft/tool

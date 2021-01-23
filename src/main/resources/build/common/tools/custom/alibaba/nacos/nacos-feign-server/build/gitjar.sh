@@ -3,8 +3,8 @@ set -x
 cd /opt/soft/version
 git clone https://gitee.com/king019/ali_fw_sshm.git
 cd ali_fw_sshm
-cd $(find . -name 'sshm_cloud_feign_nacos_server')
+cd $(find . -name 'sshm_boot_cloud_feign_nacos_server')
 mvn clean install -T 5
-find . -name sshm_cloud_feign_nacos_server-1.0-SNAPSHOT.jar|awk '{print "cp " $1  " /opt/soft/sshm_cloud_feign_nacos_server-1.0-SNAPSHOT.jar"}'|sh
+find . -name sshm_boot_cloud_feign_nacos_server-1.0-SNAPSHOT.jar|awk '{print "cp " $1  " /opt/soft/sshm_boot_cloud_feign_nacos_server-1.0-SNAPSHOT.jar"}'|sh
 mvn clean
 rm -fr ~/.m2/repository

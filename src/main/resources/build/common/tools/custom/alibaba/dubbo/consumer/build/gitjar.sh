@@ -1,7 +1,7 @@
 #!/bin/sh
 set -x
 cd /opt/soft/version
-git clone https://gitee.com/king019/ali_fw_fw.git
+git clone https://e.coding.net/king019/github/ali_fw_fw.git
 cd ali_fw_fw
 cd $(find . -name 'fw_rpc_dubbo_anno_api')
 mvn clean install -T 5

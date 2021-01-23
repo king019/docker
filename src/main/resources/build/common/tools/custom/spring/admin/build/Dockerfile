@@ -1,4 +1,4 @@
-FROM king019/linux:jdk11_maven
+FROM king019/linux:jdk11
 
 RUN mkdir -p /root/tools/
 RUN mkdir -p /opt/soft/version

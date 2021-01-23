@@ -2,5 +2,5 @@
 set -x
 
 
-
-/docker_run.sh
+tail -f /docker.sh
+#/docker_run.sh

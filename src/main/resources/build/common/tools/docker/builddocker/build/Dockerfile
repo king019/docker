@@ -13,7 +13,6 @@ RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
 
 
-#RUN dnf install  https://download.docker.com/linux/centos/8/x86_64/stable/Packages/containerd.io-1.3.7-3.1.el8.x86_64.rpm
 RUN curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 
 COPY config.json /config.json

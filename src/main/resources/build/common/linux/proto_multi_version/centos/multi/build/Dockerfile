@@ -28,17 +28,17 @@ COPY run/git.sh /opt/soft/git.sh
 #RUN yum -y update
 #base
 #RUN yum -y install  maven
-RUN dnf -y install  java-11-openjdk-devel
-RUN dnf -y install  java-1.8.0-openjdk-devel
-RUN dnf -y install  git
-RUN dnf -y install  wget
-RUN dnf -y install  net-tools
-RUN dnf -y install  unzip
-RUN dnf -y install  which
-RUN dnf -y install  traceroute
-RUN dnf -y install  lsof
-RUN dnf -y install  vim
-RUN dnf -y install  telnet
+RUN yum -y install  java-11-openjdk-devel
+RUN yum -y install  java-1.8.0-openjdk-devel
+RUN yum -y install  git
+RUN yum -y install  wget
+RUN yum -y install  net-tools
+RUN yum -y install  unzip
+RUN yum -y install  which
+RUN yum -y install  traceroute
+RUN yum -y install  lsof
+RUN yum -y install  vim
+RUN yum -y install  telnet
 #base
 #放入extra
 

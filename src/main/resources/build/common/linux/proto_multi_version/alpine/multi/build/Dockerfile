@@ -26,7 +26,7 @@ RUN apk add vim
 #RUN apk add ttf-dejavu
 #nodejs
 #RUN apk add nodejs
-RUN apk add --no-cache --repository https://mirrors.aliyun.com/alpine/v3.11/main/ nodejs = 12.20.1-r0
+RUN apk add  --no-cache --repository http://mirrors.aliyun.com/alpine/v3.11/main/ nodejs=12.20.1-r0
 RUN apk add npm
 RUN npm config set registry https://registry.npm.taobao.org
 

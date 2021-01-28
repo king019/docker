@@ -1,4 +1,4 @@
-FROM  king019/linux:jdk11
+FROM  king019/linux
 
 MAINTAINER king019
 RUN mkdir -p /root/tools

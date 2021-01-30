@@ -338,6 +338,7 @@ public class JenkinsUtil {
         Collections.sort(indexs);
         for (Integer index : indexs) {
             List<DockerJenkinsModel> indexModels = map.get(index);
+            indexModels.sort((o1, o2) -> StringUtils.compare(o1.getVersion(), o2.getVersion()));
             List<List<DockerJenkinsModel>> partitionss = Lists.partition(indexModels, multi);
             for (List<DockerJenkinsModel> partitions : partitionss) {
                 for (DockerJenkinsModel model : partitions) {

@@ -7,8 +7,6 @@ MAINTAINER king019
 
 COPY docker.sh /docker.sh
 
-#RUN apk add git
-
 RUN mkdir -p /opt/soft/version
 
 

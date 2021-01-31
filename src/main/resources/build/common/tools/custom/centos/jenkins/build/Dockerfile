@@ -1,8 +1,6 @@
 FROM  king019/centos
 
 MAINTAINER king019
-#RUN apk add ttf-dejavu
-#RUN apk add docker
 RUN mkdir -p /opt/soft
 RUN mkdir -p /root/tools/
 ADD https://mirrors.huaweicloud.com/jenkins/war/latest/jenkins.war /opt/soft/tools/jenkins.war

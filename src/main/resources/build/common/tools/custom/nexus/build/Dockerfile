@@ -1,8 +1,6 @@
 FROM  king019/linux
 
 MAINTAINER king019
-#RUN apk add ttf-dejavu
-#RUN apk add docker
 RUN mkdir -p /opt/soft
 RUN mkdir -p /root/tools/
 ADD http://download.sonatype.com/nexus/3/nexus-3.24.0-02-unix.tar.gz /opt/soft/nexus-3.24.0-02-unix.tar.gz

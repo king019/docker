@@ -1,22 +1,23 @@
 FROM  king019/linux
 
 MAINTAINER king019
-RUN mkdir -p /opt/soft/
+RUN mkdir -p /opt/soft/version
 RUN mkdir -p /root/tools
+
+COPY gitjar.sh /gitjar.sh
+COPY docker.sh /docker.sh
+RUN chmod 755 /*.sh
+RUN /gitjar.sh
 
 # mvn -Prelease-all -DskipTests clean install
 
-ADD https://king019.coding.net/p/github/d/rocketmq/git/archive/rocketmq-all-4.8.0.zip /opt/soft/rocketmq-all-4.8.0.zip
+#ADD https://king019.coding.net/p/github/d/rocketmq/git/archive/rocketmq-all-4.8.0.zip /opt/soft/rocketmq-all-4.8.0.zip
+#RUN cp /opt/soft/rocketmq-all-4.8.0.zip /root/tools/rocketmq-all-4.8.0.zip
 
-RUN cp /opt/soft/rocketmq-all-4.8.0.zip /root/tools/rocketmq-all-4.8.0.zip
-
-RUN cd /root/tools/;unzip rocketmq-all-4.8.0.zip
-
-RUN cd /root/tools/;mv rocketmq-all-4.8.0 rocketmq
-
-RUN cd /root/tools/rocketmq/conf;echo "brokerIP1=broker" > broker.properties
+RUN cd /opt/soft/;unzip rocketmq-release.zip
+RUN cd /opt/soft/;mv rocketmq-release rocketmq
+RUN cd /opt/soft/rocketmq/conf;echo "brokerIP1=broker" > broker.properties
 
 
-COPY docker.sh /docker.sh
-RUN chmod 755 /*.sh
+
 CMD /docker.sh

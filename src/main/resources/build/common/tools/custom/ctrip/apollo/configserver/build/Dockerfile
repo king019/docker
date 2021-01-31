@@ -1,14 +1,19 @@
 FROM  king019/linux
 
 MAINTAINER king019
-RUN mkdir -p /opt/soft
-RUN mkdir -p /root/tools/apollo-configservice
 
-ADD https://github.com/ctripcorp/apollo/releases/download/v1.7.1/apollo-configservice-1.7.1-github.zip /opt/soft/apollo-configservice-1.7.1-github.zip
+RUN mkdir -p /opt/soft/version
+RUN mkdir -p /root/tools
+RUN mkdir -p /opt/soft/apollo-configservice
 
-RUN cp /opt/soft/apollo-configservice-1.7.1-github.zip /root/tools/apollo-configservice/apollo-configservice-1.7.1-github.zip
-RUN cd /root/tools/apollo-configservice;unzip apollo-configservice-1.7.1-github.zip
 
+COPY gitjar.sh /gitjar.sh
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh
+RUN /gitjar.sh
+
+
+RUN cp /opt/soft/apollo-configservice-release-github.zip /opt/soft/apollo-configservice/apollo-configservice-release-github.zip
+RUN cd /opt/soft/apollo-configservice;unzip apollo-configservice-release-github.zip
+
 CMD /docker.sh

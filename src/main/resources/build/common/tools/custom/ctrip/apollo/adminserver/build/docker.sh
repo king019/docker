@@ -3,7 +3,7 @@ set -x
 
 
 source /etc/profile
-cd /root/tools/apollo-adminservice/scripts
+cd /opt/soft/apollo-adminservice/scripts
 nohup sh startup.sh >log.txt &
 
 

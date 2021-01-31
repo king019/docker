@@ -1,13 +1,19 @@
 FROM  king019/linux
 
 MAINTAINER king019
-RUN mkdir -p /opt/soft/
-RUN mkdir -p /root/tools/apollo-adminservice
-ADD https://github.com/ctripcorp/apollo/releases/download/v1.7.1/apollo-adminservice-1.7.1-github.zip /opt/soft/apollo-adminservice-1.7.1-github.zip
+RUN mkdir -p /opt/soft/version
+RUN mkdir -p /root/tools
+RUN mkdir -p /opt/soft/apollo-adminservice
 
-RUN cp /opt/soft/apollo-adminservice-1.7.1-github.zip /root/tools/apollo-adminservice/apollo-adminservice-1.7.1-github.zip
-RUN cd /root/tools/apollo-adminservice;unzip apollo-adminservice-1.7.1-github.zip
 
+
+COPY gitjar.sh /gitjar.sh
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh
+RUN /gitjar.sh
+
+RUN cp /opt/soft/apollo-adminservice-release-github.zip /opt/soft/apollo-adminservice/apollo-adminservice-release-github.zip
+RUN cd /opt/soft/apollo-adminservice;unzip apollo-adminservice-release-github.zip
+
+
 CMD /docker.sh

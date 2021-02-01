@@ -19,7 +19,7 @@ steps:
       - which docker
       - docker version
       - source /etc/profile
-      - mvn clean
+#      - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=2@rep=true@push=true@ex=centos"
       - pwd;ls
       - sh ./target/aarch64_aliyun_beijing_true.sh

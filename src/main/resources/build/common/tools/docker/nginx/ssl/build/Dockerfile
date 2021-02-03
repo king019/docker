@@ -4,7 +4,7 @@ COPY nginx.conf /etc/nginx/
 #COPY passwd /etc/nginx/
 
 
-COPY privkey.pem /privkey.pem
+COPY server.pem /server.pem
 COPY privkey.pem /privkey.pem
 
 RUN rm -rf /etc/nginx/conf.d/default.conf

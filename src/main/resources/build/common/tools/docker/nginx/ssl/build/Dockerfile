@@ -4,7 +4,7 @@ COPY nginx.conf /etc/nginx/
 #COPY passwd /etc/nginx/
 
 
-COPY maven.aliyun.com.csr /maven.aliyun.com.csr
-COPY maven.aliyun.com.key /maven.aliyun.com.key
+COPY privkey.pem /privkey.pem
+COPY privkey.pem /privkey.pem
 
 RUN rm -rf /etc/nginx/conf.d/default.conf

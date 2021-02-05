@@ -1,6 +1,6 @@
 FROM apache/dubbo-admin
 FROM arm64v8/zookeeper
-FROM zookeeper:zookeeper:3.5.4-beta
+FROM zookeeper:zookeeper
 
 FROM consol/centos-icewm-vnc
 FROM consol/ubuntu-xfce-vnc

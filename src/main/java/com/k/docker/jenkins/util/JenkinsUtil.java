@@ -347,7 +347,7 @@ public class JenkinsUtil {
                     lines.add("}&");
                 }
                 lines.add("wait");
-                lines.add("sleep 1");
+                //lines.add("sleep 1");
             }
         }
     }

@@ -2,7 +2,7 @@ kind: pipeline
 name: build
 
 steps:
-  - name: buildDocker
+  - name: build
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
     volumes:
@@ -19,17 +19,17 @@ steps:
       - which docker
       - docker version
       - source /etc/profile
-      #      - mvn clean
-      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=3@rep=true@push=true@ex=centos"
+      - mvn clean
+      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true"
       - pwd;ls
-      - sh ./target/x86_docker_true.sh
+      - sh ./target/x86_64_docker_true.sh
 volumes:
   - name: maven
     host:
       path: /opt/soft/docker/data/maven/m2
   - name: docker
     host:
-      path: /usr/bin/docker
+      path: /usr/local/bin/docker
   - name: sock
     host:
       path: /var/run/docker.sock

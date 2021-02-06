@@ -19,17 +19,17 @@ steps:
       - which docker
       - docker version
       - source /etc/profile
-      - mvn clean
-      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true"
+      #      - mvn clean
+      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=3@rep=true@push=true@ex=centos"
       - pwd;ls
-      - sh ./target/x86_64_aliyun_beijing_true.sh
+      - sh ./target/x86_aliyun_beijing_true.sh
 volumes:
   - name: maven
     host:
       path: /opt/soft/docker/data/maven/m2
   - name: docker
     host:
-      path: /usr/local/bin/docker
+      path: /usr/bin/docker
   - name: sock
     host:
       path: /var/run/docker.sock

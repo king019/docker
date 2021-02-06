@@ -2,7 +2,7 @@ kind: pipeline
 name: build
 
 steps:
-  - name: buildbj
+  - name: buildDocker
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
     volumes:

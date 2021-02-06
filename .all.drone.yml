@@ -45,7 +45,8 @@ steps:
       - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=3@rep=true@push=true@local=false@ex=centos"
       - pwd;ls
-      - sh ./target/aliyun_beijing_true.sh
+      - cd ./target
+      - sh ./aliyun_beijing_true.sh
 
   - name: buildDocker
     image: registry.cn-beijing.aliyuncs.com/king019/centos
@@ -67,7 +68,8 @@ steps:
       - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=3@rep=true@push=true@local=false@ex=centos"
       - pwd;ls
-      - sh ./target/docker_true.sh
+      - cd ./target
+      - sh ./docker_true.sh
 volumes:
   - name: maven
     host:

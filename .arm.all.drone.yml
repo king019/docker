@@ -24,6 +24,7 @@ steps:
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=3@rep=true@push=true@local=true"
       - pwd;ls
       - sh ./target/local_region/noSuffix_false.sh
+
   - name: buildBeijing
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
@@ -44,8 +45,8 @@ steps:
       - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=3@rep=true@push=true@local=false@ex=centos"
       - pwd;ls
-#      - sh ./target/aarch64_docker_true.sh
       - sh ./target/aarch64_aliyun_beijing_true.sh
+
   - name: buildDocker
       image: registry.cn-beijing.aliyuncs.com/king019/centos
       privileged: true
@@ -66,7 +67,6 @@ steps:
         - mvn clean
         - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=3@rep=true@push=true@local=false@ex=centos"
         - pwd;ls
-        #      - sh ./target/aarch64_docker_true.sh
         - sh ./target/aarch64_docker_true.sh
 volumes:
   - name: maven

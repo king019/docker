@@ -345,7 +345,7 @@ public class JenkinsUtil {
         lines.add("NowPlatform=$(uname -m)");
         lines.add("X86='" + DockerPlatformEnum.ADM64.getPlatform() + "'");
         lines.add("Arm='" + DockerPlatformEnum.ARM64.getPlatform() + "'");
-        lines.add("if [[ $$NowPlatform == *$X86* ]]");
+        lines.add("if [[ $NowPlatform == *$X86* ]]");
         lines.add("then");
         for (String platRegion : Sets.newHashSet(platformMap.get(plat))) {
             if (platRegion.contains(DockerPlatformEnum.ADM64.getPlatform())) {

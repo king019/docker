@@ -20,7 +20,9 @@ public enum DockerRegionEnum {
 //    HUHEHAOTE("aliyun_huhehaote", "registry.cn-huhehaote.aliyuncs.com", "hhht"),
 //    SHENZHEN("aliyun_shenzhen", "registry.cn-shenzhen.aliyuncs.com", "sz"),
     BEI_JING("aliyun_beijing", "registry.cn-beijing.aliyuncs.com", "bj"),
+    TEN_BEI_JING("tenyun_beijing", "ccr.ccs.tencentyun.com", "tenbj"),
     DOCKER("docker", "", "dk"),
+
     //SMP("smp", "docker:5000"),
     LOCAL("local_region", "docker:5000", "lc", true);
     private String region;

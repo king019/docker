@@ -11,7 +11,7 @@ docker login --username=906451283@qq.com registry.cn-shenzhen.aliyuncs.com
 
 docker login --username=906451283@qq.com registry.cn-hangzhou.aliyuncs.com
 
-
+docker login --username=906451283 ccr.ccs.tencentyun.com
 
 
 docker login --username=906451283@qq.com registry.cn-beijing.aliyuncs.com

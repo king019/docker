@@ -2,7 +2,7 @@ kind: pipeline
 name: build
 
 steps:
-  - name: buildlocal
+  - name: buildLocal
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
     #detach: true
@@ -25,7 +25,7 @@ steps:
       - pwd;ls
       - sh ./target/local_region/noSuffix_false.sh
 
-  - name: buildBeijing
+  - name: buildAliyunBeijing
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
     volumes:

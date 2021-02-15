@@ -2,7 +2,7 @@ kind: pipeline
 name: build
 
 steps:
-  - name: buildlocal
+  - name: buildLocal
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
     #detach: true
@@ -25,7 +25,7 @@ steps:
       - pwd;ls
       - sh ./target/local_region/noSuffix_false.sh
 
-  - name: buildBeijing
+  - name: buildAliyunBeijing
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
     volumes:
@@ -48,6 +48,29 @@ steps:
       - chmod -R 777 .
       - cd ./target
       - sh ./aliyun_beijing_true.sh
+  - name: buildTenBeijing
+    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    privileged: true
+    volumes:
+      - name: maven
+        path: /root/.m2
+      - name: docker
+        path: /bin/docker
+      - name: sock
+        path: /var/run/docker.sock
+      - name: docker_config
+        path: /root/.docker/config.json
+    commands:
+      - chmod -R 777 /bin
+      - which docker
+      - docker version
+      - source /etc/profile
+      - mvn clean
+      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=false@ex=centos"
+      - pwd;ls
+      - chmod -R 777 .
+      - cd ./target
+      - sh ./tenyun_beijing_true.sh
 
   - name: buildDocker
     image: registry.cn-beijing.aliyuncs.com/king019/centos

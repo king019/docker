@@ -54,7 +54,7 @@ RUN yum -y install  telnet
 
 
 
-#ADD https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz /opt/soft/tools/apache-maven-3.6.3-bin.tar.gz
+ADD https://mirrors.tuna.tsinghua.edu.cn/apache/maven/maven-3/3.6.3/binaries/apache-maven-3.6.3-bin.tar.gz /opt/soft/tools/apache-maven-3.6.3-bin.tar.gz
 #ADD http://maven.aliyun.com/nexus/content/groups/public/org/eclipse/jetty/jetty-distribution/9.4.19.v20190610/jetty-distribution-9.4.19.v20190610.tar.gz /opt/soft/tools/jetty-distribution-9.4.19.v20190610.tar.gz
 #ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/tools/apache-tomcat-9.0.35.tar.gz
 
@@ -70,8 +70,8 @@ RUN yum -y install  telnet
 #RUN cd /root/tools/;mv apache-tomcat-9.0.35 tomcat
 
 
-#RUN cd /opt/soft/tools/;tar -xzf apache-maven-3.6.3-bin.tar.gz
-#RUN cd /opt/soft/tools/;mv apache-maven-3.6.3 maven
+RUN cd /opt/soft/tools/;tar -xzf apache-maven-3.6.3-bin.tar.gz
+RUN cd /opt/soft/tools/;mv apache-maven-3.6.3 maven
 
 
 #RUN echo 'export MAVEN_HOME=/opt/soft/tools/maven' >> /root/.bashrc

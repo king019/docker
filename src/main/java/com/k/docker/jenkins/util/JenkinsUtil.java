@@ -122,6 +122,7 @@ public class JenkinsUtil {
         int fileIndex = line.indexOf(fileName);
         String next = line.substring(fileIndex);
         next = "ADD http://nginxdown:9500" + next;
+        System.out.println(next);
         return next;
     }
 

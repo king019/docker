@@ -1,15 +1,15 @@
 FROM  king019/linux
 
 MAINTAINER king019
-RUN mkdir -p /opt/soft
-RUN mkdir -p /root/tools/
-ADD http://download.sonatype.com/nexus/3/nexus-3.29.2-02-unix.tar.gz /opt/soft/nexus-3.29.2-02-unix.tar.gz
-#COPY nexus-3.22.0-02-unix.tar.gz /opt/soft/nexus-3.22.0-02-unix.tar.gz
 
-RUN cp /opt/soft/nexus-3.29.2-02-unix.tar.gz /root/tools/nexus-3.29.2-02-unix.tar.gz
-RUN cd /root/tools/;tar -xzf nexus-3.29.2-02-unix.tar.gz
-RUN cd /root/tools/;mv nexus-3.29.2-02 nexus
+RUN mkdir -p /opt/soft/version
+RUN mkdir -p /root/tools
 
+COPY gitjar.sh /gitjar.sh
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh
+RUN /gitjar.sh
+RUN cd /root/tools/;unzip nexus-base-template-3.7.0-04.zip
+RUN cd /root/tools/;mv nexus-base-template-3.7.0-04 nexus
+
 CMD /docker.sh

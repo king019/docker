@@ -1,5 +1,7 @@
 #!/bin/sh
 set -x
+source /etc/profile
+java -version
 cd /opt/soft/version
 git clone https://e.coding.net/king019/github/apollo.git
 cd apollo

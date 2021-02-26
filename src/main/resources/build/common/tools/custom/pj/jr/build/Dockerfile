@@ -1,8 +1,6 @@
 FROM  king019/linux
 
 MAINTAINER king019
-RUN mkdir -p /opt/soft/tool
-RUN mkdir -p /opt/soft/version
 
 COPY gitjar.sh /gitjar.sh
 COPY docker.sh /docker.sh

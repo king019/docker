@@ -2,6 +2,11 @@ FROM centos
 
 MAINTAINER king019
 
+RUN mkdir -p /root/soft
+RUN mkdir -p /root/tools
+RUN mkdir -p /opt/soft/version
+RUN mkdir -p /opt/soft/tools
+
 COPY docker.sh /docker.sh
 
 RUN yum -y install wget

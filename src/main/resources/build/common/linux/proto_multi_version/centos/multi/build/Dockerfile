@@ -2,9 +2,6 @@ FROM king019/centos:p
 
 MAINTAINER king019
 
-RUN mkdir -p /root/soft
-RUN mkdir -p /root/tools
-RUN mkdir -p /opt/soft
 
 COPY settings.xml /root/.m2/settings.xml
 COPY run/run.sh /run.sh

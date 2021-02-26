@@ -1,7 +1,6 @@
 FROM  king019/ubuntu:p
 
 MAINTAINER king019
-RUN mkdir -p /opt/soft
 RUN cd /opt/soft
 
 #ADD https://raw.githubusercontent.com/king019/docker/master/src/main/java/linux/ubuntu/18.4/build/docker.sh /docker.sh

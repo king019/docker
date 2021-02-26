@@ -7,7 +7,6 @@ MAINTAINER king019
 
 COPY docker.sh /docker.sh
 
-RUN mkdir -p /opt/soft/version
 
 
 

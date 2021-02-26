@@ -2,8 +2,6 @@ FROM  registry.cn-hangzhou.aliyuncs.com/king019/arm_centos_proto
 
 MAINTAINER king019
 
-RUN mkdir -p /opt/soft/version
-
 
 RUN yum -y install maven
 RUN yum -y install git
@@ -20,7 +18,6 @@ RUN cd /opt/soft/version ; git clone https://github.com/king019/hub_git.git
 
 ADD https://github.com/AdoptOpenJDK/openjdk10-binaries/releases/download/jdk-10.0.2%2B13.1/OpenJDK10U-jdk_arm_linux_hotspot_10.0.2_13.tar.gz /opt/soft/OpenJDK10U-jdk_arm_linux_hotspot_10.0.2_13.tar.gz
 
-RUN mkdir -p /opt/soft/
 #ADD https://archive.apache.org/dist/tomcat/tomcat-9/v9.0.24/bin/apache-tomcat-9.0.24.tar.gz /opt/soft/apache-tomcat-9.0.24.tar.gz
 ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/apache-tomcat-9.0.35.tar.gz
 

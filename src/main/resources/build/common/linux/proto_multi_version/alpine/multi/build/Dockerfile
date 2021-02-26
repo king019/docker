@@ -2,13 +2,6 @@ FROM king019/alpine:p
 
 MAINTAINER king019
 
-RUN mkdir -p /opt/soft/tools
-RUN mkdir -p /opt/soft/version
-
-RUN mkdir -p /root/soft/
-
-RUN mkdir -p /root/tools
-
 ADD bashrc /root/.bashrc
 
 COPY settings.xml /root/.m2/settings.xml

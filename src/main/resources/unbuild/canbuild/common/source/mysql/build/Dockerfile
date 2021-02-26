@@ -7,7 +7,6 @@ MAINTAINER king019
 COPY docker.sh /docker.sh
 
 
-RUN mkdir -p /opt/soft/version
 
 RUN cd /opt/soft/version;git clone https://github.com/mysql/mysql-server.git
 

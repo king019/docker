@@ -1,8 +1,6 @@
 FROM  king019/linux
 
 MAINTAINER king019
-RUN mkdir -p /root/tools/
-RUN mkdir -p /opt/soft/version
 
 
 #ADD https://raw.githubusercontent.com/king019/save_sshm/master/sshm_boot_cloud_grpc_provider-1.0-SNAPSHOT.jar /opt/soft/sshm_boot_cloud_grpc_provider-1.0-SNAPSHOT.jar

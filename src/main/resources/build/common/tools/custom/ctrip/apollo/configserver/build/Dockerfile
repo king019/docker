@@ -2,8 +2,6 @@ FROM  king019/linux:jdk8
 
 MAINTAINER king019
 
-RUN mkdir -p /opt/soft/version
-RUN mkdir -p /root/tools
 RUN mkdir -p /opt/soft/apollo-configservice
 
 

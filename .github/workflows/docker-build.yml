@@ -4,7 +4,7 @@ jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
-      - uses: actions/checkout@v2
+      - uses: king019/docker:builddocker
       - name: docker
 #        uses: king019/docker@master
         with:

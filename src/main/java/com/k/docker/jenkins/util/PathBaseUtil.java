@@ -11,6 +11,7 @@ import java.util.List;
 
 public class PathBaseUtil {
     public static String PRE_PATH;
+    public static String DOWN_PATH;
     public static List<String> REGIONS = Lists.newArrayList();
 
     static {
@@ -24,6 +25,13 @@ public class PathBaseUtil {
     static {
         try {
             REGIONS = FileUtils.readLines(new File(PathUtil.getResource("txt/region_def.txt")), StandardCharsets.UTF_8);
+        } catch (IOException e) {
+            //e.printStackTrace();
+        }
+    }
+    static {
+        try {
+            DOWN_PATH = FileUtils.readFileToString(new File(PathUtil.getResource("txt/down.txt")), StandardCharsets.UTF_8);
         } catch (IOException e) {
             //e.printStackTrace();
         }

@@ -121,7 +121,7 @@ public class JenkinsUtil {
         String fileName = downUrl.substring(lastIndexOf);
         int fileIndex = line.indexOf(fileName);
         String next = line.substring(fileIndex);
-        next = "ADD http://nginxdown:9500" + next;
+        next = "ADD "+PathBaseUtil.DOWN_PATH + next;
         //System.out.println(next);
         return next;
     }

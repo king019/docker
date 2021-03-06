@@ -1,19 +1,19 @@
-name: Docker Image CI
-
-on:
-  push:
-    branches: [ master ]
-  pull_request:
-    branches: [ master ]
-
-jobs:
-  build:
-    runs-on: ubuntu-latest
-    steps:
-       - uses: king019/docker@master
-       - uses: king019/docker:builddocker
-        with:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: echo 123
-        #docker run -it -e DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }} -e DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} -e ALIYUN_USERNAME=$ALIYUN_USERNAME -e ALIYUN_PASSWORD=$ALIYUN_PASSWORD --privileged -v /var/run/docker.sock:/var/run/docker.sock king019/docker:builddocker
+#name: Docker Image CI
+#
+#on:
+#  push:
+#    branches: [ master ]
+#  pull_request:
+#    branches: [ master ]
+#
+#jobs:
+#  build:
+#    runs-on: ubuntu-latest
+#    steps:
+#       - uses: king019/docker@master
+#       - uses: king019/docker:builddocker
+#        with:
+#          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+#          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+#        run: echo 123
+#        #docker run -it -e DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }} -e DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} -e ALIYUN_USERNAME=$ALIYUN_USERNAME -e ALIYUN_PASSWORD=$ALIYUN_PASSWORD --privileged -v /var/run/docker.sock:/var/run/docker.sock king019/docker:builddocker

@@ -6,7 +6,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - name: docker
-        uses: king019/docker:builddocker
+        uses: king019/docker@master
         with:
           node-version: '12.x'
       - run: npm install

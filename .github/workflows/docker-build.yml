@@ -1,12 +1,12 @@
-name: Node.js CI
+name: dk
 on: [push]
 jobs:
   build:
     runs-on: ubuntu-20.04
     steps:
       - uses: actions/checkout@v2
-      - name: Use Node.js
-        uses: actions/setup-node@v1
+      - name: docker
+        uses: king019/docker:builddocker
         with:
           node-version: '12.x'
       - run: npm install

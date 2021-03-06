@@ -13,6 +13,9 @@ import java.util.function.Function;
 import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 
+/**
+ * //https://console.cloud.tencent.com/tke2/registry/user/self?rid=1
+ */
 @Getter
 public enum DockerRegionEnum {
     //HANG_ZHOU("hangzhou", "registry.cn-hangzhou.aliyuncs.com"),

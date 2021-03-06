@@ -19,3 +19,7 @@ beijing
 docker login -u king019
 
 
+
+https://console.cloud.tencent.com/tke2/registry/user/self?rid=1
+
+

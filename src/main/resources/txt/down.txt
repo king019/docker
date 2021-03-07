@@ -1,1 +1,1 @@
-http://nginxdown:9600/remote.php/dav/files/admin/nginx
+http://nginxdown:9500

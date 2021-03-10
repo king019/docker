@@ -102,7 +102,7 @@ public class JenkinsUtil {
     }
 
     private String startADD(String line) {
-        String gitSave1 = "https://raw.githubusercontent.com/king019/";
+        String gitSave1 = "https://king019.coding.net/p/github/d/save_github/git/raw/";
         String gitSave2 = "http";
         String next = line;
         if (line.indexOf(gitSave1) > 0) {
@@ -122,7 +122,7 @@ public class JenkinsUtil {
         int fileIndex = line.indexOf(fileName);
         String next = line.substring(fileIndex);
         next = "ADD "+PathBaseUtil.DOWN_PATH + next;
-        //System.out.println(next);
+        System.out.println(next);
         return next;
     }
 

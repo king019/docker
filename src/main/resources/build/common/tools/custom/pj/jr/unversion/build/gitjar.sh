@@ -1,5 +1,6 @@
 #!/bin/sh
 set -x
+mkdir -p /opt/soft/version
 cd /opt/soft/version
 git clone https://gitee.com/gsls200808/JrebelLicenseServerforJava.git
 cd JrebelLicenseServerforJava

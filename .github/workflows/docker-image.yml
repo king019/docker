@@ -22,6 +22,7 @@ jobs:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
       - name: build
+         id: buildx
          uses: docker/setup-buildx-action@v1
       - name: act
         run: echo 123

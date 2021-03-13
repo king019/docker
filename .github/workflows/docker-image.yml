@@ -24,4 +24,4 @@ jobs:
         run: echo ${{ steps.buildx.outputs.name }}
       -
         name: Available platforms
-        run: echo ${{ steps.buildx.outputs.platforms }}
+        run: echo ${{ steps.buildx.outputs.platforms }};cat ~/.docker/daemon.json

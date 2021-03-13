@@ -1,3 +1,5 @@
+        #docker run -it -e DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }} -e DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} -e ALIYUN_USERNAME=$ALIYUN_USERNAME -e ALIYUN_PASSWORD=$ALIYUN_PASSWORD --privileged -v /var/run/docker.sock:/var/run/docker.sock king019/docker:builddocker
+
 name: Docker Image CI
 
 on:
@@ -7,12 +9,15 @@ on:
     branches: [ master ]
 
 jobs:
+
   build:
-    runs-on: ubuntu-latest
+
+    runs-on: ubuntu-20.04
+
     steps:
-       - uses: actions/checkout@v2
+      - uses: actions/checkout@v2
+      - name: Build the Docker image
         with:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run: echo 123
-        #docker run -it -e DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }} -e DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }} -e ALIYUN_USERNAME=$ALIYUN_USERNAME -e ALIYUN_PASSWORD=$ALIYUN_PASSWORD --privileged -v /var/run/docker.sock:/var/run/docker.sock king019/docker:builddocker
+        run: docker build . --file Dockerfile --tag my-image-name:$(date +%s)

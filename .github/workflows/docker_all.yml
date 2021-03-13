@@ -48,19 +48,19 @@ jobs:
         run: cat /etc/docker/daemon.json;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
-          mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=20@rep=false@push=true@local=false";
+          mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=1@rep=false@push=true@local=false";
           sh ./target/x86_64_docker_true.sh
       -
         name: build_aliyun
         run: cat /etc/docker/daemon.json;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
-          mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=20@rep=false@push=true@local=false";
+          mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=1@rep=false@push=true@local=false";
           sh ./target/x86_64_aliyun_beijing_true.sh
       -
         name: build_tencent
         run: cat /etc/docker/daemon.json;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
-          mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=20@rep=false@push=true@local=false";
+          mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=1@rep=false@push=true@local=false";
           sh ./target/x86_64_tenyun_beijing_true.sh

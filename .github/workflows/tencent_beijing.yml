@@ -38,4 +38,4 @@ jobs:
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=1@rep=false@push=true@local=false";
-          sh ./target/tenyun_beijing_true.sh
+          sh ./target/x86_64_tenyun_beijing_true.sh

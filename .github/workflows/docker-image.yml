@@ -25,7 +25,7 @@ jobs:
       -
         name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }};
-            sed -i "s/{/\"experimental\":true/g"  /etc/docker/daemon.json;
+            sudo sed -i "s/{/\"experimental\":true/g"  /etc/docker/daemon.json;
              cat /etc/docker/daemon.json;
               java -version;
               mvn -version;

@@ -24,4 +24,8 @@ jobs:
         run: echo ${{ steps.buildx.outputs.name }}
       -
         name: Available platforms
-        run: echo ${{ steps.buildx.outputs.platforms }};cat /etc/docker/daemon.json;java -version;mvn -version;sudo service docker restart
+        run: echo ${{ steps.buildx.outputs.platforms }};
+             cat /etc/docker/daemon.json;
+              java -version;
+              mvn -version;
+             sudo service docker restart

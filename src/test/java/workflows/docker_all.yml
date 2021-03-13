@@ -1,0 +1,66 @@
+name: docker_all
+
+on:
+  push:
+
+jobs:
+  buildx:
+    runs-on: ubuntu-20.04
+    steps:
+      -
+        name: Checkout
+        uses: actions/checkout@v2
+      - name: Login to Docker Hub
+        uses: docker/login-action@v1
+        with:
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
+      - name: aliyun
+        uses: docker/login-action@v1
+        with:
+          registry: registry.cn-beijing.aliyuncs.com
+          username: ${{ secrets.ALIYUN_USERNAME }}
+          password: ${{ secrets.ALIYUN_PASSWORD }}
+      - name: tencent
+        uses: docker/login-action@v1
+        with:
+          registry: ccr.ccs.tencentyun.com
+          username: ${{ secrets.TENCENT_USERNAME }}
+          password: ${{ secrets.TENCENT_PASSWORD }}
+      -
+        name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      -
+        name: Builder instance name
+        run: echo ${{ steps.buildx.outputs.name }}
+      -
+        name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }};
+            sudo sed -i "s/{/{\"experimental\":true,/g"  /etc/docker/daemon.json;
+             cat /etc/docker/daemon.json;
+              java -version;
+              mvn -version;
+             sudo service docker restart;
+            ls /home/runner/work/docker/docker;
+      -
+        name: build_docker
+        run: cat /etc/docker/daemon.json;
+          cd /home/runner/work/docker/docker;
+          ls /home/runner/work/docker/docker;
+          mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=20@rep=false@push=true@local=false";
+          sh ./target/x86_64_docker_true.sh
+      -
+        name: build_aliyun
+        run: cat /etc/docker/daemon.json;
+          cd /home/runner/work/docker/docker;
+          ls /home/runner/work/docker/docker;
+          mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=20@rep=false@push=true@local=false";
+          sh ./target/x86_64_aliyun_beijing_true.sh
+      -
+        name: build_tencent
+        run: cat /etc/docker/daemon.json;
+          cd /home/runner/work/docker/docker;
+          ls /home/runner/work/docker/docker;
+          mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=20@rep=false@push=true@local=false";
+          sh ./target/x86_64_tenyun_beijing_true.sh

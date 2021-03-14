@@ -27,10 +27,10 @@ jobs:
           username: ${{ secrets.TENCENT_USERNAME }}
           password: ${{ secrets.TENCENT_PASSWORD }}
       - name: chche
-          uses: actions/cache@v2
-          with:
-            path: ~/.m2/repository
-            key: maven
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: maven
       -
         name: Set up Docker Buildx
         id: buildx

@@ -67,7 +67,7 @@ public class JenkinsBuildShell {
                 excludes.addAll(Lists.newArrayList(val.split(",")));
             }
             excludes.add("ubuntu");
-            excludes.add("centos");
+            //excludes.add("centos");
             excludes.add("jenkins");
             excludes.removeAll(includes);
         }

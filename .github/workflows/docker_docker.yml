@@ -33,7 +33,7 @@ jobs:
           key: maven
       -
         name: ping
-        run: ping -s 100 -c 50 www.baidu.com;ping -s 100 -c 50 mirrors.huaweicloud.com
+        run: ping -s 100 -c 50 maven.aliyun.com;ping -s 100 -c 50 mirrors.huaweicloud.com
       -
         name: Set up Docker Buildx
         id: buildx

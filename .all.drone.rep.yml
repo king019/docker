@@ -5,7 +5,7 @@ steps:
   - name: buildLocal
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
-    detach: true
+#    detach: true
     volumes:
       - name: maven
         path: /root/.m2
@@ -28,7 +28,7 @@ steps:
   - name: buildAliyunBeijing
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
-    detach: true
+#    detach: true
     volumes:
       - name: maven
         path: /root/.m2
@@ -52,7 +52,7 @@ steps:
   - name: buildTenBeijing
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
-    detach: true
+#    detach: true
     volumes:
       - name: maven
         path: /root/.m2

@@ -7,6 +7,8 @@ steps:
     privileged: true
 #    detach: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: docker
         path: /bin/docker
       - name: sock
@@ -28,6 +30,8 @@ steps:
     privileged: true
 #    detach: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: docker
         path: /bin/docker
       - name: sock
@@ -50,6 +54,8 @@ steps:
     privileged: true
     #    detach: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: docker
         path: /bin/docker
       - name: sock
@@ -72,6 +78,8 @@ steps:
     privileged: true
     #    detach: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: docker
         path: /bin/docker
       - name: sock
@@ -94,6 +102,8 @@ steps:
     privileged: true
     #    detach: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: docker
         path: /bin/docker
       - name: sock
@@ -116,6 +126,8 @@ steps:
     privileged: true
 #    detach: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: docker
         path: /bin/docker
       - name: sock
@@ -138,6 +150,8 @@ steps:
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: docker
         path: /bin/docker
       - name: sock
@@ -156,6 +170,9 @@ steps:
       - cd ./target
       - sh ./docker_true.sh
 volumes:
+  - name: maven
+    host:
+      path: /opt/soft/docker/data/maven/m2
   - name: docker
     host:
       path: /usr/bin/docker

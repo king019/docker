@@ -1,4 +1,4 @@
-name: docker_aliyun
+name: docker_aliyun_shanghai
 
 on:
   push:

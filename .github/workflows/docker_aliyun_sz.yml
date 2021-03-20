@@ -14,7 +14,7 @@ jobs:
         with:
           username: ${{ secrets.DOCKER_USERNAME }}
           password: ${{ secrets.DOCKER_PASSWORD }}
-      - name: aliyun_beijing
+      - name: aliyun_shenzhen
         uses: docker/login-action@v1
         with:
           registry: registry.cn-shenzhen.aliyuncs.com

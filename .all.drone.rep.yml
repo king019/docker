@@ -30,8 +30,6 @@ steps:
     volumes:
       - name: maven
         path: /root/.m2
-      - name: docker
-        path: /bin/docker
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -54,8 +52,6 @@ steps:
     volumes:
       - name: maven
         path: /root/.m2
-      - name: docker
-        path: /bin/docker
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -78,8 +74,6 @@ steps:
     volumes:
       - name: maven
         path: /root/.m2
-      - name: docker
-        path: /bin/docker
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -102,8 +96,6 @@ steps:
     volumes:
       - name: maven
         path: /root/.m2
-      - name: docker
-        path: /bin/docker
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -126,8 +118,6 @@ steps:
     volumes:
       - name: maven
         path: /root/.m2
-      - name: docker
-        path: /bin/docker
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -150,8 +140,6 @@ steps:
     volumes:
       - name: maven
         path: /root/.m2
-      - name: docker
-        path: /bin/docker
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config

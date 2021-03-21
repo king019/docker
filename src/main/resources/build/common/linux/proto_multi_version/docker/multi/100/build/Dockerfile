@@ -2,8 +2,6 @@ FROM king019/docker:p
 
 MAINTAINER king019
 
-RUN mkdir -p /root/.docker
-RUN mkdir -p /etc/docker
 COPY settings.xml /root/.m2/settings.xml
 
 COPY docker.sh /docker.sh

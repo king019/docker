@@ -7,8 +7,6 @@ steps:
     privileged: true
 #    detach: true
     volumes:
-      - name: docker
-        path: /bin/docker
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config

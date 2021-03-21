@@ -16,10 +16,10 @@ RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 RUN curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 
 COPY config.json /config.json
-RUN mkdir /root/.docker;cp /config.json /root/.docker/config.json
+RUN cp /config.json /root/.docker/config.json
 
 COPY daemon.json /daemon.json
-RUN mkdir /etc/docker;cp /daemon.json /etc/docker/daemon.json
+RUN cp /daemon.json /etc/docker/daemon.json
 
 COPY docker.sh /docker.sh
 COPY docker_run.sh /docker_run.sh

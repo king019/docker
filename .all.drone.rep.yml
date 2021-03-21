@@ -3,7 +3,7 @@ name: build
 
 steps:
   - name: buildLocal
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/docker
     privileged: true
 #    detach: true
     volumes:
@@ -24,7 +24,7 @@ steps:
       - sh ./target/local_region/noSuffix_false.sh
 
   - name: buildAliyunBeijing
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/docker
     privileged: true
 #    detach: true
     volumes:
@@ -46,7 +46,7 @@ steps:
       - cd ./target
       - sh ./aliyun_beijing_true.sh
   - name: buildAliyunShangHai
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/docker
     privileged: true
     #    detach: true
     volumes:
@@ -68,7 +68,7 @@ steps:
       - cd ./target
       - sh ./aliyun_shanghai_true.sh
   - name: buildAliyunHuHeHaoTe
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/docker
     privileged: true
     #    detach: true
     volumes:
@@ -90,7 +90,7 @@ steps:
       - cd ./target
       - sh ./aliyun_huhehaote_true.sh
   - name: buildAliyun_shenzhen
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/docker
     privileged: true
     #    detach: true
     volumes:
@@ -112,7 +112,7 @@ steps:
       - cd ./target
       - sh ./aliyun_shenzhen_true.sh
   - name: buildTenBeijing
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/docker
     privileged: true
 #    detach: true
     volumes:
@@ -135,7 +135,7 @@ steps:
       - sh ./tenyun_beijing_true.sh
 
   - name: buildDocker
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/docker
     privileged: true
     volumes:
       - name: docker

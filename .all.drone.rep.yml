@@ -7,6 +7,8 @@ steps:
     privileged: true
 #    detach: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -26,6 +28,8 @@ steps:
     privileged: true
 #    detach: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: docker
         path: /bin/docker
       - name: sock
@@ -48,6 +52,8 @@ steps:
     privileged: true
     #    detach: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: docker
         path: /bin/docker
       - name: sock
@@ -70,6 +76,8 @@ steps:
     privileged: true
     #    detach: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: docker
         path: /bin/docker
       - name: sock
@@ -92,6 +100,8 @@ steps:
     privileged: true
     #    detach: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: docker
         path: /bin/docker
       - name: sock
@@ -114,6 +124,8 @@ steps:
     privileged: true
 #    detach: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: docker
         path: /bin/docker
       - name: sock
@@ -136,6 +148,8 @@ steps:
     image: registry.cn-beijing.aliyuncs.com/king019/docker
     privileged: true
     volumes:
+      - name: maven
+        path: /root/.m2
       - name: docker
         path: /bin/docker
       - name: sock

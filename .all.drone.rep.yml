@@ -7,8 +7,6 @@ steps:
     privileged: true
 #    detach: true
     volumes:
-      - name: maven
-        path: /root/.m2
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -28,8 +26,6 @@ steps:
     privileged: true
 #    detach: true
     volumes:
-      - name: maven
-        path: /root/.m2
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -45,79 +41,11 @@ steps:
       - chmod -R 777 .
       - cd ./target
       - sh ./aliyun_beijing_true.sh
-  - name: buildAliyunShangHai
-    image: registry.cn-beijing.aliyuncs.com/king019/docker
-    privileged: true
-    #    detach: true
-    volumes:
-      - name: maven
-        path: /root/.m2
-      - name: sock
-        path: /var/run/docker.sock
-      - name: docker_config
-        path: /root/.docker/config.json
-    commands:
-      - chmod -R 777 /bin
-      - which docker
-      - docker version
-      - source /etc/profile
-      #      - mvn clean
-      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=false@ex=centos"
-      - pwd;ls
-      - chmod -R 777 .
-      - cd ./target
-      - sh ./aliyun_shanghai_true.sh
-  - name: buildAliyunHuHeHaoTe
-    image: registry.cn-beijing.aliyuncs.com/king019/docker
-    privileged: true
-    #    detach: true
-    volumes:
-      - name: maven
-        path: /root/.m2
-      - name: sock
-        path: /var/run/docker.sock
-      - name: docker_config
-        path: /root/.docker/config.json
-    commands:
-      - chmod -R 777 /bin
-      - which docker
-      - docker version
-      - source /etc/profile
-      #      - mvn clean
-      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=false@ex=centos"
-      - pwd;ls
-      - chmod -R 777 .
-      - cd ./target
-      - sh ./aliyun_huhehaote_true.sh
-  - name: buildAliyun_shenzhen
-    image: registry.cn-beijing.aliyuncs.com/king019/docker
-    privileged: true
-    #    detach: true
-    volumes:
-      - name: maven
-        path: /root/.m2
-      - name: sock
-        path: /var/run/docker.sock
-      - name: docker_config
-        path: /root/.docker/config.json
-    commands:
-      - chmod -R 777 /bin
-      - which docker
-      - docker version
-      - source /etc/profile
-      #      - mvn clean
-      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=false@ex=centos"
-      - pwd;ls
-      - chmod -R 777 .
-      - cd ./target
-      - sh ./aliyun_shenzhen_true.sh
   - name: buildTenBeijing
     image: registry.cn-beijing.aliyuncs.com/king019/docker
     privileged: true
 #    detach: true
     volumes:
-      - name: maven
-        path: /root/.m2
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -138,8 +66,6 @@ steps:
     image: registry.cn-beijing.aliyuncs.com/king019/docker
     privileged: true
     volumes:
-      - name: maven
-        path: /root/.m2
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -156,9 +82,6 @@ steps:
       - cd ./target
       - sh ./docker_true.sh
 volumes:
-  - name: maven
-    host:
-      path: /opt/soft/docker/data/maven/m2
   - name: docker
     host:
       path: /usr/bin/docker

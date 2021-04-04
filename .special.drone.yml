@@ -21,7 +21,7 @@ steps:
       - docker version
       - source /etc/profile
       - mvn clean
-      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=false@local=true@ex=centos@in=alpine"
+      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=false@local=true@ex=centos@in=docker"
       - chmod -R 777 /drone/src
       - cd ./target
       - sh ./aliyun_beijing_true.sh

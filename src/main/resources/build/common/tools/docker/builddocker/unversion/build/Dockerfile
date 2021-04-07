@@ -1,7 +1,8 @@
 FROM  centos:8
 
 MAINTAINER king019
-
+RUN mkdir -p /root/.docker
+RUN mkdir -p /etc/docker
 COPY settings.xml /root/.m2/settings.xml
 
 RUN yum -y install  java-11-openjdk-devel

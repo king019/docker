@@ -346,7 +346,8 @@ public class JenkinsUtil {
         lines.add("NowPlatform=$(uname -m)");
         lines.add("X86='" + DockerPlatformEnum.ADM64.getPlatform() + "'");
         lines.add("Arm='" + DockerPlatformEnum.ARM64.getPlatform() + "'");
-        lines.add("if [[ $NowPlatform == *$X86* ]]");
+        lines.add("if [[ $NowPlatform == $X86 ]]");
+        //lines.add("if [[ $NowPlatform == *$X86* ]]");
         lines.add("then");
         for (String platRegion : Sets.newHashSet(platformMap.get(plat))) {
             if (platRegion.contains(DockerPlatformEnum.ADM64.getPlatform())) {
@@ -354,7 +355,8 @@ public class JenkinsUtil {
                 lines.add(name);
             }
         }
-        lines.add("else [[ $NowPlatform == *$Arm* ]]");
+        lines.add("else [[ $NowPlatform == $Arm ]]");
+        //lines.add("else [[ $NowPlatform == *$Arm* ]]");
         for (String platRegion : Sets.newHashSet(platformMap.get(plat))) {
             if (platRegion.contains(DockerPlatformEnum.ARM64.getPlatform())) {
                 String name = "./" + dir + platRegion + "_" + mix + ".sh";

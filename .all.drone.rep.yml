@@ -3,7 +3,7 @@ name: build
 
 steps:
   - name: buildAliyunBeijing
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/docker
     privileged: true
 #    detach: true
     volumes:

@@ -19,6 +19,7 @@ steps:
       - chmod -R 777 /drone/src
       - which docker
       - docker version
+      - docker info
       - source /etc/profile
       - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=false@local=true@ex=centos@in=alpine"

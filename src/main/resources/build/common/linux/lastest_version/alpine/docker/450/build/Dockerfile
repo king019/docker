@@ -2,7 +2,8 @@ FROM king019/alpine
 
 MAINTAINER king019
 
-
+RUN mkdir -p /root/.docker
+RUN mkdir -p /etc/docker
 RUN apk add docker
 
 

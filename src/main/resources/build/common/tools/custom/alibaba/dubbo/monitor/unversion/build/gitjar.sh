@@ -8,7 +8,7 @@ git checkout master
 mvn versions:set -DnewVersion=release
 mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip -T 2
 
-cp dubbo-admin/dubbo-monitor-simple/target/dubbo-monitor-simple-release-assembly.tar.gz /opt/soft/dubbo-monitor-simple-release-assembly.tar.gz
+cp dubbo-monitor-simple/target/dubbo-monitor-simple-release-assembly.tar.gz /opt/soft/dubbo-monitor-simple-release-assembly.tar.gz
 
 mvn clean
 rm -fr ~/.m2/repository

@@ -19,6 +19,8 @@ RUN apk add maven
 RUN apk add curl
 RUN apk add wget
 RUN apk add vim
+RUN apk add htop
+RUN apk add strace
 #gnu
 #RUN apk add gnupg
 

@@ -1,4 +1,4 @@
-FROM  king019/node
+FROM  king019/alpine
 
 MAINTAINER king019
 

@@ -33,6 +33,7 @@ RUN apk add strace
 #RUN apk add  --no-cache --repository https://mirrors.aliyun.com/alpine/v3.11/main/ npm=12.22.1-r0
 
 
+
 RUN apk add  --repository https://mirrors.aliyun.com/alpine/v3.11/main/ nodejs=12.22.1-r0
 RUN apk add  --repository https://mirrors.aliyun.com/alpine/v3.11/main/ npm=12.22.1-r0
 

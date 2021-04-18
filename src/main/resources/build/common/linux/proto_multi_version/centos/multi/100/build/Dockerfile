@@ -95,10 +95,10 @@ RUN cd /opt/soft ; sh ./git.sh
 
 
 COPY config.json /config.json
-RUN mkdir /root/.docker;cp /config.json /root/.docker/config.json
+RUN mkdir -p /root/.docker;cp /config.json /root/.docker/config.json
 
 COPY daemon.json /daemon.json
-RUN mkdir /etc/docker;cp /daemon.json /etc/docker/daemon.json
+RUN mkdir -p /etc/docker;cp /daemon.json /etc/docker/daemon.json
 
 
 

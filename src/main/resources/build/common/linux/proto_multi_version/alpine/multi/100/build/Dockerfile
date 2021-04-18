@@ -29,8 +29,8 @@ RUN apk add strace
 #nodejs
 #RUN apk add nodejs
 #nodejs-12.22.1-r0.apk
-RUN apk add  --no-cache --repository https://mirrors.aliyun.com/alpine/v3.11/main/ nodejs=12.22.1-r0
-RUN apk add  --no-cache --repository https://mirrors.aliyun.com/alpine/v3.11/main/ npm=12.22.1-r0
+#RUN apk add  --no-cache --repository https://mirrors.aliyun.com/alpine/v3.11/main/ nodejs=12.22.1-r0
+#RUN apk add  --no-cache --repository https://mirrors.aliyun.com/alpine/v3.11/main/ npm=12.22.1-r0
 
 #RUN apk add nodejs
 #RUN apk add npm

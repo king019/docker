@@ -1,0 +1,14 @@
+name: docker_info
+
+on:
+  push:
+
+jobs:
+  buildx:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      -
+        name: Builder instance name
+        run: docker info

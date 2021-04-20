@@ -1,4 +1,4 @@
-name: docker_aliyun_beijing
+name: docker_docker
 
 on:
   push:
@@ -9,23 +9,25 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: aliyun_beijing
+      - name: docker
         uses: docker/login-action@v1
         with:
-          registry: registry.cn-beijing.aliyuncs.com
-          username: ${{ secrets.ALIYUN_USERNAME }}
-          password: ${{ secrets.ALIYUN_PASSWORD }}
+          username: ${{ secrets.DOCKER_USERNAME }}
+          password: ${{ secrets.DOCKER_PASSWORD }}
       - name: chche
         uses: actions/cache@v2
         with:
           path: ~/.m2/repository
           key: maven
-      - name: Set up Docker Buildx
+      -
+        name: Set up Docker Buildx
         id: buildx
         uses: docker/setup-buildx-action@v1
-      - name: Builder instance name
+      -
+        name: Builder instance name
         run: echo ${{ steps.buildx.outputs.name }}
-      - name: Available platforms
+      -
+        name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }};
             sudo sed -i "s/{/{\"experimental\":true,/g"  /etc/docker/daemon.json;
              cat /etc/docker/daemon.json;
@@ -33,15 +35,18 @@ jobs:
               mvn -version;
              sudo service docker restart;
             ls /home/runner/work/docker/docker;
-      - name: docker info
+      -
+        name: docker info
         run: docker info
-      - name: maven
+      -
+        name: maven
         run: cat /etc/docker/daemon.json;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=20@rep=false@push=true@local=false";
-      - name: build_aliyun_beijing
+      -
+        name: build_docker
         run: cat /etc/docker/daemon.json;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
-          sh ./target/x86_64_aliyun_beijing_true.sh
+          sh ./target/x86_64_docker_true.sh

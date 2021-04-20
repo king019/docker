@@ -16,5 +16,5 @@ jobs:
           cat /etc/docker/daemon.json;
           sudo service docker restart;
       -
-        name: Builder instance name
+        name: docker info
         run: docker info

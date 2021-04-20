@@ -36,7 +36,7 @@ jobs:
              sudo service docker restart;
             ls /home/runner/work/docker/docker;
       -
-        name: Builder instance name
+        name: docker info
         run: docker info
       -
         name: maven

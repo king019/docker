@@ -34,8 +34,10 @@ jobs:
               java -version;
               mvn -version;
              sudo service docker restart;
-          docker info
             ls /home/runner/work/docker/docker;
+      -
+        name: Builder instance name
+        run: docker info
       -
         name: maven
         run: cat /etc/docker/daemon.json;

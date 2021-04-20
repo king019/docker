@@ -10,5 +10,11 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v2
       -
+        name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }};
+          sudo sed -i "s/{/{\"experimental\":true,/g"  /etc/docker/daemon.json;
+          cat /etc/docker/daemon.json;
+          sudo service docker restart;
+      -
         name: Builder instance name
         run: docker info

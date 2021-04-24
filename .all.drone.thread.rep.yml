@@ -3,7 +3,7 @@ name: build
 
 steps:
   - name: buildLocal
-    image: registry.cn-beijing.aliyuncs.com/king019/docker
+    image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
     privileged: true
     #    detach: true
     volumes:
@@ -23,7 +23,7 @@ steps:
       - pwd;ls
       - sh ./target/local_region/noSuffix_false.sh
   - name: buildAliyunBeijing
-    image: registry.cn-beijing.aliyuncs.com/king019/docker
+    image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
     privileged: true
     #    detach: true
     volumes:
@@ -45,7 +45,7 @@ steps:
       - cd ./target
       - sh ./aliyun_beijing_true.sh
   - name: buildDocker
-    image: registry.cn-beijing.aliyuncs.com/king019/docker
+    image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
     privileged: true
     volumes:
       - name: maven
@@ -66,7 +66,7 @@ steps:
       - cd ./target
       - sh ./docker_true.sh
   - name: buildTenBeijing
-    image: registry.cn-beijing.aliyuncs.com/king019/docker
+    image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
     privileged: true
 #    detach: true
     volumes:

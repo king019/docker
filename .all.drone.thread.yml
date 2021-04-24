@@ -3,13 +3,11 @@ name: build
 
 steps:
   - name: buildAliyunBeijing
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
     privileged: true
     volumes:
       - name: maven
         path: /root/.m2
-      - name: docker
-        path: /bin/docker
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -26,14 +24,12 @@ steps:
       - cd ./target
       - sh ./aliyun_beijing_true.sh
   - name: buildLocal
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
     privileged: true
     #detach: true
     volumes:
       - name: maven
         path: /root/.m2
-      - name: docker
-        path: /bin/docker
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -49,13 +45,11 @@ steps:
       - sh ./target/local_region/noSuffix_false.sh
 
   - name: buildTenBeijing
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
     privileged: true
     volumes:
       - name: maven
         path: /root/.m2
-      - name: docker
-        path: /bin/docker
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -73,13 +67,11 @@ steps:
       - sh ./tenyun_beijing_true.sh
 
   - name: buildDocker
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
     privileged: true
     volumes:
       - name: maven
         path: /root/.m2
-      - name: docker
-        path: /bin/docker
       - name: sock
         path: /var/run/docker.sock
       - name: docker_config
@@ -99,9 +91,6 @@ volumes:
   - name: maven
     host:
       path: /opt/soft/docker/data/maven/m2
-  - name: docker
-    host:
-      path: /usr/bin/docker
   - name: sock
     host:
       path: /var/run/docker.sock

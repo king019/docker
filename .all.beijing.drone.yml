@@ -2,7 +2,7 @@ kind: pipeline
 name: build
 
 steps:
-  - name: buildBj
+  - name: build_aliyun_beijing
     image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
     privileged: true
     volumes:

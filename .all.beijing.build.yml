@@ -2,7 +2,7 @@ kind: pipeline
 name: build
 
 steps:
-  - name: buildBj
+  - name: build_base_alpine
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
     volumes:

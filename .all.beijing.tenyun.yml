@@ -2,7 +2,7 @@ kind: pipeline
 name: build
 
 steps:
-  - name: buildTenBeijing
+  - name: build_ten_beijing
     image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
     privileged: true
     volumes:
@@ -17,7 +17,7 @@ steps:
       - which docker
       - docker version
       - source /etc/profile
-      - mvn clean
+#      - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=2@rep=true@push=true@local=false"
       - pwd;ls
       - chmod -R 777 .

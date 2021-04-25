@@ -2,7 +2,7 @@ kind: pipeline
 name: build
 
 steps:
-  - name: buildDocker
+  - name: buildBj
     image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
     privileged: true
     volumes:
@@ -17,12 +17,12 @@ steps:
       - which docker
       - docker version
       - source /etc/profile
-#      - mvn clean
-      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=2@rep=true@push=true"
+      #      - mvn clean
+      - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=2@rep=false@push=true"
       - pwd;ls
       - chmod -R 777 .
       - cd ./target
-      - sh ./docker_true.sh
+      - sh ./aliyun_beijing_true.sh
 volumes:
   - name: maven
     host:

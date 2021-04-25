@@ -5,9 +5,9 @@ RUN mkdir -p /root/.docker
 RUN mkdir -p /etc/docker
 COPY settings.xml /root/.m2/settings.xml
 
-RUN yum -y install  java-11-openjdk-devel
-RUN yum -y install  maven
-RUN yum -y install  git
+RUN dnf -y install  java-11-openjdk-devel
+RUN dnf -y install  maven
+RUN dnf -y install  git
 
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile
 RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile

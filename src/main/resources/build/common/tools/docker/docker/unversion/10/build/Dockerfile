@@ -4,10 +4,10 @@ MAINTAINER king019
 
 COPY settings.xml /root/.m2/settings.xml
 
-RUN yum -y install  java-11-openjdk-devel
-RUN yum -y install  maven
-RUN yum -y install  git
-RUN yum -y install  curl
+RUN dnf -y install  java-11-openjdk-devel
+RUN dnf -y install  maven
+RUN dnf -y install  git
+RUN dnf -y install  curl
 
 
 RUN curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun

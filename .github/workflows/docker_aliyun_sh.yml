@@ -1,0 +1,47 @@
+name: docker_aliyun_beijing
+
+on:
+  push:
+
+jobs:
+  buildx:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: aliyun_shanghai
+        uses: docker/login-action@v1
+        with:
+          registry: registry.cn-shanghai.aliyuncs.com
+          username: ${{ secrets.ALIYUN_USERNAME }}
+          password: ${{ secrets.ALIYUN_PASSWORD }}
+      - name: chche
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: maven
+      - name: Set up Docker Buildx
+        id: buildx
+        uses: docker/setup-buildx-action@v1
+      - name: Builder instance name
+        run: echo ${{ steps.buildx.outputs.name }}
+      - name: Available platforms
+        run: echo ${{ steps.buildx.outputs.platforms }};
+            sudo sed -i "s/{/{\"experimental\":true,/g"  /etc/docker/daemon.json;
+             cat /etc/docker/daemon.json;
+              java -version;
+              mvn -version;
+             sudo service docker restart;
+            ls /home/runner/work/docker/docker;
+      - name: docker info
+        run: docker info
+      - name: maven
+        run: cat /etc/docker/daemon.json;
+          cd /home/runner/work/docker/docker;
+          ls /home/runner/work/docker/docker;
+          mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=20@rep=false@push=true@local=false";
+      - name: build_aliyun_shanghai
+        run: cat /etc/docker/daemon.json;
+          cd /home/runner/work/docker/docker;
+          ls /home/runner/work/docker/docker;
+          sh ./target/x86_64_aliyun_shanghai_true.sh

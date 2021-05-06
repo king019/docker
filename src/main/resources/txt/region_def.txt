@@ -1,4 +1,4 @@
 aliyun_beijing
-tenyun_beijing
+aliyun_shanghai
 docker
 local_region

@@ -3,6 +3,7 @@ FROM  king019/linux
 MAINTAINER king019
 
 RUN apk add ttf-dejavu
+RUN apk add docker
 
 COPY gitjar.sh /gitjar.sh
 COPY docker.sh /docker.sh

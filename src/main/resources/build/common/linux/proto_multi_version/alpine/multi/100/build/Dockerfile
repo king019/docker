@@ -12,6 +12,15 @@ COPY run/git.sh /opt/soft/git.sh
 
 COPY docker.sh /docker.sh
 
+
+COPY config.json /config.json
+RUN mkdir -p /root/.docker;cp /config.json /root/.docker/config.json
+
+COPY daemon.json /daemon.json
+RUN mkdir -p /etc/docker;cp /daemon.json /etc/docker/daemon.json
+
+
+
 RUN apk add git
 RUN apk add openjdk11
 RUN apk add openjdk8

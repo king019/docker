@@ -5,7 +5,7 @@ mkdir -p /opt/soft/version
 cd /opt/soft/version
 git clone https://e.coding.net/king019/github/nexus-public.git
 cd nexus-public
-git checkout release-3.9.0-01
+git checkout release-3.7.0-04
 mvn versions:set -DnewVersion=release
 mvn clean install -DskipTests -Dmaven.javadoc.skip=true -T 2
 cp /opt/soft/version/nexus-public/assemblies/nexus-base-template/target/nexus-base-template-release.zip  /root/tools/nexus-base-template-release.zip

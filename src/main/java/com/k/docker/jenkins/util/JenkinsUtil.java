@@ -173,6 +173,7 @@ public class JenkinsUtil {
     }
 
     private void writeShell(String dir, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push) {
+        String subDir="platform/";
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
         Multimap<String, String> platformMap = HashMultimap.create();
         Set<String> regions = Sets.newHashSet();
@@ -181,10 +182,10 @@ public class JenkinsUtil {
         models.forEach(model -> regions.add(model.getRegion().getRegion()));
         models.forEach(model -> platformMap.put(model.getRegion().getRegion(), model.getPlatform().getPlatform() + "_" + model.getRegion().getRegion()));
         multimap.asMap().forEach((regionPlat, dockerJenkinsModels) -> {
-            writePlat(dir, regionPlat, dockerJenkinsModels, mix, multi, push);
+            writePlat(dir ,subDir, regionPlat, dockerJenkinsModels, mix, multi, push);
             //writePlat(regionPlat, dockerJenkinsModels, false);
         });
-        regions.forEach(region -> writePlat(dir, region, mix, multi, push, platformMap));
+        regions.forEach(region -> writePlat(dir,subDir, region, mix, multi, push, platformMap));
     }
 
     private List<DockerJenkinsModel> filter(List<DockerJenkinsModel> models, List<String> includes, List<String> excludes) {
@@ -309,7 +310,7 @@ public class JenkinsUtil {
         FileUtils.writeLines(destfile, lines);
     }
 
-    private void writePlat(String dir, String plat, Collection<DockerJenkinsModel> models, boolean mix, int multi, boolean push) {
+    private void writePlat(String dir,String subDir, String plat, Collection<DockerJenkinsModel> models, boolean mix, int multi, boolean push) {
         List<String> lines = Lists.newArrayList();
         lines.add("#!/bin/sh");
         lines.add("set -x");
@@ -330,7 +331,7 @@ public class JenkinsUtil {
 //                lines1.add(model.getMap().get(model.getPlatform()));
 //            }
 //        });
-        String target = PathUtil.getTargetPath(dir + plat + "_" + mix + ".sh");
+        String target = PathUtil.getTargetPath(dir +subDir+ plat + "_" + mix + ".sh");
         File targetFile = new File(target);
         try {
             FileUtils.writeLines(targetFile, lines);
@@ -339,7 +340,7 @@ public class JenkinsUtil {
         }
     }
 
-    private void writePlat(String dir, String plat, boolean mix, int multi, boolean push, Multimap<String, String> platformMap) {
+    private void writePlat(String dir, String subDir,String plat, boolean mix, int multi, boolean push, Multimap<String, String> platformMap) {
         List<String> lines = Lists.newArrayList();
         lines.add("#!/bin/sh");
         lines.add("set -x");
@@ -351,7 +352,7 @@ public class JenkinsUtil {
         lines.add("then");
         for (String platRegion : Sets.newHashSet(platformMap.get(plat))) {
             if (platRegion.contains(DockerPlatformEnum.ADM64.getPlatform())) {
-                String name = "./" + dir + platRegion + "_" + mix + ".sh";
+                String name = "./" + dir +subDir+ platRegion + "_" + mix + ".sh";
                 lines.add(name);
             }
         }
@@ -359,7 +360,7 @@ public class JenkinsUtil {
         //lines.add("else [[ $NowPlatform == *$Arm* ]]");
         for (String platRegion : Sets.newHashSet(platformMap.get(plat))) {
             if (platRegion.contains(DockerPlatformEnum.ARM64.getPlatform())) {
-                String name = "./" + dir + platRegion + "_" + mix + ".sh";
+                String name = "./" + dir  +subDir+  platRegion + "_" + mix + ".sh";
                 lines.add(name);
             }
         }

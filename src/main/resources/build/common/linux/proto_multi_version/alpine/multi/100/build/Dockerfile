@@ -30,6 +30,8 @@ RUN apk add wget
 RUN apk add vim
 RUN apk add htop
 RUN apk add strace
+RUN apk add ttf-dejavu
+RUN apk add docker
 #RUN apk add --no-cache procps
 #ps 增强
 RUN apk add procps

@@ -44,4 +44,5 @@ jobs:
         run: cat /etc/docker/daemon.json;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
-          sh ./target/aliyun_beijing_true.sh
+          cd ./target
+          sh ./aliyun_beijing_true.sh

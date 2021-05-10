@@ -21,7 +21,7 @@ steps:
       - source /etc/profile
       - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=false@local=true@ex=centos@in=jenkins"
       - chmod -R 777 /drone/src
-      - sh ./target/local_region/noSuffix_false.sh
+      - sh ./target/local_region/platform/noSuffix_false.sh
 volumes:
   - name: maven
     host:

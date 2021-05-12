@@ -44,5 +44,5 @@ jobs:
         run: cat /etc/docker/daemon.json;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
-          cd ./target
-          sh ./tenyun_beijing_true.sh
+          cd ./target;
+          sh ./tenyun_beijing_true.sh;

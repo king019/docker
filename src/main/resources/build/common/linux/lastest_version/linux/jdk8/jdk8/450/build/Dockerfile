@@ -2,8 +2,6 @@ FROM king019/alpine:jdk8
 
 MAINTAINER king019
 
-COPY docker.sh /docker.sh
-
 
 RUN chmod 755 /*.sh
 

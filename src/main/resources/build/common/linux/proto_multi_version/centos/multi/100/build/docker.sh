@@ -1,5 +1,5 @@
 #!/bin/bash
 set -x
-/run.sh
+#/run.sh
 
 tail -f /docker.sh

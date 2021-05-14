@@ -24,17 +24,24 @@ COPY run/git.sh /opt/soft/git.sh
 #RUN yum makecache
 #RUN yum -y update
 #base
+
+
 RUN dnf -y install  maven
 RUN dnf -y install  java-11-openjdk-devel
 RUN dnf -y install  java-1.8.0-openjdk-devel
 RUN dnf -y install  git
+RUN dnf -y install  curl
 RUN dnf -y install  wget
+RUN dnf -y install  vim
+
+
 RUN dnf -y install  net-tools
 RUN dnf -y install  unzip
 RUN dnf -y install  which
-RUN dnf -y install  traceroute
 RUN dnf -y install  lsof
-RUN dnf -y install  vim
+RUN dnf -y install  traceroute
+
+
 RUN dnf -y install  telnet
 #base
 #放入extra
@@ -81,17 +88,7 @@ RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile
 RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
 
-
-
-
-
 RUN cd /opt/soft ; sh ./git.sh
-
-
-
-
-
-#RUN echo '/run.sh' >> /etc/rc.local
 
 
 COPY config.json /config.json
@@ -111,10 +108,8 @@ RUN mkdir -p /etc/docker;cp /daemon.json /etc/docker/daemon.json
 
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh
-#RUN curl -H "Content-Type: application/json" --data '{"build": true}' -X POST https://registry.hub.docker.com/u/king019/centos7/trigger/d72d64e6-ba5e-4d71-acc8-98c10ead59db/
 CMD /docker.sh
 
-#RUN sh /etc/rc.local
 
 EXPOSE 21
 EXPOSE 22

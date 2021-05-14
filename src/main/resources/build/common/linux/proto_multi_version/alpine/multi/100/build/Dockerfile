@@ -21,17 +21,25 @@ RUN mkdir -p /etc/docker;cp /daemon.json /etc/docker/daemon.json
 
 
 
-RUN apk add git
+RUN apk add maven
 RUN apk add openjdk11
 RUN apk add openjdk8
-RUN apk add maven
+RUN apk add git
 RUN apk add curl
 RUN apk add wget
 RUN apk add vim
+
+# telnet
+RUN apk add busybox-extras
+
+
 RUN apk add htop
 RUN apk add strace
 RUN apk add ttf-dejavu
-RUN apk add docker
+
+
+
+
 #RUN apk add --no-cache procps
 #ps 增强
 RUN apk add procps

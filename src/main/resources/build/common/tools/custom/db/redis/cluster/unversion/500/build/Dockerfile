@@ -5,7 +5,6 @@ MAINTAINER king019
 
 RUN apk add redis
 
-#RUN yum -y install redis
 
 #RUN gem sources  --remove https://rubygems.org/
 #RUN gem sources -a https://gems.ruby-china.com

@@ -66,9 +66,6 @@ public class JenkinsBuildShell {
             if (StringUtils.isNotBlank(val)) {
                 excludes.addAll(Lists.newArrayList(val.split(",")));
             }
-            excludes.add("ubuntu");
-            //excludes.add("centos");
-            excludes.add("jenkins");
             excludes.removeAll(includes);
         }
         JenkinsUtil shell = new JenkinsUtil();

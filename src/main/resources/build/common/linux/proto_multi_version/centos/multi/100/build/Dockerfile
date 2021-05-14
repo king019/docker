@@ -33,7 +33,8 @@ RUN dnf -y install  git
 RUN dnf -y install  curl
 RUN dnf -y install  wget
 RUN dnf -y install  vim
-
+RUN dnf -y install  nodejs
+RUN npm config set registry https://registry.npm.taobao.org
 
 RUN dnf -y install  net-tools
 RUN dnf -y install  unzip

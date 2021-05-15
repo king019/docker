@@ -44,4 +44,4 @@ jobs:
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           cd ./target;chmod -R 777 .;
-          sh ./docker_true.sh;
+          bash ./docker_true.sh;

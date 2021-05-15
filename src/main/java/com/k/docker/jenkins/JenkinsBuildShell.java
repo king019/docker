@@ -66,7 +66,7 @@ public class JenkinsBuildShell {
             if (StringUtils.isNotBlank(val)) {
                 excludes.addAll(Lists.newArrayList(val.split(",")));
             }
-            excludes.add("alpine/docker");
+            excludes.add("alpine:docker");
             //excludes.add("centos");
             excludes.removeAll(includes);
         }

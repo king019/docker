@@ -3,7 +3,7 @@ name: build
 
 steps:
   - name: build_aliyun_shanghai
-    image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
+    image: registry.cn-beijing.aliyuncs.com/king019/docker:build
     privileged: true
     volumes:
       - name: maven

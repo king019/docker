@@ -3,7 +3,7 @@ name: build
 
 steps:
   - name: buildAliyunBeijing
-    image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
+    image: registry.cn-beijing.aliyuncs.com/king019/docker:build
     privileged: true
     volumes:
       - name: maven
@@ -23,7 +23,7 @@ steps:
       - cd ./target
       - sh ./aliyun_beijing_true.sh
   - name: buildLocal
-    image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
+    image: registry.cn-beijing.aliyuncs.com/king019/docker:build
     privileged: true
     #detach: true
     volumes:
@@ -43,7 +43,7 @@ steps:
       - sh ./target/local_region/noSuffix_false.sh
 
   - name: buildTenBeijing
-    image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
+    image: registry.cn-beijing.aliyuncs.com/king019/docker:build
     privileged: true
     volumes:
       - name: maven
@@ -64,7 +64,7 @@ steps:
       - sh ./tenyun_beijing_true.sh
 
   - name: buildDocker
-    image: registry.cn-beijing.aliyuncs.com/king019/alpine:docker
+    image: registry.cn-beijing.aliyuncs.com/king019/docker:build
     privileged: true
     volumes:
       - name: maven

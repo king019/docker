@@ -25,9 +25,8 @@ steps:
       - chmod -R 777 /bin
       - source /etc/profile
       - which docker
-      - docker version
       - mvn -v
-      - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=false@push=true@in=alpine:docker"
+      - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=false@push=true@in=centos:docker"
       - pwd;ls
       - chmod -R 777 .
       - cd ./target

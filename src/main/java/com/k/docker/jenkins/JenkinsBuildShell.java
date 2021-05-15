@@ -4,6 +4,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
 import com.k.docker.jenkins.model.emums.DockerParamEnum;
+import com.k.docker.jenkins.model.emums.DockerRegionEnum;
 import com.k.docker.jenkins.util.JenkinsUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -65,6 +66,8 @@ public class JenkinsBuildShell {
             if (StringUtils.isNotBlank(val)) {
                 excludes.addAll(Lists.newArrayList(val.split(",")));
             }
+            excludes.add("alpine/docker");
+            //excludes.add("centos");
             excludes.removeAll(includes);
         }
         JenkinsUtil shell = new JenkinsUtil();

@@ -341,11 +341,11 @@ public class JenkinsUtil {
     }
 
     private void writePlat(String dir, String subDir,String plat, boolean mix, int multi, boolean push, Multimap<String, String> platformMap) {
-        boolean bash=false;
+        boolean bash=true;
         String prefix=bash?"[[":"[";
         String subfix=bash?"]]":"]";
         List<String> lines = Lists.newArrayList();
-        lines.add("#!/bin/sh");
+        lines.add("#!/bin/bash");
         lines.add("set -x");
         lines.add("NowPlatform=$(uname -m)");
         lines.add("X86='" + DockerPlatformEnum.ADM64.getPlatform() + "'");

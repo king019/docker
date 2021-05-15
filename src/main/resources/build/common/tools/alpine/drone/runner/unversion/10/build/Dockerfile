@@ -1,9 +1,9 @@
 FROM alpine as alpine
-RUN sed -i "s/dl-cdn.alpinelinux.org/repo.huaweicloud.com/g" /etc/apk/repositories
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g" /etc/apk/repositories
 RUN apk add -U --no-cache ca-certificates
 
 FROM alpine
-RUN sed -i "s/dl-cdn.alpinelinux.org/repo.huaweicloud.com/g" /etc/apk/repositories
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g" /etc/apk/repositories
 EXPOSE 3000
 
 ENV GODEBUG netdns=go

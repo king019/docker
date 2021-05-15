@@ -8,7 +8,7 @@ RUN mkdir -p /opt/soft/tools
 RUN mkdir -p /root/.docker
 RUN mkdir -p /etc/docker
 
-RUN sed -i "s/dl-cdn.alpinelinux.org/repo.huaweicloud.com/g" /etc/apk/repositories
+RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g" /etc/apk/repositories
 
 COPY docker.sh /docker.sh
 

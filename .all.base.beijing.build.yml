@@ -15,7 +15,7 @@ steps:
       - name: docker_config
         path: /root/.docker/config.json
     commands:
-      - sed -i "s/dl-cdn.alpinelinux.org/repo.huaweicloud.com/g" /etc/apk/repositories
+      - sed -i "s/dl-cdn.alpinelinux.org/mirrors.nju.edu.cn/g" /etc/apk/repositories
       - apk add docker
       - apk add maven
       - apk add openjdk11

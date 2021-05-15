@@ -1,17 +1,16 @@
-FROM  centos:8
+FROM  alpine
 
 MAINTAINER king019
 
 COPY settings.xml /root/.m2/settings.xml
 
-RUN dnf -y install  java-11-openjdk-devel
-RUN dnf -y install  maven
-RUN dnf -y install  git
-RUN dnf -y install  curl
 
+RUN apk add maven
+RUN apk add openjdk11
+RUN apk add git
 
 #RUN curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
-RUN dnf -y install docker
+RUN apk add docker
 
 
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile

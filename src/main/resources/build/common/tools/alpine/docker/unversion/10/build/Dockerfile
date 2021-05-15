@@ -12,7 +12,7 @@ RUN apk add git
 #RUN curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 RUN apk add docker
 
-RUN docker info
+RUN which docker
 RUN mvn -v
 
 

@@ -17,9 +17,10 @@ steps:
     commands:
       - sed -i "s/dl-cdn.alpinelinux.org/mirrors.nju.edu.cn/g" /etc/apk/repositories
       - apk add docker
-      - dnf -y install  java-11-openjdk-devel
-      - dnf -y install  maven
-      - dnf -y install  curl
+      - apk add maven
+      - apk add openjdk11
+      - echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile
+      - echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
       - chmod -R 777 /bin
       - which docker
       - docker version

@@ -16,6 +16,7 @@ steps:
         path: /root/.docker/config.json
     commands:
       - sed -i "s/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g" /etc/apk/repositories
+      - apk upadte
       - apk add docker
       - apk add maven
       - apk add openjdk11

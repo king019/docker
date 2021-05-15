@@ -341,13 +341,16 @@ public class JenkinsUtil {
     }
 
     private void writePlat(String dir, String subDir,String plat, boolean mix, int multi, boolean push, Multimap<String, String> platformMap) {
+        boolean bash=false;
+        String prefix=bash?"[[":"[";
+        String subfix=bash?"]]":"]";
         List<String> lines = Lists.newArrayList();
         lines.add("#!/bin/sh");
         lines.add("set -x");
         lines.add("NowPlatform=$(uname -m)");
         lines.add("X86='" + DockerPlatformEnum.ADM64.getPlatform() + "'");
         lines.add("Arm='" + DockerPlatformEnum.ARM64.getPlatform() + "'");
-        lines.add("if [[ $NowPlatform == $X86 ]]");
+        lines.add("if "+prefix+" $NowPlatform == $X86 "+subfix"");
         //lines.add("if [[ $NowPlatform == *$X86* ]]");
         lines.add("then");
         for (String platRegion : Sets.newHashSet(platformMap.get(plat))) {
@@ -356,7 +359,7 @@ public class JenkinsUtil {
                 lines.add(name);
             }
         }
-        lines.add("else [[ $NowPlatform == $Arm ]]");
+        lines.add("else "+prefix+" $NowPlatform == $Arm "+subfix+"");
         //lines.add("else [[ $NowPlatform == *$Arm* ]]");
         for (String platRegion : Sets.newHashSet(platformMap.get(plat))) {
             if (platRegion.contains(DockerPlatformEnum.ARM64.getPlatform())) {

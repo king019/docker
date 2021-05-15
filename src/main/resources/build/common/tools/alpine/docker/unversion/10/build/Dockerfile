@@ -12,6 +12,9 @@ RUN apk add git
 #RUN curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 RUN apk add docker
 
+RUN docker info
+RUN mvn -v
+
 
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile
 RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile

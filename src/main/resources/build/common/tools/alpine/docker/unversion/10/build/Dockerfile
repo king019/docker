@@ -1,4 +1,4 @@
-FROM  alpine
+FROM  docker
 
 MAINTAINER king019
 
@@ -10,7 +10,7 @@ RUN apk add openjdk11
 RUN apk add git
 
 #RUN curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
-RUN apk add docker
+#RUN apk add docker
 
 RUN which docker
 RUN mvn -v

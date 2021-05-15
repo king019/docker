@@ -191,13 +191,13 @@ public class JenkinsUtil {
     private List<DockerJenkinsModel> filter(List<DockerJenkinsModel> models, List<String> includes, List<String> excludes) {
         if (CollectionUtils.isNotEmpty(includes)) {
             models = models.stream().filter(model -> {
-                boolean exist = StringUtils.indexOfAny(model.getVersion(), includes.stream().toArray(value -> new String[includes.size()])) > 0;
+                boolean exist = StringUtils.indexOfAny(model.getVersion(), includes.stream().toArray(value -> new String[includes.size()])) >= 0;
                 return exist;
             }).collect(Collectors.toList());
         }
         if (CollectionUtils.isNotEmpty(excludes)) {
             models = models.stream().filter(model -> {
-                boolean exist = StringUtils.indexOfAny(model.getVersion(), excludes.stream().toArray(value -> new String[excludes.size()])) > 0;
+                boolean exist = StringUtils.indexOfAny(model.getVersion(), excludes.stream().toArray(value -> new String[excludes.size()])) >= 0;
                 return !exist;
             }).collect(Collectors.toList());
         }

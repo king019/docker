@@ -37,7 +37,7 @@ RUN apk add htop
 RUN apk add strace
 RUN apk add ttf-dejavu
 
-
+RUN apk add redis
 
 
 #RUN apk add --no-cache procps
@@ -74,6 +74,8 @@ RUN set -x \
 #ADD http://maven.aliyun.com/nexus/content/groups/public/org/eclipse/jetty/jetty-distribution/9.4.19.v20190610/jetty-distribution-9.4.19.v20190610.tar.gz /opt/soft/tools/jetty-distribution-9.4.19.v20190610.tar.gz
 #ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-9/v9.0.35/bin/apache-tomcat-9.0.35.tar.gz /opt/soft/tools/apache-tomcat-9.0.35.tar.gz
 
+ADD https://mirrors.huaweicloud.com/apache/tomcat/tomcat-8/v8.5.66/bin/apache-tomcat-8.5.66.tar.gz /opt/soft/tools/apache-tomcat-8.5.66.tar.gz
+
 
 #RUN cp /opt/soft/tools/jetty-distribution-9.4.19.v20190610.tar.gz  /root/tools/jetty-distribution-9.4.19.v20190610.tar.gz
 #RUN cd /root/tools/;tar -xzf jetty-distribution-9.4.19.v20190610.tar.gz
@@ -81,10 +83,11 @@ RUN set -x \
 
 
 
-#RUN cp /opt/soft/tools/apache-tomcat-9.0.35.tar.gz  /root/tools/apache-tomcat-9.0.35.tar.gz
-#RUN cd /root/tools/;tar -xzf apache-tomcat-9.0.35.tar.gz
-#RUN cd /root/tools/;mv apache-tomcat-9.0.35 tomcat
-
+RUN cp /opt/soft/tools/apache-tomcat-8.5.66.tar.gz  /root/tools/apache-tomcat-8.5.66.tar.gz
+RUN cd /root/tools/;tar -xzf apache-tomcat-8.5.66.tar.gz
+RUN cd /root/tools/;mv apache-tomcat-8.5.66 tomcat
+RUN cd /root/tools/tomcat/webapps;rm -fr *
+RUN mkdir -p /root/tools/tomcat/webapps
 
 
 

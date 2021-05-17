@@ -3,7 +3,6 @@ FROM  king019/alpine
 
 MAINTAINER king019
 
-RUN apk add redis
 
 
 #RUN gem sources  --remove https://rubygems.org/

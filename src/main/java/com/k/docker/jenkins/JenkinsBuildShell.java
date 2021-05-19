@@ -67,6 +67,7 @@ public class JenkinsBuildShell {
                 excludes.addAll(Lists.newArrayList(val.split(",")));
             }
             excludes.add("king019/docker:build");
+            excludes.add("king019/source");
             //excludes.add("centos");
             excludes.removeAll(includes);
         }

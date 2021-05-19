@@ -1,4 +1,4 @@
-name: docker_aliyun_beijing_source_arm64
+name: docker_ali_bj_src_arm64
 
 on:
   push:

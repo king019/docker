@@ -40,9 +40,15 @@ jobs:
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=20@rep=false@push=true@local=false@in=king019/source";
-      - name: build_aliyun_beijing
+      - name: build_aliyun_beijing_x86
         run: cat /etc/docker/daemon.json;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           cd ./target;chmod -R 777 .;
-          bash ./aliyun_beijing_true.sh;
+          bash ./platform/x86_64_aliyun_beijing_true.sh;
+      - name: build_aliyun_beijing_arm64
+        run: cat /etc/docker/daemon.json;
+          cd /home/runner/work/docker/docker;
+          ls /home/runner/work/docker/docker;
+          cd ./target;chmod -R 777 .;
+          bash ./platform/aarch64_aliyun_beijing_true.sh;

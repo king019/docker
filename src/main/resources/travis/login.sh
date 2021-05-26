@@ -7,4 +7,3 @@ echo "$DOCKER_PASSWORD" | docker login --username "$DOCKER_USERNAME" --password-
 #echo "$ALIYUN_PASSWORD" | docker login --username "$ALIYUN_USERNAME" registry.cn-hangzhou.aliyuncs.com --password-stdin
 echo "$ALIYUN_PASSWORD" | docker login --username "$ALIYUN_USERNAME" registry.cn-beijing.aliyuncs.com --password-stdin
 echo "$TENCENT_PASSWORD" | docker login --username "$TENCENT_USERNAME" ccr.ccs.tencentyun.com --password-stdin
-

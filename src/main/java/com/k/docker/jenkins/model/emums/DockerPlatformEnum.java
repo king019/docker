@@ -5,15 +5,13 @@ import org.apache.commons.lang3.StringUtils;
 
 import java.util.Arrays;
 import java.util.Set;
-import java.util.function.Function;
-import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 
 @Getter
 public enum DockerPlatformEnum {
     ARM64("aarch64"),
     ADM64("x86_64"),
-    NO_SUFFIX("noSuffix",false);
+    NO_SUFFIX("noSuffix", false);
     private String platform;
     private boolean suffix = true;
 

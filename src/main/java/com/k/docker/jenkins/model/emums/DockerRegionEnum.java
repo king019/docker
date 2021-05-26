@@ -8,9 +8,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.IntFunction;
 import java.util.stream.Collectors;
 
 /**
@@ -18,7 +15,7 @@ import java.util.stream.Collectors;
  */
 @Getter
 public enum DockerRegionEnum {
-    HANG_ZHOU("aliyun_hangzhou", "registry.cn-hangzhou.aliyuncs.com","hz"),
+    HANG_ZHOU("aliyun_hangzhou", "registry.cn-hangzhou.aliyuncs.com", "hz"),
     SHANG_HAI("aliyun_shanghai", "registry.cn-shanghai.aliyuncs.com", "sh"),
     HUHEHAOTE("aliyun_huhehaote", "registry.cn-huhehaote.aliyuncs.com", "hhht"),
     SHENZHEN("aliyun_shenzhen", "registry.cn-shenzhen.aliyuncs.com", "sz"),

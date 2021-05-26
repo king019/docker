@@ -5,7 +5,7 @@ steps:
   - name: buildLocal
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
-#    detach: true
+    #    detach: true
     volumes:
       - name: maven
         path: /root/.m2
@@ -20,7 +20,7 @@ steps:
       - which docker
       - docker version
       - source /etc/profile
-#      - mvn clean
+      #      - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=true@ex=centos"
       - pwd;ls
       - sh ./target/local_region/noSuffix_false.sh
@@ -28,7 +28,7 @@ steps:
   - name: buildAliyunBeijing
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
-#    detach: true
+    #    detach: true
     volumes:
       - name: maven
         path: /root/.m2
@@ -43,7 +43,7 @@ steps:
       - which docker
       - docker version
       - source /etc/profile
-#      - mvn clean
+      #      - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=false@ex=centos"
       - pwd;ls
       - chmod -R 777 .
@@ -124,7 +124,7 @@ steps:
   - name: buildTenBeijing
     image: registry.cn-beijing.aliyuncs.com/king019/centos
     privileged: true
-#    detach: true
+    #    detach: true
     volumes:
       - name: maven
         path: /root/.m2
@@ -139,7 +139,7 @@ steps:
       - which docker
       - docker version
       - source /etc/profile
-#      - mvn clean
+      #      - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=false@ex=centos"
       - pwd;ls
       - chmod -R 777 .
@@ -163,7 +163,7 @@ steps:
       - which docker
       - docker version
       - source /etc/profile
-#      - mvn clean
+      #      - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=false@ex=centos"
       - pwd;ls
       - chmod -R 777 .

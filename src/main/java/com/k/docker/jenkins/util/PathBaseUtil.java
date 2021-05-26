@@ -29,6 +29,7 @@ public class PathBaseUtil {
             //e.printStackTrace();
         }
     }
+
     static {
         try {
             DOWN_PATH = FileUtils.readFileToString(new File(PathUtil.getResource("txt/down.txt")), StandardCharsets.UTF_8);

@@ -10,7 +10,6 @@ mvn versions:set -DnewVersion=release
 cd ..
 mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip -T 2
 
-
 cp dubbo-admin/target/dubbo-admin-release.jar /opt/soft/dubbo-admin-release.jar
 
 mvn clean

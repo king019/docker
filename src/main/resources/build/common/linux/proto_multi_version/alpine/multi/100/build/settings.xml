@@ -23,8 +23,8 @@
         <mirror>
             <id>nexus</id>
             <name>nexus</name>
-                        <url>http://mirrors.huaweicloud.com/repository/maven/</url>
-                        <!--            <url>http://smp:8081/repository/maven-public/</url>-->
+            <url>http://mirrors.huaweicloud.com/repository/maven/</url>
+            <!--            <url>http://smp:8081/repository/maven-public/</url>-->
             <mirrorOf>*</mirrorOf>
         </mirror>
     </mirrors>

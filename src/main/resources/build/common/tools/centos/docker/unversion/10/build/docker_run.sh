@@ -7,19 +7,14 @@ java -version
 
 mvn -version
 
-
 echo "$DOCKER_PASSWORD" | docker login -u "$DOCKER_USERNAME" --password-stdin
 echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-beijing.aliyuncs.com --password-stdin
-
-
-
 
 mkdir -p /opt/soft/version
 cd /opt/soft/version
 git clone https://github.com/king019/docker.git
 cd docker
 chmod -R 777 .
-
 
 mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/opt/soft/version/docker@thread=20@rep=false@push=true@in=centos"
 ls

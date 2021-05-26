@@ -20,7 +20,4 @@ redis-server redis7008.conf
 cd /opt/soft/conf/7009/
 redis-server redis7009.conf
 
-
-
 redis-cli --cluster create redisCluster:7001 redisCluster:7002 redisCluster:7003 redisCluster:7004 redisCluster:7005 redisCluster:7006 redisCluster:7007 redisCluster:7008 redisCluster:7009 --cluster-replicas 2
-

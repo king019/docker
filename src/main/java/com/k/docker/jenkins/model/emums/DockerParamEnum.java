@@ -3,10 +3,6 @@ package com.k.docker.jenkins.model.emums;
 import lombok.Getter;
 import org.apache.commons.lang3.StringUtils;
 
-import java.util.Map;
-import java.util.Set;
-import java.util.stream.Collectors;
-
 @Getter
 public enum DockerParamEnum {
     WORK_SPACE("ws", "${WORKSPACE}"),

@@ -8,8 +8,8 @@ cd nexus-public
 git checkout release-3.7.0-04
 mvn versions:set -DnewVersion=release
 mvn clean install -DskipTests -Dmaven.javadoc.skip=true -T 2
-cp /opt/soft/version/nexus-public/assemblies/nexus-base-template/target/nexus-base-template-release.zip  /root/tools/nexus-base-template-release.zip
+cp /opt/soft/version/nexus-public/assemblies/nexus-base-template/target/nexus-base-template-release.zip  /opt/soft/nexus-base-template-release.zip
 mvn clean
 rm -fr ~/.m2/repository
-cd /root/tools/;unzip nexus-base-template-release.zip
-cd /root/tools/;mv nexus-base-template-release nexus
+cd /opt/soft/;unzip nexus-base-template-release.zip
+cd /opt/soft/;mv nexus-base-template-release nexus

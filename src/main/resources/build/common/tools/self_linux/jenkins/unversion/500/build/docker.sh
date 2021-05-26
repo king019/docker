@@ -5,6 +5,6 @@ source /etc/profile
 
 cat /root/.docker/config.json >   /root/.jenkins/config.json
 
-sh /root/tools/tomcat/bin/shutdown.sh
-sh /root/tools/tomcat/bin/startup.sh
+sh /opt/soft/tomcat/bin/shutdown.sh
+sh /opt/soft/tomcat/bin/startup.sh
 tail -f /docker.sh

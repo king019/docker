@@ -7,10 +7,6 @@ COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh
 RUN /gitjar.sh
 
-# mvn -Prelease-all -DskipTests clean install
-
-#ADD https://king019.coding.net/p/github/d/rocketmq/git/archive/rocketmq-all-4.8.0.zip /opt/soft/rocketmq-all-4.8.0.zip
-#RUN cp /opt/soft/rocketmq-all-4.8.0.zip /root/tools/rocketmq-all-4.8.0.zip
 
 RUN cd /opt/soft/;unzip rocketmq-release.zip
 RUN cd /opt/soft/;mv rocketmq-release rocketmq

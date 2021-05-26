@@ -1,23 +1,23 @@
 #!/bin/sh
 set -x
 
-cd /root/tools/conf/7001/
+cd /opt/soft/conf/7001/
 redis-server redis7001.conf
-cd /root/tools/conf/7002/
+cd /opt/soft/conf/7002/
 redis-server redis7002.conf
-cd /root/tools/conf/7003/
+cd /opt/soft/conf/7003/
 redis-server redis7003.conf
-cd /root/tools/conf/7004/
+cd /opt/soft/conf/7004/
 redis-server redis7004.conf
-cd /root/tools/conf/7005/
+cd /opt/soft/conf/7005/
 redis-server redis7005.conf
-cd /root/tools/conf/7006/
+cd /opt/soft/conf/7006/
 redis-server redis7006.conf
-cd /root/tools/conf/7007/
+cd /opt/soft/conf/7007/
 redis-server redis7007.conf
-cd /root/tools/conf/7008/
+cd /opt/soft/conf/7008/
 redis-server redis7008.conf
-cd /root/tools/conf/7009/
+cd /opt/soft/conf/7009/
 redis-server redis7009.conf
 
 

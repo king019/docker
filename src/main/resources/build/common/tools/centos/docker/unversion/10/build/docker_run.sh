@@ -14,13 +14,13 @@ echo "$DOCKER_PASSWORD" | docker login -u "$ALIYUN_USERNAME" registry.cn-beijing
 
 
 
-mkdir -p /root/soft
-cd /root/soft
+mkdir -p /opt/soft/version
+cd /opt/soft/version
 git clone https://github.com/king019/docker.git
 cd docker
 chmod -R 777 .
 
 
-mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/root/soft/docker@thread=20@rep=false@push=true@in=centos"
+mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/opt/soft/version/docker@thread=20@rep=false@push=true@in=centos"
 ls
 sh ./target/x86_64_true.sh

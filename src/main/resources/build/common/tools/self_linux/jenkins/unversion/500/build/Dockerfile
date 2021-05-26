@@ -10,6 +10,6 @@ RUN chmod 755 /*.sh
 RUN /gitjar.sh
 
 
-RUN cp /opt/soft/tools/jenkins.war  /root/tools/tomcat/webapps/ROOT.war
+RUN cp /opt/soft/tools/jenkins.war  /opt/soft/tomcat/webapps/ROOT.war
 
 CMD /docker.sh

@@ -10,6 +10,8 @@ RUN mkdir -p /etc/docker
 
 RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g" /etc/apk/repositories
 
+RUN apk cache
+
 COPY docker.sh /docker.sh
 
 RUN chmod 755 /*.sh

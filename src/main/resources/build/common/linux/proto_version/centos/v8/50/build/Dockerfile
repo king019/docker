@@ -15,8 +15,6 @@ COPY docker.sh /docker.sh
 #RUN wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo
 
 
-
-
 RUN chmod 755 /*.sh
 
 

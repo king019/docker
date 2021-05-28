@@ -36,6 +36,13 @@ RUN dnf -y install  vim
 RUN dnf -y install  nodejs
 RUN npm config set registry https://registry.npm.taobao.org
 
+#python
+RUN dnf -y install  python3
+RUN echo "alias python='python3'" >> /etc/profile
+RUN echo "alias pip='pip3'" >> /etc/profile
+
+
+
 RUN dnf -y install  net-tools
 RUN dnf -y install  unzip
 RUN dnf -y install  which

@@ -29,6 +29,14 @@ RUN apk add curl
 RUN apk add wget
 RUN apk add vim
 
+RUN apk add python3
+
+RUN cd /opt/soft/;curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py;alias python='python3';python get-pip.py
+RUN echo "alias python='python3'" >> /etc/profile
+
+
+
+
 # telnet
 RUN apk add busybox-extras
 

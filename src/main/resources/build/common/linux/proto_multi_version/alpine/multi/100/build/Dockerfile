@@ -29,12 +29,9 @@ RUN apk add curl
 RUN apk add wget
 RUN apk add vim
 
-RUN apk add python3
+RUN apk add python2
 
-RUN cd /opt/soft/;curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py;alias python='python3';python get-pip.py
-RUN echo "alias python='python3'" >> /etc/profile
-
-
+RUN cd /opt/soft/;curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py;python get-pip.py
 
 
 # telnet

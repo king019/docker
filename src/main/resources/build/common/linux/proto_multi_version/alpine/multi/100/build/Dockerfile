@@ -9,6 +9,7 @@ COPY run/run.sh /run.sh
 COPY run/run_env.sh /run_env.sh
 COPY run/profile.sh /profile.sh
 COPY run/git.sh /opt/soft/git.sh
+COPY get-pip.py /opt/soft/get-pip.py
 
 COPY docker.sh /docker.sh
 
@@ -48,7 +49,7 @@ RUN apk add vim
 
 RUN apk add python2
 
-RUN cd /opt/soft/;curl https://bootstrap.pypa.io/pip/2.7/get-pip.py -o get-pip.py;python get-pip.py
+RUN cd /opt/soft/;python get-pip.py
 
 
 # telnet

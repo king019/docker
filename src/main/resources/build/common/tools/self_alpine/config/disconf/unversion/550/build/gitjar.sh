@@ -2,6 +2,7 @@
 set -x
 source /etc/profile
 mkdir -p /opt/soft/version
+mkdir -p /war
 cd /opt/soft/version
 git clone https://e.coding.net/king019/github/disconf.git
 cd /opt/soft/version/disconf
@@ -13,8 +14,16 @@ cd /opt/soft/version/disconf
 #cat pom.xml
 
 ONLINE_CONFIG_PATH=/conf
-WAR_ROOT_PATH=/opt/soft/tools/tomcat/webapps/ROOT
+WAR_ROOT_PATH=/war
 export ONLINE_CONFIG_PATH
 export WAR_ROOT_PATH
 cd disconf-web
 sh deploy/deploy.sh
+cd /opt/soft/tools/tomcat/conf
+sed -i 's/<\/Host>/<Context path="" docBase="\/war"\/><\/Host>/' server.xml
+
+#<Context path="" docBase="/war"></Context>
+#<Context path="" docBase="\/war"\/><\/Host>
+#</Host>
+
+#使用disconf域名

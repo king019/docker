@@ -2,6 +2,7 @@
 set -x
 source /etc/profile
 
+nginx
 
 sh /opt/soft/tools/tomcat/bin/shutdown.sh
 sh /opt/soft/tools/tomcat/bin/startup.sh

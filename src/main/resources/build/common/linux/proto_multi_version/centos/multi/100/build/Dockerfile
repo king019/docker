@@ -37,7 +37,7 @@ RUN dnf -y install  wget
 RUN dnf -y install  vim
 RUN dnf -y install  nodejs
 RUN npm config set registry https://registry.npm.taobao.org
-
+RUN dnf -y install  nginx
 #python
 RUN dnf -y install  python2
 RUN echo "alias python='python2'" >> /etc/profile

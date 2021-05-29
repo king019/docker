@@ -8,3 +8,15 @@ docker manifest create  -a king019/sonarqube king019/sonarqube:aarch64  king019/
 docker manifest annotate king019/sonarqube king019/sonarqube:aarch64   --os-features linux/ARM64
 docker manifest annotate king019/sonarqube king019/sonarqube:x86_64   --os-features linux/ADM64
 docker manifest push -p king019/sonarqube
+
+
+
+本地编译
+
+
+mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=~/soft/version/github/docker@thread=1@rep=true@push=false@local=true@ex=centos@in=alpine,linux,disconf"
+
+
+sh ~/soft/version/github/docker/target/local_region/platform/noSuffix_false.sh
+
+

@@ -10,6 +10,8 @@ ADD conf/jdbc-mysql.properties  /conf/jdbc-mysql.properties
 ADD conf/redis-config.properties  /conf/redis-config.properties
 ADD conf/zoo.properties  /conf/zoo.properties
 
+COPY nginx.conf /etc/nginx/
+RUN rm -rf /etc/nginx/conf.d/default.conf
 
 COPY gitjar.sh /gitjar.sh
 COPY docker.sh /docker.sh

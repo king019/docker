@@ -1,4 +1,4 @@
-FROM  king019/linux:jdk8
+FROM  king019/alpine:jdk7
 
 MAINTAINER king019
 
@@ -9,7 +9,6 @@ ADD conf/application.properties  /conf/application.properties
 ADD conf/jdbc-mysql.properties  /conf/jdbc-mysql.properties
 ADD conf/redis-config.properties  /conf/redis-config.properties
 ADD conf/zoo.properties  /conf/zoo.properties
-
 
 
 COPY gitjar.sh /gitjar.sh

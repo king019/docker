@@ -30,7 +30,6 @@ RUN mkdir -p /etc/docker;cp /daemon.json /etc/docker/daemon.json
 RUN apk add maven
 RUN apk add openjdk11
 RUN apk add openjdk8
-RUN apk add openjdk7
 RUN apk add git
 RUN apk add curl
 RUN apk add wget

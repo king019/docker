@@ -27,12 +27,12 @@ jobs:
         run: echo ${{ steps.buildx.outputs.name }}
       - name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }};
-            sudo sed -i "s/{/{\"experimental\":true,/g"  /etc/docker/daemon.json;
-             cat /etc/docker/daemon.json;
-              java -version;
-              mvn -version;
-             sudo service docker restart;
-            ls /home/runner/work/docker/docker;
+          sudo sed -i "s/{/{\"experimental\":true,/g"  /etc/docker/daemon.json;
+          cat /etc/docker/daemon.json;
+          java -version;
+          mvn -version;
+          sudo service docker restart;
+          ls /home/runner/work/docker/docker;
       - name: docker info
         run: docker info
       - name: maven
@@ -46,3 +46,10 @@ jobs:
           ls /home/runner/work/docker/docker;
           cd ./target;chmod -R 777 .;
           bash ./platform/aarch64_aliyun_beijing_true.sh;
+      - name: build_docker_hub_arm64
+        run: cat /etc/docker/daemon.json;
+          cd /home/runner/work/docker/docker;
+          ls /home/runner/work/docker/docker;
+          cd ./target;chmod -R 777 .;
+          bash ./platform/x86_64_docker_true.sh;
+

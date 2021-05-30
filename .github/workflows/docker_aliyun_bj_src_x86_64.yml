@@ -1,4 +1,4 @@
-name: docker_ali_bj_src_x86
+name: docker_ali_bj_src_x86_64
 
 on:
   push:

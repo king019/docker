@@ -9,6 +9,7 @@ mvn versions:set -DnewVersion=release
 mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip -T 2
 
 cp dubbo-monitor-simple/target/dubbo-monitor-simple-release-assembly.tar.gz /opt/soft/dubbo-monitor-simple-release-assembly.tar.gz
-
+cd /opt/soft; tar -xzf dubbo-monitor-simple-release-assembly.tar.gz
+cd /opt/soft; mv dubbo-monitor-simple-release monitor
 mvn clean
 rm -fr ~/.m2/repository

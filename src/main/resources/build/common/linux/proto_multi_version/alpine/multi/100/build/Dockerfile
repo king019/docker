@@ -10,6 +10,7 @@ COPY run/run_env.sh /run_env.sh
 COPY run/profile.sh /profile.sh
 COPY run/git.sh /opt/soft/git.sh
 COPY get-pip.py /opt/soft/get-pip.py
+COPY run/mvnclean.sh /mvnclean.sh
 
 COPY docker.sh /docker.sh
 
@@ -72,6 +73,12 @@ RUN npm config set registry https://registry.npm.taobao.org
 
 RUN apk add protoc
 
+
+
+
+
+
+RUN /mvnclean.sh
 
 # RUN apk update && \
 #     apk add --no-cache openssh-server tzdata && \

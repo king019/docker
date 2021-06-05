@@ -14,7 +14,7 @@ docker manifest push -p king019/sonarqube
 本地编译
 
 
-mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=~/soft/version/github/docker@thread=1@rep=true@push=false@local=true@ex=centos@in=alpine,linux,dubbo:admin"
+mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=~/soft/version/github/docker@thread=1@rep=true@push=false@local=true@ex=centos@in=alpine,linux,nacos"
 
 
 sh ~/soft/version/github/docker/target/local_region/platform/noSuffix_false.sh

@@ -66,6 +66,13 @@ RUN apk add  --repository https://mirrors.aliyun.com/alpine/v3.11/main/ npm=12.2
 
 RUN npm config set registry https://registry.npm.taobao.org
 
+
+
+
+
+RUN apk add protoc
+
+
 # RUN apk update && \
 #     apk add --no-cache openssh-server tzdata && \
 #     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \

@@ -77,7 +77,7 @@ RUN apk add protoc
 
 
 
-
+RUN chmod -R 777 /*.sh
 RUN /mvnclean.sh
 
 # RUN apk update && \

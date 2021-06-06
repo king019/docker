@@ -14,7 +14,7 @@ cd ..
 mvn versions:set -DnewVersion=release
 mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip -T 2
 
-cp dubbo-admin-distribution/target/dubbo-admin-distribution-release.jar /opt/soft/dubbo-admin-distribution-release.jar
+cp dubbo-admin-distribution/target/dubbo-admin-release.jar /opt/soft/dubbo-admin-release.jar
 mvn clean
 rm -fr ~/.m2/repository
 

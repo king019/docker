@@ -63,7 +63,7 @@ public class JenkinsUtil {
     }
 
     public List<DockerJenkinsModel> buildModel(String dockerDest, boolean inDocker) throws Exception {
-        String resource = PathUtil.getResource("build");
+        String resource = PathUtil.getResource("build/common");
         File file = new File(resource);
         Map<DockerRegionEnum, File> map = Maps.newHashMap();
         copyFile(file, dockerDest, map);

@@ -12,7 +12,7 @@ protoc --java_out src/main/java/ src/main/proto/Data.proto
 
 cd ..
 
-mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U  -T 2
+mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U -T 2
 
 find . -name nacos-server-2.0.0.zip | awk '{print "cp " $1  " /opt/soft/nacos-server-2.0.0.zip"}' | sh
 mvn clean
@@ -20,3 +20,4 @@ rm -fr ~/.m2/repository
 
 cd /opt/soft
 unzip nacos-server-2.0.0.zip
+cat /application.properties /opt/soft/nacos/conf/application.properties

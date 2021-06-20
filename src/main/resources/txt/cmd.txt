@@ -14,8 +14,6 @@ sh ./target/x86_64_docker_true.sh
 sh ./target/x86_64_beijing_true.sh
 
 
-
-
 mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/opt/soft/version/github/docker@thread=1@rep=true@push=true"
 
 

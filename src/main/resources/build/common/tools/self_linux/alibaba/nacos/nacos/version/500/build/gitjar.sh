@@ -4,7 +4,7 @@ mkdir -p /opt/soft/version
 cd /opt/soft/version
 git clone https://e.coding.net/king019/github/nacos.git
 cd nacos
-git checkout 2.0.0
+git checkout 2.0.2
 cd consistency
 sed -i 's/<pluginId>grpc-java<\/pluginId>/<pluginId>grpc-java<\/pluginId><skip>true<\/skip>/' pom.xml
 protoc --java_out src/main/java/ src/main/proto/consistency.proto
@@ -14,10 +14,10 @@ cd ..
 
 mvn -Prelease-nacos -Dmaven.test.skip=true clean install -U -T 2
 
-find . -name nacos-server-2.0.0.zip | awk '{print "cp " $1  " /opt/soft/nacos-server-2.0.0.zip"}' | sh
+find . -name nacos-server-2.0.2.zip | awk '{print "cp " $1  " /opt/soft/nacos-server-2.0.2.zip"}' | sh
 mvn clean
 rm -fr ~/.m2/repository
 
 cd /opt/soft
-unzip nacos-server-2.0.0.zip
+unzip nacos-server-2.0.2.zip
 cat /application.properties /opt/soft/nacos/conf/application.properties

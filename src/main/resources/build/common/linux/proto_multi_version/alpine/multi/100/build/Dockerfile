@@ -8,6 +8,7 @@ COPY settings.xml /root/.m2/settings.xml
 COPY run/run.sh /run.sh
 COPY run/run_env.sh /run_env.sh
 COPY run/profile.sh /profile.sh
+COPY run/perf.sh /perf.sh
 COPY run/git.sh /opt/soft/git.sh
 COPY get-pip.py /opt/soft/get-pip.py
 COPY run/mvnclean.sh /mvnclean.sh
@@ -79,6 +80,7 @@ RUN apk add protoc
 
 
 RUN chmod -R 777 /*.sh
+RUN /perf.sh
 RUN /mvnclean.sh
 
 # RUN apk update && \

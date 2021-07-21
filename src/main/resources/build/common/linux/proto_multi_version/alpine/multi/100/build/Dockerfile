@@ -37,6 +37,7 @@ RUN apk add wget
 RUN apk add vim
 RUN apk add nginx
 RUN apk add python2
+RUN apk add gdb
 
 RUN cd /opt/soft/;python get-pip.py
 

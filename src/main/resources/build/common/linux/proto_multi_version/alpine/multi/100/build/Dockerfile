@@ -37,8 +37,11 @@ RUN apk add curl
 RUN apk add wget
 RUN apk add vim
 RUN apk add nginx
-RUN apk add python2
 RUN apk add gdb
+RUN apk add  strace
+RUN apk add  protobuf
+RUN apk add python2
+
 
 RUN cd /opt/soft/;python get-pip.py
 
@@ -80,7 +83,7 @@ RUN apk add protoc
 
 
 RUN chmod -R 777 /*.sh
-RUN /perf.sh
+# RUN /perf.sh
 RUN /mvnclean.sh
 
 # RUN apk update && \

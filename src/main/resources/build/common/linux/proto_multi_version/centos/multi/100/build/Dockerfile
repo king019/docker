@@ -8,8 +8,8 @@ COPY run/run.sh /run.sh
 COPY run/run_env.sh /run_env.sh
 COPY run/profile.sh /profile.sh
 COPY run/git.sh /opt/soft/git.sh
-COPY run/protoc.sh /protoc.sh
-COPY run/perf.sh /perf.sh
+# COPY run/protoc.sh /protoc.sh
+# COPY run/perf.sh /perf.sh
 COPY run/mvnclean.sh /mvnclean.sh
 
 #RUN yum list|sed -n '7,1111111p' |awk '{print "yum -y install  " $1}'
@@ -41,8 +41,12 @@ RUN dnf -y install  vim
 RUN dnf -y install  nodejs
 RUN npm config set registry https://registry.npm.taobao.org
 RUN dnf -y install  nginx
-#python
 RUN dnf -y install  gdb
+RUN dnf -y install  strace
+RUN dnf -y install  protobuf
+RUN dnf -y install  perf
+#python
+
 RUN dnf -y install  python2
 RUN echo "alias python='python2'" >> /etc/profile
 RUN echo "alias pip='pip2'" >> /etc/profile
@@ -62,8 +66,8 @@ RUN dnf -y install  redis
 #base
 #放入extra
 RUN chmod -R 777 /*.sh
-RUN /protoc.sh
-RUN /perf.sh
+# RUN /protoc.sh
+# RUN /perf.sh
 RUN /mvnclean.sh
 
 #RUN yum -y install  zlib-devel rubygems ruby gem  ruby-devel ruby-docs ruby-ri ruby-irb ruby-rdoc

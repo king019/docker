@@ -8,7 +8,7 @@ COPY settings.xml /root/.m2/settings.xml
 COPY run/run.sh /run.sh
 COPY run/run_env.sh /run_env.sh
 COPY run/profile.sh /profile.sh
-COPY run/perf.sh /perf.sh
+# COPY run/perf.sh /perf.sh
 COPY run/git.sh /opt/soft/git.sh
 COPY get-pip.py /opt/soft/get-pip.py
 COPY run/mvnclean.sh /mvnclean.sh
@@ -38,9 +38,11 @@ RUN apk add wget
 RUN apk add vim
 RUN apk add nginx
 RUN apk add gdb
-RUN apk add  strace
-RUN apk add  protobuf
+RUN apk add strace
+RUN apk add protobuf
+RUN apk add protoc
 RUN apk add python2
+RUN apk add perf
 
 
 RUN cd /opt/soft/;python get-pip.py
@@ -76,7 +78,7 @@ RUN npm config set registry https://registry.npm.taobao.org
 
 
 
-RUN apk add protoc
+
 
 
 

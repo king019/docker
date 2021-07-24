@@ -8,7 +8,7 @@ git clone https://e.coding.net/king019/github/rocketmq.git
 cd rocketmq
 git checkout release-4.8.0
 mvn versions:set -DnewVersion=release
-mvn -Prelease-all -DskipTests clean install -T 2
+mvn -Prelease-all -DskipTests clean install
 
 cp ./distribution/target/rocketmq-release.zip /opt/soft/rocketmq-release.zip
 

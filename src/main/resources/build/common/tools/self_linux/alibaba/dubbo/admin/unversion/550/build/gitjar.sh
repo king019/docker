@@ -8,7 +8,7 @@ git clone https://e.coding.net/king019/github/dubbo-admin.git
 cd dubbo-admin
 git checkout master
 cd dubbo-admin
-mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip -T 2
+mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip
 cp target/dubbo-admin-0.0.1-SNAPSHOT.jar /opt/soft/dubbo-admin-release.jar
 
 mvn clean

@@ -8,7 +8,7 @@ COPY run/run.sh /run.sh
 COPY run/run_env.sh /run_env.sh
 COPY run/profile.sh /profile.sh
 COPY run/git.sh /opt/soft/git.sh
-COPY run/protoc.sh /protoc.sh
+# COPY run/protoc.sh /protoc.sh
 # COPY run/perf.sh /perf.sh
 COPY run/mvnclean.sh /mvnclean.sh
 
@@ -43,7 +43,7 @@ RUN npm config set registry https://registry.npm.taobao.org
 RUN dnf -y install  nginx
 RUN dnf -y install  gdb
 RUN dnf -y install  strace
-RUN dnf -y install  protobuf
+RUN dnf -y --enablerepo=powertools install protobuf-devel
 RUN dnf -y install  perf
 #python
 

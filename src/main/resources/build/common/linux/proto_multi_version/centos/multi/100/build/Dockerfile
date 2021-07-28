@@ -1,9 +1,8 @@
-FROM king019/centos:p
+FROM king019/centos:res
 
 MAINTAINER king019
 
 
-COPY settings.xml /root/.m2/settings.xml
 COPY run/run.sh /run.sh
 COPY run/run_env.sh /run_env.sh
 COPY run/profile.sh /profile.sh
@@ -107,14 +106,6 @@ RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
 
 RUN cd /opt/soft ; sh ./git.sh
-
-
-COPY config.json /config.json
-RUN mkdir -p /root/.docker;cp /config.json /root/.docker/config.json
-
-COPY daemon.json /daemon.json
-RUN mkdir -p /etc/docker;cp /daemon.json /etc/docker/daemon.json
-
 
 COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh

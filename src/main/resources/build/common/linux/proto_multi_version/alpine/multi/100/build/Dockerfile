@@ -1,10 +1,8 @@
-FROM king019/alpine:p
+FROM king019/alpine:res
 
 MAINTAINER king019
 
-ADD bashrc /root/.bashrc
 
-COPY settings.xml /root/.m2/settings.xml
 COPY run/run.sh /run.sh
 COPY run/run_env.sh /run_env.sh
 COPY run/profile.sh /profile.sh
@@ -14,17 +12,6 @@ COPY get-pip.py /opt/soft/get-pip.py
 COPY run/mvnclean.sh /mvnclean.sh
 
 COPY docker.sh /docker.sh
-
-
-COPY config.json /config.json
-RUN mkdir -p /root/.docker;cp /config.json /root/.docker/config.json
-
-COPY daemon.json /daemon.json
-RUN mkdir -p /etc/docker;cp /daemon.json /etc/docker/daemon.json
-
-
-
-
 
 
 
@@ -69,8 +56,8 @@ RUN apk add procps
 #RUN apk add ttf-dejavu
 #nodejs
 
-RUN apk add  --repository https://mirrors.aliyun.com/alpine/v3.11/main/ nodejs=12.22.1-r0
-RUN apk add  --repository https://mirrors.aliyun.com/alpine/v3.11/main/ npm=12.22.1-r0
+RUN apk add  --repository https://mirrors.aliyun.com/alpine/v3.11/main/ nodejs=12.22.2-r0
+RUN apk add  --repository https://mirrors.aliyun.com/alpine/v3.11/main/ npm=12.22.2-r0
 
 RUN npm config set registry https://registry.npm.taobao.org
 

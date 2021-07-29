@@ -65,7 +65,7 @@ RUN dnf -y install  redis
 #base
 #放入extra
 RUN chmod -R 777 /*.sh
-RUN /protoc.sh
+# RUN /protoc.sh
 # RUN /perf.sh
 RUN /mvnclean.sh
 

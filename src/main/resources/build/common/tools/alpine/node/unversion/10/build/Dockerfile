@@ -1,4 +1,4 @@
-FROM alpine:v3.11
+FROM alpine:3.11
 RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g" /etc/apk/repositories
 RUN apk add git
 

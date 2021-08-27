@@ -12,4 +12,4 @@ mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip
 cp target/rocketmq-console-ng-release.jar /opt/soft/rocketmq-console-ng-release.jar
 
 mvn clean
-rm -fr ~/.m2/repository
+/mvnclean.sh

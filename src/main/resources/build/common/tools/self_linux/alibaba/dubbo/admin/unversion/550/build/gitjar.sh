@@ -12,7 +12,7 @@ mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip
 cp target/dubbo-admin-0.0.1-SNAPSHOT.jar /opt/soft/dubbo-admin-release.jar
 
 mvn clean
-rm -fr ~/.m2/repository
+/mvnclean.sh
 
 #cd dubbo-admin
 #mvn versions:set -DnewVersion=release
@@ -30,4 +30,4 @@ rm -fr ~/.m2/repository
 #
 #cp dubbo-admin-distribution/target/dubbo-admin-release.jar /opt/soft/dubbo-admin-release.jar
 #mvn clean
-#rm -fr ~/.m2/repository
+#/mvnclean.sh

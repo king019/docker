@@ -10,4 +10,4 @@ cd $(find . -name 'fw_rpc_dubbo_anno')
 mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip
 find . -name fw_rpc_dubbo_anno_service-1.0-SNAPSHOT.jar | awk '{print "cp " $1  " /opt/soft/fw_rpc_dubbo_anno_service-release.jar"}' | sh
 mvn clean
-rm -fr ~/.m2/repository
+/mvnclean.sh

@@ -15,4 +15,4 @@ tar -xzf dubbo-monitor-simple-release-assembly.tar.gz
 cd /opt/soft
 mv dubbo-monitor-simple-release monitor
 mvn clean
-rm -fr ~/.m2/repository
+/mvnclean.sh

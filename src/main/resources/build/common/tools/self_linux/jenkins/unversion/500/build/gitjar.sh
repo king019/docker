@@ -13,4 +13,4 @@ mvn clean war:war -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip
 cp target/jenkins.war /opt/soft/tools/jenkins.war
 cp /opt/soft/tools/jenkins.war /opt/soft/tools/tomcat/webapps/ROOT.war
 mvn clean
-rm -fr ~/.m2/repository
+/mvnclean.sh

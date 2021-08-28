@@ -76,7 +76,7 @@ RUN npm config set registry https://registry.npm.taobao.org
 
 RUN chmod -R 777 /*.sh
 # RUN /perf.sh
-RUN /mvnclean.sh
+#RUN /mvnclean.sh
 
 # RUN apk update && \
 #     apk add --no-cache openssh-server tzdata && \

@@ -1,4 +1,4 @@
-FROM king019/centos:res
+FROM king019/fedora:res
 
 MAINTAINER king019
 
@@ -42,7 +42,7 @@ RUN npm config set registry https://registry.npm.taobao.org
 RUN dnf -y install  nginx
 RUN dnf -y install  gdb
 RUN dnf -y install  strace
-RUN dnf -y --enablerepo=powertools install protobuf-devel
+RUN dnf -y install protobuf-devel
 RUN dnf -y install  perf
 #python
 

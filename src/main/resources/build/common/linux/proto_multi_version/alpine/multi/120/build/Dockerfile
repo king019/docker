@@ -1,4 +1,4 @@
-FROM king019/alpine:res
+FROM king019/alpine:jdk
 
 MAINTAINER king019
 
@@ -16,9 +16,6 @@ COPY docker.sh /docker.sh
 
 
 
-RUN apk add maven
-RUN apk add openjdk11
-RUN apk add openjdk8
 RUN apk add git
 RUN apk add curl
 RUN apk add wget
@@ -106,13 +103,6 @@ RUN cd /opt/soft/tools;tar -xzf tomcat-8.5.66.tar.gz;ls
 RUN cd /opt/soft/tools;mv apache-tomcat-8.5.66 tomcat
 RUN cd /opt/soft/tools/tomcat/webapps;rm -fr *
 RUN mkdir -p /opt/soft/tools/tomcat/webapps
-
-
-
-
-RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile
-
-RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
 
 

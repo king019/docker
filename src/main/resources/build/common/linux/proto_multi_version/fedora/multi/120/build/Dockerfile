@@ -1,4 +1,4 @@
-FROM king019/centos:res
+FROM king019/fedora:jdk
 
 MAINTAINER king019
 
@@ -30,9 +30,6 @@ COPY run/mvnclean.sh /mvnclean.sh
 
 
 
-RUN dnf -y install  maven
-RUN dnf -y install  java-11-openjdk-devel
-RUN dnf -y install  java-1.8.0-openjdk-devel
 RUN dnf -y install  git
 RUN dnf -y install  curl
 RUN dnf -y install  wget
@@ -42,7 +39,7 @@ RUN npm config set registry https://registry.npm.taobao.org
 RUN dnf -y install  nginx
 RUN dnf -y install  gdb
 RUN dnf -y install  strace
-RUN dnf -y --enablerepo=powertools install protobuf-devel
+RUN dnf -y install protobuf-devel
 RUN dnf -y install  perf
 #python
 
@@ -101,8 +98,6 @@ RUN mkdir -p /opt/soft/tools/tomcat/webapps
 # RUN echo 'export MAVEN_HOME=/opt/soft/tools/maven' >> /etc/profile
 # RUN echo 'export PATH=$MAVEN_HOME/bin:$PATH' >> /etc/profile
 
-RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile
-RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
 
 RUN cd /opt/soft ; sh ./git.sh

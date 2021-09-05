@@ -1,4 +1,4 @@
-FROM  king019/fedora:b
+FROM  king019/fedora:jdk
 
 MAINTAINER king019
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8.0-openjdk' >> /etc/profile

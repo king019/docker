@@ -1,4 +1,4 @@
-FROM  king019/fedora:jdk
+FROM  king019/centos:b
 
 MAINTAINER king019
 

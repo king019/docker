@@ -4,16 +4,26 @@ MAINTAINER king019
 
 RUN mkdir -p /root/.m2
 
-COPY settings.xml /root/.m2/settings.xml
 
-COPY docker.sh /docker.sh
+COPY run/git.sh /opt/soft/git.sh
+COPY run/mvnclean.sh /mvnclean.sh
+# COPY run/perf.sh /perf.sh
+COPY run/profile.sh /profile.sh
+# COPY run/protoc.sh /protoc.sh
+COPY run/run.sh /run.sh
+COPY run/run_env.sh /run_env.sh
 
-ADD bashrc /root/.bashrc
 
-COPY config.json /config.json
+
+COPY config/settings.xml /root/.m2/settings.xml
+
+
+ADD config/bashrc /root/.bashrc
+
+COPY config/config.json /config.json
 RUN mkdir -p /root/.docker;cp /config.json /root/.docker/config.json
 
-COPY daemon.json /daemon.json
+COPY config/daemon.json /daemon.json
 RUN mkdir -p /etc/docker;cp /daemon.json /etc/docker/daemon.json
 
 

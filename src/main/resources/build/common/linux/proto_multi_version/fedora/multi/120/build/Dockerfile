@@ -3,13 +3,6 @@ FROM king019/fedora:jdk
 MAINTAINER king019
 
 
-COPY run/run.sh /run.sh
-COPY run/run_env.sh /run_env.sh
-COPY run/profile.sh /profile.sh
-COPY run/git.sh /opt/soft/git.sh
-# COPY run/protoc.sh /protoc.sh
-# COPY run/perf.sh /perf.sh
-COPY run/mvnclean.sh /mvnclean.sh
 
 #RUN yum list|sed -n '7,1111111p' |awk '{print "yum -y install  " $1}'
 #可以使用临时关闭
@@ -102,7 +95,6 @@ RUN mkdir -p /opt/soft/tools/tomcat/webapps
 
 RUN cd /opt/soft ; sh ./git.sh
 
-COPY docker.sh /docker.sh
 RUN chmod 755 /*.sh
 CMD /docker.sh
 

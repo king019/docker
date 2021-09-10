@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 set -x
 #chmod 755 /*.sh
 /run_env.sh

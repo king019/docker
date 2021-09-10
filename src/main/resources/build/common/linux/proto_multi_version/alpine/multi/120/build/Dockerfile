@@ -3,15 +3,7 @@ FROM king019/alpine:jdk
 MAINTAINER king019
 
 
-COPY run/run.sh /run.sh
-COPY run/run_env.sh /run_env.sh
-COPY run/profile.sh /profile.sh
-# COPY run/perf.sh /perf.sh
-COPY run/git.sh /opt/soft/git.sh
 COPY get-pip.py /opt/soft/get-pip.py
-COPY run/mvnclean.sh /mvnclean.sh
-
-COPY docker.sh /docker.sh
 
 
 

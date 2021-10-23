@@ -1,4 +1,4 @@
-FROM king019/openeuler
+FROM king019/openeuler:jdk11
 
 MAINTAINER king019
 

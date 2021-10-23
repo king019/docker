@@ -1,6 +1,0 @@
-FROM  king019/fedora:jdk
-
-MAINTAINER king019
-
-RUN chmod 755 /*.sh
-CMD /docker.sh

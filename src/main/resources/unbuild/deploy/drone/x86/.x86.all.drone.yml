@@ -3,7 +3,7 @@ name: build
 
 steps:
   - name: buildlocal
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/docker:build
     privileged: true
     #detach: true
     volumes:
@@ -26,7 +26,7 @@ steps:
       - sh ./target/local_region/noSuffix_false.sh
 
   - name: buildBeijing
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/docker:build
     privileged: true
     volumes:
       - name: maven
@@ -48,7 +48,7 @@ steps:
       - sh ./target/x86_aliyun_beijing_true.sh
 
   - name: buildDocker
-    image: registry.cn-beijing.aliyuncs.com/king019/centos
+    image: registry.cn-beijing.aliyuncs.com/king019/docker:build
     privileged: true
     volumes:
       - name: maven

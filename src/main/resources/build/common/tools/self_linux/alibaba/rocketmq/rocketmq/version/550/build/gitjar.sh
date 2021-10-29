@@ -6,7 +6,7 @@ mkdir -p /opt/soft/version
 cd /opt/soft/version
 git clone https://e.coding.net/king019/github/rocketmq.git
 cd rocketmq
-git checkout release-4.8.0
+git checkout release-4.9.2
 mvn versions:set -DnewVersion=release
 mvn -Prelease-all -DskipTests clean install
 

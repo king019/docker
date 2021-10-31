@@ -1,4 +1,4 @@
-FROM  king019/alpine
+FROM  king019/linux
 #FROM  ruby:alpine3.12
 
 MAINTAINER king019

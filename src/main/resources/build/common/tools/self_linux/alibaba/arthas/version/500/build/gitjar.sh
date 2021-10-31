@@ -1,5 +1,6 @@
 #!/bin/sh
 set -x
+javah -version
 source /etc/profile
 mkdir -p /opt/soft/version
 cd /opt/soft/version

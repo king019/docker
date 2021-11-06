@@ -1,4 +1,4 @@
-name: docker_aliyun_shanghai
+name: docker_tencent
 
 on:
   push:
@@ -9,12 +9,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: aliyun_shanghai
+      - name: tencent
         uses: docker/login-action@v1
         with:
-          registry: registry.cn-shanghai.aliyuncs.com
-          username: ${{ secrets.ALIYUN_USERNAME }}
-          password: ${{ secrets.ALIYUN_PASSWORD }}
+          registry: ccr.ccs.tencentyun.com
+          username: ${{ secrets.TENCENT_USERNAME }}
+          password: ${{ secrets.TENCENT_PASSWORD }}
       - name: chche
         uses: actions/cache@v2
         with:
@@ -40,9 +40,9 @@ jobs:
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=20@rep=false@push=true@local=false";
-      - name: build_aliyun_shanghai
+      - name: build_tencent
         run: cat /etc/docker/daemon.json;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           cd ./target;chmod -R 777 .;
-          bash ./aliyun_shanghai_true.sh;
+          bash ./tenyun_beijing_true.sh;

@@ -1,4 +1,4 @@
-FROM king019/fedora:git
+FROM king019/fedora:jdk17
 
 MAINTAINER king019
 

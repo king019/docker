@@ -9,6 +9,12 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
+      - name: use jdk
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt' # See https://github.com/actions/setup-java
+          java-version: '17'
+        run: java -version
       - name: docker
         uses: docker/login-action@v1
         with:
@@ -26,12 +32,12 @@ jobs:
         run: echo ${{ steps.buildx.outputs.name }}
       - name: Available platforms
         run: echo ${{ steps.buildx.outputs.platforms }};
-            sudo sed -i "s/{/{\"experimental\":true,/g"  /etc/docker/daemon.json;
-             cat /etc/docker/daemon.json;
-              java -version;
-              mvn -version;
-             sudo service docker restart;
-            ls /home/runner/work/docker/docker;
+          sudo sed -i "s/{/{\"experimental\":true,/g"  /etc/docker/daemon.json;
+          cat /etc/docker/daemon.json;
+          java -version;
+          mvn -version;
+          sudo service docker restart;
+          ls /home/runner/work/docker/docker;
       - name: docker info
         run: docker info
       - name: maven

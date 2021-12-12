@@ -13,7 +13,7 @@ jobs:
         uses: actions/setup-java@v2
         with:
           distribution: 'adopt' # See https://github.com/actions/setup-java
-          java-version: '17'
+          java-version: '11'
       - name: docker
         uses: docker/login-action@v1
         with:

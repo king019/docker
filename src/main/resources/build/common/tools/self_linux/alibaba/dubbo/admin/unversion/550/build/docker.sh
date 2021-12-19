@@ -1,6 +1,6 @@
 #!/bin/sh
 set -x
-source /etc/profile
+source /etc/profile;java -version
 cd /opt/soft
 #nohup java $JAVA_OPTS -Dadmin.registry.address=nacos://nacos:8848 -Dadmin.config-center=nacos://nacos:8848 -Dadmin.metadata-report.address=nacos://nacos:8848 -jar dubbo-admin-release.jar &
 

@@ -1,7 +1,7 @@
 #!/bin/sh
 set -x
 
-source /etc/profile
+source /etc/profile;java -version
 
 cd /opt/soft/apollo-portal/config
 echo 'dev.meta='$DEV_MATA >apollo-env.properties

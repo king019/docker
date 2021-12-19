@@ -75,9 +75,12 @@ RUN chmod -R 777 /*.sh
 #     ssh-keygen -t ecdsa -P "" -f /etc/ssh/ssh_host_ecdsa_key && \
 #     ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key && \
 #     echo "root:admin" | chpasswd
-RUN set -x \
-    apk update \
-    && apk add --no-cache bash bash-doc bash-completion \
+# RUN set -x \
+#     apk update \
+#     && apk add --no-cache bash bash-doc bash-completion \
+#     && sed -i 's/ash/bash/g' /etc/passwd \
+#     && source /root/.bashrc
+RUN apk add bash bash-doc bash-completion \
     && sed -i 's/ash/bash/g' /etc/passwd \
     && source /root/.bashrc
 

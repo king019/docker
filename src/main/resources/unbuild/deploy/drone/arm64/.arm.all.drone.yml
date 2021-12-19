@@ -19,7 +19,7 @@ steps:
       - chmod -R 777 /bin
       - which docker
       - docker version
-      - source /etc/profile
+      - source /etc/profile;java -version
       #      - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=true"
       - pwd;ls
@@ -41,7 +41,7 @@ steps:
       - chmod -R 777 /bin
       - which docker
       - docker version
-      - source /etc/profile
+      - source /etc/profile;java -version
       - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=false@ex=centos"
       - pwd;ls
@@ -63,7 +63,7 @@ steps:
       - chmod -R 777 /bin
       - which docker
       - docker version
-      - source /etc/profile
+      - source /etc/profile;java -version
       - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=false@ex=centos"
       - pwd;ls

@@ -1,6 +1,7 @@
 FROM alpine as alpine
 RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g" /etc/apk/repositories
-RUN apk add -U --no-cache ca-certificates
+# RUN apk add -U --no-cache ca-certificates
+RUN apk add ca-certificates
 
 FROM alpine
 RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g" /etc/apk/repositories

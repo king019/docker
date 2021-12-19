@@ -1,6 +1,6 @@
 #!/bin/sh
 set -x
-source /etc/profile
+source /etc/profile;java -version
 java -version
 mkdir -p /opt/soft/version
 cd /opt/soft/version

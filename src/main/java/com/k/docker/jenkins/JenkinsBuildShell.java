@@ -3,7 +3,9 @@ package com.k.docker.jenkins;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
+import com.k.docker.jenkins.model.emums.ConstantEnum;
 import com.k.docker.jenkins.model.emums.DockerParamEnum;
+import com.k.docker.jenkins.model.emums.GitRemoteEnum;
 import com.k.docker.jenkins.util.JenkinsUtil;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
@@ -23,6 +25,7 @@ public class JenkinsBuildShell {
     static List<String> excludes = Lists.newArrayList();
     static boolean inDocker = false;
     static boolean localRegion = false;
+    static boolean replaceGit = false;
 
     public static void main(String[] args) throws Exception {
         if (ArrayUtils.isNotEmpty(args)) {
@@ -56,6 +59,9 @@ public class JenkinsBuildShell {
             localRegion = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.LOCAL_REGION, map));
         }
         {
+            replaceGit = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.RP_GIT, map));
+        }
+        {
             String val = JenkinsUtil.getVal(DockerParamEnum.INCLUDE, map);
             if (StringUtils.isNotBlank(val)) {
                 includes.addAll(Lists.newArrayList(val.split(",")));
@@ -72,18 +78,29 @@ public class JenkinsBuildShell {
             excludes.removeAll(includes);
         }
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, replace, push, inDocker, localRegion);
+        shell.jenkinsWrite(multi, includes, excludes, replace, push, inDocker, localRegion, replaceGit);
     }
 
     @Test
     public void testReplaceTrue() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, true, push);
+        shell.jenkinsWrite(multi, includes, excludes, true, push, true);
     }
 
     @Test
     public void testReplaceFalse() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, false, push);
+        shell.jenkinsWrite(multi, includes, excludes, false, push, true);
+    }
+    @Test
+    public void testGitReplace() throws Exception {
+        List<String> lines=Lists.newArrayList();
+        for (GitRemoteEnum remote : GitRemoteEnum.values()) {
+            lines.add("echo '"+remote.getDesc()+"'");
+            lines.add("git ls-remote "+remote.getDesc());
+        }
+        for (String line : lines) {
+            System.out.println(line);
+        }
     }
 }

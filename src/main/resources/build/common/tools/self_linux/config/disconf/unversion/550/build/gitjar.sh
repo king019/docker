@@ -1,12 +1,12 @@
 #!/bin/sh
 set -x
-source /etc/profile
+source /etc/profile;java -version
 mkdir -p /opt/soft/version
 mkdir -p /war
 cd /opt/soft/version
 git clone https://e.coding.net/king019/github/disconf.git
 cd /opt/soft/version/disconf
-
+git checkout 2.6.36
 #sed -i 's/<java.version>1.6<\/java.version>/<java.version>1.8<\/java.version>/' pom.xml
 #sed -i 's/<source.version>1.6<\/source.version>/<source.version>1.8<\/source.version>/' pom.xml
 #sed -i 's/<target.version>1.6<\/target.version>/<target.version>1.8<\/target.version>/' pom.xml

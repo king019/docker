@@ -10,11 +10,12 @@
     <properties>
         <jdk.version>11</jdk.version>
         <jdk.encoding>UTF-8</jdk.encoding>
-        <arthas.version>3.5.4</arthas.version>
+        <arthas.version>3.5.5</arthas.version>
         <apollo.version>1.9.1</apollo.version>
         <rocketmq-client.version>4.8.0</rocketmq-client.version>
         <sentinel.version>1.8.2</sentinel.version>
         <nacos-client.version>2.0.0</nacos-client.version>
+        <disconf.version>2.6.36</disconf.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -42,6 +43,11 @@
                 <groupId>com.alibaba.nacos</groupId>
                 <artifactId>nacos-client</artifactId>
                 <version>${nacos-client.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baidu.disconf</groupId>
+                <artifactId>disconf-core</artifactId>
+                <version>${disconf.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

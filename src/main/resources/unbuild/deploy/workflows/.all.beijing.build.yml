@@ -18,7 +18,7 @@ steps:
       - chmod -R 777 /bin
       - which docker
       - docker version
-      - source /etc/profile
+      - source /etc/profile;java -version
       - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=false@push=true@in=alpine"
       - pwd;ls
       - chmod -R 777 .

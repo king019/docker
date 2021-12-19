@@ -1,18 +1,8 @@
 package com.k.docker.jenkins.util;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
-import com.k.docker.jenkins.model.emums.BuildItemEnum;
-import com.k.docker.jenkins.model.emums.DockerFunctionEnum;
-import com.k.docker.jenkins.model.emums.DockerParamEnum;
-import com.k.docker.jenkins.model.emums.DockerPlatformEnum;
-import com.k.docker.jenkins.model.emums.DockerRegionEnum;
+import com.k.docker.jenkins.model.emums.*;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -22,51 +12,50 @@ import org.apache.commons.lang3.math.NumberUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
 public class JenkinsUtil {
+    Map<String, String> gitMap = Maps.newHashMap();
+
     public static String getVal(DockerParamEnum paramEnum, Map<DockerParamEnum, String> map) {
         return map.getOrDefault(paramEnum, paramEnum.getDef());
     }
 
-    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push) throws Exception {
-        jenkinsWrite(multi, includes, excludes, replace, push, true, true);
+    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push, boolean replaceGit) throws Exception {
+        jenkinsWrite(multi, includes, excludes, replace, push, true, true, replaceGit);
     }
 
-    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push, boolean inDocker, boolean localRegion) throws Exception {
+    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replaceDockerGit, boolean push, boolean inDocker, boolean localRegion, boolean replaceShGit) throws Exception {
         String dockerDest = "dockerDest/";
-        List<DockerJenkinsModel> models = buildModel(dockerDest, inDocker);
-        replaceDir(dockerDest, replace);
+        List<DockerJenkinsModel> models = buildModel(dockerDest, inDocker, replaceShGit);
+        replaceDir(dockerDest, replaceDockerGit);
         models = filter(models, includes, excludes);
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         writeNormal("", models, true, multi, push);
         if (localRegion) {
             writeLocal(DockerRegionEnum.LOCAL, models, false, multi, push);
         }
-
+        int index = 0;
+        for (String git : gitMap.keySet().stream().sorted().collect(Collectors.toList())) {
+            String des = gitMap.get(git);
+            System.out.println("index_" + (index++) + "(\"" + git + "\", \"" + des + "\"),");
+        }
     }
 
     public List<DockerJenkinsModel> buildModel() throws Exception {
         String dockerDest = "dockerDest/";
-        return buildModel(dockerDest, true);
+        return buildModel(dockerDest, true, true);
     }
 
-    public List<DockerJenkinsModel> buildModel(String dockerDest, boolean inDocker) throws Exception {
+    public List<DockerJenkinsModel> buildModel(String dockerDest, boolean inDocker, boolean replaceShGit) throws Exception {
         String resource = PathUtil.getResource("build/common");
         File file = new File(resource);
         Map<DockerRegionEnum, File> map = Maps.newHashMap();
-        copyFile(file, dockerDest, map);
+        copyFile(file, dockerDest, map, replaceShGit);
         List<DockerJenkinsModel> models = Lists.newArrayList();
         for (DockerRegionEnum regionEnum : map.keySet()) {
             if (!inDocker) {
@@ -220,26 +209,26 @@ public class JenkinsUtil {
         return models;
     }
 
-    private void copyFile(File file, String dockerDest, Map<DockerRegionEnum, File> map) throws Exception {
+    private void copyFile(File file, String dockerDest, Map<DockerRegionEnum, File> map, boolean replaceShGit) throws Exception {
         for (String region : PathBaseUtil.REGIONS) {
             DockerRegionEnum regionEnum = DockerRegionEnum.getRegion(region);
             String copyDest = PathUtil.getTargetPath(dockerDest);
             File copyDestFile = new File(copyDest + "/" + regionEnum.getRegion());
-            copyDir(file, file.getAbsolutePath() + "/", copyDest, regionEnum.getRegion());
+            copyDir(file, file.getAbsolutePath() + "/", copyDest, regionEnum.getRegion(), replaceShGit);
             map.put(regionEnum, copyDestFile);
         }
     }
 
-    private void copyDir(File dir, String src, String dest, String region) throws Exception {
+    private void copyDir(File dir, String src, String dest, String region, boolean replaceShGit) throws Exception {
         for (File listFile : Objects.requireNonNull(dir.listFiles())) {
             if (listFile.getName().equals("pull")) {
                 copyDirPull(listFile, src, dest, region);
                 continue;
             }
             if (listFile.isFile()) {
-                copyFile(listFile, src, dest, region);
+                copyFile(listFile, src, dest, region, replaceShGit);
             } else {
-                copyDir(listFile, src, dest, region);
+                copyDir(listFile, src, dest, region, replaceShGit);
             }
         }
     }
@@ -294,14 +283,14 @@ public class JenkinsUtil {
 
     }
 
-    private void copyFile(File srcfile, String src, String dest, String region) throws Exception {
+    private void copyFile(File srcfile, String src, String dest, String region, boolean replaceShGit) throws Exception {
         String absolutePath = srcfile.getAbsolutePath();
         absolutePath = absolutePath.replace(src, dest + region + "/");
         File destfile = new File(absolutePath);
-        copyFile(srcfile, destfile, region);
+        copyFile(srcfile, destfile, region, replaceShGit);
     }
 
-    private void copyFile(File srcfile, File destfile, String region) throws Exception {
+    private void copyFile(File srcfile, File destfile, String region, boolean replaceShGit) throws Exception {
         //String region = PathBaseUtil.REGION;
         //String region = "beijing";
         String host = DockerRegionEnum.getRegion(region).getHost();
@@ -321,6 +310,11 @@ public class JenkinsUtil {
                     from = from.substring(0, index) + host;
                     lines.add(0, from);
                 }
+            } else if (srcfile.getName().endsWith(".sh")) {
+                for (int i = lines.size() - 1; i >= 0; i--) {
+                    judgeGit(srcfile, lines, i, replaceShGit);
+                }
+
             }
         }
         FileUtils.writeLines(destfile, lines);
@@ -537,5 +531,38 @@ public class JenkinsUtil {
                 }
             }
         }
+    }
+
+    private void judgeGit(File srcfile, List<String> lines, int index, boolean replaceShGit) {
+        if (!replaceShGit) {
+            return;
+        }
+        if (srcfile.getAbsolutePath().contains("/source/")) {
+            return;
+        }
+        String cmd = lines.get(index);
+        if (StringUtils.startsWith(cmd, "git clone http")) {
+            cmd = cmd.substring(10);
+            String des = GitRemoteEnum.getDes(cmd);
+            //if(!cmd.equals(des)){
+            gitMap.put(cmd, des);
+            //}
+            lines.set(index, replaceGit(cmd, des));
+        }
+
+    }
+
+    private String replaceGit(String src, String des) {
+        StringBuilder sb = new StringBuilder();
+        sb.append("if git ls-remote ").append(des).append(" > /dev/null; then ");
+        sb.append(ConstantEnum.HUANHANG.getCode());
+        sb.append("git clone ").append(des);
+        sb.append(ConstantEnum.HUANHANG.getCode());
+        sb.append("else");
+        sb.append(ConstantEnum.HUANHANG.getCode());
+        sb.append("git clone ").append(src);
+        sb.append(ConstantEnum.HUANHANG.getCode());
+        sb.append("fi");
+        return sb.toString();
     }
 }

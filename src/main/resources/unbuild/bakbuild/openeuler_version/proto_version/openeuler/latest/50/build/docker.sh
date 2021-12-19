@@ -1,4 +1,4 @@
 #!/bin/bash
 set -x
-source /etc/profile
+source /etc/profile;echo ''
 tail -f /docker.sh

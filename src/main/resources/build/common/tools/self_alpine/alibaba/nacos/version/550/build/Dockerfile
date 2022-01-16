@@ -4,12 +4,10 @@ MAINTAINER king019
 
 
 
-RUN apk add maven
 RUN apk add openjdk8
-RUN apk add git
-RUN apk add protobuf
-RUN apk add protoc
+RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk' >> /etc/profile
 
+RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
 COPY gitjar.sh /gitjar.sh
 COPY docker.sh /docker.sh

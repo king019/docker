@@ -5,7 +5,7 @@ mkdir -p /opt/soft/version
 cd /opt/soft/version
 git clone https://e.coding.net/king019/github/Sentinel.git
 cd Sentinel/sentinel-dashboard
-git checkout 1.8.2
+git checkout 1.8.3
 mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip
 find . -name sentinel-dashboard.jar | awk '{print "cp " $1  " /opt/soft/sentinel-dashboard.jar"}' | sh
 ls /opt/soft

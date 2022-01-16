@@ -34,6 +34,13 @@ public class JenkinsUtil {
         List<DockerJenkinsModel> models = buildModel(dockerDest, inDocker, replaceShGit);
         replaceDir(dockerDest, replaceDockerGit);
         models = filter(models, includes, excludes);
+        models.sort((o1, o2) -> {
+            int compare = NumberUtils.compare(o1.getIndex(), o2.getIndex());
+            if (compare == 0) {
+                compare = StringUtils.compare(o1.getVersion(), o2.getVersion());
+            }
+            return compare;
+        });
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         writeNormal("", models, true, multi, push);
         if (localRegion) {

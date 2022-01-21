@@ -1,2 +1,2 @@
-king019/rocketmq:4.9.2
+king019/rocketmq:5.0.0-preview
 king019/rocketmq

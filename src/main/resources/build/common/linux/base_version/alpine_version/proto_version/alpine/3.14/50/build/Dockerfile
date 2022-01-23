@@ -19,7 +19,7 @@ RUN apk add protobuf
 RUN apk add protoc
 
 
-
+COPY run/mvnclean.sh /mvnclean.sh
 COPY config/settings.xml /root/.m2/settings.xml
 
 COPY docker.sh /docker.sh

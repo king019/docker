@@ -12,6 +12,15 @@ RUN mkdir -p /etc/docker
 
 COPY docker.sh /docker.sh
 
+#RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
+#RUN wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo
+
+
+#从centos到centosstream
+#RUN dnf -y swap centos-linux-repos centos-stream-repos
+#同步安装软件到最新版
+#RUN dnf -y distro-sync
+
 
 RUN chmod 755 /*.sh
 

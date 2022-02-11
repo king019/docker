@@ -6,7 +6,7 @@ COPY settings.xml /root/.m2/settings.xml
 
 RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g" /etc/apk/repositories
 RUN apk add maven
-RUN apk add openjdk11
+RUN apk add openjdk17
 
 #RUN curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 #RUN apk add docker
@@ -15,7 +15,7 @@ RUN which docker
 RUN mvn -v
 
 
-RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile
+RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk' >> /etc/profile
 RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
 

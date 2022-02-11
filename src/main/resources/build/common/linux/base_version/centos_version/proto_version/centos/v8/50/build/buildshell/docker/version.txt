@@ -1,2 +1,0 @@
-king019/centos:p8
-king019/centos:p

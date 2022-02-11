@@ -1,5 +1,5 @@
-FROM fedora
-
+FROM quay.io/centos/centos:stream9
+#FROM centos:8
 MAINTAINER king019
 
 RUN mkdir -p /root/.m2/repository

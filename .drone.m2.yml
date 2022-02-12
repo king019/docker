@@ -1,0 +1,29 @@
+kind: pipeline
+name: build
+
+steps:
+  - name: version
+    image: registry.cn-beijing.aliyuncs.com/king019/docker:build
+    privileged: true
+    commands:
+      - source /etc/profile;java -version
+      - cd src/version
+      - mvn  versions:display-property-updates
+  - name: build
+    image: registry.cn-beijing.aliyuncs.com/king019/docker:build
+    privileged: true
+    volumes:
+      - name: sock
+        path: /var/run/docker.sock
+    commands:
+      - chmod -R 777 /bin
+      - which docker
+      - docker version
+      - source /etc/profile;java -version
+      - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=3@rep=true@push=false@local=true@rpgit=true"
+      - pwd;ls
+      - sh ./target/local_region/platform/noSuffix_false.sh
+volumes:
+  - name: sock
+    host:
+      path: /var/run/docker.sock

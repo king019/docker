@@ -17,7 +17,9 @@ RUN apk add maven
 RUN apk add git
 RUN apk add protobuf
 RUN apk add protoc
-
+RUN apk add openjdk8
+RUN apk add openjdk11
+RUN apk add openjdk17
 
 COPY run/mvnclean.sh /mvnclean.sh
 COPY config/settings.xml /root/.m2/settings.xml

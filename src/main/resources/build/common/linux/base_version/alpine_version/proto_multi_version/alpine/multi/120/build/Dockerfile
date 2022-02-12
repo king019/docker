@@ -33,6 +33,7 @@ RUN apk add strace
 RUN apk add ttf-dejavu
 
 RUN apk add redis
+RUN apk add rsync
 
 
 #RUN apk add --no-cache procps

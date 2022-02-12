@@ -52,6 +52,7 @@ RUN dnf -y install  traceroute
 RUN dnf -y install  telnet
 
 RUN dnf -y install  redis
+RUN dnf -y install  rsync
 #base
 #放入extra
 RUN chmod -R 777 /*.sh

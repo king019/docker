@@ -17,7 +17,7 @@ steps:
       - chmod -R 777 /bin
       - which docker
       - docker version
-      - source /etc/profile
+      - source /etc/profile;java -version
       - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=true@ex=centos"
       - pwd;ls
       - sh ./target/local_region/platform/noSuffix_false.sh
@@ -36,7 +36,7 @@ steps:
       - chmod -R 777 /bin
       - which docker
       - docker version
-      - source /etc/profile
+      - source /etc/profile;java -version
       - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=false@ex=centos"
       - pwd;ls
       - chmod -R 777 .
@@ -56,7 +56,7 @@ steps:
       - chmod -R 777 /bin
       - which docker
       - docker version
-      - source /etc/profile
+      - source /etc/profile;java -version
       - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=false@ex=centos"
       - pwd;ls
       - chmod -R 777 .
@@ -65,7 +65,7 @@ steps:
   - name: buildTenBeijing
     image: registry.cn-beijing.aliyuncs.com/king019/docker:build
     privileged: true
-#    detach: true
+    #    detach: true
     volumes:
       - name: maven
         path: /root/.m2
@@ -77,7 +77,7 @@ steps:
       - chmod -R 777 /bin
       - which docker
       - docker version
-      - source /etc/profile
+      - source /etc/profile;java -version
       - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=false@ex=centos"
       - pwd;ls
       - chmod -R 777 .

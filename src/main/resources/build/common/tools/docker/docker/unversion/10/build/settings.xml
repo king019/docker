@@ -25,7 +25,7 @@
             <name>nexus</name>
             <url>http://repo.huaweicloud.com/repository/maven/</url>
             <!--            <url>http://smp:8081/repository/maven-public/</url>-->
-            <mirrorOf>central</mirrorOf>
+            <mirrorOf>*,!other</mirrorOf>
         </mirror>
     </mirrors>
     <!-- profiles | This is a list of profiles which can be activated in a variety of ways, and which can modify | the build process. Profiles provided in the settings.xml are intended to provide local machine- | specific paths and repository locations which allow the build to work in the local environment. | | For example, if you have an integration testing plugin - like cactus - that needs to know where | your Tomcat instance is installed, you can provide a variable here such that the variable is | dereferenced during the build process to configure the cactus plugin. | | As noted above, profiles can be activated in a variety of ways. One way - the activeProfiles | section of this document (settings.xml) - will be discussed later. Another way essentially | relies on the detection of a system property, either matching a particular value for the property, | or merely testing its existence. Profiles can also be activated by JDK version prefix, where a | value of '1.4' might activate a profile

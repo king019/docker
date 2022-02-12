@@ -17,8 +17,9 @@ steps:
       - chmod -R 777 /bin
       - which docker
       - docker version
-      - source /etc/profile
+      - source /etc/profile;java -version
       - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=false@push=true@local=true"
+#      - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/opt/soft/version/aliyun/docker@thread=5@rep=true@push=false@local=true"
       - pwd;ls
       - sh ./target/local_region/platform/noSuffix_false.sh
 
@@ -36,7 +37,7 @@ steps:
       - chmod -R 777 /bin
       - which docker
       - docker version
-      - source /etc/profile
+      - source /etc/profile;java -version
       - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=false@push=true@local=false"
       - pwd;ls
       - chmod -R 777 .
@@ -56,7 +57,7 @@ steps:
       - chmod -R 777 /bin
       - which docker
       - docker version
-      - source /etc/profile
+      - source /etc/profile;java -version
       - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=false@push=true@local=false"
       - pwd;ls
       - chmod -R 777 .
@@ -77,7 +78,7 @@ steps:
       - chmod -R 777 /bin
       - which docker
       - docker version
-      - source /etc/profile
+      - source /etc/profile;java -version
       - mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=false@push=true@local=false"
       - pwd;ls
       - chmod -R 777 .

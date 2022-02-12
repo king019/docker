@@ -4,7 +4,6 @@ MAINTAINER king019
 
 
 
-RUN apk add openjdk8
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk' >> /etc/profile
 
 RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile

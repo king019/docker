@@ -1,4 +1,4 @@
-FROM king019/fedora:jdk11
+FROM king019/rhel:jdk11
 
 MAINTAINER king019
 

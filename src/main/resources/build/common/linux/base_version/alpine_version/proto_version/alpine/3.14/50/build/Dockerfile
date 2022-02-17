@@ -9,7 +9,7 @@ RUN mkdir -p /opt/soft/tools
 RUN mkdir -p /root/.docker
 RUN mkdir -p /etc/docker
 
-RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g" /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g' /etc/apk/repositories
 
 RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
 
@@ -19,7 +19,6 @@ RUN apk add protobuf
 RUN apk add protoc
 RUN apk add openjdk8
 RUN apk add openjdk11
-RUN apk add openjdk17
 
 COPY run/mvnclean.sh /mvnclean.sh
 COPY config/settings.xml /root/.m2/settings.xml

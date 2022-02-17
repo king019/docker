@@ -26,6 +26,7 @@ public class JenkinsBuildShell {
     static boolean inDocker = false;
     static boolean localRegion = false;
     static boolean replaceGit = false;
+    static boolean replaceSetting = false;
 
     public static void main(String[] args) throws Exception {
         if (ArrayUtils.isNotEmpty(args)) {
@@ -62,6 +63,9 @@ public class JenkinsBuildShell {
             replaceGit = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.RP_GIT, map));
         }
         {
+            replaceSetting = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.RP_SETTING, map));
+        }
+        {
             String val = JenkinsUtil.getVal(DockerParamEnum.INCLUDE, map);
             if (StringUtils.isNotBlank(val)) {
                 includes.addAll(Lists.newArrayList(val.split(",")));
@@ -78,26 +82,27 @@ public class JenkinsBuildShell {
             excludes.removeAll(includes);
         }
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, replace, push, inDocker, localRegion, replaceGit);
+        shell.jenkinsWrite(multi, includes, excludes, replace, push, inDocker, localRegion, replaceGit, replaceSetting);
     }
 
     @Test
     public void testReplaceTrue() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, true, push, true);
+        shell.jenkinsWrite(multi, includes, excludes, true, push, true, true);
     }
 
     @Test
     public void testReplaceFalse() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, false, push, true);
+        shell.jenkinsWrite(multi, includes, excludes, false, push, true, true);
     }
+
     @Test
     public void testGitReplace() throws Exception {
-        List<String> lines=Lists.newArrayList();
+        List<String> lines = Lists.newArrayList();
         for (GitRemoteEnum remote : GitRemoteEnum.values()) {
-            lines.add("echo '"+remote.getDesc()+"'");
-            lines.add("git ls-remote "+remote.getDesc());
+            lines.add("echo '" + remote.getDesc() + "'");
+            lines.add("git ls-remote " + remote.getDesc());
         }
         for (String line : lines) {
             System.out.println(line);

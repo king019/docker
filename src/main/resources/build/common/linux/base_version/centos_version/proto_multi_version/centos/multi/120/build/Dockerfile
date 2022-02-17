@@ -24,7 +24,6 @@ MAINTAINER king019
 
 
 RUN dnf -y install  git
-RUN dnf -y install  curl
 RUN dnf -y install  wget
 RUN dnf -y install  vim
 RUN dnf -y install  nodejs

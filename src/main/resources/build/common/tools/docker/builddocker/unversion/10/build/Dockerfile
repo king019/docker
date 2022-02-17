@@ -4,7 +4,7 @@ MAINTAINER king019
 
 COPY settings.xml /root/.m2/settings.xml
 
-RUN sed -i "s/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g" /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g' /etc/apk/repositories
 RUN apk add maven
 RUN apk add openjdk17
 

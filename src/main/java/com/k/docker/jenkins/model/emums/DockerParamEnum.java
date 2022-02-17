@@ -13,7 +13,8 @@ public enum DockerParamEnum {
     PUSH("push", "true"),
     IN_DOCKER("dk", "true"),
     EXCLUDE("ex", ""),
-    RP_GIT("rpgit", "false");
+    RP_GIT("rpgit", "false"),
+    RP_SETTING("rpset", "false");
     private String cmd;
     private String def;
 

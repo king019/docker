@@ -16,6 +16,8 @@ import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static com.k.docker.jenkins.JenkinsBuildShell.configModel;
+
 public class JenkinsBuildFile {
 
     public static void main(String[] args) throws Exception {
@@ -26,7 +28,7 @@ public class JenkinsBuildFile {
     @Test
     public void testADD() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        List<DockerJenkinsModel> models = shell.buildModel();
+        List<DockerJenkinsModel> models = shell.buildModel(configModel);
         Set<String> lines = Sets.newHashSet();
         for (DockerJenkinsModel model : models) {
             ListUtils.emptyIfNull(model.getDockerLines()).stream().filter(line -> line.startsWith("ADD")).forEach(lines::add);
@@ -46,7 +48,7 @@ public class JenkinsBuildFile {
     @Test
     public void testGitClone() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        List<DockerJenkinsModel> models = shell.buildModel();
+        List<DockerJenkinsModel> models = shell.buildModel(configModel);
         Set<String> lines = Sets.newHashSet();
         for (DockerJenkinsModel model : models) {
             ListUtils.emptyIfNull(model.getDockerLines()).stream().filter(new Predicate<String>() {

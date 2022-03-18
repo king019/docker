@@ -1,6 +1,7 @@
 package com.k.docker.jenkins.util;
 
 import com.google.common.collect.*;
+import com.k.docker.jenkins.model.DockerConfigModel;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
 import com.k.docker.jenkins.model.emums.*;
 import org.apache.commons.collections4.CollectionUtils;
@@ -25,15 +26,15 @@ public class JenkinsUtil {
         return map.getOrDefault(paramEnum, paramEnum.getDef());
     }
 
-    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push, boolean replaceGit, boolean replaceSetting) throws Exception {
-        jenkinsWrite(multi, includes, excludes, replace, push, true, true, replaceGit, replaceSetting);
+    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replace, boolean push, boolean replaceGit, boolean replaceSetting, DockerConfigModel configModel) throws Exception {
+        jenkinsWrite(multi, includes, excludes, replace, push, true, true, replaceGit, replaceSetting, configModel);
     }
 
-    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replaceDockerGit, boolean push, boolean inDocker, boolean localRegion, boolean replaceShGit, boolean replaceSetting) throws Exception {
+    public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replaceDockerGit, boolean push, boolean inDocker, boolean localRegion, boolean replaceShGit, boolean replaceSetting, DockerConfigModel configModel) throws Exception {
         String dockerDest = "dockerDest/";
-        List<DockerJenkinsModel> models = buildModel(dockerDest, inDocker, replaceShGit, replaceSetting);
-        replaceDir(dockerDest, replaceDockerGit);
-        models = filter(models, includes, excludes);
+        List<DockerJenkinsModel> models = buildModel(dockerDest, inDocker, replaceShGit, replaceSetting, configModel);
+        replaceDir(dockerDest, replaceDockerGit, configModel);
+        models = filter(models, includes, excludes, configModel);
         models.sort((o1, o2) -> {
             int compare = NumberUtils.compare(o1.getIndex(), o2.getIndex());
             if (compare == 0) {
@@ -42,30 +43,30 @@ public class JenkinsUtil {
             return compare;
         });
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
-        writeNormal("", models, true, multi, push);
+        writeNormal("", models, true, multi, push, configModel);
         if (localRegion) {
-            writeLocal(DockerRegionEnum.LOCAL, models, false, multi, push);
+            writeLocal(DockerRegionEnum.LOCAL, models, false, multi, push, configModel);
         }
         int index = 0;
         for (String git : gitMap.keySet().stream().sorted().collect(Collectors.toList())) {
             String des = gitMap.get(git);
             System.out.println("index_" + (index++) + "(\"" + git + "\", \"" + des + "\"),");
         }
-        for (String git : gitMap.keySet().stream().sorted().collect(Collectors.toList())) {
+        for (String git : gitMap.keySet().stream().sorted().toList()) {
             System.out.println(git);
         }
     }
 
-    public List<DockerJenkinsModel> buildModel() throws Exception {
+    public List<DockerJenkinsModel> buildModel(DockerConfigModel configModel) throws Exception {
         String dockerDest = "dockerDest/";
-        return buildModel(dockerDest, true, true, true);
+        return buildModel(dockerDest, true, true, true, configModel);
     }
 
-    public List<DockerJenkinsModel> buildModel(String dockerDest, boolean inDocker, boolean replaceShGit, boolean replaceSetting) throws Exception {
+    public List<DockerJenkinsModel> buildModel(String dockerDest, boolean inDocker, boolean replaceShGit, boolean replaceSetting, DockerConfigModel configModel) throws Exception {
         String resource = PathUtil.getResource("build/common");
         File file = new File(resource);
         Map<DockerRegionEnum, File> map = Maps.newHashMap();
-        copyFile(file, dockerDest, map, replaceShGit, replaceSetting);
+        copyFile(file, dockerDest, map, replaceShGit, replaceSetting, configModel);
         List<DockerJenkinsModel> models = Lists.newArrayList();
         for (DockerRegionEnum regionEnum : map.keySet()) {
             if (!inDocker) {
@@ -74,61 +75,61 @@ public class JenkinsUtil {
                 }
             }
             for (File listFile : Objects.requireNonNull(map.get(regionEnum).listFiles())) {
-                models.addAll(readFirst(regionEnum, listFile));
+                models.addAll(readFirst(regionEnum, listFile, configModel));
             }
         }
         return models;
     }
 
-    private void replaceDir(String dockerDest, boolean replace) throws IOException {
+    private void replaceDir(String dockerDest, boolean replace, DockerConfigModel configModel) throws IOException {
         if (!replace) {
             return;
         }
         File dir = new File(PathUtil.getTargetPath(dockerDest));
-        replaceHttp(dir);
+        replaceHttp(dir, configModel);
     }
 
-    private void replaceHttp(File dir) throws IOException {
+    private void replaceHttp(File dir, DockerConfigModel configModel) throws IOException {
         for (File file : dir.listFiles()) {
             if (file.isDirectory()) {
-                replaceHttp(file);
+                replaceHttp(file, configModel);
             } else if (file.getName().equals("Dockerfile")) {
                 List<String> lines = FileUtils.readLines(file, StandardCharsets.UTF_8);
-                lines = replaceLines(lines);
+                lines = replaceLines(lines, configModel);
                 FileUtils.writeLines(file, lines);
             }
         }
     }
 
-    private List<String> replaceLines(List<String> lines) {
+    private List<String> replaceLines(List<String> lines, DockerConfigModel configModel) {
         return lines.stream().map(new Function<String, String>() {
             @Override
             public String apply(String line) {
                 line = line.trim();
                 if (line.startsWith("ADD")) {
-                    return startADD(line);
+                    return startADD(line, configModel);
                 }
                 if (line.contains("git clone")) {
-                    return startGitClone(line);
+                    return startGitClone(line, configModel);
                 }
                 return line;
             }
         }).collect(Collectors.toList());
     }
 
-    private String startADD(String line) {
+    private String startADD(String line, DockerConfigModel configModel) {
         String gitSave1 = "https://king019.coding.net/p/github/d/save_github/git/raw/";
         String gitSave2 = "http";
         String next = line;
         if (line.indexOf(gitSave1) > 0) {
-            next = handleUrl(line, gitSave1);
+            next = handleUrl(line, gitSave1, configModel);
         } else if (line.indexOf(gitSave2) > 0) {
-            next = handleUrl(line, gitSave2);
+            next = handleUrl(line, gitSave2, configModel);
         }
         return next;
     }
 
-    private String handleUrl(String line, String saveFilter) {
+    private String handleUrl(String line, String saveFilter, DockerConfigModel configModel) {
         int start = line.indexOf(saveFilter);
         int end = line.lastIndexOf(" ");
         String downUrl = line.substring(start, end);
@@ -141,7 +142,7 @@ public class JenkinsUtil {
         return next;
     }
 
-    private String startGitClone(String line) {
+    private String startGitClone(String line, DockerConfigModel configModel) {
         if (line.contains("git clone")) {
             line = line.trim();
             int start = line.indexOf("git clone") + 9;
@@ -156,16 +157,16 @@ public class JenkinsUtil {
         return line;
     }
 
-    private List<DockerJenkinsModel> filterNormal(List<DockerJenkinsModel> models) {
+    private List<DockerJenkinsModel> filterNormal(List<DockerJenkinsModel> models, DockerConfigModel configModel) {
         return models.stream().filter(model -> !DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
     }
 
-    private List<DockerJenkinsModel> filterSpecial(List<DockerJenkinsModel> models) {
+    private List<DockerJenkinsModel> filterSpecial(List<DockerJenkinsModel> models, DockerConfigModel configModel) {
         return models.stream().filter(model -> DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
     }
 
-    private void writeLocal(DockerRegionEnum regionEnum, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push) {
-        models = filterSpecial(models);
+    private void writeLocal(DockerRegionEnum regionEnum, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push, DockerConfigModel configModel) {
+        models = filterSpecial(models, configModel);
         models = models.stream().filter(model -> DockerPlatformEnum.ADM64.equals(model.getPlatform())).map(model -> {
             model.setPlatforms(ImmutableSet.of());
             model.setPlatform(DockerPlatformEnum.NO_SUFFIX);
@@ -178,16 +179,16 @@ public class JenkinsUtil {
                 return true;
             }
         }).collect(Collectors.toList());
-        writeShell(regionEnum.getRegion() + "/", models, mix, multi, push);
+        writeShell(regionEnum.getRegion() + "/", models, mix, multi, push, configModel);
     }
 
-    private void writeNormal(String dir, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push) {
-        models = filterNormal(models);
+    private void writeNormal(String dir, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push, DockerConfigModel configModel) {
+        models = filterNormal(models, configModel);
         models = models.stream().filter(model -> !model.getFunctions().contains(DockerFunctionEnum.ONLY_LOCAL)).collect(Collectors.toList());
-        writeShell(dir, models, mix, multi, push);
+        writeShell(dir, models, mix, multi, push, configModel);
     }
 
-    private void writeShell(String dir, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push) {
+    private void writeShell(String dir, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push, DockerConfigModel configModel) {
         String subDir = "platform/";
         Multimap<String, DockerJenkinsModel> multimap = ArrayListMultimap.create();
         Multimap<String, String> platformMap = HashMultimap.create();
@@ -197,13 +198,13 @@ public class JenkinsUtil {
         models.forEach(model -> regions.add(model.getRegion().getRegion()));
         models.forEach(model -> platformMap.put(model.getRegion().getRegion(), model.getPlatform().getPlatform() + "_" + model.getRegion().getRegion()));
         multimap.asMap().forEach((regionPlat, dockerJenkinsModels) -> {
-            writePlat(dir, subDir, regionPlat, dockerJenkinsModels, mix, multi, push);
+            writePlat(dir, subDir, regionPlat, dockerJenkinsModels, mix, multi, push, configModel);
             //writePlat(regionPlat, dockerJenkinsModels, false);
         });
-        regions.forEach(region -> writePlat(dir, subDir, region, mix, multi, push, platformMap));
+        regions.forEach(region -> writePlat(dir, subDir, region, mix, multi, push, platformMap, configModel));
     }
 
-    private List<DockerJenkinsModel> filter(List<DockerJenkinsModel> models, List<String> includes, List<String> excludes) {
+    private List<DockerJenkinsModel> filter(List<DockerJenkinsModel> models, List<String> includes, List<String> excludes, DockerConfigModel configModel) {
         if (CollectionUtils.isNotEmpty(includes)) {
             models = models.stream().filter(model -> {
                 boolean exist = StringUtils.indexOfAny(model.getVersion(), includes.stream().toArray(value -> new String[includes.size()])) >= 0;
@@ -219,48 +220,48 @@ public class JenkinsUtil {
         return models;
     }
 
-    private void copyFile(File file, String dockerDest, Map<DockerRegionEnum, File> map, boolean replaceShGit, boolean replaceSetting) throws Exception {
+    private void copyFile(File file, String dockerDest, Map<DockerRegionEnum, File> map, boolean replaceShGit, boolean replaceSetting, DockerConfigModel configModel) throws Exception {
         for (String region : PathBaseUtil.REGIONS) {
             DockerRegionEnum regionEnum = DockerRegionEnum.getRegion(region);
             String copyDest = PathUtil.getTargetPath(dockerDest);
             File copyDestFile = new File(copyDest + "/" + regionEnum.getRegion());
-            copyDir(file, file.getAbsolutePath() + "/", copyDest, regionEnum.getRegion(), replaceShGit, replaceSetting);
+            copyDir(file, file.getAbsolutePath() + "/", copyDest, regionEnum.getRegion(), replaceShGit, replaceSetting, configModel);
             map.put(regionEnum, copyDestFile);
         }
     }
 
-    private void copyDir(File dir, String src, String dest, String region, boolean replaceShGit, boolean replaceSetting) throws Exception {
+    private void copyDir(File dir, String src, String dest, String region, boolean replaceShGit, boolean replaceSetting, DockerConfigModel configModel) throws Exception {
         for (File listFile : Objects.requireNonNull(dir.listFiles())) {
             if (listFile.getName().equals("pull")) {
-                copyDirPull(listFile, src, dest, region);
+                copyDirPull(listFile, src, dest, region, configModel);
                 continue;
             }
             if (listFile.isFile()) {
-                copyFile(listFile, src, dest, region, replaceShGit, replaceSetting);
+                copyFile(listFile, src, dest, region, replaceShGit, replaceSetting, configModel);
             } else {
-                copyDir(listFile, src, dest, region, replaceShGit, replaceSetting);
+                copyDir(listFile, src, dest, region, replaceShGit, replaceSetting, configModel);
             }
         }
     }
 
-    private void copyDirPull(File dir, String src, String dest, String region) throws Exception {
+    private void copyDirPull(File dir, String src, String dest, String region, DockerConfigModel configModel) throws Exception {
         for (File listFile : Objects.requireNonNull(dir.listFiles())) {
             if (listFile.isFile()) {
-                copyFilePull(listFile, src, dest, region);
+                copyFilePull(listFile, src, dest, region, configModel);
             } else {
-                copyDirPull(listFile, src, dest, region);
+                copyDirPull(listFile, src, dest, region, configModel);
             }
         }
     }
 
-    private void copyFilePull(File srcfile, String src, String dest, String region) throws Exception {
+    private void copyFilePull(File srcfile, String src, String dest, String region, DockerConfigModel configModel) throws Exception {
         String absolutePath = srcfile.getAbsolutePath();
         absolutePath = absolutePath.replace(src, dest + region + "/");
         File destfile = new File(absolutePath);
-        copyFilePull(srcfile, destfile, region);
+        copyFilePull(srcfile, destfile, region, configModel);
     }
 
-    private void copyFilePull(File srcfile, File destfile, String region) throws Exception {
+    private void copyFilePull(File srcfile, File destfile, String region, DockerConfigModel configModel) throws Exception {
         List<String> lines = FileUtils.readLines(srcfile, StandardCharsets.UTF_8);
         if (CollectionUtils.isNotEmpty(lines)) {
             if (srcfile.getName().equals("Dockerfile")) {
@@ -275,14 +276,14 @@ public class JenkinsUtil {
                         String dir = destfile.getParent() + "/" + fileName;
                         File newFile = new File(destfile.getParent() + "/" + fileName + "/Dockerfile");
                         FileUtils.writeLines(newFile, innerLines);
-                        writeDef(dir, version);
+                        writeDef(dir, version, configModel);
                     }
                 }
             }
         }
     }
 
-    private void writeDef(String dir, String version) throws Exception {
+    private void writeDef(String dir, String version, DockerConfigModel configModel) throws Exception {
         dir = dir + "/buildshell/docker";
         File function = new File(dir + "/function.txt");
         FileUtils.writeLines(function, Lists.newArrayList("only_local"));
@@ -293,14 +294,14 @@ public class JenkinsUtil {
 
     }
 
-    private void copyFile(File srcfile, String src, String dest, String region, boolean replaceShGit, boolean replaceSetting) throws Exception {
+    private void copyFile(File srcfile, String src, String dest, String region, boolean replaceShGit, boolean replaceSetting, DockerConfigModel configModel) throws Exception {
         String absolutePath = srcfile.getAbsolutePath();
         absolutePath = absolutePath.replace(src, dest + region + "/");
         File destfile = new File(absolutePath);
-        copyFile(srcfile, destfile, region, replaceShGit, replaceSetting);
+        copyFile(srcfile, destfile, region, replaceShGit, replaceSetting, configModel);
     }
 
-    private void copyFile(File srcfile, File destfile, String region, boolean replaceShGit, boolean replaceSetting) throws Exception {
+    private void copyFile(File srcfile, File destfile, String region, boolean replaceShGit, boolean replaceSetting, DockerConfigModel configModel) throws Exception {
         //String region = PathBaseUtil.REGION;
         //String region = "beijing";
         String host = DockerRegionEnum.getRegion(region).getHost();
@@ -320,25 +321,24 @@ public class JenkinsUtil {
                     from = from.substring(0, index) + host;
                     lines.add(0, from);
                 }
+                for (int i = lines.size() - 1; i >= 0; i--) {
+                    judgeDockerFile(srcfile, lines, i,  configModel);
+                }
             } else if (srcfile.getName().endsWith(".sh")) {
                 for (int i = lines.size() - 1; i >= 0; i--) {
-                    judgeGit(srcfile, lines, i, replaceShGit);
+                    judgeGit(srcfile, lines, i, replaceShGit, configModel);
                 }
             } else if (srcfile.getName().endsWith(".xml")) {
                 for (int i = lines.size() - 1; i >= 0; i--) {
-                    judgeSetting(srcfile, lines, i, replaceSetting);
+                    judgeSetting(srcfile, lines, i, replaceSetting, configModel);
                 }
             }
         }
         FileUtils.writeLines(destfile, lines);
     }
 
-    private void copySetting() {
 
-    }
-
-
-    private void writePlat(String dir, String subDir, String plat, Collection<DockerJenkinsModel> models, boolean mix, int multi, boolean push) {
+    private void writePlat(String dir, String subDir, String plat, Collection<DockerJenkinsModel> models, boolean mix, int multi, boolean push, DockerConfigModel configModel) {
         List<String> lines = Lists.newArrayList();
         lines.add("#!/bin/sh");
         lines.add("set -x");
@@ -351,7 +351,7 @@ public class JenkinsUtil {
             if (mix) {
                 lines.add(model.getMap().get(model.getPlatform()));
             }
-        });
+        }, configModel);
 //        buildBuildLines(lines, map, multi, (lines1, model) -> lines1.add(model.buildBuild()));
 //        buildBuildLines(lines, map, multi, (lines1, model) -> lines1.add(model.buildPush()));
 //        buildBuildLines(lines, map, multi, (lines1, model) -> {
@@ -368,7 +368,7 @@ public class JenkinsUtil {
         }
     }
 
-    private void writePlat(String dir, String subDir, String plat, boolean mix, int multi, boolean push, Multimap<String, String> platformMap) {
+    private void writePlat(String dir, String subDir, String plat, boolean mix, int multi, boolean push, Multimap<String, String> platformMap, DockerConfigModel configModel) {
         boolean bash = true;
         String prefix = bash ? "[[" : "[";
         String subfix = bash ? "]]" : "]";
@@ -406,7 +406,7 @@ public class JenkinsUtil {
         }
     }
 
-    private void buildBuildLines(List<String> lines, Map<Integer, List<DockerJenkinsModel>> map, int multi, BiConsumer<List<String>, DockerJenkinsModel> consumer) {
+    private void buildBuildLines(List<String> lines, Map<Integer, List<DockerJenkinsModel>> map, int multi, BiConsumer<List<String>, DockerJenkinsModel> consumer, DockerConfigModel configModel) {
         List<Integer> indexs = Lists.newArrayList(map.keySet());
         Collections.sort(indexs);
         for (Integer index : indexs) {
@@ -425,13 +425,13 @@ public class JenkinsUtil {
         }
     }
 
-    private List<DockerJenkinsModel> readFirst(DockerRegionEnum regionEnum, File file) throws Exception {
+    private List<DockerJenkinsModel> readFirst(DockerRegionEnum regionEnum, File file, DockerConfigModel configModel) throws Exception {
         Map<String, Map<String, Map<BuildItemEnum, String>>> map = Maps.newLinkedHashMap();
-        readDir(file, map);
-        return writeLines(regionEnum, map, file);
+        readDir(file, map, configModel);
+        return writeLines(regionEnum, map, file, configModel);
     }
 
-    private List<DockerJenkinsModel> writeLines(DockerRegionEnum regionEnum, Map<String, Map<String, Map<BuildItemEnum, String>>> map, File firstFile) {
+    private List<DockerJenkinsModel> writeLines(DockerRegionEnum regionEnum, Map<String, Map<String, Map<BuildItemEnum, String>>> map, File firstFile, DockerConfigModel configModel) {
         List<DockerJenkinsModel> models = Lists.newArrayList();
         map.forEach(new BiConsumer<>() {
             @Override
@@ -446,7 +446,7 @@ public class JenkinsUtil {
                         if (StringUtils.isBlank(versions)) {
                             return;
                         }
-                        String[] plats = getPlat(firstFile, enumMap);
+                        String[] plats = getPlat(firstFile, enumMap, configModel);
                         if (ArrayUtils.isEmpty(plats)) {
                             return;
                         }
@@ -474,7 +474,7 @@ public class JenkinsUtil {
                                 Arrays.stream(plats).forEach(new Consumer<>() {
                                     @Override
                                     public void accept(String plat) {
-                                        models.add(buildModel(path, plats, plat, version, enumMap, regionEnum.getRegion(), ignoreRegionSplits, functionSplits));
+                                        models.add(buildModel(path, plats, plat, version, enumMap, regionEnum.getRegion(), ignoreRegionSplits, functionSplits, configModel));
                                     }
                                 });
                             }
@@ -486,7 +486,7 @@ public class JenkinsUtil {
         return models;
     }
 
-    private DockerJenkinsModel buildModel(String path, String[] plats, String plat, String version, Map<BuildItemEnum, String> enumMap, String region, Set<String> ignoreRegions, Set<String> functionSplits) {
+    private DockerJenkinsModel buildModel(String path, String[] plats, String plat, String version, Map<BuildItemEnum, String> enumMap, String region, Set<String> ignoreRegions, Set<String> functionSplits, DockerConfigModel configModel) {
         DockerJenkinsModel model = new DockerJenkinsModel();
         model.setPath(path);
         model.setIndex(Integer.parseInt(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef())));
@@ -508,7 +508,7 @@ public class JenkinsUtil {
         return model;
     }
 
-    private String[] getPlat(File firstFile, Map<BuildItemEnum, String> enumMap) {
+    private String[] getPlat(File firstFile, Map<BuildItemEnum, String> enumMap, DockerConfigModel configModel) {
         String plat = null;
         try {
             plat = enumMap.get(BuildItemEnum.PLATFORM);
@@ -524,7 +524,7 @@ public class JenkinsUtil {
         return StringUtils.split(plat, ",");
     }
 
-    private void readDir(File file, Map<String, Map<String, Map<BuildItemEnum, String>>> map) throws Exception {
+    private void readDir(File file, Map<String, Map<String, Map<BuildItemEnum, String>>> map, DockerConfigModel configModel) throws Exception {
         if (Objects.isNull(file)) {
             return;
         }
@@ -545,13 +545,13 @@ public class JenkinsUtil {
             File[] files = file.listFiles();
             if (Optional.ofNullable(files).isPresent()) {
                 for (File fileInner : files) {
-                    readDir(fileInner, map);
+                    readDir(fileInner, map, configModel);
                 }
             }
         }
     }
 
-    private void judgeGit(File srcfile, List<String> lines, int index, boolean replaceShGit) {
+    private void judgeGit(File srcfile, List<String> lines, int index, boolean replaceShGit, DockerConfigModel configModel) {
         if (!replaceShGit) {
             return;
         }
@@ -565,11 +565,11 @@ public class JenkinsUtil {
             //if(!cmd.equals(des)){
             gitMap.put(cmd, des);
             //}
-            lines.set(index, replaceGit(cmd, des));
+            lines.set(index, replaceGit(cmd, des, configModel));
         }
     }
 
-    private void judgeSetting(File srcfile, List<String> lines, int index, boolean replaceSetting) {
+    private void judgeSetting(File srcfile, List<String> lines, int index, boolean replaceSetting, DockerConfigModel configModel) {
         if (!replaceSetting) {
             return;
         }
@@ -578,11 +578,20 @@ public class JenkinsUtil {
         }
         String cmd = lines.get(index);
         if (StringUtils.containsIgnoreCase(cmd, "repo.huaweicloud.com")) {
-            lines.set(index, replaceSetting(cmd, null));
+            lines.set(index, replaceSetting(cmd, null, configModel));
+        }
+    }
+    private void judgeDockerFile(File srcfile, List<String> lines, int index,   DockerConfigModel configModel) {
+        if (!configModel.isOrigin()) {
+            return;
+        }
+        String cmd = lines.get(index);
+        if (StringUtils.contains(cmd, "s/dl-cdn.alpinelinux.org")) {
+            lines.set(index, replaceAlpine(  cmd,   "",   configModel));
         }
     }
 
-    private String replaceGit(String src, String des) {
+    private String replaceGit(String src, String des, DockerConfigModel configModel) {
         StringBuilder sb = new StringBuilder();
         sb.append("if git ls-remote ").append(des).append(" > /dev/null; then ");
         sb.append(ConstantEnum.HUANHANG.getCode());
@@ -596,8 +605,11 @@ public class JenkinsUtil {
         return sb.toString();
     }
 
-    private String replaceSetting(String src, String des) {
+    private String replaceSetting(String src, String des, DockerConfigModel configModel) {
         String setting = "<url>http://nexus:8081/repository/maven-public/</url>";
         return setting;
+    }
+    private String replaceAlpine(String src, String des, DockerConfigModel configModel) {
+        return des;
     }
 }

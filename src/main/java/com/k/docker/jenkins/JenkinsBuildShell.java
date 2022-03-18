@@ -2,6 +2,7 @@ package com.k.docker.jenkins;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
+import com.k.docker.jenkins.model.DockerConfigModel;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
 import com.k.docker.jenkins.model.emums.ConstantEnum;
 import com.k.docker.jenkins.model.emums.DockerParamEnum;
@@ -27,6 +28,8 @@ public class JenkinsBuildShell {
     static boolean localRegion = false;
     static boolean replaceGit = false;
     static boolean replaceSetting = false;
+    static boolean origin = true;
+    static DockerConfigModel configModel = new DockerConfigModel();
 
     public static void main(String[] args) throws Exception {
         if (ArrayUtils.isNotEmpty(args)) {
@@ -45,14 +48,19 @@ public class JenkinsBuildShell {
 
         DockerJenkinsModel.setWORKSPACE(JenkinsUtil.getVal(DockerParamEnum.WORK_SPACE, map));
         {
+            origin = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.ORIGIN, map));
+            configModel.setOrigin(origin);
+        }
+        {
+            inDocker = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.IN_DOCKER, map));
+        }
+        {
             multi = Integer.parseInt(JenkinsUtil.getVal(DockerParamEnum.THREAD, map));
         }
         {
             replace = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.REPLACE, map));
         }
-        {
-            inDocker = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.IN_DOCKER, map));
-        }
+
         {
             push = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.PUSH, map));
         }
@@ -82,19 +90,19 @@ public class JenkinsBuildShell {
             excludes.removeAll(includes);
         }
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, replace, push, inDocker, localRegion, replaceGit, replaceSetting);
+        shell.jenkinsWrite(multi, includes, excludes, replace, push, inDocker, localRegion, replaceGit, replaceSetting, configModel);
     }
 
     @Test
     public void testReplaceTrue() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, true, push, true, true);
+        shell.jenkinsWrite(multi, includes, excludes, true, push, true, true, configModel);
     }
 
     @Test
     public void testReplaceFalse() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, false, push, true, true);
+        shell.jenkinsWrite(multi, includes, excludes, false, push, true, true, configModel);
     }
 
     @Test

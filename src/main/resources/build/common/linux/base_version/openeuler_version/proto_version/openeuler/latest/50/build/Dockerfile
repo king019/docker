@@ -10,7 +10,7 @@ RUN mkdir -p /opt/soft/tools
 RUN mkdir -p /root/.docker
 RUN mkdir -p /etc/docker
 
-RUN echo 'fastestmirror=True' >> /etc/dnf/dnf.conf
+# RUN echo 'fastestmirror=True' >> /etc/dnf/dnf.conf
 # RUN dnf makecache
 
 COPY docker.sh /docker.sh

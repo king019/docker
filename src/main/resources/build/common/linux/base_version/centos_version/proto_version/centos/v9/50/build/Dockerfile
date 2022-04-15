@@ -1,5 +1,6 @@
 # FROM centos:8
-FROM quay.io/centos/centos:stream9
+# FROM quay.io/centos/centos:stream9
+FROM rockylinux
 
 MAINTAINER king019
 

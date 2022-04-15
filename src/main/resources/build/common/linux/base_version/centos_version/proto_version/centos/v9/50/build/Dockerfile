@@ -1,5 +1,5 @@
-FROM centos:8
-# FROM quay.io/centos/centos:stream9
+# FROM centos:8
+FROM quay.io/centos/centos:stream9
 
 MAINTAINER king019
 
@@ -13,12 +13,11 @@ RUN mkdir -p /etc/docker
 
 
 
-RUN minorver=8.5.2111;sed -e "s|^mirrorlist=|#mirrorlist=|g" \
-         -e "s|^#baseurl=http://mirror.centos.org/\$contentdir/\$releasever|baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos-vault/$minorver|g" \
-         -i.bak \
-         /etc/yum.repos.d/CentOS-*.repo
-
-RUN echo 'fastestmirror=True' >> /etc/dnf/dnf.conf
+# RUN minorver=8.5.2111;sed -e "s|^mirrorlist=|#mirrorlist=|g" \
+#          -e "s|^#baseurl=http://mirror.centos.org/\$contentdir/\$releasever|baseurl=https://mirrors.tuna.tsinghua.edu.cn/centos-vault/$minorver|g" \
+#          -i.bak \
+#          /etc/yum.repos.d/CentOS-*.repo
+# RUN echo 'fastestmirror=True' >> /etc/dnf/dnf.conf
 # RUN dnf makecache
 
 

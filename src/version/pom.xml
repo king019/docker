@@ -10,10 +10,10 @@
     <properties>
         <jdk.version>17</jdk.version>
         <jdk.encoding>UTF-8</jdk.encoding>
-        <arthas.version>3.5.5</arthas.version>
+        <arthas.version>3.6.0</arthas.version>
         <apollo.version>1.9.2</apollo.version>
         <rocketmq-client.version>5.0.0-preview</rocketmq-client.version>
-        <sentinel.version>1.8.3</sentinel.version>
+        <sentinel.version>1.8.4</sentinel.version>
         <nacos-client.version>2.0.0</nacos-client.version>
         <disconf.version>2.6.36</disconf.version>
         <nexus.version>3.7.0-04</nexus.version>

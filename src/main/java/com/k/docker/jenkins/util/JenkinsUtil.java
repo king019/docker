@@ -610,6 +610,6 @@ public class JenkinsUtil {
         return setting;
     }
     private String replaceAlpine(String src, String des, DockerConfigModel configModel) {
-        return des;
+        return "# "+des;
     }
 }

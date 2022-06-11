@@ -52,7 +52,7 @@ public class JenkinsUtil {
             String des = gitMap.get(git);
             System.out.println("index_" + (index++) + "(\"" + git + "\", \"" + des + "\"),");
         }
-        for (String git : gitMap.keySet().stream().sorted().toList()) {
+        for (String git : gitMap.keySet().stream().sorted().collect(Collectors.toList())) {
             System.out.println(git);
         }
     }

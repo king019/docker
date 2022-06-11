@@ -1,2 +1,2 @@
-king019/apollo:admin_1.9.2
+king019/apollo:admin_2.0.0
 king019/apollo:admin

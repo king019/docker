@@ -1,4 +1,4 @@
-FROM king019/fedora:git
+FROM king019/openeuler:git
 
 MAINTAINER king019
 

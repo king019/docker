@@ -3,7 +3,7 @@ set -x
 source /etc/profile;java -version
 mkdir -p /opt/soft/version
 cd /opt/soft/version
-git clone https://e.coding.net/king019/github/nacos.git
+git clone https://gitee.com/mirrors/Nacos.git nacos
 cd nacos
 git checkout 2.0.0
 cd consistency

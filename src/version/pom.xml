@@ -10,8 +10,8 @@
     <properties>
         <jdk.version>17</jdk.version>
         <jdk.encoding>UTF-8</jdk.encoding>
-        <arthas.version>3.6.0</arthas.version>
-        <apollo.version>1.9.2</apollo.version>
+        <arthas.version>3.6.1</arthas.version>
+        <apollo.version>2.0.0</apollo.version>
         <rocketmq-client.version>5.0.0-preview</rocketmq-client.version>
         <sentinel.version>1.8.4</sentinel.version>
         <nacos-client.version>2.0.0</nacos-client.version>

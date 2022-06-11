@@ -1,4 +1,4 @@
-FROM king019/fedora:jdk8
+FROM king019/openeuler:jdk8
 
 MAINTAINER king019
 

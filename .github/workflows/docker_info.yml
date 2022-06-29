@@ -2,6 +2,7 @@ name: docker_info
 
 on:
   push:
+    branches: [ "master" ]
 
 jobs:
   buildx:

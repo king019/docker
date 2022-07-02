@@ -1,4 +1,4 @@
-FROM king019/openeuler:jdk8
+FROM king019/centos:jdk8
 
 MAINTAINER king019
 

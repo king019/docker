@@ -3,7 +3,6 @@ name: docker_info
 on:
   push:
 
-
 jobs:
   buildx:
     runs-on: ubuntu-20.04

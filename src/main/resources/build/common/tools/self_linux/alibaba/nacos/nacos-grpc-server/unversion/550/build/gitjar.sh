@@ -3,7 +3,7 @@ set -x
 source /etc/profile;java -version
 mkdir -p /opt/soft/version
 cd /opt/soft/version
-git clone https://e.coding.net/king019/github/ali_fw_sshm.git
+git clone https://e.coding.net/king019/aliyun/ali_fw_sshm.git
 cd ali_fw_sshm
 cd $(find . -name 'sshm_boot_cloud_grpc_provider')
 mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip

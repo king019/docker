@@ -1,4 +1,4 @@
-FROM king019/fedora:git
+FROM king019/fedora:res
 
 MAINTAINER king019
 

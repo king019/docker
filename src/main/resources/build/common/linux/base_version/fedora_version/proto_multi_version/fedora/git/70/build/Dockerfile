@@ -1,4 +1,4 @@
-FROM king019/fedora:res
+FROM king019/fedora:p
 
 MAINTAINER king019
 

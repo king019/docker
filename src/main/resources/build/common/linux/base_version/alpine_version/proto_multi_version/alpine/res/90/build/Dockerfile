@@ -1,4 +1,4 @@
-FROM king019/alpine:p
+FROM king019/alpine:git
 
 MAINTAINER king019
 

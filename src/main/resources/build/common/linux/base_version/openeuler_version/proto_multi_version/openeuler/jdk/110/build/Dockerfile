@@ -1,4 +1,4 @@
-FROM king019/openeuler:git
+FROM king019/openeuler:res
 
 MAINTAINER king019
 

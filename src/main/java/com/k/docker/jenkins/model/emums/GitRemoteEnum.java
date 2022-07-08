@@ -7,7 +7,7 @@ import lombok.Getter;
 @AllArgsConstructor
 public enum GitRemoteEnum {
     index_2("https://e.coding.net/king019/github/Sentinel.git", "http://gogs:3001/king019/Sentinel.git"),
-    index_3("https://e.coding.net/king019/github/ali_fw_fw.git", "http://gogs:3001/king019/ali_fw_fw.git"),
+    index_3("https://e.coding.net/king019/aliyun/ali_fw_fw.git", "http://gogs:3001/king019/ali_fw_fw.git"),
     index_4("https://e.coding.net/king019/aliyun/ali_fw_sshm.git", "http://gogs:3001/king019/ali_fw_sshm.git"),
     index_5("https://e.coding.net/king019/github/apollo.git", "http://gogs:3001/king019/apollo.git"),
     index_6("https://e.coding.net/king019/github/arthas.git", "http://gogs:3001/king019/arthas.git"),

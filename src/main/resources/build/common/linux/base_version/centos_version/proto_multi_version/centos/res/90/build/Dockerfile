@@ -1,4 +1,4 @@
-FROM king019/centos:p
+FROM king019/centos:git
 
 MAINTAINER king019
 

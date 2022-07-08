@@ -1,4 +1,4 @@
-FROM king019/centos:res
+FROM king019/openeuler:p
 
 MAINTAINER king019
 

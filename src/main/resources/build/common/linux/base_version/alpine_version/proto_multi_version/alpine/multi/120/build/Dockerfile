@@ -19,6 +19,7 @@ RUN apk add protobuf
 RUN apk add protoc
 RUN apk add python2
 RUN apk add perf
+RUN apk add go
 
 
 RUN cd /opt/soft/;python get-pip.py

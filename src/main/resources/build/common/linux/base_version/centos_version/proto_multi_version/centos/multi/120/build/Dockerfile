@@ -33,6 +33,7 @@ RUN dnf -y install  gdb
 RUN dnf -y install  strace
 RUN dnf -y --enablerepo=powertools install protobuf-devel
 RUN dnf -y install  perf
+RUN dnf -y install go
 #python
 
 RUN dnf -y install  python2

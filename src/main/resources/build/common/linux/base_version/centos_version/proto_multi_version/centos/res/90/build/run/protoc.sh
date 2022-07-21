@@ -4,7 +4,7 @@ dnf install -y autoconf automake libtool curl make gcc-c++ unzip
 mkdir -p /opt/soft/compile
 cd /opt/soft/compile
 
-git clone https://e.coding.net/king019/github/protobuf.git
+git clone https://gitee.com/mirrors/protobufsource.git protobuf
 cd protobuf
 ./autogen.sh
 ./configure --prefix=/usr

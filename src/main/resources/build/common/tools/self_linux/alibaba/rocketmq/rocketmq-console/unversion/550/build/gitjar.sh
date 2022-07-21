@@ -3,7 +3,7 @@ set -x
 source /etc/profile;java -version
 mkdir -p /opt/soft/version
 cd /opt/soft/version
-git clone https://e.coding.net/king019/github/rocketmq-externals.git
+git clone https://gitee.com/mirrors/RocketMQ-Externals.git rocketmq-externals
 cd rocketmq-externals
 cd rocketmq-console
 mvn versions:set -DnewVersion=release

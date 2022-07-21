@@ -17,3 +17,7 @@ sh ./target/x86_64_beijing_true.sh
 mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/opt/soft/version/github/docker@thread=1@rep=true@push=true"
 
 
+
+
+
+sed -i 's/repo.huaweicloud.com/nexus:8081/g' ~/.m2/settings.xml

@@ -322,7 +322,7 @@ public class JenkinsUtil {
                     lines.add(0, from);
                 }
                 for (int i = lines.size() - 1; i >= 0; i--) {
-                    judgeDockerFile(srcfile, lines, i,  configModel);
+                    judgeDockerFile(srcfile, lines, i, configModel);
                 }
             } else if (srcfile.getName().endsWith(".sh")) {
                 for (int i = lines.size() - 1; i >= 0; i--) {
@@ -581,13 +581,17 @@ public class JenkinsUtil {
             lines.set(index, replaceSetting(cmd, null, configModel));
         }
     }
-    private void judgeDockerFile(File srcfile, List<String> lines, int index,   DockerConfigModel configModel) {
+
+    private void judgeDockerFile(File srcfile, List<String> lines, int index, DockerConfigModel configModel) {
         if (!configModel.isOrigin()) {
             return;
         }
         String cmd = lines.get(index);
         if (StringUtils.contains(cmd, "s/dl-cdn.alpinelinux.org")) {
-            lines.set(index, replaceAlpine(  cmd,   "",   configModel));
+            lines.set(index, replaceAlpine(cmd, "", configModel));
+        }
+        if (StringUtils.contains(cmd, "http://dl.rockylinux.org/$contentdir")) {
+            lines.set(index, replaceAlpine(cmd, "", configModel));
         }
     }
 
@@ -609,7 +613,8 @@ public class JenkinsUtil {
         String setting = "<url>http://nexus:8081/repository/maven-public/</url>";
         return setting;
     }
+
     private String replaceAlpine(String src, String des, DockerConfigModel configModel) {
-        return "# "+des;
+        return "# " + des;
     }
 }

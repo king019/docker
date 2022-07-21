@@ -8,7 +8,7 @@ export LD_PRELOAD=/usr/local/lib/libtcmalloc.so
 export HEAPPROFILE=/root/soft/perf-result/
 export HEAP_PROFILE_ALLOCATION_INTERVAL=2000000000
 
-git clone https://e.coding.net/king019/github/gperftools.git
+git clone https://gitee.com/mirrors/gperftools.git
 cd gperftools
 ./autogen.sh
 ./configure

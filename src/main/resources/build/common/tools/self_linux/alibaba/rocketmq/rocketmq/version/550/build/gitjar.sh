@@ -4,7 +4,7 @@ source /etc/profile;java -version
 java -version
 mkdir -p /opt/soft/version
 cd /opt/soft/version
-git clone https://e.coding.net/king019/github/rocketmq.git
+git clone https://gitee.com/apache/rocketmq.git
 cd rocketmq
 git checkout 5.0.0-preview
 mvn versions:set -DnewVersion=release

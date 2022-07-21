@@ -3,7 +3,7 @@ set -x
 source /etc/profile;java -version
 mkdir -p /opt/soft/version
 cd /opt/soft/version
-git clone https://e.coding.net/king019/github/nexus-public.git
+git clone https://gitee.com/mirrors/nexus-public.git
 cd nexus-public
 git checkout release-3.7.0-04
 mvn clean install -DskipTests -Dmaven.javadoc.skip=true

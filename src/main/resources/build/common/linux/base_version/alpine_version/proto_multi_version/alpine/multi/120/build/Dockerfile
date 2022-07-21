@@ -20,6 +20,9 @@ RUN apk add protoc
 RUN apk add python2
 RUN apk add perf
 RUN apk add go
+RUN apk add thrift
+RUN apk add make
+RUN apk add autoconf
 
 
 RUN cd /opt/soft/;python get-pip.py

@@ -1,6 +1,6 @@
 # FROM centos:8
 # FROM quay.io/centos/centos:stream9
-FROM rockylinux
+FROM rockylinux:8
 
 MAINTAINER king019
 
@@ -20,6 +20,18 @@ RUN mkdir -p /etc/docker
 #          /etc/yum.repos.d/CentOS-*.repo
 # RUN echo 'fastestmirror=True' >> /etc/dnf/dnf.conf
 # RUN dnf makecache
+
+
+#only8
+RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=https://mirrors.aliyun.com/rockylinux|g' -i.bak /etc/yum.repos.d/Rocky-*.repo
+
+# dnf makecache
+
+
+
+
+
+
 
 
 COPY docker.sh /docker.sh

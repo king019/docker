@@ -17,7 +17,7 @@ RUN apk add gdb
 RUN apk add strace
 RUN apk add protobuf
 RUN apk add protoc
-RUN apk add python2
+
 RUN apk add perf
 RUN apk add go
 RUN apk add thrift
@@ -25,6 +25,7 @@ RUN apk add make
 RUN apk add autoconf
 
 
+RUN apk add python2
 RUN cd /opt/soft/;python get-pip.py
 
 
@@ -38,7 +39,7 @@ RUN apk add ttf-dejavu
 
 RUN apk add redis
 RUN apk add rsync
-
+RUN apk add tcpdump
 
 #RUN apk add --no-cache procps
 #ps 增强
@@ -59,6 +60,7 @@ RUN apk add npm
 RUN npm config set registry https://registry.npm.taobao.org
 
 RUN apk add ca-certificates
+
 
 
 

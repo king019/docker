@@ -46,7 +46,7 @@ RUN dnf -y install  redis
 RUN dnf -y install  tar
 RUN dnf -y install  gcc-c++
 
-
+RUN dnf -y install  tcpdump
 
 
 #base

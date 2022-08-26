@@ -4,7 +4,6 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.k.docker.jenkins.model.DockerConfigModel;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
-import com.k.docker.jenkins.model.emums.ConstantEnum;
 import com.k.docker.jenkins.model.emums.DockerParamEnum;
 import com.k.docker.jenkins.model.emums.GitRemoteEnum;
 import com.k.docker.jenkins.util.JenkinsUtil;
@@ -16,7 +15,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-//mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/opt/soft/version/aliyun/docker@thread=1@rep=true@push=false@local=true"
+//mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/opt/soft/version/aliyun/docker@thread=1@rep=true@push=false@local=true@nexusApline=true"
 public class JenkinsBuildShell {
     private static Map<DockerParamEnum, String> map = Maps.newHashMap();
     static int multi = 1;
@@ -29,6 +28,7 @@ public class JenkinsBuildShell {
     static boolean replaceGit = false;
     static boolean replaceSetting = false;
     static boolean origin = true;
+    static boolean nexusAlpine = false;
     static DockerConfigModel configModel = new DockerConfigModel();
 
     public static void main(String[] args) throws Exception {
@@ -49,7 +49,9 @@ public class JenkinsBuildShell {
         DockerJenkinsModel.setWORKSPACE(JenkinsUtil.getVal(DockerParamEnum.WORK_SPACE, map));
         {
             origin = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.ORIGIN, map));
+            nexusAlpine = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.NEXUS_ALPINE, map));
             configModel.setOrigin(origin);
+            configModel.setNexusAlpine(nexusAlpine);
         }
         {
             inDocker = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.IN_DOCKER, map));
@@ -102,6 +104,13 @@ public class JenkinsBuildShell {
     @Test
     public void testReplaceFalse() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
+        shell.jenkinsWrite(multi, includes, excludes, false, push, true, true, configModel);
+    }
+
+    @Test
+    public void testOriginTrue() throws Exception {
+        JenkinsUtil shell = new JenkinsUtil();
+        configModel.setOrigin(true);
         shell.jenkinsWrite(multi, includes, excludes, false, push, true, true, configModel);
     }
 

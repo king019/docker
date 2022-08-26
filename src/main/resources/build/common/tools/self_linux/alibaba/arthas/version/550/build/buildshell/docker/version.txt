@@ -1,2 +1,2 @@
-king019/arthas:3.6.3
+king019/arthas:3.6.4
 king019/arthas

@@ -6,6 +6,7 @@ import org.apache.commons.lang3.StringUtils;
 @Getter
 public enum DockerParamEnum {
     ORIGIN("origin", "false"),
+    NEXUS_ALPINE("nexusApline", "false"),
     WORK_SPACE("ws", "${WORKSPACE}"),
     LOCAL_REGION("local", "false"),
     THREAD("thread", "1"),

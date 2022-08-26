@@ -1,6 +1,6 @@
+FROM king019/rhel
 # FROM  quay.io/centos/centos:stream9
 # FROM openeuler/openeuler
- FROM king019/rhel
 
 MAINTAINER king019
 

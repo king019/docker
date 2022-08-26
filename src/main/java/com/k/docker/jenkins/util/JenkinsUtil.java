@@ -1,9 +1,21 @@
 package com.k.docker.jenkins.util;
 
-import com.google.common.collect.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.ImmutableSet;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
 import com.k.docker.jenkins.model.DockerConfigModel;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
-import com.k.docker.jenkins.model.emums.*;
+import com.k.docker.jenkins.model.emums.BuildItemEnum;
+import com.k.docker.jenkins.model.emums.ConstantEnum;
+import com.k.docker.jenkins.model.emums.DockerFunctionEnum;
+import com.k.docker.jenkins.model.emums.DockerParamEnum;
+import com.k.docker.jenkins.model.emums.DockerPlatformEnum;
+import com.k.docker.jenkins.model.emums.DockerRegionEnum;
+import com.k.docker.jenkins.model.emums.GitRemoteEnum;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -13,7 +25,14 @@ import org.apache.commons.lang3.math.NumberUtils;
 import java.io.File;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -236,6 +255,7 @@ public class JenkinsUtil {
                 copyDirPull(listFile, src, dest, region, configModel);
                 continue;
             }
+
             if (listFile.isFile()) {
                 copyFile(listFile, src, dest, region, replaceShGit, replaceSetting, configModel);
             } else {
@@ -583,15 +603,23 @@ public class JenkinsUtil {
     }
 
     private void judgeDockerFile(File srcfile, List<String> lines, int index, DockerConfigModel configModel) {
+        if (configModel.isNexusAlpine()) {
+            String cmd = lines.get(index);
+            if (StringUtils.contains(cmd, "s/dl-cdn.alpinelinux.org")) {
+                lines.set(index, replaceAlpineNexus(cmd, "", configModel));
+            }
+            return;
+        }
+
         if (!configModel.isOrigin()) {
             return;
         }
         String cmd = lines.get(index);
         if (StringUtils.contains(cmd, "s/dl-cdn.alpinelinux.org")) {
-            lines.set(index, replaceAlpine(cmd, "", configModel));
+            lines.set(index, replaceAlpineOrigin(cmd, "", configModel));
         }
         if (StringUtils.contains(cmd, "http://dl.rockylinux.org/$contentdir")) {
-            lines.set(index, replaceAlpine(cmd, "", configModel));
+            lines.set(index, replaceRockylinux(cmd, "", configModel));
         }
     }
 
@@ -613,8 +641,16 @@ public class JenkinsUtil {
         String setting = "<url>http://nexus:8081/repository/maven-public/</url>";
         return setting;
     }
+    private String replaceAlpineOrigin(String src, String des, DockerConfigModel configModel) {
+        return "#"+des;
+    }
+    private String replaceAlpineNexus(String src, String des, DockerConfigModel configModel) {
+        String newStr = "RUN sed -i 's/https/http/g' /etc/apk/repositories;";
+        newStr = newStr + "sed -i 's/dl-cdn.alpinelinux.org/nexus:8081\\/repository\\/apk/g' /etc/apk/repositories";
+        return newStr;
+    }
 
-    private String replaceAlpine(String src, String des, DockerConfigModel configModel) {
+    private String replaceRockylinux(String src, String des, DockerConfigModel configModel) {
         return "# " + des;
     }
 }

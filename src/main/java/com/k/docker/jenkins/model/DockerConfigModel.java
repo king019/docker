@@ -5,5 +5,5 @@ import lombok.Data;
 
 @Data
 public class DockerConfigModel {
-    private boolean origin = false;
+    private boolean origin = false; private boolean nexusAlpine = false;
 }

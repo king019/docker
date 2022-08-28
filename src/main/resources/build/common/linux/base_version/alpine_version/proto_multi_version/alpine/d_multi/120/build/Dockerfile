@@ -25,8 +25,9 @@ RUN apk add make
 RUN apk add autoconf
 
 
-RUN apk add python2
-RUN cd /opt/soft/;python get-pip.py
+RUN apk add python3
+RUN apk add py3-pip
+RUN echo "alias python='python3'" >> /etc/profile;source /etc/profile
 
 
 # telnet

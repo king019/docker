@@ -9,6 +9,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g' /etc/apk/repos
 RUN apk add maven
 RUN apk add openjdk17
 RUN apk add git
+RUN apk add curl
 
 #RUN curl -fsSL https://get.docker.com | bash -s docker --mirror Aliyun
 #RUN apk add docker

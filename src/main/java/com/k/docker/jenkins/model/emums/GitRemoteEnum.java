@@ -21,7 +21,7 @@ public enum GitRemoteEnum {
     index_14("https://e.coding.net/king019/github/rocketmq-externals.git", "http://gogs:3001/king019/rocketmq-externals.git"),
     index_15("https://e.coding.net/king019/github/rocketmq.git", "http://gogs:3001/king019/rocketmq.git"),
     index_16("https://e.coding.net/king019/github/zkui.git", "http://gogs:3001/king019/zkui.git"),
-    index_17("https://gitee.com/gsls200808/JrebelLicenseServerforJava.git", "http://gogs:3001/king019/JrebelLicenseServerforJava.git"),
+    index_17("https://gitee.com/king019/JrebelLicenseServerforJava.git", "http://gogs:3001/king019/JrebelLicenseServerforJava.git"),
     index_18("https://gitee.com/king019/gitee_hub.git", "http://gogs:3001/king019/gitee_hub.git"),
     index_19("https://gitee.com/king019/hub_git.git", "http://gogs:3001/king019/hub_git.git"),
     index_20("https://github.com/king019/docker.git", "http://gogs:3001/king019/docker.git"),

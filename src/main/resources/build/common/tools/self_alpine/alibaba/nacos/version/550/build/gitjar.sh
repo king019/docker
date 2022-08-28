@@ -5,7 +5,7 @@ mkdir -p /opt/soft/version
 cd /opt/soft/version
 git clone https://gitee.com/mirrors/Nacos.git nacos
 cd nacos
-git checkout 2.0.0
+git checkout 2.1.1
 cd consistency
 sed -i 's/<pluginId>grpc-java<\/pluginId>/<pluginId>grpc-java<\/pluginId><skip>true<\/skip>/' pom.xml
 protoc --java_out src/main/java/ src/main/proto/consistency.proto

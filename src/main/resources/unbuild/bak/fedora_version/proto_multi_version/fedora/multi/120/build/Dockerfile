@@ -19,9 +19,9 @@ RUN dnf -y install make
 RUN dnf -y install autoconf
 #python
 
-RUN dnf -y install  python2
-RUN echo "alias python='python2'" >> /etc/profile
-RUN echo "alias pip='pip2'" >> /etc/profile
+RUN dnf -y install  python3
+RUN echo "alias python='python3'" >> /etc/profile
+RUN echo "alias pip='pip3'" >> /etc/profile
 
 
 

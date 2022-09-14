@@ -1,5 +1,4 @@
 FROM  king019/linux
-#FROM  ruby:alpine3.12
 
 MAINTAINER king019
 
@@ -13,6 +12,5 @@ MAINTAINER king019
 
 
 COPY docker.sh /docker.sh
-COPY cluster.sh /cluster.sh
 RUN chmod 755 /*.sh
 CMD /docker.sh

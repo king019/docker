@@ -2,93 +2,24 @@ FROM king019/alpine:jdk
 
 MAINTAINER king019
 
-
-COPY get-pip.py /opt/soft/get-pip.py
-
-
-
-
-RUN apk add git
 RUN apk add curl
 RUN apk add wget
 RUN apk add vim
-RUN apk add nginx
-RUN apk add gdb
 RUN apk add strace
-RUN apk add protobuf
-RUN apk add protoc
-
-RUN apk add perf
-RUN apk add go
-RUN apk add thrift
-RUN apk add make
-RUN apk add autoconf
-
-
-RUN apk add python3
-RUN apk add py3-pip
-RUN echo "alias python='python3'" >> /etc/profile;source /etc/profile
-
 
 # telnet
 RUN apk add busybox-extras
 
 
 RUN apk add htop
-RUN apk add strace
 RUN apk add ttf-dejavu
 
-RUN apk add redis
-RUN apk add rsync
 RUN apk add tcpdump
-
-#RUN apk add --no-cache procps
-#ps 增强
 RUN apk add procps
-#gnu
-#RUN apk add gnupg
-
-#jenkins 需要这个
-#RUN apk add ttf-dejavu
-#nodejs
-
-#RUN apk add  --repository https://mirrors.aliyun.com/alpine/v3.11/main/ nodejs=12.22.4-r0
-#RUN apk add  --repository https://mirrors.aliyun.com/alpine/v3.11/main/ npm=12.22.4-r0
-
-RUN apk add nodejs
-RUN apk add npm
-
-RUN npm config set registry https://registry.npm.taobao.org
-
-RUN apk add ca-certificates
-
-
-
-
-
-
-
-
 
 
 
 RUN chmod -R 777 /*.sh
-# RUN /perf.sh
-#RUN /mvnclean.sh
-
-# RUN apk update && \
-#     apk add --no-cache openssh-server tzdata && \
-#     cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
-#     sed -i "s/#PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/sshd_config && \
-#     ssh-keygen -t rsa -P "" -f /etc/ssh/ssh_host_rsa_key && \
-#     ssh-keygen -t ecdsa -P "" -f /etc/ssh/ssh_host_ecdsa_key && \
-#     ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key && \
-#     echo "root:admin" | chpasswd
-# RUN set -x \
-#     apk update \
-#     && apk add --no-cache bash bash-doc bash-completion \
-#     && sed -i 's/ash/bash/g' /etc/passwd \
-#     && source /root/.bashrc
 RUN apk add bash bash-doc bash-completion \
     && sed -i 's/ash/bash/g' /etc/passwd \
     && source /root/.bashrc

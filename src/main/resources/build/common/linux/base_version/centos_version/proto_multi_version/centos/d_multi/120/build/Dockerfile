@@ -3,26 +3,6 @@ FROM king019/centos:jdk
 MAINTAINER king019
 
 
-
-#RUN yum list|sed -n '7,1111111p' |awk '{print "yum -y install  " $1}'
-#可以使用临时关闭
-#RUN sed -i "s/#baseurl/baseurl/g" /etc/yum.repos.d/CentOS-Base.repo
-#RUN sed -i "s/mirrorlist=http/#mirrorlist=http/g" /etc/yum.repos.d/CentOS-Base.repo
-#RUN sed -i "s@http://mirror.centos.org@https://mirrors.huaweicloud.com@g" /etc/yum.repos.d/CentOS-Base.repo
-
-#RUN yum -y install wget
-#RUN mv /etc/yum.repos.d/CentOS-Base.repo /etc/yum.repos.d/CentOS-Base.repo.backup
-#RUN wget -O /etc/yum.repos.d/CentOS-Base.repo https://mirrors.huaweicloud.com/repository/conf/CentOS-AltArch-7.repo
-#RUN wget -O /etc/yum.repos.d/CentOS-Base.repo http://mirrors.aliyun.com/repo/Centos-8.repo
-
-#RUN yum clean all
-#RUN yum makecache
-#RUN yum -y update
-#base
-
-
-
-
 RUN dnf -y install  git
 RUN dnf -y install  wget
 RUN dnf -y install  vim
@@ -34,11 +14,6 @@ RUN dnf -y install  lsof
 RUN dnf -y install  traceroute
 RUN dnf -y install  telnet
 RUN dnf -y install  tcpdump
-
-
-
-
-
 
 #base
 #放入extra

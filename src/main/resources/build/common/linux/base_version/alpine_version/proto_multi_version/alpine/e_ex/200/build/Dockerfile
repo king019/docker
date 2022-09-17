@@ -14,7 +14,7 @@ RUN apk add go
 RUN apk add thrift
 RUN apk add make
 RUN apk add autoconf
-
+RUN apk add ttf-dejavu
 
 RUN apk add python3
 RUN apk add py3-pip

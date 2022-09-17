@@ -1,4 +1,4 @@
-FROM king019/rhel:jdk17
+FROM king019/rhel:server
 
 MAINTAINER king019
 

@@ -1,4 +1,4 @@
-FROM king019/rhel:jdk17
+FROM king019/centos:server
 
 MAINTAINER king019
 

@@ -3,7 +3,11 @@
   "registry-mirrors": [
     "http://docker:5000",
     "https://docker:5000",
-    "https://msb3wa7d.mirror.aliyuncs.com"
+    "https://msb3wa7d.mirror.aliyuncs.com",
+    "https://docker.mirrors.ustc.edu.cn",
+    "https://hub-mirror.c.163.com",
+    "https://reg-mirror.qiniu.com",
+    "https://registry.docker-cn.com"
   ],
   "debug": true,
   "insecure-registries": [

@@ -10,7 +10,6 @@ RUN mkdir -p /root/.docker
 RUN mkdir -p /etc/docker
 
 
-
 COPY docker.sh /docker.sh
 
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g' /etc/apk/repositories

@@ -23,12 +23,6 @@ public class JenkinsBuildShell {
     static boolean push = true;
     static List<String> includes = Lists.newArrayList();
     static List<String> excludes = Lists.newArrayList();
-    static boolean inDocker = false;
-    static boolean localRegion = false;
-    static boolean replaceGit = false;
-    static boolean replaceSetting = false;
-    static boolean origin = true;
-    static boolean nexusAlpine = false;
     static DockerConfigModel configModel = new DockerConfigModel();
 
     public static void main(String[] args) throws Exception {
@@ -48,13 +42,14 @@ public class JenkinsBuildShell {
 
         DockerJenkinsModel.setWORKSPACE(JenkinsUtil.getVal(DockerParamEnum.WORK_SPACE, map));
         {
-            origin = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.ORIGIN, map));
-            nexusAlpine = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.NEXUS_ALPINE, map));
+            boolean origin = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.ORIGIN, map));
+            boolean nexusAlpine = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.NEXUS_ALPINE, map));
             configModel.setOrigin(origin);
             configModel.setNexusAlpine(nexusAlpine);
         }
         {
-            inDocker = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.IN_DOCKER, map));
+            boolean inDocker = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.IN_DOCKER, map));
+            configModel.setInDocker(inDocker);
         }
         {
             multi = Integer.parseInt(JenkinsUtil.getVal(DockerParamEnum.THREAD, map));
@@ -62,18 +57,20 @@ public class JenkinsBuildShell {
         {
             replace = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.REPLACE, map));
         }
-
         {
             push = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.PUSH, map));
         }
         {
-            localRegion = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.LOCAL_REGION, map));
+            boolean localRegion = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.LOCAL_REGION, map));
+            configModel.setLocalRegion(localRegion);
         }
         {
-            replaceGit = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.RP_GIT, map));
+            boolean replaceGit = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.RP_GIT, map));
+            configModel.setReplaceGit(replaceGit);
         }
         {
-            replaceSetting = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.RP_SETTING, map));
+            boolean replaceSetting = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.RP_SETTING, map));
+            configModel.setReplaceSetting(replaceSetting);
         }
         {
             String val = JenkinsUtil.getVal(DockerParamEnum.INCLUDE, map);
@@ -92,26 +89,32 @@ public class JenkinsBuildShell {
             excludes.removeAll(includes);
         }
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, replace, push, inDocker, localRegion, replaceGit, replaceSetting, configModel);
+        shell.jenkinsWrite(multi, includes, excludes, replace, push, configModel);
     }
 
     @Test
     public void testReplaceTrue() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, true, push, true, true, configModel);
+        configModel.setLocalRegion(true);
+        configModel.setInDocker(true);
+        shell.jenkinsWrite(multi, includes, excludes, true, push, configModel);
     }
 
     @Test
     public void testReplaceFalse() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, false, push, true, true, configModel);
+        configModel.setLocalRegion(true);
+        configModel.setInDocker(true);
+        shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
     }
 
     @Test
     public void testOriginTrue() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
         configModel.setOrigin(true);
-        shell.jenkinsWrite(multi, includes, excludes, false, push, true, true, configModel);
+        configModel.setLocalRegion(true);
+        configModel.setInDocker(true);
+        shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
     }
 
     @Test

@@ -16,7 +16,10 @@ cd jenkins
 git checkout stable-2.164
 mvn clean package -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip
 
+ls war/target/
 cp war/target/jenkins.war /opt/soft/tools/jenkins.war
+ls /opt/soft/tools
 cp /opt/soft/tools/jenkins.war /opt/soft/tools/tomcat/webapps/ROOT.war
+ls /opt/soft/tools/tomcat/webapps
 mvn clean
 /mvnclean.sh

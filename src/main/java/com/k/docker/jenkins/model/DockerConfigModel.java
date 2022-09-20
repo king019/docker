@@ -11,4 +11,5 @@ public class DockerConfigModel {
     private boolean nexusAlpine = false;
     private boolean inDocker = false;
     private boolean localRegion = false;
+    private int minIndex=-999;
 }

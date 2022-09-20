@@ -8,6 +8,7 @@ import com.k.docker.jenkins.model.emums.DockerParamEnum;
 import com.k.docker.jenkins.model.emums.GitRemoteEnum;
 import com.k.docker.jenkins.util.JenkinsUtil;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -19,11 +20,12 @@ import java.util.Objects;
 public class JenkinsBuildShell {
     private static Map<DockerParamEnum, String> map = Maps.newHashMap();
     static int multi = 1;
+    static int minIndex = -999;
     static boolean replace = false;
     static boolean push = true;
     static List<String> includes = Lists.newArrayList();
     static List<String> excludes = Lists.newArrayList();
-    static DockerConfigModel configModel = new DockerConfigModel();
+    public static DockerConfigModel configModel = new DockerConfigModel();
 
     public static void main(String[] args) throws Exception {
         if (ArrayUtils.isNotEmpty(args)) {
@@ -59,6 +61,10 @@ public class JenkinsBuildShell {
         }
         {
             push = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.PUSH, map));
+        }
+        {
+            minIndex = JenkinsUtil.getInt(DockerParamEnum.MIN_INDEX, map);
+            configModel.setMinIndex(minIndex);
         }
         {
             boolean localRegion = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.LOCAL_REGION, map));

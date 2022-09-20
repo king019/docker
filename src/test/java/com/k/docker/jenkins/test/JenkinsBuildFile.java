@@ -1,4 +1,4 @@
-package com.k.docker.jenkins;
+package com.k.docker.jenkins.test;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

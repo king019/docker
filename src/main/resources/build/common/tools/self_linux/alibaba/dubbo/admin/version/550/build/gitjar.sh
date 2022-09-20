@@ -4,7 +4,8 @@ source /etc/profile;java -version
 
 mkdir -p /root/.m2/repository/com/github/eirslett/node/9.11.1/
 cd /root/.m2/repository/com/github/eirslett/node/9.11.1/
-wget https://mirrors.aliyun.com/nodejs-release/v9.11.1/node-v9.11.1-linux-x64.tar.gz
+wget https://registry.npmmirror.com/-/binary/node/v9.11.1/node-v9.11.1-linux-x64.tar.gz
+wget https://registry.npmmirror.com/-/binary/node/v9.11.1/node-v9.11.1-linux-arm64.tar.gz
 
 
 mkdir -p /opt/soft/version

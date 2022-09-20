@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 
 @Getter
 public enum DockerParamEnum {
+    MIN_INDEX("minIndex", "-999"),
     ORIGIN("origin", "false"),
     NEXUS_ALPINE("nexusApline", "false"),
     WORK_SPACE("ws", "${WORKSPACE}"),

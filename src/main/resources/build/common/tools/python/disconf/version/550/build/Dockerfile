@@ -2,7 +2,8 @@ FROM  python:2.7.18-alpine
 
 MAINTAINER king019
 
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.cloud.tencent.com/g' /etc/apk/repositories
+RUN sed -i 's/https/http/g' /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN mkdir -p /root/.m2
 RUN mkdir -p /opt/soft/tools/

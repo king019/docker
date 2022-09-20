@@ -19,6 +19,7 @@ import com.k.docker.jenkins.model.emums.GitRemoteEnum;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
@@ -36,6 +37,7 @@ import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class JenkinsUtil {
@@ -44,7 +46,10 @@ public class JenkinsUtil {
     public static String getVal(DockerParamEnum paramEnum, Map<DockerParamEnum, String> map) {
         return map.getOrDefault(paramEnum, paramEnum.getDef());
     }
-
+    public static Integer getInt(DockerParamEnum paramEnum, Map<DockerParamEnum, String> map) {
+        String val = map.getOrDefault(paramEnum, paramEnum.getDef());
+        return Integer.parseInt(val);
+    }
 
     public void jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replaceDockerGit, boolean push, DockerConfigModel configModel) throws Exception {
         String dockerDest = "dockerDest/";
@@ -236,6 +241,7 @@ public class JenkinsUtil {
                 return !exist;
             }).collect(Collectors.toList());
         }
+        models= models.stream().filter(model -> model.getIndex()> configModel.getMinIndex()).collect(Collectors.toList());
         return models;
     }
 

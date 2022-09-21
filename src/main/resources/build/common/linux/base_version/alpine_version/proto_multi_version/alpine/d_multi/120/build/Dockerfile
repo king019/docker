@@ -5,10 +5,9 @@ MAINTAINER king019
 RUN apk add curl
 RUN apk add wget
 RUN apk add vim
-RUN apk add strace
 # telnet
 RUN apk add busybox-extras
-RUN apk add htop
+
 RUN apk add tcpdump
 RUN apk add procps
 

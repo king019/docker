@@ -6,12 +6,12 @@ MAINTAINER king019
 RUN dnf -y install  git
 RUN dnf -y install  wget
 RUN dnf -y install  vim
-RUN dnf -y install  strace
+
 RUN dnf -y install  net-tools
 RUN dnf -y install  unzip
 RUN dnf -y install  which
 RUN dnf -y install  lsof
-RUN dnf -y install  traceroute
+
 RUN dnf -y install  telnet
 RUN dnf -y install  tcpdump
 

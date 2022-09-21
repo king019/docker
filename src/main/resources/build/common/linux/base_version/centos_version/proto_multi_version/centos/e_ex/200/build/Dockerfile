@@ -26,7 +26,8 @@ RUN dnf -y install  nodejs
 RUN npm config set registry https://registry.npm.taobao.org
 RUN dnf -y install  nginx
 RUN dnf -y install  gdb
-
+RUN dnf -y install  strace
+RUN dnf -y install  traceroute
 RUN dnf -y --enablerepo=powertools install protobuf-devel
 RUN dnf -y install  perf
 RUN dnf -y install go

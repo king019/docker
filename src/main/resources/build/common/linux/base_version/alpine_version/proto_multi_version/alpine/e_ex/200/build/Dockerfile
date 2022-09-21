@@ -8,7 +8,8 @@ RUN apk add nginx
 RUN apk add gdb
 RUN apk add protobuf
 RUN apk add protoc
-
+RUN apk add strace
+RUN apk add htop
 RUN apk add perf
 RUN apk add go
 RUN apk add thrift

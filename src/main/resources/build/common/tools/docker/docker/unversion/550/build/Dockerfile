@@ -5,7 +5,7 @@ MAINTAINER king019
 COPY settings.xml /root/.m2/settings.xml
 
 RUN sed -i 's/https/http/g' /etc/apk/repositories
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/repo.huaweicloud.com/g' /etc/apk/repositories
 
 RUN apk add maven
 RUN apk add openjdk17

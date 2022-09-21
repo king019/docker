@@ -10,7 +10,7 @@ RUN mkdir -p /root/.docker
 RUN mkdir -p /etc/docker
 
 RUN sed -i 's/https/http/g' /etc/apk/repositories
-RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
+RUN sed -i 's/dl-cdn.alpinelinux.org/repo.huaweicloud.com/g' /etc/apk/repositories
 
 RUN mkdir /lib64 && ln -s /lib/libc.musl-x86_64.so.1 /lib64/ld-linux-x86-64.so.2
 

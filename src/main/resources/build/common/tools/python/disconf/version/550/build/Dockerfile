@@ -18,7 +18,7 @@ RUN apk add nginx
 
 
 
-ADD https://repo1.maven.org/maven2/org/apache/tomcat/tomcat/8.5.75/tomcat-8.5.75.tar.gz /opt/soft/tools/tomcat-8.5.75.tar.gz
+ADD http://repo.huaweicloud.com/repository/maven/org/apache/tomcat/tomcat/8.5.75/tomcat-8.5.75.tar.gz /opt/soft/tools/tomcat-8.5.75.tar.gz
 
 
 RUN cd /opt/soft/tools;tar -xzf tomcat-8.5.75.tar.gz

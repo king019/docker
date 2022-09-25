@@ -21,3 +21,23 @@ mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildS
 
 
 sed -i 's/repo.huaweicloud.com/nexus:8081/g' ~/.m2/settings.xml
+
+
+
+sed -i 's/https/http/g' /etc/apk/repositories
+sed -i 's/dl-cdn.alpinelinux.org/nexus:8081\/repository\/alpine/g' /etc/apk/repositories
+
+sed -i 's/https/http/g' /etc/apk/repositories
+sed -i 's/dl-cdn.alpinelinux.org/192.168.5.134:8081\/repository\/alpine/g' /etc/apk/repositories
+
+
+
+sed -i 's/https/http/g' /etc/apk/repositories
+sed -i 's/dl-cdn.alpinelinux.org/repo.huaweicloud.com/g' /etc/apk/repositories
+
+echo '192.168.5.124 repo.huaweicloud.com' >> /etc/hosts
+echo '192.168.5.134 nexus' >> /etc/hosts
+
+
+
+

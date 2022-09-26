@@ -1,4 +1,4 @@
-FROM alpine:3.16
+FROM alpine
 MAINTAINER king019
 
 RUN mkdir -p /root/.m2/repository

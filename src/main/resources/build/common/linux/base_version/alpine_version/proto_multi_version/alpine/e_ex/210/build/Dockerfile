@@ -1,4 +1,4 @@
-FROM king019/alpine:m
+FROM king019/alpine:b
 
 MAINTAINER king019
 

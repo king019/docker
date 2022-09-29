@@ -1,5 +1,6 @@
 #!/bin/bash
 set -x
+cd /opt/soft/tunasync/
 NowPlatform=$(uname -m)
 X86='x86_64'
 Arm='aarch64'

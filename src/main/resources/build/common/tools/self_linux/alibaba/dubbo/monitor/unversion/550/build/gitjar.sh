@@ -7,7 +7,7 @@ source /etc/profile;java -version
 
 mkdir -p /opt/soft/version
 cd /opt/soft/version
-git clone https://gitee.com/mirrors_apache/dubbo_1.git dubbo
+git clone https://gitee.com/apache/dubbo.git dubbo
 cd dubbo
 git checkout 2.5.x
 cd dubbo-simple/dubbo-monitor-simple

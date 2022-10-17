@@ -109,7 +109,7 @@ public class JenkinsBuildShell {
     @Test
     public void testReplaceFalse() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        configModel.setLocalRegion(true);
+        configModel.setLocalRegion(false);
         configModel.setInDocker(true);
         shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
     }

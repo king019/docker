@@ -55,10 +55,10 @@ jobs:
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           cd ./target;chmod -R 777 .;
-          bash ./platform/x86_64_aliyun_beijing_true.sh;
+          bash ./platform/x86_64/x86_64_aliyun_beijing_true.sh;
       - name: build_docker_hub_x86
         run: cat /etc/docker/daemon.json;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           cd ./target;chmod -R 777 .;
-          bash ./platform/x86_64_docker_true.sh;
+          bash ./platform/x86_64/x86_64_docker_true.sh;

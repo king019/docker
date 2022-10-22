@@ -65,16 +65,16 @@ RUN chmod -R 777 /*.sh
 #ADD https://archive.apache.org/dist/tomcat/tomcat-7/v7.0.94/bin/apache-tomcat-7.0.94.tar.gz /opt/soft/apache-tomcat-7.0.94.tar.gz
 
 
-ADD https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.45.v20220203/jetty-distribution-9.4.45.v20220203.tar.gz /opt/soft/tools/jetty-distribution-9.4.45.v20220203.tar.gz
-ADD https://repo1.maven.org/maven2/org/apache/tomcat/tomcat/8.5.75/tomcat-8.5.75.tar.gz /opt/soft/tools/tomcat-8.5.75.tar.gz
+ADD https://repo1.maven.org/maven2/org/eclipse/jetty/jetty-distribution/9.4.49.v20220914/jetty-distribution-9.4.49.v20220914.tar.gz /opt/soft/tools/jetty-distribution-9.4.49.v20220914.tar.gz
+ADD https://repo1.maven.org/maven2/org/apache/tomcat/tomcat/10.0.27/tomcat-10.0.27.tar.gz /opt/soft/tools/tomcat-10.0.27.tar.gz
 
 
-RUN cd /opt/soft/tools/;tar -xzf jetty-distribution-9.4.45.v20220203.tar.gz
-RUN cd /opt/soft/tools/;mv jetty-distribution-9.4.45.v20220203 jetty
+RUN cd /opt/soft/tools/;tar -xzf jetty-distribution-9.4.49.v20220914.tar.gz
+RUN cd /opt/soft/tools/;mv jetty-distribution-9.4.49.v20220914 jetty
 
 
-RUN cd /opt/soft/tools;tar -xzf tomcat-8.5.75.tar.gz
-RUN cd /opt/soft/tools;mv apache-tomcat-8.5.75 tomcat
+RUN cd /opt/soft/tools;tar -xzf tomcat-10.0.27.tar.gz
+RUN cd /opt/soft/tools;mv apache-tomcat-10.0.27 tomcat
 RUN cd /opt/soft/tools/tomcat/webapps;rm -fr *
 RUN mkdir -p /opt/soft/tools/tomcat/webapps
 

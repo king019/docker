@@ -18,11 +18,11 @@ RUN apk add nginx
 
 
 
-ADD https://repo1.maven.org/maven2/org/apache/tomcat/tomcat/10.0.27/tomcat-10.0.27.tar.gz /opt/soft/tools/tomcat-10.0.27.tar.gz
+ADD https://repo1.maven.org/maven2/org/apache/tomcat/tomcat/9.0.68/tomcat-9.0.68.tar.gz /opt/soft/tools/tomcat-9.0.68.tar.gz
 
 
-RUN cd /opt/soft/tools;tar -xzf tomcat-10.0.27.tar.gz
-RUN cd /opt/soft/tools;mv apache-tomcat-10.0.27 tomcat
+RUN cd /opt/soft/tools;tar -xzf tomcat-9.0.68.tar.gz
+RUN cd /opt/soft/tools;mv apache-tomcat-9.0.68 tomcat
 # RUN mkdir -p /opt/soft/tools/tomcat/webapps
 RUN cd /opt/soft/tools/tomcat/webapps;rm -fr *
 

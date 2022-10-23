@@ -46,5 +46,20 @@ echo '192.168.5.124 repo.huaweicloud.com' >> /etc/hosts
 echo '192.168.5.134 nexus' >> /etc/hosts
 
 
+sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://mirrors.aliyun.com/rockylinux|g' -i.bak /etc/yum.repos.d/Rocky-*.repo
 
+
+sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://nexus:8081/rockylinux|g' -i.bak /etc/yum.repos.d/Rocky-*.repo
+
+
+
+
+sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://192.168.5.134:8081/rockylinux|g' -i.bak /etc/yum.repos.d/Rocky-*.repo
+
+
+
+dnf list|sed -n '7,1111111p' |awk '{print "dnf -y install  " $1}' |sh
+
+
+apk list|awk '{print "apk add  " $1}'|sh
 

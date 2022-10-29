@@ -15,6 +15,11 @@ git clone https://gitee.com/mirrors/jenkins.git
 cd jenkins
 
 git checkout stable-2.164
+
+
+cd war
+sed -i 's/<\/nodeDownloadRoot>/<\/nodeDownloadRoot><downloadRoot>http:\/\/npm.taobao.org\/mirrors\/node\/<\/downloadRoot>/' pom.xml
+cd ..
 mvn clean package -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip
 
 ls war/target/

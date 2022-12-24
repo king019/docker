@@ -156,7 +156,7 @@ public class JenkinsUtil {
     }
 
     private String startADD(String line, DockerConfigModel configModel) {
-        String gitSave1 = "https://king019.coding.net/p/github/d/save_github/git/raw/";
+        String gitSave1 = "https://gitlab.com/king019/save_github/-/raw/main/";
         String gitSave2 = "http";
         String next = line;
         if (line.indexOf(gitSave1) > 0) {

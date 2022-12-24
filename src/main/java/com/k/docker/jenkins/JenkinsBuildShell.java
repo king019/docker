@@ -16,7 +16,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-//mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/opt/soft/version/aliyun/docker@thread=1@rep=true@push=false@local=true@nexusApline=true"
 public class JenkinsBuildShell {
     private static Map<DockerParamEnum, String> map = Maps.newHashMap();
     static int multi = 1;

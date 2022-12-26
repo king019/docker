@@ -1,4 +1,4 @@
-FROM  king019/linux
+FROM  king019/linux:jdk11
 #FROM  ruby:alpine3.12
 
 MAINTAINER king019

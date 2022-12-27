@@ -5,6 +5,8 @@ MAINTAINER king019
 RUN apk add curl
 RUN apk add wget
 RUN apk add vim
+RUN apk add net-tools
+RUN apk add bind-tools
 # telnet
 RUN apk add busybox-extras
 

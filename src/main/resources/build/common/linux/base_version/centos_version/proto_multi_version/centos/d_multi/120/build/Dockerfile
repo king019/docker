@@ -8,6 +8,7 @@ RUN dnf -y install  wget
 RUN dnf -y install  vim
 
 RUN dnf -y install  net-tools
+RUN dnf -y install  bind-utils
 RUN dnf -y install  unzip
 RUN dnf -y install  which
 RUN dnf -y install  lsof

@@ -1,0 +1,95 @@
+mac
+
+docker run --name docker -h docker -d --restart=always --privileged -v /var/run/docker.sock:/var/run/docker.sock -e TZ='Asia/Shanghai' --security-opt seccomp:unconfined  registry.cn-beijing.aliyuncs.com/king019/docker:build
+
+
+docker run --name docker -h docker -d --restart=always --privileged -v /var/run/docker.sock:/var/run/docker.sock -e TZ='Asia/Shanghai' --security-opt seccomp:unconfined  king019/docker:build
+
+
+docker run --name docker -h docker -d --restart=always --privileged -v /var/run/docker.sock:/var/run/docker.sock -e TZ='Asia/Shanghai' --security-opt seccomp:unconfined  docker:5000/king019/docker:build
+
+
+
+
+
+1,安装minikube
+https://minikube.sigs.k8s.io/docs/start/
+
+source /etc/profile
+mkdir /opt/soft
+cd /opt/soft
+linux
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+(sudo) install minikube-linux-amd64 /usr/local/bin/minikube
+max
+curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-darwin-amd64
+install minikube-darwin-amd64 /usr/local/bin/minikube
+
+问题处理
+ubuntu使用
+sudo sysctl fs.protected_regular=0
+
+source /etc/profile
+
+
+
+
+rm -fr /tmp/*
+rm -fr /root/.minikube/*
+
+2,启动
+
+
+
+source /etc/profile
+
+外部绑定ip
+minikube ip
+
+
+1.25
+可运行
+minikube delete
+minikube start --force --driver=docker --kubernetes-version=v1.23.8 --cpus=4 --memory=15096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+mac
+minikube start --force --driver=docker --kubernetes-version=v1.23.8   --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+
+
+
+
+minikube delete
+minikube start --force --driver=docker --cpus=2 --memory=4096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+
+
+
+1.9
+minikube delete
+minikube start --force --driver=docker --cpus=3 --memory=3096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.9.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+1.8
+minikube delete
+minikube start --force --driver=docker --cpus=3 --memory=3096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.8.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+
+1.5
+minikube delete
+minikube start --force --driver=docker --cpus=3 --memory=3096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.5.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+
+
+
+
+
+docker
+{
+  "features": {
+    "buildkit": true
+  },
+  "insecure-registries": [
+    "docker:5000"
+  ],
+  "experimental": true,
+
+  "registry-mirrors": [
+    "http://docker:5000",
+    "https://docker:5000",
+    "https://msb3wa7d.mirror.aliyuncs.com"
+  ]
+}

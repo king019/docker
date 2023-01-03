@@ -1,0 +1,46 @@
+# webapp-deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mysql
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mysql
+  template:
+    metadata:
+      labels:
+        app: mysql
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:5.7
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              value: "111111"
+          volumeMounts:
+            - mountPath: /var/lib/mysql
+              name: data-volume
+      volumes:
+        - name: data-volume
+          emptyDir: {}
+
+# webapp-service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mysql
+spec:
+  type: NodePort
+  ports:
+    - port: 3306
+      targetPort: 3306
+      nodePort: 31306
+      protocol: TCP
+  selector:
+    app: mysql

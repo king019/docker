@@ -1,0 +1,11 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: mysql-pvc
+spec:
+  accessModes:
+    - ReadWriteMany      #这儿的权限模式，千万记住要需要挂载的YAML文件的权限模式一样，否则会报找不见storageClass的错误。
+  resources:
+    requests:
+      storage: 512Mi
+  storageClassName: nfs-storage

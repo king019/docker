@@ -24,11 +24,25 @@ spec:
               value: "111111"
           volumeMounts:
             - mountPath: /var/lib/mysql
-              name: data-volume
+              name: mysql-volume
       volumes:
-        - name: data-volume
-          emptyDir: {}
-
+        - name: mysql-volume
+          persistentVolumeClaim:
+            claimName: mysql-pvc
+            readOnly: false
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: mysql-pvc
+  namespace: default
+spec:
+  accessModes:
+    - ReadWriteMany
+  resources:
+    requests:
+      storage: 1Gi
+  storageClassName: csi-driver-s3
 # webapp-service.yaml
 ---
 apiVersion: v1

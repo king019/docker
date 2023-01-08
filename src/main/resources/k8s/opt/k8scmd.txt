@@ -17,7 +17,7 @@ kubectl exec -it podName -n namespace -- /bin/sh
 kubectl get svc -o wide
 
 
-
+kubectl get pods -A
 
 
 coredns

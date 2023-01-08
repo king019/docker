@@ -3,31 +3,22 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: nacos
+  name: jenkins
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: nacos
+      app: jenkins
   template:
     metadata:
       labels:
-        app: nacos
+        app: jenkins
     spec:
       containers:
-        - name: nacos
-          image: registry.cn-beijing.aliyuncs.com/king019/nacos
+        - name: jenkins
+          image: jenkins:2.60.3-alpine
           ports:
-            - containerPort: 8848
-          env:
-            - name: db.num
-              value: "1"
-            - name: db.url.0
-              value: "jdbc:mysql://mysql:3306/nacos"
-            - name: db.user
-              value: root
-            - name: db.password
-              value: "111111"
+            - containerPort: 8080
 
 
 # webapp-service.yaml
@@ -35,32 +26,32 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: nacos
+  name: jenkins
 spec:
   #  type: NodePort
   ports:
-    - port: 8848
-      targetPort: 8848
+    - port: 8080
+      targetPort: 8080
       #    nodePort: 30001
       protocol: TCP
   selector:
-    app: nacos
+    app: jenkins
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: nacos-ingress
+  name: jenkins-ingress
   annotations:
     kubernetes.io/ingress.class: "nginx"
 spec:
   rules:
-    - host: nacos.k8s.com
+    - host: jenkins.k8s.com
       http:
         paths:
           - path: /
             pathType: ImplementationSpecific
             backend:
               service:
-                name: nacos
+                name: jenkins
                 port:
-                  number: 8848
+                  number: 8080

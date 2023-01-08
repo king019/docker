@@ -1,0 +1,241 @@
+https://www.jianshu.com/p/b5560c6e365f
+
+CentOS的防火墙改成了firewall，开放端口的方法如下：
+
+firewall-cmd--zone=public--add-port=80/tcp--permanent
+
+
+
+firewall-cmd--zone=public--add-port=3128/tcp--permanent
+
+命令含义：
+
+–zone                        #作用域
+
+–add-port=80/tcp       #添加端口，格式为：端口/通讯协议
+
+–permanent               #永久生效，没有此参数重启后失效
+
+重启防火墙：
+
+systemctl stop firewalld.servicesystemctl start firewalld.service
+
+
+
+centos-stream
+https://blog.csdn.net/crayon0/article/details/127217183
+
+
+
+查看所有防火墙规则： firewall-cmd --list-all-zones
+查看当前区域防火墙规则： firewall-cmd --list-all
+添加一个开放服务规则： firewall-cmd --add-service=ssh
+删除一个开放服务规则： firewall-cmd --remove-service=ssh
+查看一个开放服务是否添加成功： firewall-cmd --query-service=ssh
+查看一个开放服务配置路径： firewall-cmd --permanent --path-service=ssh
+添加一个开放端口规则： firewall-cmd --add-port=2000-2010/tcp
+删除一个开放端口规则： firewall-cmd --remove-port=2000-2010/tcp
+查看一个开放端口是否添加成功： firewall-cmd --query-port=2005/tcp
+重新加载配置规则： firewall-cmd --reload
+
+
+
+
+
+1、查看防火墙状态
+
+ systemctl status firewalld
+ 或者
+ firewall-cmd --state
+ #Active: active (running)，防火墙已开启
+ #Active: inactive (dead)，防火墙已关闭
+1
+2
+3
+4
+5
+2、启动&停止&重启
+
+systemctl start firewalld	#启动
+systemctl stop firewalld	#停止
+systemctl restart firewalld	#重启
+1
+2
+3
+2、允许\禁止开机自启动
+
+systemctl enable firewalld		#允许
+systemctl disable firewalld		#禁止
+1
+2
+4、查看防火墙规则
+
+firewall-cmd --list-all
+-----------------------------------------
+public (active)
+  target: default
+  icmp-block-inversion: no
+  interfaces: ens33
+  sources:
+  services: dhcpv6-client ssh
+  ports: 4400-4600/udp 4400-4600/tcp
+  protocols:
+  masquerade: no
+  forward-ports:
+  source-ports:
+  icmp-blocks:
+  rich rules:
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+5、查看端口列表
+
+firewall-cmd --list-ports
+-----------------------
+4400-4600/udp 4400-4600/tcp
+1
+2
+3
+6、查看指定端口是否开启
+
+firewall-cmd --query-port=3306/tcp
+--------------------------------
+no
+
+firewall-cmd --query-port=4400/tcp
+--------------------------------
+yes
+1
+2
+3
+4
+5
+6
+7
+7、添加端口
+
+firewall-cmd --add-port=9001/tcp --permanent  #添加单个端口
+
+firewall-cmd --add-port=65001-65010/tcp --permanent	#批量添加区间端口
+
+firewall-cmd --reload         #一定要重载下
+
+# 查看是否添加成功
+firewall-cmd --list-ports
+-------------------------
+4400-4600/udp 4400-4600/tcp 2888/tcp 9001/tcp 65001-65010/tcp
+
+======================================================
+`–permanent 永久生效 / 否则重启失效
+–zone 作用域 一般都是public , 可以使用firewall-cmd --list-all-zones命令查看当前使用的域
+–add-service 添加服务
+–add-port 添加端口, 格式为 端口号/端口协议`
+
+1
+2 允许\禁止开机自启动
+systemctl enable firewalld		#允许
+systemctl disable firewalld		#禁止
+
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+8、删除端口
+
+firewall-cmd --remove-port=9001/tcp --permanent 	#删除指定端口
+firewall-cmd --reload
+1
+2
+9、重新加载（修改防火墙规则后需要执行reload）
+
+firewall-cmd --reload
+1
+10、端口转发路由
+
+# 将80端口的流量转发至8080
+firewall-cmd --add-forward-port=port=80:proto=tcp:toport=8080
+
+
+# 将80端口的流量转发至192.168.0.1
+firewall-cmd --add-forward-port=proto=80:proto=tcp:toaddr=192.168.1.0.1
+
+
+# 将80端口的流量转发至192.168.0.1的8080端口
+firewall-cmd --add-forward-port=proto=80:proto=tcp:toaddr=192.168.0.1:toport=8080
+1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11、获取支持的区域列表
+
+ firewall-cmd --get-zones
+1
+12、获取所有支持的服务
+
+ firewall-cmd --get-services
+1
+13、获取所有支持的ICMP类型
+
+ firewall-cmd --get-icmptypes
+1
+14、列出全部启用的区域的特性
+
+ firewall-cmd --list-all-zones
+1
+15、扩展命令
+
+# 检查是否允许伪装IP
+firewall-cmd --query-masquerade
+# 允许防火墙伪装IP
+firewall-cmd --add-masquerade
+# 禁止防火墙伪装IP
+firewall-cmd --remove-masquerade
+1
+2
+3
+4
+5
+6
+firewalld配置目录: /etc/firewalld/
+默认区域配置目录： /usr/lib/firewalld/zones
+默认服务配置目录： /usr/lib/firewalld/services
+自定义区域规则配置目录： /etc/firewalld/zones
+使用之前，几个需要理解的概念。
+
+drop :类似于iptables的DROP，丢弃入口网络数据包不应答，出口网络数据包不限制。
+block :类似REJECT，拒绝入口网络数据包，对于IPv4应答icmp-host-prohibited类型ICMP消息，对于IPv6应答icmp-adm-prohibited类型ICMP消息，
+public :类似ACCEPT,接收入口网络数据包,但不信任外部请求是否会破坏主机。
+trusted :接收所有连接数据。
+external :用于在启用伪装的外部网络上，尤其是针对路由器。您不相信网络上的其他计算机不会损害您的计算机。仅接受选定的传入连接。
+dmz :适用于您的非军事区内的计算机，这些计算机可公开访问，但对您的内部网络的访问受到限制。仅接受选定的传入连接。
+work :用于工作区域。通常相信网络上的其他计算机不会损害您的计算机。仅接受选定的传入连接。
+home :用于家庭区域。您通常相信网络上的其他计算机不会损害您的计算机。仅接受选定的传入连接。
+internal :用于内部网络。您通常相信网络上的其他计算机不会损害您的计算机。仅接受选定的传入连接。

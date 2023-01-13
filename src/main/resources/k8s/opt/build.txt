@@ -58,6 +58,10 @@ minikube ip
 linux
 minikube delete
 minikube start --force --driver=docker --kubernetes-version=v1.23.8 --cpus=4 --memory=15096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+
+
+
+
 smp
 minikube start --force --driver=docker --kubernetes-version=v1.23.8 --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 
@@ -104,10 +108,27 @@ docker
   ]
 }
 
+
+
+kuboard
+https://kuboard.cn/install/v3/install-in-k8s.html
+安装
+kubectl apply -f https://addons.kuboard.cn/kuboard/kuboard-v3-swr.yaml
+卸载
+kubectl delete -f https://addons.kuboard.cn/kuboard/kuboard-v3.yaml
+http://your-node-ip-address:30080
+
+
+http://k8s:30080
+用户名： admin
+密码： Kuboard123
+
+
+
 dashboard
 kubectl get svc --all-namespaces
 kubernetes-dashboard   kubernetes-dashboard       443:32443/TCP                4m50s
-http://k8s:32443
+https://k8s:32443
 
 
 获取登录token

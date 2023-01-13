@@ -1,4 +1,4 @@
-FROM  king019/linux:jdk11
+FROM  king019/linux:jdk8
 
 MAINTAINER king019
 COPY gitjar.sh /gitjar.sh

@@ -1,12 +1,8 @@
-FROM alpine as alpine
-RUN sed -i 's/https/http/g' /etc/apk/repositories
-RUN sed -i 's/dl-cdn.alpinelinux.org/repo.huaweicloud.com/g' /etc/apk/repositories
+FROM king019/alpine:p as alpine
 # RUN apk add -U --no-cache ca-certificates
 RUN apk add ca-certificates
 
-FROM alpine
-RUN sed -i 's/https/http/g' /etc/apk/repositories
-RUN sed -i 's/dl-cdn.alpinelinux.org/repo.huaweicloud.com/g' /etc/apk/repositories
+FROM king019/alpine:p
 EXPOSE 3000
 
 ENV GODEBUG netdns=go

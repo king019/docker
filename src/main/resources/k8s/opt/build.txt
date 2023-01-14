@@ -56,14 +56,17 @@ minikube ip
 1.25
 可运行
 linux
-minikube delete
+
+
 minikube start --force --driver=docker --kubernetes-version=v1.23.8 --cpus=4 --memory=15096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 
 
 
 
 smp
-minikube start --force --driver=docker --kubernetes-version=v1.23.8 --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+minikube start --force  --driver=docker --kubernetes-version=v1.23.8 --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+
+minikube start --force --insecure-registry=docker:5000 --driver=docker --kubernetes-version=v1.23.8 --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 
 4096
 minikube start --force --driver=docker --kubernetes-version=v1.23.8  --memory=4096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'

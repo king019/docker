@@ -7,8 +7,6 @@ kubectl describe svc nacos
 
 
 
-
-
 kubectl logs -f podname
 
 kubectl get pod -n namespace

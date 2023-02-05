@@ -41,6 +41,14 @@
             <groupId>org.apache.logging.log4j</groupId>
             <artifactId>log4j-api</artifactId>
         </dependency>
+        <dependency>
+            <groupId>com.github.king019</groupId>
+            <artifactId>fw_dependency</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.github.king019</groupId>
+            <artifactId>fw_common</artifactId>
+        </dependency>
     </dependencies>
     <build>
         <plugins>

@@ -17,6 +17,7 @@ spec:
       containers:
         - name: sonar
           image: sonarqube
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
 

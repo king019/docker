@@ -80,7 +80,7 @@ public class JenkinsUtil {
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         writeNormal("", models, true, multi, push, configModel, platform);
         if (configModel.isLocalRegion()) {
-            writeLocal(DockerRegionEnum.LOCAL, models, false, multi, push, configModel, platform);
+            writeLocal(DockerRegionEnum.LOCAL5000, models, false, multi, push, configModel, platform);
         }
         int index = 0;
         for (String git : gitMap.keySet().stream().sorted().collect(Collectors.toList())) {

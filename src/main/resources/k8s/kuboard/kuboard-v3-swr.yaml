@@ -30,7 +30,7 @@ data:
   # GITLAB_BASE_URL: "http://gitlab.mycompany.com"
   # GITLAB_APPLICATION_ID: "7c10882aa46810a0402d17c66103894ac5e43d6130b81c17f7f2d8ae182040b5"
   # GITLAB_CLIENT_SECRET: "77c149bd3a4b6870bffa1a1afaf37cba28a1817f4cf518699065f5a8fe958889"
-  
+
   # 关于如下参数的解释，请参考文档 https://kuboard.cn/install/v3/install-github.html
   # [github login]
   # KUBOARD_LOGIN_TYPE: "github"
@@ -74,9 +74,9 @@ roleRef:
   kind: ClusterRole
   name: cluster-admin
 subjects:
-- kind: ServiceAccount
-  name: kuboard-boostrap
-  namespace: kuboard
+  - kind: ServiceAccount
+    name: kuboard-boostrap
+    namespace: kuboard
 
 ---
 apiVersion: apps/v1

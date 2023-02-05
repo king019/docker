@@ -17,6 +17,7 @@ spec:
       containers:
         - name: jenkins
           image: jenkins:2.60.3-alpine
+          imagePullPolicy: IfNotPresent
           ports:
             - containerPort: 8080
 

@@ -1,0 +1,67 @@
+# webapp-deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apollo-config
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apollo-config
+  template:
+    metadata:
+      labels:
+        app: apollo-config
+    spec:
+      containers:
+        - name: apollo-config
+          image: registry.cn-beijing.aliyuncs.com/king019/apollo:config_2.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6121
+          env:
+            - name: DS_URL
+              value: "jdbc:mysql://mysql:3306/ApolloConfigDB"
+            - name: DS_USERNAME
+              value: root
+            - name: DS_PASSWORD
+              value: "111111"
+            - name: SERVER_PORT
+              value: "6121"
+            - name: EUREKA_INSTANCE_IP_ADDRESS
+              value: "apollo-config"
+            - name: JAVA_OPTS
+              value: " -Xms128m -Xmx128m -Xmn64m "
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apollo-config
+spec:
+  #  type: NodePort
+  ports:
+    - port: 6121
+      targetPort: 6121
+      protocol: TCP
+  selector:
+    app: apollo-config
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apollo-config
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: apollo-config.k8s.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: apollo-config
+                port:
+                  number: 6121

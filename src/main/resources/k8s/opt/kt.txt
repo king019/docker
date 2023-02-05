@@ -1,0 +1,16 @@
+https://www.jianshu.com/p/836fc2bd5faf
+
+
+1
+brew install sshuttle
+
+2.下载并安装KT（以x86 64位版本为例）
+$ curl -OL https://github.com/alibaba/kt-connect/releases/download/v0.3.0/ktctl_0.3.0_MacOS_x86_64.tar.gz
+$ tar zxf ktctl_0.3.0_MacOS_x86_64.tar.gz
+$ mv ktctl /usr/local/bin/ktctl
+$ ktctl help
+
+
+6.根据官方文档，开启kt
+
+sudo ktctl connect  2223

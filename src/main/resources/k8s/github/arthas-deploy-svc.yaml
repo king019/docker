@@ -1,0 +1,22 @@
+# webapp-deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: arthas
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: arthas
+  template:
+    metadata:
+      labels:
+        app: arthas
+    spec:
+      containers:
+        - name: arthas
+          image: registry.cn-beijing.aliyuncs.com/king019/arthas
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080

@@ -217,7 +217,7 @@ spec:
           envFrom:
             - configMapRef:
                 name: kuboard-v3-config
-          image: 'docker:5000/kuboard/kuboard:v3'
+          image: 'docker:5000/kuboard/kuboard:v3.5.2.0'
           imagePullPolicy: Always
           livenessProbe:
             failureThreshold: 3

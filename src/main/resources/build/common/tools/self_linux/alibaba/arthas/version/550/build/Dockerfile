@@ -1,4 +1,4 @@
-FROM  king019/linux:jdk11
+FROM  king019/linux:jdk17
 
 MAINTAINER king019
 RUN alias javah=/usr/lib/jvm/java-1.8-openjdk/bin/javah

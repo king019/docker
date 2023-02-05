@@ -17,7 +17,6 @@ spec:
       containers:
         - name: nfs
           image: gists/nfs-server
-          imagePullPolicy: IfNotPresent
           ports:
             - name: bind-port
               containerPort: 111

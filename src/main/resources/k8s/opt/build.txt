@@ -58,37 +58,38 @@ minikube ip
 linux
 
 
-minikube start --force --driver=docker --kubernetes-version=v1.23.8 --cpus=4 --memory=15096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+minikube start --force --insecure-registry=docker:5000 --driver=docker --kubernetes-version=v1.23.8 --cpus=4 --memory=15096mb --image-mirror-country='cn' --registry-mirror=http://docker:5000,https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 
 
 
 
 smp
-minikube start --force  --driver=docker --kubernetes-version=v1.23.8 --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+minikube start --force  --insecure-registry=docker:5000 --driver=docker --kubernetes-version=v1.23.8 --image-mirror-country='cn' --registry-mirror=http://docker:5000,https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 
-minikube start --force --insecure-registry=docker:5000 --driver=docker --kubernetes-version=v1.23.8 --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 
 4096
-minikube start --force --driver=docker --kubernetes-version=v1.23.8  --memory=4096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+minikube start --force --insecure-registry=docker:5000 --driver=docker --kubernetes-version=v1.23.8  --memory=4096mb --image-mirror-country='cn' --registry-mirror=http://docker:5000,https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 
+8g
+minikube start --force --insecure-registry=docker:5000 --driver=docker --kubernetes-version=v1.23.8 --cpus=2 --memory=8096mb --image-mirror-country='cn' --registry-mirror=http://docker:5000,https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 
 
 
 minikube delete
-minikube start --force --driver=docker --cpus=2 --memory=4096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+minikube start --force --insecure-registry=docker:5000 --driver=docker --cpus=2 --memory=4096mb --image-mirror-country='cn' --registry-mirror=http://docker:5000,https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 
 
 
 1.9
 minikube delete
-minikube start --force --driver=docker --cpus=3 --memory=3096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.9.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+minikube start --force --insecure-registry=docker:5000 --driver=docker --cpus=3 --memory=3096mb --image-mirror-country='cn' --registry-mirror=http://docker:5000,https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.9.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 1.8
 minikube delete
-minikube start --force --driver=docker --cpus=3 --memory=3096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.8.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+minikube start --force --insecure-registry=docker:5000 --driver=docker --cpus=3 --memory=3096mb --image-mirror-country='cn' --registry-mirror=http://docker:5000,https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.8.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 
 1.5
 minikube delete
-minikube start --force --driver=docker --cpus=3 --memory=3096mb --image-mirror-country='cn' --registry-mirror=https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.5.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
+minikube start --force --insecure-registry=docker:5000 --driver=docker --cpus=3 --memory=3096mb --image-mirror-country='cn' --registry-mirror=http://docker:5000,https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.5.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 
 
 
@@ -116,6 +117,8 @@ docker
 kuboard
 https://kuboard.cn/install/v3/install-in-k8s.html
 安装
+kubectl apply -f https://addons.kuboard.cn/kuboard/kuboard-v3.yaml
+
 kubectl apply -f https://addons.kuboard.cn/kuboard/kuboard-v3-swr.yaml
 卸载
 kubectl delete -f https://addons.kuboard.cn/kuboard/kuboard-v3.yaml
@@ -136,3 +139,8 @@ https://k8s:32443
 
 获取登录token
 kubectl -n kube-system describe secret $(kubectl -n kube-system get secret | grep admin-user | awk '{print $1}')
+
+
+
+
+sudo ktctl connect

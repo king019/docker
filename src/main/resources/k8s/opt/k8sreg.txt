@@ -76,10 +76,10 @@ docker push docker:5000/dk-mysql:5.7
 
 
 #nacos
-echo 'registry.cn-beijing.aliyuncs.com/king019/nacos'
-docker pull registry.cn-beijing.aliyuncs.com/king019/nacos
-docker tag registry.cn-beijing.aliyuncs.com/king019/nacos  docker:5000/dk-king019/nacos
-docker push docker:5000/dk-king019/nacos
+echo 'registry.cn-beijing.aliyuncs.com/king019/nacos:2.2.0'
+docker pull registry.cn-beijing.aliyuncs.com/king019/nacos:2.2.0
+docker tag registry.cn-beijing.aliyuncs.com/king019/nacos:2.2.0  docker:5000/dk-king019/nacos:2.2.0
+docker push docker:5000/dk-king019/nacos:2.2.0
 
 
 #gitlab
@@ -109,3 +109,51 @@ echo 'king019/linux'
 docker pull registry.cn-beijing.aliyuncs.com/king019/linux
 docker tag registry.cn-beijing.aliyuncs.com/king019/linux  docker:5000/dk-king019/linux
 docker push docker:5000/dk-king019/linux
+
+
+#dubbo
+echo 'registry.cn-beijing.aliyuncs.com/king019/dubbo:consumer'
+docker pull registry.cn-beijing.aliyuncs.com/king019/dubbo:consumer
+docker tag registry.cn-beijing.aliyuncs.com/king019/dubbo:consumer  docker:5000/dk-king019/dubbo:consumer
+docker push docker:5000/dk-king019/dubbo:consumer
+
+#king019/linux
+echo 'king019/linux'
+docker pull registry.cn-beijing.aliyuncs.com/king019/dubbo:provider
+docker tag registry.cn-beijing.aliyuncs.com/king019/dubbo:provider  docker:5000/dk-king019/dubbo:provider
+docker push docker:5000/dk-king019/dubbo:provider
+
+
+
+#apollo
+echo 'registry.cn-beijing.aliyuncs.com/king019/apollo:protal_1.9.2'
+docker pull registry.cn-beijing.aliyuncs.com/king019/apollo:protal_1.9.2
+docker tag registry.cn-beijing.aliyuncs.com/king019/apollo:protal_1.9.2  docker:5000/dk-king019/apollo:protal_1.9.2
+docker push docker:5000/dk-king019/apollo:protal_1.9.2
+
+echo 'registry.cn-beijing.aliyuncs.com/king019/apollo:config_1.9.2'
+docker pull registry.cn-beijing.aliyuncs.com/king019/apollo:config_1.9.2
+docker tag registry.cn-beijing.aliyuncs.com/king019/apollo:config_1.9.2  docker:5000/dk-king019/apollo:config_1.9.2
+docker push docker:5000/dk-king019/apollo:config_1.9.2
+
+echo 'registry.cn-beijing.aliyuncs.com/king019/apollo:admin_1.9.2'
+docker pull registry.cn-beijing.aliyuncs.com/king019/apollo:admin_1.9.2
+docker tag registry.cn-beijing.aliyuncs.com/king019/apollo:admin_1.9.2  docker:5000/dk-king019/apollo:admin_1.9.2
+docker push docker:5000/dk-king019/apollo:admin_1.9.2
+
+
+#apollo
+echo 'registry.cn-beijing.aliyuncs.com/king019/apollo:protal_2.0.1'
+docker pull registry.cn-beijing.aliyuncs.com/king019/apollo:protal_2.0.1
+docker tag registry.cn-beijing.aliyuncs.com/king019/apollo:protal_2.0.1  docker:5000/dk-king019/apollo:protal_2.0.1
+docker push docker:5000/dk-king019/apollo:protal_2.0.1
+
+echo 'registry.cn-beijing.aliyuncs.com/king019/apollo:config_2.0.1'
+docker pull registry.cn-beijing.aliyuncs.com/king019/apollo:config_2.0.1
+docker tag registry.cn-beijing.aliyuncs.com/king019/apollo:config_2.0.1  docker:5000/dk-king019/apollo:config_2.0.1
+docker push docker:5000/dk-king019/apollo:config_2.0.1
+
+echo 'registry.cn-beijing.aliyuncs.com/king019/apollo:admin_2.0.1'
+docker pull registry.cn-beijing.aliyuncs.com/king019/apollo:admin_2.0.1
+docker tag registry.cn-beijing.aliyuncs.com/king019/apollo:admin_2.0.1  docker:5000/dk-king019/apollo:admin_2.0.1
+docker push docker:5000/dk-king019/apollo:admin_2.0.1

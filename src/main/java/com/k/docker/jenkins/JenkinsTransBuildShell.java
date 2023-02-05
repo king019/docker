@@ -23,6 +23,11 @@ public class JenkinsTransBuildShell {
     private String docker5000 = "docker:5000";
     private String docker5001 = "docker:5001";
 
+    public static void main(String[] args) throws Exception {
+        JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
+        shell.test();
+    }
+
     @Test
     public void test() throws Exception {
         String resource = FWPathUtil.getTargetClassesPath("build/github/pull/Dockerfile");

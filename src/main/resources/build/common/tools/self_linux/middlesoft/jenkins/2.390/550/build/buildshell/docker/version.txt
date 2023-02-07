@@ -1,2 +1,0 @@
-king019/jenkins:2.390
-king019/jenkins

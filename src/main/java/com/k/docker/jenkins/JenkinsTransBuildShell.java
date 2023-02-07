@@ -37,6 +37,7 @@ public class JenkinsTransBuildShell {
         shell.test();
     }
 
+    @Test
     public void test() throws Exception {
         String resource = FWPathUtil.getTargetClassesPath("build/github/pull/Dockerfile");
         String targetAliyunPath = FWPathUtil.getTargetPath("pull/aliyun_qingdao.sh");

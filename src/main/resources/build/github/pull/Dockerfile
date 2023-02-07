@@ -25,9 +25,16 @@ consol/centos-xfce-vnc
 docker:git
 golang
 memcached
+sonarqube
 node
 redis
+tomcat
+tomcat:9
+tomcat:8
 registry
+istio/proxyv2:1.16.2
+istio/proxyv2:1.16.2
+istio/pilot:1.16.2
 dorowu/ubuntu-desktop-lxde-vnc
 nacos/nacos-server
 gitea/gitea

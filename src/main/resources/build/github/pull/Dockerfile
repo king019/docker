@@ -9,7 +9,7 @@ alpine
 rockylinux:8
 mysql:5.7
 jenkins:2.60.3-alpine
-sonarqube
+sonarqube:lts-community
 kong/kubernetes-ingress-controller:2.8.1
 kong:3.1
 king019/linux
@@ -23,6 +23,7 @@ consol/ubuntu-xfce-vnc
 consol/ubuntu-icewm-vnc
 consol/centos-xfce-vnc
 docker:git
+quay.io/centos/centos:stream9
 golang
 memcached
 sonarqube
@@ -32,7 +33,6 @@ tomcat
 tomcat:9
 tomcat:8
 registry
-istio/proxyv2:1.16.2
 istio/proxyv2:1.16.2
 istio/pilot:1.16.2
 dorowu/ubuntu-desktop-lxde-vnc
@@ -46,6 +46,8 @@ king019/linux
 king019/ubuntu
 king019/jenjins
 king019/nexus
+rockylinux:8
+rockylinux:9
 alpine
 centos:7
 centos:8

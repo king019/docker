@@ -20,8 +20,7 @@ beijing
 docker login -u king019
 
 nexus
-docker login --username=docker docker:5000
-docker login --username=docker docker:5001
+docker login --username=king019 docker:5000
 
 https://console.cloud.tencent.com/tke2/registry/user/self?rid=1
 

@@ -24,6 +24,7 @@ public class JenkinsTransBuildShell {
     private String docker5001 = "docker:5001";
     private int maxStep = 20;
     private int defStep = 1;
+    private boolean parll=true;
 
     public static void main(String[] args) throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
@@ -34,6 +35,7 @@ public class JenkinsTransBuildShell {
     public void test3() throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
         shell.maxStep = 3;
+        shell.parll=false;
         shell.test();
     }
 
@@ -70,7 +72,10 @@ public class JenkinsTransBuildShell {
             if (StringUtils.startsWith(line, ignore)) {
                 break;
             }
-            targetAliyunLines.add("{");
+            if(parll){
+                targetAliyunLines.add("{");
+            }
+
             String source = line;
             String transSource = line;
             String target;
@@ -86,9 +91,10 @@ public class JenkinsTransBuildShell {
             target = targetReg + "/" + transSource;
             targetAliyunLines.add("docker tag " + source + " " + target);
             targetAliyunLines.add("docker push " + target);
-            targetAliyunLines.add("}&");
-            if (step++ % maxStep == 0) {
-                targetAliyunLines.add("wait");
+            if(parll){
+            targetAliyunLines.add("}&");}
+            if (step++ % maxStep == 0) {  if(parll){
+                targetAliyunLines.add("wait");}
             }
         }
     }
@@ -103,7 +109,10 @@ public class JenkinsTransBuildShell {
             if (StringUtils.startsWith(line, ignore)) {
                 continue;
             }
-            targetDkLines.add("{");
+            if(parll){
+                targetDkLines.add("{");
+            }
+
             String source = line;
             String transSource = line;
             String target;
@@ -114,10 +123,10 @@ public class JenkinsTransBuildShell {
             }
             target = dockerHost + "/dk-" + transSource;
             targetDkLines.add("docker tag " + source + " " + target);
-            targetDkLines.add("docker push " + target);
-            targetDkLines.add("}&");
-            if (step++ % maxStep == 0) {
-                targetDkLines.add("wait");
+            targetDkLines.add("docker push " + target);  if(parll){
+            targetDkLines.add("}&");}
+            if (step++ % maxStep == 0) {  if(parll){
+                targetDkLines.add("wait");}
             }
         }
     }
@@ -131,8 +140,8 @@ public class JenkinsTransBuildShell {
             }
             if (StringUtils.startsWith(line, ignore)) {
                 continue;
-            }
-            targetDkAliyunLines.add("{");
+            }  if(parll){
+            targetDkAliyunLines.add("{");}
             String source = line;
             String transSource = line;
             String target;
@@ -154,10 +163,10 @@ public class JenkinsTransBuildShell {
             }
             target = dockerHost + "/dk-" + source;
             targetDkAliyunLines.add("docker tag " + transSource + " " + target);
-            targetDkAliyunLines.add("docker push " + target);
-            targetDkAliyunLines.add("}&");
-            if (step++ % maxStep == 0) {
-                targetDkAliyunLines.add("wait");
+            targetDkAliyunLines.add("docker push " + target);  if(parll){
+            targetDkAliyunLines.add("}&");}
+            if (step++ % maxStep == 0) {  if(parll){
+                targetDkAliyunLines.add("wait");}
             }
         }
     }

@@ -108,6 +108,7 @@ public class JenkinsBuildShell {
     @Test
     public void testReplaceFalse() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
+        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
         configModel.setLocalRegion(false);
         configModel.setInDocker(true);
         shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);

@@ -12,9 +12,7 @@ jenkins:2.60.3-alpine
 sonarqube:lts-community
 kong/kubernetes-ingress-controller:2.8.1
 kong:3.1
-king019/linux
-king019/centos
-king019/alpine
+
 apache/dubbo-admin
 arm64v8/zookeeper
 zookeeper:zookeeper
@@ -38,14 +36,6 @@ istio/pilot:1.16.2
 dorowu/ubuntu-desktop-lxde-vnc
 nacos/nacos-server
 gitea/gitea
-king019/alpine
-king019/centos
-king019/fedora
-king019/jdk
-king019/linux
-king019/ubuntu
-king019/jenjins
-king019/nexus
 rockylinux:8
 rockylinux:9
 alpine
@@ -92,12 +82,18 @@ registry.cn-hangzhou.aliyuncs.com/google_containers/kube-webhook-certgen:v1.1.1
 
 
 registry.cn-beijing.aliyuncs.com/king019/nacos:2.2.0
-registry.cn-beijing.aliyuncs.com/king019/linux
 registry.cn-beijing.aliyuncs.com/king019/dubbo:consumer
 registry.cn-beijing.aliyuncs.com/king019/dubbo:provider
-registry.cn-beijing.aliyuncs.com/king019/apollo:protal_1.9.2
-registry.cn-beijing.aliyuncs.com/king019/apollo:config_1.9.2
-registry.cn-beijing.aliyuncs.com/king019/apollo:admin_1.9.2
 registry.cn-beijing.aliyuncs.com/king019/apollo:protal_2.0.1
 registry.cn-beijing.aliyuncs.com/king019/apollo:config_2.0.1
 registry.cn-beijing.aliyuncs.com/king019/apollo:admin_2.0.1
+registry.cn-beijing.aliyuncs.com/king019/frame:service_v1
+registry.cn-beijing.aliyuncs.com/king019/frame:service_v2
+registry.cn-beijing.aliyuncs.com/king019/linux
+registry.cn-beijing.aliyuncs.com/king019/centos
+registry.cn-beijing.aliyuncs.com/king019/alpine
+registry.cn-beijing.aliyuncs.com/king019/fedora
+registry.cn-beijing.aliyuncs.com/king019/jdk
+registry.cn-beijing.aliyuncs.com/king019/ubuntu
+registry.cn-beijing.aliyuncs.com/king019/jenjins
+registry.cn-beijing.aliyuncs.com/king019/nexus

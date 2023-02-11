@@ -20,8 +20,9 @@ steps:
       - mvn clean
       - mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/drone/src@thread=1@rep=true@push=true@local=true"
       - pwd;ls
-      - sh ./target/local_region/noSuffix_false.sh
-#      - sh ./target/aarch64_true.sh
+      - chmod -R 777 .
+      - cd ./target
+      - sh ./docker_5000_true.sh
 volumes:
   - name: maven
     host:

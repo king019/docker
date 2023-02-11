@@ -37,6 +37,8 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nacos
+  labels:
+    version: v1
 spec:
   #  type: NodePort
   ports:
@@ -47,24 +49,47 @@ spec:
   selector:
     app: nacos
 ---
-apiVersion: networking.k8s.io/v1
-kind: Ingress
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
 metadata:
-  name: nacos
-  annotations:
-    kubernetes.io/ingress.class: "istio"
+  name: nacos-destination
 spec:
-  rules:
-    - host: k8s.com
-      http:
-        paths:
-          - path: /nacos
-            pathType: Prefix
-            backend:
-              service:
-                name: nacos
-                port:
-                  number: 8848
+  host: k8s.com
+  trafficPolicy:
+    loadBalancer:
+      simple: RANDOM
+  subsets:
+    - name: v1
+      labels:
+        version: v1
+#    - name: v2
+#      labels:
+#        version: v2
+#      trafficPolicy:
+#        loadBalancer:
+#          simple: ROUND_ROBIN
+#    - name: v3
+#      labels:
+#        version: v3
+---
+#apiVersion: networking.k8s.io/v1
+#kind: Ingress
+#metadata:
+#  name: nacos
+#  annotations:
+#    kubernetes.io/ingress.class: "istio"
+#spec:
+#  rules:
+#    - host: k8s.com
+#      http:
+#        paths:
+#          - path: /nacos
+#            pathType: Prefix
+#            backend:
+#              service:
+#                name: nacos
+#                port:
+#                  number: 8848
 ---
 apiVersion: networking.istio.io/v1alpha3
 kind: Gateway

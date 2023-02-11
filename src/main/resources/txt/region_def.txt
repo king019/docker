@@ -5,5 +5,4 @@ aliyun_shenzhen
 aliyun_beijing
 tenyun_beijing
 docker
-local_region
-local_5001
+docker_5000

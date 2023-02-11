@@ -23,9 +23,9 @@ public enum DockerRegionEnum {
     TEN_BEI_JING("tenyun_beijing", "ccr.ccs.tencentyun.com", "tenbj"),
     DOCKER("docker", "", "dk"),
 
-    LOCAL5001("local_5001", "docker:5001", "dk5001"),
+//    LOCAL5001("local_5001", "docker:5001", "dk5001"),
     //SMP("smp", "docker:5000"),
-    LOCAL5000("local_region", "docker:5000", "lc", true);
+    DOCKER_5000("docker_5000", "docker:5000", "lc", false);
 
     private String region;
     private String host;

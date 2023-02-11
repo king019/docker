@@ -79,9 +79,9 @@ public class JenkinsUtil {
         });
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         writeNormal("", models, true, multi, push, configModel, platform);
-        if (configModel.isLocalRegion()) {
-            writeLocal(DockerRegionEnum.LOCAL5000, models, false, multi, push, configModel, platform);
-        }
+//        if (configModel.isLocalRegion()) {
+//            writeLocal(DockerRegionEnum.LOCAL5000, models, false, multi, push, configModel, platform);
+//        }
         int index = 0;
         for (String git : gitMap.keySet().stream().sorted().collect(Collectors.toList())) {
             String des = gitMap.get(git);
@@ -205,6 +205,7 @@ public class JenkinsUtil {
     }
 
     private void writeLocal(DockerRegionEnum regionEnum, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push, DockerConfigModel configModel, DockerPlatformEnum platform) {
+    if(configModel.isLocalRegion()){
         models = filterSpecial(models, configModel);
         models = models.stream().filter(model -> DockerPlatformEnum.ADM64.equals(model.getPlatform())).map(model -> {
             model.setPlatforms(ImmutableSet.of());
@@ -218,12 +219,32 @@ public class JenkinsUtil {
                 return true;
             }
         }).collect(Collectors.toList());
+    }else {
+        models = models.stream().filter(model -> !model.getFunctions().contains(DockerFunctionEnum.ONLY_LOCAL)).collect(Collectors.toList());
+    }
         writeShell(regionEnum.getRegion() + "/", models, mix, multi, push, configModel, platform);
     }
 
     private void writeNormal(String dir, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push, DockerConfigModel configModel, DockerPlatformEnum platform) {
-        models = filterNormal(models, configModel);
-        models = models.stream().filter(model -> !model.getFunctions().contains(DockerFunctionEnum.ONLY_LOCAL)).collect(Collectors.toList());
+        //models = filterNormal(models, configModel);
+        if(configModel.isLocalRegion()){
+            models = filterSpecial(models, configModel);
+            models = models.stream().filter(model -> DockerPlatformEnum.ADM64.equals(model.getPlatform())).map(model -> {
+                model.setPlatforms(ImmutableSet.of());
+                model.setPlatform(DockerPlatformEnum.NO_SUFFIX);
+                return model;
+            }).filter(model -> {
+                Set<DockerRegionEnum> ignoreRegions = model.getIgnoreRegions();
+                if (CollectionUtils.isNotEmpty(ignoreRegions)) {
+                    return !ignoreRegions.contains(model.getRegion());
+                } else {
+                    return true;
+                }
+            }).collect(Collectors.toList());
+        }else {
+            models = models.stream().filter(model -> !model.getFunctions().contains(DockerFunctionEnum.ONLY_LOCAL)).collect(Collectors.toList());
+        }
+        //models = models.stream().filter(model -> !model.getFunctions().contains(DockerFunctionEnum.ONLY_LOCAL)).collect(Collectors.toList());
         writeShell(dir, models, mix, multi, push, configModel, platform);
     }
 

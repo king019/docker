@@ -17,6 +17,8 @@ RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^#baseurl=http://dl.rockylinux.
 
 #only  rockylinux:9s
 RUN sed -e 's|^mirrorlist=|#mirrorlist=|g'  -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://mirrors.aliyun.com/rockylinux|g'  -i.bak /etc/yum.repos.d/rocky*.repo
+
+
 COPY docker.sh /docker.sh
 
 RUN chmod 755 /*.sh

@@ -25,8 +25,10 @@ public class JenkinsTransBuildShell {
     private String docker5001 = "docker:5001";
     private int maxStep = 20;
     private int defStep = 1;
-    private boolean arm = false;   private boolean subFix = false;
-    private boolean parll = true;private boolean manifest = true;
+    private boolean arm = false;
+    private boolean subFix = false;
+    private boolean parll = true;
+    private boolean manifest = true;
 
     public static void main(String[] args) throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
@@ -39,24 +41,32 @@ public class JenkinsTransBuildShell {
         shell.maxStep = 3;
         shell.parll = false;
         shell.test();
-    }   @Test
+    }
+
+    @Test
     public void testPar() throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
-        shell.maxStep = 3; shell.arm = true;
+        shell.maxStep = 3;
+        shell.arm = true;
         shell.test();
-    }    @Test
+    }
+
+    @Test
     public void testNoMulti() throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
         shell.maxStep = 3;
-        shell.parll = false;  shell.arm = true;
+        shell.parll = false;
+        shell.arm = true;
         shell.manifest = false;
         shell.test();
     }
+
     @Test
     public void testMulti() throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
         shell.maxStep = 3;
-        shell.parll = true;  shell.arm = true;
+        shell.parll = true;
+        shell.arm = true;
         shell.manifest = true;
         shell.test();
     }
@@ -68,16 +78,17 @@ public class JenkinsTransBuildShell {
         shell.parll = false;
         shell.arm = true;
         shell.test();
-    }  @Test
+    }
+
+    @Test
     public void testNoArm() throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
         shell.maxStep = 3;
         shell.parll = false;
-        shell.arm = false;shell.manifest=false;
+        shell.arm = false;
+        shell.manifest = false;
         shell.test();
     }
-
-
 
 
     @Test
@@ -160,7 +171,7 @@ public class JenkinsTransBuildShell {
             String source = line;
             String transSource = line;
             String target;
-            targetDkLines.add("echo '" + line+"'");
+            targetDkLines.add("echo '" + line + "'");
             targetDkLines.add("docker pull " + line);
             for (String reg : regSet) {
                 transSource = StringUtils.replace(transSource, reg + "/", "");
@@ -174,7 +185,7 @@ public class JenkinsTransBuildShell {
                 targetDkLines.add("docker tag " + source + " " + targetArm64);
                 targetDkLines.add("docker push " + targetArm64);
             }
-            if(manifest){
+            if (manifest) {
                 manifest(target, targetX86, targetArm64, targetDkLines);
             }
             if (parll) {
@@ -188,8 +199,8 @@ public class JenkinsTransBuildShell {
         }
     }
 
-    private String addSub(String target, String sub,boolean subFix) {
-        if(subFix){
+    private String addSub(String target, String sub, boolean subFix) {
+        if (subFix) {
             //String sub= DockerPlatformEnum.ADM64.getPlatform();
             if (!StringUtils.contains(target, ":")) {
                 target = target + ":";

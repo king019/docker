@@ -6,7 +6,7 @@ MAINTAINER king019
 RUN dnf -y install  git
 RUN dnf -y install  wget
 RUN dnf -y install  vim
-
+RUN dnf -y install  bind-utils
 RUN dnf -y install  net-tools
 RUN dnf -y install  unzip
 RUN dnf -y install  which

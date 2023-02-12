@@ -14,7 +14,7 @@ RUN mkdir -p /etc/docker
 
 #only  rockylinux:8
 RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://mirrors.aliyun.com/rockylinux|g' -i.bak /etc/yum.repos.d/Rocky-*.repo
-RUN dnf -y install  bind-utils
+
 COPY docker.sh /docker.sh
 
 RUN chmod 755 /*.sh

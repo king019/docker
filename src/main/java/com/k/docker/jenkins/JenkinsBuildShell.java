@@ -78,6 +78,10 @@ public class JenkinsBuildShell {
             configModel.setReplaceSetting(replaceSetting);
         }
         {
+            boolean replaceTxt = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.RP_TXT, map));
+            configModel.setReplaceTxt(replaceTxt);
+        }
+        {
             String val = JenkinsUtil.getVal(DockerParamEnum.INCLUDE, map);
             if (StringUtils.isNotBlank(val)) {
                 includes.addAll(Lists.newArrayList(val.split(",")));
@@ -117,9 +121,38 @@ public class JenkinsBuildShell {
     @Test
     public void testOriginTrue() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        configModel.setOrigin(true);
-        configModel.setLocalRegion(true);
+        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
+        configModel.setOrigin(false);
+        configModel.setLocalRegion(false);
         configModel.setInDocker(true);
+        configModel.setReplaceSetting(true);
+        configModel.setReplaceTxt(true);
+        configModel.setMaxIndex(549);
+        shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
+    }
+    @Test
+    public void test550() throws Exception {
+        JenkinsUtil shell = new JenkinsUtil();
+        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
+        configModel.setOrigin(false);
+        configModel.setLocalRegion(false);
+        configModel.setInDocker(true);
+        configModel.setReplaceSetting(true);
+        configModel.setReplaceTxt(true);
+        configModel.setMinIndex(549);
+        shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
+    }
+
+    @Test
+    public void testAllLocal() throws Exception {
+        JenkinsUtil shell = new JenkinsUtil();
+        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
+        configModel.setOrigin(false);
+        configModel.setLocalRegion(true);
+        configModel.setInDocker(false);
+        configModel.setReplaceSetting(true);
+        configModel.setReplaceTxt(true);
+        configModel.setMaxIndex(549);
         shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
     }
 

@@ -1,0 +1,176 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-prod-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pod-prod
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: pod-prod
+        version: v1
+    spec:
+      containers:
+        - name: pod-prod-v1
+          image: docker:5000/king019/frame_service
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: serviceName
+              value: "pod-prod-v1"
+            - name: serviceDelay
+              value: "0"
+            - name: JAVA_OPTS
+              value: "-Xms64m -Xmx64m -Xmn32m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-service
+  labels:
+    version: pod-prod
+spec:
+  #  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 8080
+      #    nodePort: 30001
+      protocol: TCP
+  selector:
+    app: pod-prod
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: pod-prod-detail-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pod-prod-detail
+      version: v1
+  template:
+    metadata:
+      labels:
+        app: pod-prod-detail
+        version: v1
+    spec:
+      containers:
+        - name: pod-prod-detail-v1
+          image: docker:5000/king019/frame_service
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: serviceName
+              value: "pod-prod-detail-v1"
+            - name: serviceDelay
+              value: "0"
+            - name: JAVA_OPTS
+              value: "-Xms64m -Xmx64m -Xmn32m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: product-detail-service
+  labels:
+    version: pod-prod-detail
+spec:
+  #  type: NodePort
+  ports:
+    - port: 80
+      targetPort: 8080
+      #    nodePort: 30001
+      protocol: TCP
+  selector:
+    app: pod-prod-detail
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: product-detail-service-limit
+plugin: rate-limiting
+config:
+  minute: 5
+---
+apiVersion: configuration.konghq.com/v1
+kind: KongIngress
+metadata:
+  name: mvc-kong-kong-ingress
+upstream:
+  hash_on: none
+  hash_fallback: none
+  healthchecks:
+    active:
+      concurrency: 10
+      healthy:
+        http_statuses:
+        - 200
+        - 302
+        interval: 0
+        successes: 0
+      http_path: "/"
+      timeout: 1
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        interval: 0
+        tcp_failures: 0
+        timeouts: 0
+    passive:
+      healthy:
+        http_statuses:
+        - 200
+        successes: 0
+      unhealthy:
+        http_failures: 0
+        http_statuses:
+        - 429
+        - 503
+        tcp_failures: 0
+        timeouts: 0
+proxy:
+  protocol: http
+  path: /123
+  connect_timeout: 10000
+  retries: 10
+  read_timeout: 10000
+  write_timeout: 10000
+route:
+  methods:
+  - POST
+  - GET
+  regex_priority: 0
+  strip_path: false
+  preserve_host: true
+  protocols:
+  - http
+  - https
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: mvc-kong-ingress
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+    konghq.com/override: mvc-kong-kong-ingress
+    konghq.com/plugins: product-detail-service-limit
+spec:
+  rules:
+    - host: service.k8s.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: product-service
+                port:
+                  number: 80

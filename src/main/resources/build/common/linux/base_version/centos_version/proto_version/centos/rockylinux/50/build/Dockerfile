@@ -1,4 +1,5 @@
 FROM rockylinux:9
+#FROM almalinux:9
 # FROM centos:8
 # FROM quay.io/centos/centos:stream9
 MAINTAINER king019
@@ -13,11 +14,14 @@ RUN mkdir -p /etc/docker
 
 
 #only  rockylinux:8
-RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://mirrors.aliyun.com/rockylinux|g' -i.bak /etc/yum.repos.d/Rocky-*.repo
+#RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://mirrors.aliyun.com/rockylinux|g' -i.bak /etc/yum.repos.d/Rocky-*.repo
 
-#only  rockylinux:9s
+#only  rockylinux:9
 RUN sed -e 's|^mirrorlist=|#mirrorlist=|g'  -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://mirrors.aliyun.com/rockylinux|g'  -i.bak /etc/yum.repos.d/rocky*.repo
 
+
+#only almalinux
+#RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^# baseurl=https://repo.almalinux.org|baseurl=https://mirrors.aliyun.com|g'  -i.bak  /etc/yum.repos.d/almalinux*.repo
 
 COPY docker.sh /docker.sh
 

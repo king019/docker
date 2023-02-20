@@ -9,7 +9,7 @@ RUN dnf -y install  nginx
 RUN dnf -y install  gdb
 RUN dnf -y install  strace
 RUN dnf -y install  traceroute
-RUN dnf -y --enablerepo=powertools install protobuf-devel
+#RUN dnf -y --enablerepo=powertools install protobuf-devel
 RUN dnf -y install  perf
 RUN dnf -y install go
 RUN dnf -y install make

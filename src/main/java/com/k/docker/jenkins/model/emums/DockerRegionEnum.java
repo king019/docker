@@ -21,11 +21,13 @@ public enum DockerRegionEnum {
     SHENZHEN("aliyun_shenzhen", "registry.cn-shenzhen.aliyuncs.com", "sz"),
     BEI_JING("aliyun_beijing", "registry.cn-beijing.aliyuncs.com", "bj"),
     TEN_BEI_JING("tenyun_beijing", "ccr.ccs.tencentyun.com", "tenbj"),
-    DOCKER("docker", "", "dk"),
+//    DOCKER("docker", "", "dk"),
 
-//    LOCAL5001("local_5001", "docker:5001", "dk5001"),
+    //    LOCAL5001("local_5001", "docker:5001", "dk5001"),
     //SMP("smp", "docker:5000"),
-    DOCKER_5000("docker_5000", "docker:5000", "lc", false);
+    NEXUS_5000("nexus_5000", "nexus:5000", "nexus5000"),
+    DOCKER("noSuffix", "docker:5000", "dk", true),
+    DOCKER_5000("docker_5000", "docker:5000", "lc");
 
     private String region;
     private String host;

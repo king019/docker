@@ -72,14 +72,14 @@ public class DockerJenkinsModel {
         //docker manifest annotate huxl/myapp:v1 huxl/myapp-x86_64:v1 --os linux --arch amd64
         ///docker manifest push huxl/myapp:v1
         sb.append("docker  manifest create ");
-        sb.append(" -a ");
+        sb.append(" -a --insecure ");
         sb.append(hostVersion);
         sb.append(" ");
         sb.append(buildVersions(hostVersion, platforms));
         sb.append(nextLine);
         buildAnnotate(sb, hostVersion);
         sb.append(nextLine);
-        sb.append("docker  manifest push -p ");
+        sb.append("docker  manifest push -p --insecure ");
         sb.append(hostVersion);
         sb.append(nextLine);
         return sb.toString();
@@ -111,7 +111,11 @@ public class DockerJenkinsModel {
 
     private String buildVersion(String hostVersion, DockerPlatformEnum platform) {
         String version = "";
-        if (StringUtils.contains(hostVersion, ":")) {
+       String hostVersionNow=hostVersion;
+        for (DockerRegionEnum regionEnum : DockerRegionEnum.values()) {
+            hostVersionNow=hostVersionNow.replace(regionEnum.getHost(),"");
+        }
+        if (StringUtils.contains(hostVersionNow, ":")) {
             version += hostVersion + getPlatformStr(platform) + "  ";
         } else {
             version += hostVersion + getPlatformSuffixStr(platform) + "  ";

@@ -1,0 +1,68 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apollo-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apollo-admin
+  template:
+    metadata:
+      labels:
+        app: apollo-admin
+    spec:
+      containers:
+        - name: apollo-admin
+          image: docker:5000/king019/apollo:admin_2.0.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 6122
+          env:
+            - name: DS_URL
+              value: "jdbc:mysql://mysql:3306/ApolloConfigDB"
+            - name: DS_USERNAME
+              value: root
+            - name: DS_PASSWORD
+              value: "111111"
+            - name: SERVER_PORT
+              value: "6122"
+            - name: EUREKA_INSTANCE_IP_ADDRESS
+              value: "apollo-admin"
+            - name: JAVA_OPTS
+              value: " -Xms128m -Xmx128m -Xmn64m "
+
+# webapp-service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apollo-admin
+spec:
+  #  type: NodePort
+  ports:
+    - port: 6122
+      targetPort: 6122
+      protocol: TCP
+  selector:
+    app: apollo-admin
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apollo-admin
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: apollo-admin.k8s.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: apollo-admin
+                port:
+                  number: 6122

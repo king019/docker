@@ -17,19 +17,22 @@ import com.k.docker.jenkins.model.emums.DockerParamEnum;
 import com.k.docker.jenkins.model.emums.DockerPlatformEnum;
 import com.k.docker.jenkins.model.emums.DockerRegionEnum;
 import com.k.docker.jenkins.model.emums.GitRemoteEnum;
+import lombok.SneakyThrows;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -63,6 +66,7 @@ public class JenkinsUtil {
         Set<String> regions = Sets.newHashSet();
         models.forEach(model -> regions.add(model.getRegion().getRegion()));
         regions.forEach(region -> writePlat("", DockerBuildPathEnum.platform.getPath(), region, true));
+        regions.forEach(region -> writePlat("", DockerBuildPathEnum.platform.getPath(), region, false));
     }
 
     public List<DockerJenkinsModel> jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replaceDockerGit, boolean push, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
@@ -78,7 +82,7 @@ public class JenkinsUtil {
             return compare;
         });
         models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
-        writeNormal("", models, true, multi, push, configModel, platform);
+        writeNormal("", models, !configModel.isLocalRegion(), multi, push, configModel, platform);
 //        if (configModel.isLocalRegion()) {
 //            writeLocal(DockerRegionEnum.LOCAL5000, models, false, multi, push, configModel, platform);
 //        }
@@ -196,39 +200,39 @@ public class JenkinsUtil {
         return line;
     }
 
-    private List<DockerJenkinsModel> filterNormal(List<DockerJenkinsModel> models, DockerConfigModel configModel) {
-        return models.stream().filter(model -> !DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
-    }
+//    private List<DockerJenkinsModel> filterNormal(List<DockerJenkinsModel> models, DockerConfigModel configModel) {
+//        return models.stream().filter(model -> !DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
+//    }
 
     private List<DockerJenkinsModel> filterSpecial(List<DockerJenkinsModel> models, DockerConfigModel configModel) {
         return models.stream().filter(model -> DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
     }
 
-    private void writeLocal(DockerRegionEnum regionEnum, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push, DockerConfigModel configModel, DockerPlatformEnum platform) {
-    if(configModel.isLocalRegion()){
-        models = filterSpecial(models, configModel);
-        models = models.stream().filter(model -> DockerPlatformEnum.ADM64.equals(model.getPlatform())).map(model -> {
-            model.setPlatforms(ImmutableSet.of());
-            model.setPlatform(DockerPlatformEnum.NO_SUFFIX);
-            return model;
-        }).filter(model -> {
-            Set<DockerRegionEnum> ignoreRegions = model.getIgnoreRegions();
-            if (CollectionUtils.isNotEmpty(ignoreRegions)) {
-                return !ignoreRegions.contains(model.getRegion());
-            } else {
-                return true;
-            }
-        }).collect(Collectors.toList());
-    }else {
-        models = models.stream().filter(model -> !model.getFunctions().contains(DockerFunctionEnum.ONLY_LOCAL)).collect(Collectors.toList());
-    }
-        writeShell(regionEnum.getRegion() + "/", models, mix, multi, push, configModel, platform);
-    }
+//    private void writeLocal(DockerRegionEnum regionEnum, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push, DockerConfigModel configModel, DockerPlatformEnum platform) {
+//    if(configModel.isLocalRegion()){
+//        models = filterSpecial(models, configModel);
+//        models = models.stream().filter(model -> DockerPlatformEnum.ADM64.equals(model.getPlatform())).map(model -> {
+//            model.setPlatforms(ImmutableSet.of());
+//            model.setPlatform(DockerPlatformEnum.NO_SUFFIX);
+//            return model;
+//        }).filter(model -> {
+//            Set<DockerRegionEnum> ignoreRegions = model.getIgnoreRegions();
+//            if (CollectionUtils.isNotEmpty(ignoreRegions)) {
+//                return !ignoreRegions.contains(model.getRegion());
+//            } else {
+//                return true;
+//            }
+//        }).collect(Collectors.toList());
+//    }else {
+//        models = models.stream().filter(model -> !model.getFunctions().contains(DockerFunctionEnum.ONLY_LOCAL)).collect(Collectors.toList());
+//    }
+//        writeShell(regionEnum.getRegion() + "/", models, mix, multi, push, configModel, platform);
+//    }
 
     private void writeNormal(String dir, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push, DockerConfigModel configModel, DockerPlatformEnum platform) {
         //models = filterNormal(models, configModel);
-        if(configModel.isLocalRegion()){
-            models = filterSpecial(models, configModel);
+        if (configModel.isLocalRegion()) {
+            //models = filterSpecial(models, configModel);
             models = models.stream().filter(model -> DockerPlatformEnum.ADM64.equals(model.getPlatform())).map(model -> {
                 model.setPlatforms(ImmutableSet.of());
                 model.setPlatform(DockerPlatformEnum.NO_SUFFIX);
@@ -241,11 +245,12 @@ public class JenkinsUtil {
                     return true;
                 }
             }).collect(Collectors.toList());
-        }else {
+        } else {
             models = models.stream().filter(model -> !model.getFunctions().contains(DockerFunctionEnum.ONLY_LOCAL)).collect(Collectors.toList());
         }
         //models = models.stream().filter(model -> !model.getFunctions().contains(DockerFunctionEnum.ONLY_LOCAL)).collect(Collectors.toList());
-        writeShell(dir, models, mix, multi, push, configModel, platform);
+        writeShell(dir, models, true, multi, push, configModel, platform);
+        writeShell(dir, models, false, multi, push, configModel, platform);
     }
 
     private void writeShell(String dir, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push, DockerConfigModel configModel, DockerPlatformEnum platform) {
@@ -278,6 +283,7 @@ public class JenkinsUtil {
             }).collect(Collectors.toList());
         }
         models = models.stream().filter(model -> model.getIndex() > configModel.getMinIndex()).collect(Collectors.toList());
+        models = models.stream().filter(model -> model.getIndex() < configModel.getMaxIndex()).collect(Collectors.toList());
         return models;
     }
 
@@ -368,6 +374,7 @@ public class JenkinsUtil {
         //String region = "beijing";
         String host = DockerRegionEnum.getRegion(region).getHost();
         List<String> lines = FileUtils.readLines(srcfile, StandardCharsets.UTF_8);
+        Map<DockerParamEnum, List<String>> map = buildMap(srcfile);
         if (CollectionUtils.isNotEmpty(lines)) {
             if (srcfile.getName().equals("Dockerfile")) {
                 for (int i = lines.size() - 1; i >= 0; i--) {
@@ -384,7 +391,6 @@ public class JenkinsUtil {
                         } else {
                             host = host + from.substring(index);
                         }
-
                         from = from.substring(0, index) + host;
                         if (!platform.equals(DockerPlatformEnum.NO_SUFFIX)) {
                             if (from.indexOf(":") > 0) {
@@ -398,6 +404,7 @@ public class JenkinsUtil {
                 }
                 for (int i = lines.size() - 1; i >= 0; i--) {
                     judgeDockerFile(srcfile, lines, i, configModel);
+                    judgeReplaceTxtDockerFile(map, lines, i, configModel);
                 }
             } else if (srcfile.getName().endsWith(".sh")) {
                 for (int i = lines.size() - 1; i >= 0; i--) {
@@ -412,6 +419,18 @@ public class JenkinsUtil {
         FileUtils.writeLines(destfile, lines);
     }
 
+    @SneakyThrows
+    private Map<DockerParamEnum, List<String>> buildMap(File srcfile) {
+        String dir = srcfile.getParent() + "/buildshell/docker";
+        Map<DockerParamEnum, List<String>> map = new HashMap<>();
+        File replaceTxt = new File(dir + "/replace.txt");
+        if (replaceTxt.exists()) {
+            List<String> lines = FileUtils.readLines(replaceTxt, Charset.defaultCharset());
+            lines=   lines.stream().filter(s -> !StringUtils.startsWith(s,"#")).toList();
+            map.put(DockerParamEnum.RP_TXT, lines);
+        }
+        return map;
+    }
 
     private void writePlat(String dir, String subDir, String plat, Collection<DockerJenkinsModel> models, boolean mix, int multi, boolean push, DockerConfigModel configModel) {
         List<String> lines = Lists.newArrayList();
@@ -645,10 +664,10 @@ public class JenkinsUtil {
     }
 
     private void judgeSetting(File srcfile, List<String> lines, int index, DockerConfigModel configModel) {
-        if (!configModel.isReplaceSetting()) {
+        if (!srcfile.getAbsolutePath().contains("settings.xml")) {
             return;
         }
-        if (!srcfile.getAbsolutePath().contains("settings.xml")) {
+        if (!configModel.isReplaceSetting()) {
             return;
         }
         String cmd = lines.get(index);
@@ -675,6 +694,22 @@ public class JenkinsUtil {
         }
         if (StringUtils.contains(cmd, "http://dl.rockylinux.org/$contentdir")) {
             lines.set(index, replaceRockylinux(cmd, "", configModel));
+        }
+    }
+
+    private void judgeReplaceTxtDockerFile(Map<DockerParamEnum, List<String>> map, List<String> lines, int index, DockerConfigModel configModel) {
+        if (configModel.isReplaceTxt()) {
+            List<String> repLines = map.get(DockerParamEnum.RP_TXT);
+            if (CollectionUtils.isEmpty(repLines)) {
+                return;
+            }
+            for (String repLine : repLines) {
+                String nowLine = lines.get(index);
+                if(StringUtils.isBlank(nowLine)){continue;}
+                if (repLine.contains(nowLine)) {
+                    lines.set(index, repLine.replace(nowLine, "").trim());
+                }
+            }
         }
     }
 

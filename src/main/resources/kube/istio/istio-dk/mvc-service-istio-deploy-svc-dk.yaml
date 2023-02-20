@@ -1,0 +1,73 @@
+# webapp-deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mvc-service-pod-name
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mvc-service-pod
+  template:
+    metadata:
+      labels:
+        app: mvc-service-pod
+    spec:
+      containers:
+        - name: mvc-service-pod-container
+          image: registry.cn-beijing.aliyuncs.com/king019/frame_service:v1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8080
+# webapp-service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mvc-service-name
+  labels:
+    version: mvc-service
+spec:
+  #  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      #    nodePort: 30001
+      protocol: TCP
+  selector:
+    app: mvc-service-pod
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: mvc-service-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: mvc-service-vs
+spec:
+  hosts:
+    - "k8s.com"
+  gateways:
+    - mvc-service-gateway
+  http:
+    - match:
+        - uri:
+            exact: /version
+      route:
+        - destination:
+            host: mvc-service-name
+            port:
+              number: 8080

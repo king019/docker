@@ -1,0 +1,10 @@
+
+
+cd /opt/soft/version/aliyun/docker/target/dockerDest/x86_64/docker_5000/tools/self_linux/project/spring/hub_frame/service_v1/unversion/550/build
+docker build -t docker:5000/king019/frame_service:v1_x86_64   .
+docker push docker:5000/king019/frame_service:v1_x86_64  
+
+
+cd /opt/soft/version/aliyun/docker/target/dockerDest/x86_64/docker_5000/tools/self_linux/project/spring/hub_frame/service_v2/unversion/550/build
+docker build -t docker:5000/king019/frame_service:v2_x86_64   .
+docker push docker:5000/king019/frame_service:v2_x86_64  

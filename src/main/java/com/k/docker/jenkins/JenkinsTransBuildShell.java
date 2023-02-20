@@ -11,15 +11,19 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Set;
+import java.util.function.Predicate;
 
 public class JenkinsTransBuildShell {
     private Set<String> regSet = Set.of(
             "registry.cn-hangzhou.aliyuncs.com",
             "registry.cn-beijing.aliyuncs.com",
             "swr.cn-east-2.myhuaweicloud.com",
-            "registry.gitlab.cn");
+            "registry.gitlab.cn",
+            "ghcr.io"
+    );
     private String targetReg = "registry.cn-qingdao.aliyuncs.com/king019";
     private String ignore = "@ignore";
+    private String ignoreDk = "@ignoreDk";
 
     private String docker5000 = "docker:5000";
     private String docker5001 = "docker:5001";
@@ -71,19 +75,21 @@ public class JenkinsTransBuildShell {
         shell.test();
     }
 
+    //mvn test -Dtest=com.k.docker.jenkins.JenkinsTransBuildShell#testArm -DskipTests=true
     @Test
     public void testArm() throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
-        shell.maxStep = 3;
+        shell.maxStep = 1;
         shell.parll = false;
         shell.arm = true;
+        shell.subFix = true;
         shell.test();
     }
 
     @Test
     public void testNoArm() throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
-        shell.maxStep = 3;
+        shell.maxStep = 1;
         shell.parll = false;
         shell.arm = false;
         shell.manifest = false;
@@ -100,6 +106,7 @@ public class JenkinsTransBuildShell {
         String targetDk5001AliyunPath = FWPathUtil.getTargetPath("pull/dk5001aliyun.sh");
         File srcFile = new File(resource);
         List<String> lines = FileUtils.readLines(srcFile, Charset.defaultCharset());
+        lines = lines.stream().filter(s -> !StringUtils.startsWith(s, "#")).toList();
         List<String> targetAliyunLines = Lists.newArrayList();
         List<String> targetDk5000Lines = Lists.newArrayList();
         List<String> targetDk5001Lines = Lists.newArrayList();
@@ -164,6 +171,11 @@ public class JenkinsTransBuildShell {
             if (StringUtils.startsWith(line, ignore)) {
                 continue;
             }
+            if (StringUtils.startsWith(line, ignoreDk)) {
+                break;
+            }
+
+
             if (parll) {
                 targetDkLines.add("{");
             }
@@ -213,10 +225,10 @@ public class JenkinsTransBuildShell {
     }
 
     private void manifest(String target, String targetX86, String targetArm64, List<String> targetLines) {
-        targetLines.add("docker  manifest create -a " + target + " " + targetX86 + "  " + targetArm64 + "");
+        targetLines.add("docker  manifest create -a --insecure " + target + " " + targetX86 + "  " + targetArm64 + "");
         targetLines.add("docker  manifest annotate " + target + " " + targetX86 + "   --os-features linux/ADM64");
         targetLines.add("docker  manifest annotate " + target + " " + targetArm64 + "   --os-features linux/ARM64");
-        targetLines.add("docker  manifest push -p " + target + "");
+        targetLines.add("docker  manifest push -p --insecure " + target + "");
     }
 
     private void dkAliyunline(List<String> lines, List<String> targetDkAliyunLines, String targetReg, String dockerHost) {

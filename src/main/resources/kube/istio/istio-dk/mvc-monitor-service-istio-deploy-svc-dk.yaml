@@ -1,0 +1,136 @@
+# webapp-deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mvc-v1-pod
+  labels:
+    app: mvc-service-pod
+    version: mvc-v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mvc-service-pod
+      version: mvc-v1
+  template:
+    metadata:
+      labels:
+        app: mvc-service-pod
+        version: mvc-v1
+    spec:
+      containers:
+        - name: mvc-v1
+          image: docker:5000/king019/frame_service:v1_x86_64
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mvc-v2-pod
+  labels:
+    app: mvc-service-pod
+    version: mvc-v2
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mvc-service-pod
+      version: mvc-v2
+  template:
+    metadata:
+      labels:
+        app: mvc-service-pod
+        version: mvc-v2
+    spec:
+      containers:
+        - name: mvc-v2
+          image: docker:5000/king019/frame_service:v2_x86_64
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mvc-version-service
+  labels:
+    version: mvc-version-service
+spec:
+  #  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      #    nodePort: 30001
+      protocol: TCP
+  selector:
+    app: mvc-service-pod
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: DestinationRule
+metadata:
+  name: mvc-des-name
+spec:
+  host: mvc-version-service
+  trafficPolicy:
+    loadBalancer:
+      simple: RANDOM
+  subsets:
+    - name: v1
+      labels:
+        version: mvc-v1
+    - name: v2
+      labels:
+        version: mvc-v2
+      trafficPolicy:
+        loadBalancer:
+          simple: ROUND_ROBIN
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: Gateway
+metadata:
+  name: mvc-version-gateway
+spec:
+  selector:
+    istio: ingressgateway # use istio default controller
+  servers:
+    - port:
+        number: 80
+        name: http
+        protocol: HTTP
+      hosts:
+        - "*"
+---
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: gateway-vs
+spec:
+  hosts:
+    - "*"
+  gateways:
+    - mvc-version-gateway
+  http:
+    - match:
+        - uri:
+            exact: /version
+      fault:
+        delay:
+          percentage:
+            value: 100.0
+          fixedDelay: 1ms
+      route:
+        - destination:
+            host: mvc-version-service
+            subset: v1
+            port:
+              number: 8080
+          weight: 0
+        - destination:
+            host: mvc-version-service
+            subset: v2
+            port:
+              number: 8080
+          weight: 100

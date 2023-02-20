@@ -18,8 +18,7 @@ RUN apk add nginx
 
 
 
-ADD https://repo1.maven.org/maven2/org/apache/tomcat/tomcat/9.0.68/tomcat-9.0.68.tar.gz /opt/soft/tools/tomcat-9.0.68.tar.gz
-
+RUN mvn dependency:get -DgroupId=org.apache.tomcat -DartifactId=tomcat -Dversion=9.0.68 -Dpackaging=tar.gz;cp /root/.m2/repository/org/apache/tomcat/tomcat/9.0.68/tomcat-9.0.68.tar.gz /opt/soft/tools
 
 RUN cd /opt/soft/tools;tar -xzf tomcat-9.0.68.tar.gz
 RUN cd /opt/soft/tools;mv apache-tomcat-9.0.68 tomcat

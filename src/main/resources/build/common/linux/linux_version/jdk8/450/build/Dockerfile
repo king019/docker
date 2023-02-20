@@ -1,7 +1,6 @@
-FROM king019/rhel:jdk8
+FROM king019/alpine:jdk8
 
 MAINTAINER king019
-
 
 RUN chmod 755 /*.sh
 

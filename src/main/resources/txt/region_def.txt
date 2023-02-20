@@ -4,5 +4,6 @@ aliyun_huhehaote
 aliyun_shenzhen
 aliyun_beijing
 tenyun_beijing
-docker
 docker_5000
+noSuffix
+nexus_5000

@@ -15,6 +15,7 @@ import java.util.stream.Collectors;
  */
 @Getter
 public enum DockerRegionEnum {
+    QING_DAO("aliyun_qingdao", "registry.cn-qingdao.aliyuncs.com", "qd"),
     HANG_ZHOU("aliyun_hangzhou", "registry.cn-hangzhou.aliyuncs.com", "hz"),
     SHANG_HAI("aliyun_shanghai", "registry.cn-shanghai.aliyuncs.com", "sh"),
     HUHEHAOTE("aliyun_huhehaote", "registry.cn-huhehaote.aliyuncs.com", "hhht"),

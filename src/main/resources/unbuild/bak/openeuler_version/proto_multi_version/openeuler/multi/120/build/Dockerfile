@@ -89,7 +89,6 @@ RUN mkdir -p /opt/soft/tools/tomcat/webapps
 
 
 
-RUN cd /opt/soft ; sh ./git.sh
 
 RUN chmod 755 /*.sh
 CMD /docker.sh

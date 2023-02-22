@@ -27,9 +27,8 @@ EXPOSE 22
 
 RUN chmod 755 /*.sh
 
-
 # 执行ssh启动命令
-CMD ["/usr/sbin/sshd", "-D"]
+#CMD ["/usr/sbin/sshd", "-D"]
 
 
 CMD /docker.sh

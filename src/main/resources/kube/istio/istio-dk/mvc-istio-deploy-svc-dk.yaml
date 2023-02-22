@@ -30,7 +30,7 @@ spec:
             - name: serviceDelay
               value: "0"
             - name: JAVA_OPTS
-              value: "-Xms64m -Xmx64m -Xmn32m"
+              value: "-Xms32m -Xmx32m -Xmn16m"
 ---
 apiVersion: apps/v1
 kind: Deployment

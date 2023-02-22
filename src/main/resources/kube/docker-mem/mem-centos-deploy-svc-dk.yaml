@@ -1,0 +1,39 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mem-centos
+  labels:
+    app: mem-centos
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mem-centos
+  template:
+    metadata:
+      labels:
+        app: mem-centos
+    spec:
+      containers:
+        - name: mem-centos-p
+          image: docker:5000/king019/centos:p
+          imagePullPolicy: Always
+        - name: mem-centos-sshd
+          image: docker:5000/king019/centos:sshd
+          imagePullPolicy: Always
+        - name: mem-centos-git
+          image: docker:5000/king019/centos:git
+          imagePullPolicy: Always
+        - name: mem-centos-res
+          image: docker:5000/king019/centos:res
+          imagePullPolicy: Always
+        - name: mem-centos-jdk
+          image: docker:5000/king019/centos:jdk
+          imagePullPolicy: Always
+        - name: mem-centos-s
+          image: docker:5000/king019/centos:s
+          imagePullPolicy: Always
+        - name: mem-centos-b
+          image: docker:5000/king019/centos:b
+          imagePullPolicy: Always

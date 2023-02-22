@@ -21,7 +21,6 @@ RUN dnf -y install  tcpdump
 RUN chmod -R 777 /*.sh
 
 
-RUN cd /opt/soft ; sh ./git.sh
 
 RUN chmod 755 /*.sh
 CMD /docker.sh

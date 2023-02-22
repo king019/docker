@@ -65,8 +65,9 @@ public class JenkinsUtil {
         }
         Set<String> regions = Sets.newHashSet();
         models.forEach(model -> regions.add(model.getRegion().getRegion()));
-        regions.forEach(region -> writePlat("", DockerBuildPathEnum.platform.getPath(), region, true));
-        regions.forEach(region -> writePlat("", DockerBuildPathEnum.platform.getPath(), region, false));
+        String dir = configModel.getDirPath();
+        regions.forEach(region -> writePlat(dir, DockerBuildPathEnum.platform.getPath(), region, true));
+        regions.forEach(region -> writePlat(dir, DockerBuildPathEnum.platform.getPath(), region, false));
     }
 
     public List<DockerJenkinsModel> jenkinsWrite(int multi, List<String> includes, List<String> excludes, boolean replaceDockerGit, boolean push, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
@@ -382,6 +383,9 @@ public class JenkinsUtil {
                     if (!from.startsWith("FROM")) {
                         continue;
                     }
+                    if (from.contains(DockerRegionEnum.QING_DAO.getHost())) {
+                        continue;
+                    }
                     String prefix = "king019/";
                     int index = from.indexOf(prefix);
                     if (index > 0) {
@@ -426,7 +430,7 @@ public class JenkinsUtil {
         File replaceTxt = new File(dir + "/replace.txt");
         if (replaceTxt.exists()) {
             List<String> lines = FileUtils.readLines(replaceTxt, Charset.defaultCharset());
-            lines=   lines.stream().filter(s -> !StringUtils.startsWith(s,"#")).toList();
+            lines = lines.stream().filter(s -> !StringUtils.startsWith(s, "#")).toList();
             map.put(DockerParamEnum.RP_TXT, lines);
         }
         return map;
@@ -477,7 +481,7 @@ public class JenkinsUtil {
         lines.add("then");
 //        for (String platRegion : Sets.newHashSet(platformMap.get(region))) {
 //            if (platRegion.contains(DockerPlatformEnum.ADM64.getPlatform())) {
-        String name = "./" + dir + subDir + DockerPlatformEnum.ADM64.getPlatform() + "/" + DockerPlatformEnum.ADM64.getPlatform() + "_" + region + "_" + mix + ".sh";
+        String name = dir + subDir + DockerPlatformEnum.ADM64.getPlatform() + "/" + DockerPlatformEnum.ADM64.getPlatform() + "_" + region + "_" + mix + ".sh";
         lines.add(name);
 //            }
 //        }
@@ -485,7 +489,7 @@ public class JenkinsUtil {
         //lines.add("else [[ $NowPlatform == *$Arm* ]]");
 //        for (String platRegion : Sets.newHashSet(platformMap.get(region))) {
 //            if (platRegion.contains(DockerPlatformEnum.ARM64.getPlatform())) {
-        name = "./" + dir + subDir + DockerPlatformEnum.ARM64.getPlatform() + "/" + DockerPlatformEnum.ARM64.getPlatform() + "_" + region + "_" + mix + ".sh";
+        name = dir + subDir + DockerPlatformEnum.ARM64.getPlatform() + "/" + DockerPlatformEnum.ARM64.getPlatform() + "_" + region + "_" + mix + ".sh";
         lines.add(name);
 //            }
 //        }
@@ -705,7 +709,9 @@ public class JenkinsUtil {
             }
             for (String repLine : repLines) {
                 String nowLine = lines.get(index);
-                if(StringUtils.isBlank(nowLine)){continue;}
+                if (StringUtils.isBlank(nowLine)) {
+                    continue;
+                }
                 if (repLine.contains(nowLine)) {
                     lines.set(index, repLine.replace(nowLine, "").trim());
                 }

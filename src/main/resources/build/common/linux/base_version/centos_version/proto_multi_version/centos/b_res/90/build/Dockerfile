@@ -5,7 +5,6 @@ MAINTAINER king019
 RUN mkdir -p /root/.m2
 
 
-COPY run/git.sh /opt/soft/git.sh
 COPY run/mvnclean.sh /mvnclean.sh
 # COPY run/perf.sh /perf.sh
 COPY run/profile.sh /profile.sh

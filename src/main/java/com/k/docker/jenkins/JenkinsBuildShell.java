@@ -97,6 +97,8 @@ public class JenkinsBuildShell {
             //excludes.add("centos");
             excludes.removeAll(includes);
         }
+        configModel.setIncludes(includes);
+        configModel.setExcludes(excludes);
         JenkinsUtil shell = new JenkinsUtil();
         shell.jenkinsWrite(multi, includes, excludes, replace, push, configModel);
     }
@@ -128,8 +130,10 @@ public class JenkinsBuildShell {
         configModel.setReplaceSetting(true);
         configModel.setReplaceTxt(true);
         configModel.setMaxIndex(549);
+        //configModel.setDirPath("/opt/soft/version/aliyun/docker/");
         shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
     }
+
     @Test
     public void test550() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
@@ -153,6 +157,20 @@ public class JenkinsBuildShell {
         configModel.setReplaceSetting(true);
         configModel.setReplaceTxt(true);
         configModel.setMaxIndex(549);
+        shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
+    }
+
+    @Test
+    public void testService() throws Exception {
+        JenkinsUtil shell = new JenkinsUtil();
+        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
+        configModel.setOrigin(false);
+        configModel.setLocalRegion(false);
+        configModel.setInDocker(true);
+        configModel.setReplaceSetting(true);
+        configModel.setReplaceTxt(true);
+        List<String> includes = List.of("king019/frame");
+        configModel.setIncludes(includes);
         shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
     }
 

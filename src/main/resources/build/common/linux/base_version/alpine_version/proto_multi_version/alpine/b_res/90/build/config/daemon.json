@@ -2,11 +2,16 @@
   "experimental": "enabled",
   "registry-mirrors": [
     "http://docker:5000",
-    "https://docker:5000",
+    "http://docker:5001",
+    "http://nexus:5000",
+    "http://nexus:5001",
     "https://msb3wa7d.mirror.aliyuncs.com"
   ],
   "debug": true,
   "insecure-registries": [
-    "docker:5000"
+    "docker:5000",
+    "docker:5001",
+    "nexus:5000",
+    "nexus:5001"
   ]
 }

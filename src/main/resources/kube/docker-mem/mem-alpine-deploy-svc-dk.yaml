@@ -1,0 +1,40 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mem-alpine
+  labels:
+    app: mem-alpine
+    version: v1
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mem-alpine
+  template:
+    metadata:
+      labels:
+        app: mem-alpine
+    spec:
+      containers:
+        - name: mem-alpine-p
+          image: docker:5000/king019/alpine:p
+          imagePullPolicy: Always
+        - name: mem-alpine-sshd
+          image: docker:5000/king019/alpine:sshd
+          imagePullPolicy: Always
+        - name: mem-alpine-git
+          image: docker:5000/king019/alpine:git
+          imagePullPolicy: Always
+        - name: mem-alpine-res
+          image: docker:5000/king019/alpine:res
+          imagePullPolicy: Always
+        - name: mem-alpine-jdk
+          image: docker:5000/king019/alpine:jdk
+          imagePullPolicy: Always
+        - name: mem-alpine-s
+          image: docker:5000/king019/alpine:s
+          imagePullPolicy: Always
+        - name: mem-alpine-b
+          image: docker:5000/king019/alpine:b
+          imagePullPolicy: Always

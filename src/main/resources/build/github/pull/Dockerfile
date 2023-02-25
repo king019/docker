@@ -1,3 +1,6 @@
+alpine:3.17
+rockylinux:9
+
 tomcat:9
 
 istio/pilot:1.16.2

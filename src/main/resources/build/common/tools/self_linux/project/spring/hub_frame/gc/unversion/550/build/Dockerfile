@@ -6,9 +6,8 @@ EXPOSE 8981
 COPY gitjar.sh /gitjar.sh
 COPY docker.sh /docker.sh
 
-COPY config/cmd.sh /cmd.sh
-COPY config/cms.sh /cms.sh
-COPY config/g1.sh /g1.sh
+COPY config/admin.sh /admin.sh
+COPY config/gc.sh /gc.sh
 
 
 

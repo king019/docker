@@ -8,7 +8,6 @@ import com.k.docker.jenkins.model.emums.DockerParamEnum;
 import com.k.docker.jenkins.model.emums.GitRemoteEnum;
 import com.k.docker.jenkins.util.JenkinsUtil;
 import org.apache.commons.lang3.ArrayUtils;
-import org.apache.commons.lang3.ObjectUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
@@ -49,8 +48,8 @@ public class JenkinsBuildShell {
             configModel.setNexusAlpine(nexusAlpine);
         }
         {
-            boolean inDocker = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.IN_DOCKER, map));
-            configModel.setInDocker(inDocker);
+//            boolean inDocker = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.IN_DOCKER, map));
+//            configModel.setInDocker(inDocker);
         }
         {
             multi = Integer.parseInt(JenkinsUtil.getVal(DockerParamEnum.THREAD, map));
@@ -66,12 +65,16 @@ public class JenkinsBuildShell {
             configModel.setMinIndex(minIndex);
         }
         {
-            boolean localRegion = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.LOCAL_REGION, map));
-            configModel.setLocalRegion(localRegion);
+//            boolean localRegion = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.LOCAL_REGION, map));
+//            configModel.setLocalRegion(localRegion);
         }
         {
             boolean replaceGit = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.RP_GIT, map));
             configModel.setReplaceGit(replaceGit);
+        }
+        {
+            boolean mix = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.MIX, map));
+            configModel.setMix(mix);
         }
         {
             boolean replaceSetting = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.RP_SETTING, map));
@@ -80,6 +83,10 @@ public class JenkinsBuildShell {
         {
             boolean replaceTxt = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.RP_TXT, map));
             configModel.setReplaceTxt(replaceTxt);
+        }
+        {
+            boolean suf = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.SUF, map));
+            configModel.setSuffix(suf);
         }
         {
             String val = JenkinsUtil.getVal(DockerParamEnum.INCLUDE, map);
@@ -100,78 +107,8 @@ public class JenkinsBuildShell {
         configModel.setIncludes(includes);
         configModel.setExcludes(excludes);
         JenkinsUtil shell = new JenkinsUtil();
-        shell.jenkinsWrite(multi, includes, excludes, replace, push, configModel);
-    }
-
-    @Test
-    public void testReplaceTrue() throws Exception {
-        JenkinsUtil shell = new JenkinsUtil();
-        configModel.setLocalRegion(true);
-        configModel.setInDocker(true);
-        shell.jenkinsWrite(multi, includes, excludes, true, push, configModel);
-    }
-
-    @Test
-    public void testReplaceFalse() throws Exception {
-        JenkinsUtil shell = new JenkinsUtil();
-        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
-        configModel.setLocalRegion(false);
-        configModel.setInDocker(true);
-        shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
-    }
-
-    @Test
-    public void testOriginTrue() throws Exception {
-        JenkinsUtil shell = new JenkinsUtil();
-        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
-        configModel.setOrigin(false);
-        configModel.setLocalRegion(false);
-        configModel.setInDocker(true);
-        configModel.setReplaceSetting(true);
-        configModel.setReplaceTxt(true);
-        configModel.setMaxIndex(549);
-        //configModel.setDirPath("/opt/soft/version/aliyun/docker/");
-        shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
-    }
-
-    @Test
-    public void test550() throws Exception {
-        JenkinsUtil shell = new JenkinsUtil();
-        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
-        configModel.setOrigin(false);
-        configModel.setLocalRegion(false);
-        configModel.setInDocker(true);
-        configModel.setReplaceSetting(true);
-        configModel.setReplaceTxt(true);
-        configModel.setMinIndex(549);
-        shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
-    }
-
-    @Test
-    public void testAllLocal() throws Exception {
-        JenkinsUtil shell = new JenkinsUtil();
-        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
-        configModel.setOrigin(false);
-        configModel.setLocalRegion(true);
-        configModel.setInDocker(false);
-        configModel.setReplaceSetting(true);
-        configModel.setReplaceTxt(true);
-        configModel.setMaxIndex(549);
-        shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
-    }
-
-    @Test
-    public void testService() throws Exception {
-        JenkinsUtil shell = new JenkinsUtil();
-        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
-        configModel.setOrigin(false);
-        configModel.setLocalRegion(false);
-        configModel.setInDocker(true);
-        configModel.setReplaceSetting(true);
-        configModel.setReplaceTxt(true);
-        List<String> includes = List.of("king019/frame");
-        configModel.setIncludes(includes);
-        shell.jenkinsWrite(multi, includes, excludes, false, push, configModel);
+        configModel.setPush(push);
+        shell.jenkinsWrite(multi, replace, configModel);
     }
 
     @Test
@@ -185,5 +122,89 @@ public class JenkinsBuildShell {
             System.out.println(line);
         }
     }
+
+    @Test
+    public void testReplaceTrue() throws Exception {
+        JenkinsUtil shell = new JenkinsUtil();
+//        configModel.setLocalRegion(true);
+//        configModel.setInDocker(true);
+        configModel.setPush(push);
+        shell.jenkinsWrite(multi, true, configModel);
+    }
+
+    @Test
+    public void testReplaceFalse() throws Exception {
+        JenkinsUtil shell = new JenkinsUtil();
+        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
+//        configModel.setLocalRegion(false);
+//        configModel.setInDocker(true);
+        configModel.setPush(push);
+        shell.jenkinsWrite(multi, false, configModel);
+    }
+
+    @Test
+    public void testOriginTrue() throws Exception {
+        JenkinsUtil shell = new JenkinsUtil();
+        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
+        configModel.setOrigin(false);
+//        configModel.setLocalRegion(false);
+//        configModel.setInDocker(true);
+        configModel.setReplaceSetting(true);
+        configModel.setReplaceTxt(true);
+        configModel.setMaxIndex(549);
+        configModel.setSuffix(false);
+        configModel.setPush(push);
+        //configModel.setDirPath("/opt/soft/version/aliyun/docker/");
+        shell.jenkinsWrite(multi, false, configModel);
+    }
+
+    @Test
+    public void testLocal550() throws Exception {
+        JenkinsUtil shell = new JenkinsUtil();
+        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
+        configModel.setOrigin(false);
+//        configModel.setLocalRegion(false);
+        //configModel.setInDocker(true);
+        configModel.setReplaceSetting(true);
+        configModel.setReplaceTxt(true);
+        configModel.setSuffix(false);
+        configModel.setMinIndex(549);
+        configModel.setPush(push);
+        shell.jenkinsWrite(multi, false, configModel);
+    }
+
+    @Test
+    public void testAllBaseLocal() throws Exception {
+        JenkinsUtil shell = new JenkinsUtil();
+        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
+        configModel.setOrigin(false);
+//        configModel.setLocalRegion(false);
+//        configModel.setInDocker(false);
+        configModel.setReplaceSetting(true);
+        configModel.setReplaceTxt(true);
+        configModel.setSuffix(false);
+        configModel.setMaxIndex(549);
+        configModel.setPush(push);
+        configModel.setMix(false);
+        shell.jenkinsWrite(multi, false, configModel);
+    }
+
+    @Test
+    public void testLocalService() throws Exception {
+        JenkinsUtil shell = new JenkinsUtil();
+        DockerJenkinsModel.setWORKSPACE("/opt/soft/version/aliyun/docker");
+        configModel.setOrigin(false);
+//        configModel.setLocalRegion(true);
+//        configModel.setInDocker(false);
+        configModel.setReplaceSetting(true);
+        configModel.setReplaceTxt(true);
+        List<String> includes = List.of("king019/frame_gc");
+        configModel.setIncludes(includes);
+        configModel.setUseCache(true);
+        configModel.setSuffix(false);
+        configModel.setPush(push);
+        shell.jenkinsWrite(multi, false, configModel);
+    }
+
 
 }

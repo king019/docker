@@ -11,7 +11,7 @@ import java.util.stream.Collectors;
 public enum DockerPlatformEnum {
     ARM64("aarch64", true, "_"),
     ADM64("x86_64", true, "_"),
-    NO_SUFFIX("noSuffix", false, "_");
+    NO_SUFFIX("no_suffix", false, "_");
     private String platform;
     private String fromSplit;
     private boolean suffix = true;

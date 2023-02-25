@@ -27,7 +27,7 @@ public enum DockerRegionEnum {
     //    LOCAL5001("local_5001", "docker:5001", "dk5001"),
     //SMP("smp", "docker:5000"),
     NEXUS_5000("nexus_5000", "nexus:5000", "nexus5000"),
-    DOCKER("noSuffix", "docker:5000", "dk", true),
+    DOCKER("no_suffix", "docker:5000", "dk", true),
     DOCKER_5000("docker_5000", "docker:5000", "lc");
 
     private String region;

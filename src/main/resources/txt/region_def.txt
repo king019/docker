@@ -5,5 +5,5 @@ aliyun_shenzhen
 aliyun_beijing
 tenyun_beijing
 docker_5000
-noSuffix
+no_suffix
 nexus_5000

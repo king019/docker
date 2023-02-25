@@ -1,0 +1,93 @@
+# webapp-deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: jvm
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: jvm
+  template:
+    metadata:
+      labels:
+        app: jvm
+    spec:
+      containers:
+        - name: zgc
+          image: docker:5000/king019/frame_gc
+          imagePullPolicy: Always
+          command: [ "/bin/sh" ]
+          args: [ "-c", "/gc.sh" ]
+          env:
+            - name: JAVA_OPTS
+              value: ' -Dserver.port=8081 -Xms128m -Xmx128m -Xss1m -XX:MaxDirectMemorySize=10m -XX:+HeapDumpOnOutOfMemoryError -XX:+UseZGC -Xlog:gc*:gc.log -XX:NativeMemoryTracking=detail '
+            - name: server.servlet.contextPath
+              value: '/jvm/zgc'
+          ports:
+            - name: http
+              containerPort: 8081
+              protocol: TCP
+        - name: g1
+          imagePullPolicy: Always
+          image: docker:5000/king019/frame_gc
+          command: [ "/bin/sh" ]
+          args: [ "-c", "/gc.sh" ]
+          env:
+            - name: JAVA_OPTS
+              value: ' -Dserver.port=8082 -Xms128m -Xmx128m -Xss1m -XX:MaxDirectMemorySize=10m -XX:+HeapDumpOnOutOfMemoryError -XX:+UseG1GC -Xlog:gc*:gc.log -XX:NativeMemoryTracking=detail '
+            - name: server.servlet.contextPath
+              value: '/jvm/g1'
+          ports:
+            - name: http
+              containerPort: 8082
+              protocol: TCP
+
+# webapp-service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: jvm
+spec:
+  #  type: NodePort
+  ports:
+    - name: jvm-g1
+      port: 8082
+      targetPort: 8082
+      #    nodePort: 30001
+      protocol: TCP
+    - name: jvm-zgc
+      port: 8081
+      targetPort: 8081
+      #    nodePort: 30001
+      protocol: TCP
+  selector:
+    app: jvm
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: jvm-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+spec:
+  rules:
+    - host: jvm.k8s.com
+      http:
+        paths:
+          - path: /jvm/zgc
+            pathType: Prefix
+            backend:
+              service:
+                name: jvm
+                port:
+                  number: 8081
+          - path: /jvm/g1
+            pathType: Prefix
+            backend:
+              service:
+                name: jvm
+                port:
+                  number: 8082

@@ -31,6 +31,8 @@ public class DockerJenkinsModel {
     private String nextLine = "\n";
     private DockerRegionEnum region;
     private List<String> dockerLines;
+    private boolean useCache = true;
+    private boolean suffix = true;
 
     public String buildBuild() {
         StringBuilder sb = new StringBuilder();
@@ -47,7 +49,7 @@ public class DockerJenkinsModel {
         sb.append(nextLine);
 
         {
-            sb.append("docker build -t ");
+            sb.append("docker build " + (useCache ? "" : "--no-cache ") + " -t ");
             sb.append(buildVersion(getWriteVersion(), platform));
             sb.append(" .");
             sb.append(nextLine);
@@ -59,7 +61,7 @@ public class DockerJenkinsModel {
     public String buildPush() {
         StringBuilder sb = new StringBuilder();
         {
-            sb.append("docker push ");
+            sb.append("docker push --disable-content-trust ");
             sb.append(buildVersion(getWriteVersion(), platform));
             sb.append(nextLine);
         }
@@ -111,9 +113,9 @@ public class DockerJenkinsModel {
 
     private String buildVersion(String hostVersion, DockerPlatformEnum platform) {
         String version = "";
-       String hostVersionNow=hostVersion;
+        String hostVersionNow = hostVersion;
         for (DockerRegionEnum regionEnum : DockerRegionEnum.values()) {
-            hostVersionNow=hostVersionNow.replace(regionEnum.getHost(),"");
+            hostVersionNow = hostVersionNow.replace(regionEnum.getHost(), "");
         }
         if (StringUtils.contains(hostVersionNow, ":")) {
             version += hostVersion + getPlatformStr(platform) + "  ";
@@ -124,11 +126,11 @@ public class DockerJenkinsModel {
     }
 
     private String getPlatformStr(DockerPlatformEnum platform) {
-        return platform.isSuffix() ? "_" + platform.getPlatform() : "";
+        return suffix ? "_" + platform.getPlatform() : "";
     }
 
     private String getPlatformSuffixStr(DockerPlatformEnum platform) {
-        return platform.isSuffix() ? ":" + platform.getPlatform() : "";
+        return suffix ? ":" + platform.getPlatform() : "";
     }
 
     private String getWriteVersion() {

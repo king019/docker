@@ -1,4 +1,4 @@
-FROM alpine:3.17
+FROM registry.cn-qingdao.aliyuncs.com/king019/alpine:3.17
 MAINTAINER king019
 
 RUN mkdir -p /root/.m2/repository

@@ -9,15 +9,16 @@ public enum DockerParamEnum {
     ORIGIN("origin", "false"),
     NEXUS_ALPINE("nexusApline", "false"),
     WORK_SPACE("ws", "${WORKSPACE}"),
-    LOCAL_REGION("local", "false"),
+    //LOCAL_REGION("local", "false"),
     THREAD("thread", "1"),
     INCLUDE("in", ""),
     REPLACE("rep", "false"),
     PUSH("push", "true"),
-    IN_DOCKER("dk", "true"),
+    //IN_DOCKER("dk", "true"),
     EXCLUDE("ex", ""),
     RP_GIT("rpgit", "false"),
-    RP_TXT("rptxt", "false"),
+    RP_TXT("rptxt", "false"), SUF("suf", "true"),
+    MIX("mix", "true"),
     RP_SETTING("rpset", "false");
     private String cmd;
     private String def;

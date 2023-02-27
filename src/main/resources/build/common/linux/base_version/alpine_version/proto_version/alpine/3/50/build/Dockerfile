@@ -11,6 +11,10 @@ RUN mkdir -p /etc/docker
 
 COPY docker.sh /docker.sh
 
+COPY trans.sh /trans.sh
+COPY trans_bak.sh /trans_bak.sh
+COPY trans_nexus.sh /trans_nexus.sh
+
 RUN sed -i 's/https/http/g' /etc/apk/repositories
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 

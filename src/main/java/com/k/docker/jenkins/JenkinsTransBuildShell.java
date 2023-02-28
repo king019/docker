@@ -121,95 +121,46 @@ public class JenkinsTransBuildShell {
         FileUtils.writeLines(new File(targetDk5001AliyunPath), targetDk5001AliyunLines);
     }
 
-//    private void aliyun(List<String> lines, List<String> targetAliyunLines, String targetReg) {
-//        //aliyun
-//        int step = defStep;
-//        for (String line : lines) {
-//            if (StringUtils.isBlank(line)) {
-//                continue;
-//            }
-//            if (StringUtils.startsWith(line, ignore)) {
-//                break;
-//            }
-//            if (parll) {
-//                targetAliyunLines.add("{");
-//            }
-//
-//            String source = line;
-//            String transSource = line;
-//            String target;
-//            targetAliyunLines.add("#" + line);
-//            targetAliyunLines.add("docker pull " + line);
-//            for (String reg : regSet) {
-//                transSource = StringUtils.replace(transSource, reg + "/", "");
-//            }
-//            int nsIndex = StringUtils.indexOf(transSource, "/");
-//            if (nsIndex > 0) {
-//                transSource = StringUtils.replaceOnce(transSource, "/", "-");
-//            }
-//            target = targetReg + "/" + transSource;
-//            targetAliyunLines.add("docker tag " + source + " " + target);
-//            targetAliyunLines.add("docker push " + target);
-//            if (parll) {
-//                targetAliyunLines.add("}&");
-//            }
-//            if (step++ % maxStep == 0) {
-//                if (parll) {
-//                    targetAliyunLines.add("wait");
-//                }
-//            }
-//        }
-//    }
-
-    private void aliyun(List<String> lines, List<String> targetDkLines, String dockerHost) {
-        //dk
+    private void aliyun(List<String> lines, List<String> targetAliyunLines, String targetReg) {
+        //aliyun
         int step = defStep;
         for (String line : lines) {
             if (StringUtils.isBlank(line)) {
                 continue;
             }
             if (StringUtils.startsWith(line, ignore)) {
-                continue;
-            }
-            if (StringUtils.startsWith(line, ignoreDk)) {
                 break;
             }
-
-
             if (parll) {
-                targetDkLines.add("{");
+                targetAliyunLines.add("{");
             }
 
             String source = line;
             String transSource = line;
             String target;
-            targetDkLines.add("echo '" + line + "'");
-            targetDkLines.add("docker pull " + line);
+            targetAliyunLines.add("#" + line);
+            targetAliyunLines.add("docker pull " + line);
             for (String reg : regSet) {
                 transSource = StringUtils.replace(transSource, reg + "/", "");
             }
-            String targetX86 = dockerHost + "/" + addSub(transSource, DockerPlatformEnum.ADM64.getPlatform(), subFix);
-            String targetArm64 = dockerHost + "/" + addSub(transSource, DockerPlatformEnum.ARM64.getPlatform(), subFix);
-            target = dockerHost + "/" + transSource;
-            targetDkLines.add("docker tag " + source + " " + targetX86);
-            targetDkLines.add("docker push " + targetX86);
-            if (arm) {
-                targetDkLines.add("docker tag " + source + " " + targetArm64);
-                targetDkLines.add("docker push " + targetArm64);
+            int nsIndex = StringUtils.indexOf(transSource, "/");
+            if (nsIndex > 0) {
+                transSource = StringUtils.replaceOnce(transSource, "/", "-");
             }
-            if (manifest) {
-                manifest(target, targetX86, targetArm64, targetDkLines);
-            }
+            target = targetReg + "/" + transSource;
+            targetAliyunLines.add("docker tag " + source + " " + target);
+            targetAliyunLines.add("docker push " + target);
             if (parll) {
-                targetDkLines.add("}&");
+                targetAliyunLines.add("}&");
             }
             if (step++ % maxStep == 0) {
                 if (parll) {
-                    targetDkLines.add("wait");
+                    targetAliyunLines.add("wait");
                 }
             }
         }
     }
+
     private void dkline(List<String> lines, List<String> targetDkLines, String dockerHost) {
         //dk
         int step = defStep;

@@ -1,4 +1,4 @@
-FROM registry.cn-qingdao.aliyuncs.com/king019/rockylinux:9
+FROM rockylinux:9
 #FROM almalinux:9
 # FROM centos:8
 # FROM quay.io/centos/centos:stream9
@@ -28,6 +28,7 @@ COPY docker.sh /docker.sh
 COPY trans.sh /trans.sh
 COPY trans_bak.sh /trans_bak.sh
 COPY trans_nexus.sh /trans_nexus.sh
+
 
 RUN chmod 755 /*.sh
 

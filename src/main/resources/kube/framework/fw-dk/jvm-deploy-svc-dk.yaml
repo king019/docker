@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
         - name: zgc
-          image: docker:5000/king019/frame_gc
+          image: registry.cn-beijing.aliyuncs.com/king019/frame_gc
           imagePullPolicy: Always
           command: [ "/bin/sh" ]
           args: [ "-c", "/gc.sh" ]
@@ -31,7 +31,7 @@ spec:
               protocol: TCP
         - name: g1
           imagePullPolicy: Always
-          image: docker:5000/king019/frame_gc
+          image: registry.cn-beijing.aliyuncs.com/king019/frame_gc
           command: [ "/bin/sh" ]
           args: [ "-c", "/gc.sh" ]
           env:

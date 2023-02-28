@@ -15,7 +15,7 @@ RUN cd /opt/soft/tools;mv apache-tomcat-9.0.68 tomcat
 RUN cd /opt/soft/tools/tomcat/webapps;rm -fr *
 RUN mkdir -p /opt/soft/tools/tomcat/webapps
 
-RUN rm -fr /root/.m2/repository
 
-RUN chmod 755 /*.sh
+
+
 CMD /docker.sh

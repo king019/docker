@@ -1,0 +1,3 @@
+docker build -t docker:5000/king019/centos:jdk11   .
+
+docker push docker:5000/king019/centos:jdk11

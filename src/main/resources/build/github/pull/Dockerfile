@@ -1,3 +1,6 @@
+alpine:3.17
+rockylinux:9
+
 tomcat:9
 
 istio/pilot:1.16.2
@@ -32,8 +35,6 @@ registry.cn-beijing.aliyuncs.com/king019/dubbo:provider
 registry.cn-beijing.aliyuncs.com/king019/apollo:protal_2.0.1
 registry.cn-beijing.aliyuncs.com/king019/apollo:config_2.0.1
 registry.cn-beijing.aliyuncs.com/king019/apollo:admin_2.0.1
-registry.cn-beijing.aliyuncs.com/king019/frame:service_v1
-registry.cn-beijing.aliyuncs.com/king019/frame:service_v2
 registry.cn-beijing.aliyuncs.com/king019/linux
 registry.cn-beijing.aliyuncs.com/king019/linux:jdk11
 registry.cn-beijing.aliyuncs.com/king019/linux:jdk17

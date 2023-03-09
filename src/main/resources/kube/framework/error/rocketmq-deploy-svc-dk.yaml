@@ -20,7 +20,7 @@ spec:
 #          imagePullPolicy: Always
           env:
             - name: JAVA_OPTS
-              value: ' -Xms128m -Xmx128m -Xmn64m -XX:MetaspaceSize=32m -XX:MaxMetaspaceSize=32m '
+              value: ' ${JAVA_OPT} -Xms512m -Xmx512m -Xmn128m -XX:MetaspaceSize=32m -XX:MaxMetaspaceSize=32m '
           ports:
             - name: tcp10911
               containerPort: 10911
@@ -29,13 +29,12 @@ spec:
               containerPort: 9876
               protocol: TCP
         - name: mq-console
-#          imagePullPolicy: Always
-          image: registry.cn-beijing.aliyuncs.com/king019/rocketmq:console
-          command: [ "/bin/sh" ]
-          args: [ "-c", "/g1.sh" ]
+          imagePullPolicy: Always
+#          image: registry.cn-beijing.aliyuncs.com/king019/rocketmq:console
+          image: registry.cn-beijing.aliyuncs.com/king019/rocketmq:dashboard
           env:
             - name: JAVA_OPTS
-              value: ' -Xms32m -Xmx32m -Xmn16m -Drocketmq.namesrv.addr=127.0.0.1:8080 -Dcom.rocketmq.sendMessageWithVIPChannel=false '
+              value: ' -Xms32m -Xmx32m -Xmn16m -Drocketmq.namesrv.addr=127.0.0.1:9876 -Dcom.rocketmq.sendMessageWithVIPChannel=false '
           ports:
             - name: http
               containerPort: 8080
@@ -53,17 +52,17 @@ spec:
     - name: mq-console
       port: 8080
       targetPort: 8080
-      #    nodePort: 30001
+      #    nodePort: 8080
       protocol: TCP
     - name: mq-10911
       port: 10911
       targetPort: 10911
-      nodePort: 30911
+      nodePort: 10911
       protocol: TCP
     - name: mq-9876
       port: 9876
       targetPort: 9876
-      nodePort: 30876
+      nodePort: 9876
       protocol: TCP
   selector:
     app: rocketmq
@@ -79,7 +78,7 @@ spec:
     - host: rocketmq.k8s.com
       http:
         paths:
-          - path: /mq
+          - path: /
             pathType: Prefix
             backend:
               service:

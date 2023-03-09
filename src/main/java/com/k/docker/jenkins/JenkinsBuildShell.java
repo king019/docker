@@ -198,7 +198,7 @@ public class JenkinsBuildShell {
 //        configModel.setInDocker(false);
         configModel.setReplaceSetting(true);
         configModel.setReplaceTxt(true);
-        List<String> includes = List.of("king019/frame_gc");
+        List<String> includes = List.of("king019/rocketmq:das");
         configModel.setIncludes(includes);
         configModel.setUseCache(true);
         configModel.setSuffix(false);

@@ -25,9 +25,9 @@ RUN sed -e 's|^mirrorlist=|#mirrorlist=|g'  -e 's|^#baseurl=http://dl.rockylinux
 
 COPY docker.sh /docker.sh
 
-COPY trans.sh /trans.sh
-COPY trans_bak.sh /trans_bak.sh
-COPY trans_nexus.sh /trans_nexus.sh
+COPY config/trans.sh /trans.sh
+COPY config/trans_bak.sh /trans_bak.sh
+COPY config/trans_nexus.sh /trans_nexus.sh
 
 
 RUN chmod 755 /*.sh

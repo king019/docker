@@ -1,0 +1,103 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-config
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-config
+  template:
+    metadata:
+      labels:
+        app: k8s-config
+    spec:
+      containers:
+        - name: k8s-config
+          image: docker:5000/king019/k8s:configmap
+          imagePullPolicy: Always
+          env:
+            - name: PROFILE
+              value: dev
+          ports:
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+#        - name: linux
+#          image: registry.cn-beijing.aliyuncs.com/king019/linux:jdk17
+#          imagePullPolicy: Always
+#          ports:
+#            - name: http
+#              containerPort: 8080
+#              protocol: TCP
+
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: spring-cloud-kubernetes-configmap
+data:
+  application.yml: |-
+    spring:
+      profiles: dev
+    blog: demo
+    config:
+      applicationVersion: dev-0.0.1
+      app:
+        domain: dev.web.app.com
+        api-domain: devapi.web.app.com
+        auth-callback-api: https://dev.web.app.com/dev/wx/bind-callback
+        aws-proxy-host: 192.168.9.82
+        aws-proxy-port: 8118
+        cors-allowed-origins: http://local.web.app.com, https://dev.web.app.com
+    ---
+    spring:
+      profiles: test
+    config:
+      applicationVersion: test-0.0.1
+      app:
+        domain: test.web.app.com
+        api-domain: testapi.web.app.com
+        auth-callback-api: https://test.web.app.com/dev/wx/bind-callback
+        aws-proxy-host: 192.168.9.82
+        aws-proxy-port: 8118
+        cors-allowed-origins: http://local.web.app.com, https://test.web.app.com
+    ---
+    spring:
+      profiles: prod
+    config:
+      applicationVersion: prod-0.0.1
+      app:
+        domain: web.app.com
+        api-domain: api.web.app.com
+        auth-callback-api: https://web.app.com/dev/wx/bind-callback
+        aws-proxy-host: 192.168.9.82
+        aws-proxy-port: 8118
+        cors-allowed-origins: http://web.app.com, https://web.app.com
+---
+kind: Role
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  namespace: default
+  name: default-read-role
+rules:
+  - apiGroups: ["", "extensions", "apps"]
+    resources: ["configmaps", "pods", "services", "endpoints", "secrets"]
+    verbs: ["get", "list", "watch"]
+
+---
+
+kind: RoleBinding
+apiVersion: rbac.authorization.k8s.io/v1
+metadata:
+  name: default-role-read-binding
+  namespace: default
+subjects:
+  - kind: ServiceAccount
+    name: default
+    apiGroup: ""
+roleRef:
+  kind: Role
+  name: default-read-role
+  apiGroup: ""

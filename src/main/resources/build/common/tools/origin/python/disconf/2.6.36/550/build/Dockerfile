@@ -8,6 +8,7 @@ RUN sed -i 's/dl-cdn.alpinelinux.org/repo.huaweicloud.com/g' /etc/apk/repositori
 RUN mkdir -p /root/.m2
 RUN mkdir -p /opt/soft/tools/
 COPY config/settings.xml /root/.m2/settings.xml
+RUN echo 'trans_maven'
 
 RUN apk add maven
 RUN apk add openjdk8

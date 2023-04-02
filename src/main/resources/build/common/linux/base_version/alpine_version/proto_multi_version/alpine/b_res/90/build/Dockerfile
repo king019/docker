@@ -5,6 +5,7 @@ MAINTAINER king019
 RUN mkdir -p /root/.m2
 
 
+
 COPY run/mvnclean.sh /mvnclean.sh
 # COPY run/perf.sh /perf.sh
 COPY run/profile.sh /profile.sh
@@ -16,6 +17,9 @@ COPY run/run_env.sh /run_env.sh
 
 COPY config/settings.xml /root/.m2/settings.xml
 COPY config/trans_maven.sh /trans_maven.sh
+RUN echo 'trans_maven'
+
+
 
 ADD config/bashrc /root/.bashrc
 
@@ -24,6 +28,10 @@ RUN mkdir -p /root/.docker;cp /config.json /root/.docker/config.json
 
 COPY config/daemon.json /daemon.json
 RUN mkdir -p /etc/docker;cp /daemon.json /etc/docker/daemon.json
+
+
+
+
 
 
 # 开放22端口

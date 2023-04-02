@@ -17,9 +17,9 @@ sh ./target/x86_64_beijing_true.sh
 mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/opt/soft/version/aliyun/docker@thread=1@rep=true@push=true"
 
 
-mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/opt/soft/version/aliyun/docker@thread=1@rep=true@push=false@local=true@nexusApline=true"
+mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/opt/soft/version/aliyun/docker@thread=1@rep=true@push=false"
 
-mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/opt/soft/version/aliyun/docker@thread=1@rep=false@push=false@local=true@rpgit=false@rpset=false@nexusApline=false@in=centos"
+mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/opt/soft/version/aliyun/docker@thread=1@rep=false@push=false@rpgit=false@rpset=false@in=centos"
 
 
 

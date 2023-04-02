@@ -16,6 +16,11 @@ COPY run/run_env.sh /run_env.sh
 
 COPY config/settings.xml /root/.m2/settings.xml
 COPY config/trans_maven.sh /trans_maven.sh
+RUN echo 'trans_maven'
+
+
+
+
 
 ADD config/bashrc /root/.bashrc
 

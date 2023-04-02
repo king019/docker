@@ -1,6 +1,7 @@
 FROM node:12-alpine
 
 COPY config/settings.xml /root/.m2/settings.xml
+RUN echo 'trans_maven'
 COPY run/mvnclean.sh /mvnclean.sh
 
 RUN sed -i 's/https/http/g' /etc/apk/repositories

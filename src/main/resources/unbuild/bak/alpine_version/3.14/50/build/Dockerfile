@@ -23,6 +23,7 @@ RUN apk add openjdk11
 
 COPY run/mvnclean.sh /mvnclean.sh
 COPY config/settings.xml /root/.m2/settings.xml
+RUN echo 'trans_maven'
 
 COPY docker.sh /docker.sh
 

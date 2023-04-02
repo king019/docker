@@ -11,7 +11,7 @@ public class DockerConfigModel {
     private boolean replaceGit = false;
     private boolean replaceSetting = false;
     private boolean origin = true;
-    private boolean nexusAlpine = false;
+    //private boolean nexusAlpine = false;
     //private boolean inDocker = false;
     private boolean useCache = true;
     private boolean push = true;
@@ -26,6 +26,9 @@ public class DockerConfigModel {
     private int maxIndex = Integer.MAX_VALUE;
     private String dirPath = "./";
     private boolean suffix = true;
+    //替换docker中的git地址
+    private boolean replaceDockerGit;
+    private int multi=1;
     private List<String> includes = Lists.newArrayList();
     private List<String> excludes = Lists.newArrayList();
 }

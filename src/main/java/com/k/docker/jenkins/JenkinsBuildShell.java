@@ -43,9 +43,9 @@ public class JenkinsBuildShell {
         DockerJenkinsModel.setWORKSPACE(JenkinsUtil.getVal(DockerParamEnum.WORK_SPACE, map));
         {
             boolean origin = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.ORIGIN, map));
-            boolean nexusAlpine = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.NEXUS_ALPINE, map));
+            //boolean nexusAlpine = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.NEXUS_ALPINE, map));
             configModel.setOrigin(origin);
-            configModel.setNexusAlpine(nexusAlpine);
+            //configModel.setNexusAlpine(nexusAlpine);
         }
         {
 //            boolean inDocker = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.IN_DOCKER, map));
@@ -56,6 +56,7 @@ public class JenkinsBuildShell {
         }
         {
             replace = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.REPLACE, map));
+            configModel.setReplaceDockerGit(replace);
         }
         {
             push = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.PUSH, map));
@@ -108,7 +109,7 @@ public class JenkinsBuildShell {
         configModel.setExcludes(excludes);
         JenkinsUtil shell = new JenkinsUtil();
         configModel.setPush(push);
-        shell.jenkinsWrite(multi, replace, configModel);
+        shell.jenkinsWrite(configModel);
     }
 
     @Test
@@ -129,7 +130,9 @@ public class JenkinsBuildShell {
 //        configModel.setLocalRegion(true);
 //        configModel.setInDocker(true);
         configModel.setPush(push);
-        shell.jenkinsWrite(multi, true, configModel);
+        configModel.setMulti(multi);
+        configModel.setReplaceDockerGit(true);
+        shell.jenkinsWrite(configModel);
     }
 
     @Test
@@ -139,7 +142,9 @@ public class JenkinsBuildShell {
 //        configModel.setLocalRegion(false);
 //        configModel.setInDocker(true);
         configModel.setPush(push);
-        shell.jenkinsWrite(multi, false, configModel);
+        configModel.setMulti(multi);
+        configModel.setReplaceDockerGit(false);
+        shell.jenkinsWrite(configModel);
     }
 
     @Test
@@ -155,7 +160,9 @@ public class JenkinsBuildShell {
         configModel.setSuffix(false);
         configModel.setPush(push);
         //configModel.setDirPath("/opt/soft/version/aliyun/docker/");
-        shell.jenkinsWrite(multi, false, configModel);
+        configModel.setMulti(multi);
+        configModel.setReplaceDockerGit(false);
+        shell.jenkinsWrite(configModel);
     }
 
     @Test
@@ -170,7 +177,9 @@ public class JenkinsBuildShell {
         configModel.setSuffix(false);
         configModel.setMinIndex(549);
         configModel.setPush(push);
-        shell.jenkinsWrite(multi, false, configModel);
+        configModel.setMulti(multi);
+        configModel.setReplaceDockerGit(false);
+        shell.jenkinsWrite(configModel);
     }
 
     @Test
@@ -186,7 +195,9 @@ public class JenkinsBuildShell {
         configModel.setMaxIndex(549);
         configModel.setPush(push);
         configModel.setMix(false);
-        shell.jenkinsWrite(multi, false, configModel);
+        configModel.setMulti(multi);
+        configModel.setReplaceDockerGit(false);
+        shell.jenkinsWrite(configModel);
     }
 
     @Test
@@ -199,11 +210,13 @@ public class JenkinsBuildShell {
         configModel.setReplaceSetting(true);
         configModel.setReplaceTxt(true);
         List<String> includes = List.of("king019/rocketmq:das");
-        configModel.setIncludes(includes);
+       // configModel.setIncludes(includes);
         configModel.setUseCache(true);
         configModel.setSuffix(false);
         configModel.setPush(push);
-        shell.jenkinsWrite(multi, false, configModel);
+        configModel.setMulti(multi);
+        configModel.setReplaceDockerGit(false);
+        shell.jenkinsWrite(configModel);
     }
 
 

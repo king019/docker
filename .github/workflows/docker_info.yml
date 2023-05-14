@@ -19,6 +19,6 @@ jobs:
           cat /etc/docker/daemon.json;
           sudo service docker restart;
       - name: docker info
-        run: docker info
-             uname -a
+        run: docker info;
+             uname -a;
 

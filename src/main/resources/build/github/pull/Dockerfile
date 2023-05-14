@@ -30,11 +30,11 @@ swr.cn-east-2.myhuaweicloud.com/kuboard-dependency/metrics-server:v0.6.2
 
 
 
-@ignore
+
 registry.cn-hangzhou.aliyuncs.com/google_containers/nginx-ingress-controller:v1.1.0
 registry.cn-hangzhou.aliyuncs.com/google_containers/kube-webhook-certgen:v1.1.1
 
-@ignoreDk
+@ignore
 registry.cn-beijing.aliyuncs.com/king019/nacos:2.2.0
 registry.cn-beijing.aliyuncs.com/king019/dubbo:consumer
 registry.cn-beijing.aliyuncs.com/king019/dubbo:provider

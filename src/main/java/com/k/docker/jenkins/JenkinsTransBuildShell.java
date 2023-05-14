@@ -22,7 +22,6 @@ public class JenkinsTransBuildShell {
     );
     private String targetReg = "registry.cn-qingdao.aliyuncs.com/king019";
     private String ignore = "@ignore";
-    private String ignoreDk = "@ignoreDk";
 
     private String docker5000 = "docker:5000";
     private String docker5001 = "docker:5000";
@@ -170,9 +169,6 @@ public class JenkinsTransBuildShell {
                 continue;
             }
             if (StringUtils.startsWith(line, ignore)) {
-                continue;
-            }
-            if (StringUtils.startsWith(line, ignoreDk)) {
                 break;
             }
 
@@ -183,15 +179,15 @@ public class JenkinsTransBuildShell {
 
             String source = line;
             String transSource = line;
+            for (String reg : regSet) {
+                transSource = StringUtils.replace(transSource, reg + "/", "");
+            }
             if (StringUtils.contains(transSource, "/")) {
                 transSource = transSource.replace("/", "_");
             }
             String target;
             targetDkLines.add("echo '" + line + "'");
             targetDkLines.add("docker pull " + line);
-            for (String reg : regSet) {
-                transSource = StringUtils.replace(transSource, reg + "/", "");
-            }
             String targetX86 = dockerHost + "/" + addSub(transSource, DockerPlatformEnum.ADM64.getPlatform(), subFix);
             String targetArm64 = dockerHost + "/" + addSub(transSource, DockerPlatformEnum.ARM64.getPlatform(), subFix);
             target = dockerHost + "/" + transSource;
@@ -222,9 +218,6 @@ public class JenkinsTransBuildShell {
                 continue;
             }
             if (StringUtils.startsWith(line, ignore)) {
-                continue;
-            }
-            if (StringUtils.startsWith(line, ignoreDk)) {
                 break;
             }
 

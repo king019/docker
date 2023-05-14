@@ -1,13 +1,21 @@
-FROM  python:2.7.18-alpine
+FROM  registry.cn-qingdao.aliyuncs.com/king019/python:2.7.18-alpine
 
 MAINTAINER king019
 
+COPY config/trans.sh /trans.sh
+COPY config/trans_repo_bak.sh /trans_repo_bak.sh
+COPY config/trans_repo_nexus.sh /trans_repo_nexus.sh
+COPY config/trans_maven.sh /trans_maven.sh
+COPY config/trans_repo.sh /trans_repo.sh
+
 RUN sed -i 's/https/http/g' /etc/apk/repositories
-RUN sed -i 's/dl-cdn.alpinelinux.org/repo.huaweicloud.com/g' /etc/apk/repositories
+
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN mkdir -p /root/.m2
 RUN mkdir -p /opt/soft/tools/
 COPY config/settings.xml /root/.m2/settings.xml
+COPY config/trans_maven.sh /trans_maven.sh
 RUN echo 'trans_maven'
 
 RUN apk add maven
@@ -19,12 +27,12 @@ RUN apk add nginx
 
 
 
-RUN mvn dependency:get -DgroupId=org.apache.tomcat -DartifactId=tomcat -Dversion=9.0.68 -Dpackaging=tar.gz;cp /root/.m2/repository/org/apache/tomcat/tomcat/9.0.68/tomcat-9.0.68.tar.gz /opt/soft/tools
 
-RUN cd /opt/soft/tools;tar -xzf tomcat-9.0.68.tar.gz
-RUN cd /opt/soft/tools;mv apache-tomcat-9.0.68 tomcat
-# RUN mkdir -p /opt/soft/tools/tomcat/webapps
-RUN cd /opt/soft/tools/tomcat/webapps;rm -fr *
+COPY config/server.sh /server.sh
+
+RUN chmod 755 /*.sh
+RUN /server.sh
+
 
 
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk' >> /etc/profile
@@ -41,6 +49,11 @@ ADD conf/zoo.properties  /conf/zoo.properties
 
 COPY nginx.conf /etc/nginx/
 RUN rm -rf /etc/nginx/conf.d/default.conf
+
+
+
+
+
 
 COPY gitjar.sh /gitjar.sh
 COPY docker.sh /docker.sh

@@ -9,14 +9,7 @@ import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.k.docker.jenkins.model.DockerConfigModel;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
-import com.k.docker.jenkins.model.emums.BuildItemEnum;
-import com.k.docker.jenkins.model.emums.ConstantEnum;
-import com.k.docker.jenkins.model.emums.DockerBuildPathEnum;
-import com.k.docker.jenkins.model.emums.DockerFunctionEnum;
-import com.k.docker.jenkins.model.emums.DockerParamEnum;
-import com.k.docker.jenkins.model.emums.DockerPlatformEnum;
-import com.k.docker.jenkins.model.emums.DockerRegionEnum;
-import com.k.docker.jenkins.model.emums.GitRemoteEnum;
+import com.k.docker.jenkins.model.emums.*;
 import lombok.SneakyThrows;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
@@ -124,9 +117,6 @@ public class JenkinsUtil {
     }
 
     private void replaceDir(String dockerDest, DockerConfigModel configModel) throws IOException {
-        if (!configModel.isReplaceDockerGit()) {
-            return;
-        }
         File dir = new File(PathUtil.getTargetPath(dockerDest));
         replaceHttp(dir, configModel);
     }
@@ -148,11 +138,14 @@ public class JenkinsUtil {
             @Override
             public String apply(String line) {
                 line = line.trim();
-                if (line.startsWith("ADD")) {
+                if (line.startsWith("ADD")&&configModel.isReplaceDockerGit()) {
                     return startADD(line, configModel);
                 }
-                if (line.contains("git clone")) {
+                if (line.contains("git clone")&&configModel.isReplaceDockerGit()) {
                     return startGitClone(line, configModel);
+                }
+                if (line.contains("FROM")) {
+                    return startFROM(line, configModel);
                 }
                 return line;
             }
@@ -167,6 +160,17 @@ public class JenkinsUtil {
             next = handleUrl(line, gitSave1, configModel);
         } else if (line.indexOf(gitSave2) > 0) {
             next = handleUrl(line, gitSave2, configModel);
+        }
+        return next;
+    }
+
+    private String startFROM(String line, DockerConfigModel configModel) {
+        String start = "registry.cn-qingdao.aliyuncs.com/king019/";
+        String next = line;
+        String transFrom = configModel.getTransFrom();
+        if (StringUtils.isNotBlank(transFrom) && line.indexOf(start) > 0) {
+            String reg = FromTransEnum.getReg(transFrom);
+            next = next.replace("registry.cn-qingdao.aliyuncs.com/", reg);
         }
         return next;
     }
@@ -712,7 +716,7 @@ public class JenkinsUtil {
             List<String> repLines = map.get(DockerParamEnum.RP_TXT);
             replaceTxtDockerFile(lines, index, repLines);
         }
-        if(configModel.isReplaceSetting()){
+        if (configModel.isReplaceSetting()) {
             List<String> repSettingLines = map.get(DockerParamEnum.RP_SETTING);
             replaceTxtDockerFile(lines, index, repSettingLines);
         }

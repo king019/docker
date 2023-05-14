@@ -5,7 +5,9 @@ import org.apache.commons.lang3.StringUtils;
 
 @Getter
 public enum DockerParamEnum {
+    TRANS_FROM("tsfrom", ""),
     MIN_INDEX("minIndex", "-999"),
+    MAX_INDEX("maxIndex", "999999999"),
     ORIGIN("origin", "false"),
     //NEXUS_ALPINE("nexusApline", "false"),
     WORK_SPACE("ws", "${WORKSPACE}"),
@@ -13,7 +15,7 @@ public enum DockerParamEnum {
     THREAD("thread", "1"),
     INCLUDE("in", ""),
     REPLACE("rep", "false"),
-    PUSH("push", "true"),
+    PUSH("push", "false"),
     //IN_DOCKER("dk", "true"),
     EXCLUDE("ex", ""),
     RP_GIT("rpgit", "false"),

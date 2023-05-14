@@ -4,7 +4,7 @@ source /etc/profile;java -version
 java -version
 mkdir -p /opt/soft/version
 cd /opt/soft/version
-git clone https://e.coding.net/king019/github/zkui.git
+git clone https://gitee.com/king019/zkui.git
 cd zkui
 mvn versions:set -DnewVersion=release
 sed -i 's/<artifactId>maven-assembly-plugin<\/artifactId>/<artifactId>maven-assembly-plugin<\/artifactId><version>3.3.0<\/version>/g' pom.xml

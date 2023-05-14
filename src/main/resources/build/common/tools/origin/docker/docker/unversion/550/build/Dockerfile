@@ -1,11 +1,21 @@
-FROM  docker
+FROM  registry.cn-qingdao.aliyuncs.com/king019/docker
 
 MAINTAINER king019
 
-COPY settings.xml /root/.m2/settings.xml
+COPY config/settings.xml /root/.m2/settings.xml
+COPY config/trans_maven.sh /trans_maven.sh
 RUN echo 'trans_maven'
+
+
+COPY config/trans.sh /trans.sh
+COPY config/trans_repo_bak.sh /trans_repo_bak.sh
+COPY config/trans_repo_nexus.sh /trans_repo_nexus.sh
+COPY config/trans_maven.sh /trans_maven.sh
+COPY config/trans_repo.sh /trans_repo.sh
+
 RUN sed -i 's/https/http/g' /etc/apk/repositories
-RUN sed -i 's/dl-cdn.alpinelinux.org/repo.huaweicloud.com/g' /etc/apk/repositories
+
+RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN apk add maven
 RUN apk add openjdk17

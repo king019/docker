@@ -10,7 +10,7 @@ RUN apt-get -y install  nginx
 RUN apt-get -y install  gdb
 RUN apt-get -y install  strace
 RUN apt-get -y install  traceroute
-RUN apt-get -y install  linux-perf
+#RUN apt-get -y install  linux-perf
 RUN apt-get -y install golang-go
 RUN apt-get -y install make
 RUN apt-get -y install autoconf

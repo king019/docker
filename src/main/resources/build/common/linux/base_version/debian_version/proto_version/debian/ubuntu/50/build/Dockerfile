@@ -1,6 +1,8 @@
 FROM registry.cn-qingdao.aliyuncs.com/king019/ubuntu:lunar
 MAINTAINER king019
 
+ENV DEBIAN_FRONTEND noninteractive
+
 RUN mkdir -p /root/.m2/repository
 RUN mkdir -p /root/soft
 RUN mkdir -p /root/tools
@@ -22,9 +24,10 @@ RUN apt-get update
 COPY docker.sh /docker.sh
 
 COPY config/trans.sh /trans.sh
-COPY config/trans_bak.sh /trans_bak.sh
-COPY config/trans_nexus.sh /trans_nexus.sh
-
+COPY config/trans_repo_bak.sh /trans_repo_bak.sh
+COPY config/trans_repo_nexus.sh /trans_repo_nexus.sh
+COPY config/trans_maven.sh /trans_maven.sh
+COPY config/trans_repo.sh /trans_repo.sh
 
 RUN chmod 755 /*.sh
 #RUN /expect_bash.sh

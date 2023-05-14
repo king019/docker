@@ -29,6 +29,7 @@ public class DockerConfigModel {
     //替换docker中的git地址
     private boolean replaceDockerGit;
     private int multi=1;
+    private String transFrom;
     private List<String> includes = Lists.newArrayList();
     private List<String> excludes = Lists.newArrayList();
 }

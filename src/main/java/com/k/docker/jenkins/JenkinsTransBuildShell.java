@@ -11,7 +11,6 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Set;
-import java.util.function.Predicate;
 
 public class JenkinsTransBuildShell {
     private Set<String> regSet = Set.of(
@@ -26,7 +25,7 @@ public class JenkinsTransBuildShell {
     private String ignoreDk = "@ignoreDk";
 
     private String docker5000 = "docker:5000";
-    private String docker5001 = "docker:5001";
+    private String docker5001 = "docker:5000";
     private int maxStep = 20;
     private int defStep = 1;
     private boolean arm = false;
@@ -36,6 +35,8 @@ public class JenkinsTransBuildShell {
 
     public static void main(String[] args) throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
+        shell.arm = true;
+        shell.subFix = true;
         shell.test();
     }
 
@@ -182,6 +183,9 @@ public class JenkinsTransBuildShell {
 
             String source = line;
             String transSource = line;
+            if (StringUtils.contains(transSource, "/")) {
+                transSource = transSource.replace("/", "_");
+            }
             String target;
             targetDkLines.add("echo '" + line + "'");
             targetDkLines.add("docker pull " + line);
@@ -231,6 +235,9 @@ public class JenkinsTransBuildShell {
 
             String source = line;
             String transSource = line;
+            if (StringUtils.contains(transSource, "/")) {
+                transSource = transSource.replace("/", "_");
+            }
             String target;
             targetDkLines.add("echo '" + line + "'");
             targetDkLines.add("docker pull " + line);
@@ -295,6 +302,9 @@ public class JenkinsTransBuildShell {
             }
             String source = line;
             String transSource = line;
+            if (StringUtils.contains(transSource, "/")) {
+                transSource = transSource.replace("/", "_");
+            }
             String target;
             targetDkAliyunLines.add("#" + line);
             String sourceDk;

@@ -19,6 +19,7 @@ public class JenkinsBuildShell {
     private static Map<DockerParamEnum, String> map = Maps.newHashMap();
     static int multi = 1;
     static int minIndex = -999;
+    static int maxIndex = 9999999;
     static boolean replace = false;
     static boolean push = true;
     static List<String> includes = Lists.newArrayList();
@@ -74,6 +75,10 @@ public class JenkinsBuildShell {
             configModel.setReplaceGit(replaceGit);
         }
         {
+            String transFrom = JenkinsUtil.getVal(DockerParamEnum.TRANS_FROM, map);
+            configModel.setTransFrom(transFrom);
+        }
+        {
             boolean mix = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.MIX, map));
             configModel.setMix(mix);
         }
@@ -90,6 +95,10 @@ public class JenkinsBuildShell {
             configModel.setSuffix(suf);
         }
         {
+            maxIndex = Integer.parseInt(JenkinsUtil.getVal(DockerParamEnum.MAX_INDEX, map));
+            configModel.setMaxIndex(maxIndex);
+        }
+        {
             String val = JenkinsUtil.getVal(DockerParamEnum.INCLUDE, map);
             if (StringUtils.isNotBlank(val)) {
                 includes.addAll(Lists.newArrayList(val.split(",")));
@@ -101,6 +110,7 @@ public class JenkinsBuildShell {
                 excludes.addAll(Lists.newArrayList(val.split(",")));
             }
             excludes.add("king019/docker:build");
+            excludes.add("king019/debian");
             excludes.add("king019/source");
             //excludes.add("centos");
             excludes.removeAll(includes);
@@ -210,12 +220,13 @@ public class JenkinsBuildShell {
         configModel.setReplaceSetting(true);
         configModel.setReplaceTxt(true);
         List<String> includes = List.of("king019/rocketmq:das");
-       // configModel.setIncludes(includes);
+        // configModel.setIncludes(includes);
         configModel.setUseCache(true);
         configModel.setSuffix(false);
         configModel.setPush(push);
         configModel.setMulti(multi);
         configModel.setReplaceDockerGit(false);
+        configModel.setTransFrom("dk5000");
         shell.jenkinsWrite(configModel);
     }
 

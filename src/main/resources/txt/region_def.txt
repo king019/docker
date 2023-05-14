@@ -7,3 +7,4 @@ tenyun_beijing
 docker_5000
 no_suffix
 nexus_5000
+docker

@@ -1,2 +1,0 @@
-king019/jenkins:2.404
-king019/jenkins

@@ -1,3 +1,6 @@
+kicbase/stable:v0.0.39
+
+
 docker
 alpine:3.18
 rockylinux:9

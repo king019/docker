@@ -11,11 +11,34 @@ RUN mkdir -p /etc/docker
 
 COPY docker.sh /docker.sh
 
-COPY config/trans.sh /trans.sh
-COPY config/trans_repo_bak.sh /trans_repo_bak.sh
-COPY config/trans_repo_nexus.sh /trans_repo_nexus.sh
-COPY config/trans_maven.sh /trans_maven.sh
-COPY config/trans_repo.sh /trans_repo.sh
+
+
+COPY config/settings.xml /root/.m2/settings.xml
+RUN echo 'trans_maven'
+ADD config/bashrc /root/.bashrc
+COPY config/config.json /config.json
+RUN mkdir -p /root/.docker;cp /config.json /root/.docker/config.json
+COPY config/daemon.json /daemon.json
+RUN mkdir -p /etc/docker;cp /daemon.json /etc/docker/daemon.json
+
+
+
+
+
+
+
+COPY configshell/trans.sh /trans.sh
+COPY configshell/trans_repo_bak.sh /trans_repo_bak.sh
+COPY configshell/trans_repo_nexus.sh /trans_repo_nexus.sh
+COPY configshell/trans_maven.sh /trans_maven.sh
+COPY configshell/trans_repo.sh /trans_repo.sh
+
+
+
+
+
+
+
 
 RUN sed -i 's/https/http/g' /etc/apk/repositories
 

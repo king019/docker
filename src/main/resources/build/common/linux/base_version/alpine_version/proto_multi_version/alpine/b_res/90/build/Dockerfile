@@ -15,20 +15,6 @@ COPY run/run_env.sh /run_env.sh
 
 
 
-COPY config/settings.xml /root/.m2/settings.xml
-COPY config/trans_maven.sh /trans_maven.sh
-RUN echo 'trans_maven'
-
-
-
-ADD config/bashrc /root/.bashrc
-
-COPY config/config.json /config.json
-RUN mkdir -p /root/.docker;cp /config.json /root/.docker/config.json
-
-COPY config/daemon.json /daemon.json
-RUN mkdir -p /etc/docker;cp /daemon.json /etc/docker/daemon.json
-
 
 
 

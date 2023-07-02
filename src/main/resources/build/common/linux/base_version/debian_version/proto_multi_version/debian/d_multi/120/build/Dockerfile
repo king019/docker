@@ -8,6 +8,7 @@ RUN apt-get -y install  wget
 RUN apt-get -y install  vim
 RUN apt-get -y install  unzip
 RUN apt-get -y install  lsof
+RUN apt-get -y install  jq
 
 RUN apt-get -y install  telnet
 RUN apt-get -y install  tcpdump

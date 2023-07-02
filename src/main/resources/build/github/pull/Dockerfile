@@ -10,6 +10,29 @@ ubuntu:lunar
 archlinux
 
 
+
+
+registry
+xetusoss/archiva
+portainer/portainer:1.23.2
+paketobuildpacks/builder:base
+
+
+
+grafana/grafana:9.4.3
+quay.io/prometheus-operator/prometheus-config-reloader:v0.63.0
+quay.io/prometheus/prometheus:v2.43.0
+busybox:1.30
+skywalking.docker.scarf.sh/apache/skywalking-oap-server:9.3.0
+skywalking.docker.scarf.sh/apache/skywalking-ui:9.3.0
+openzipkin/zipkin-slim:2.23.16
+elasticsearch:8.8.1
+elasticsearch:7.17.10
+prom/pushgateway
+
+
+
+
 tomcat:9
 
 istio/pilot:1.16.2

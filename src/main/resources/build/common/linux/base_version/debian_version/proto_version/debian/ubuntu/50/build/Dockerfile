@@ -3,6 +3,8 @@ MAINTAINER king019
 
 ENV DEBIAN_FRONTEND noninteractive
 
+ENV TZ=Asia/Shanghai
+
 RUN mkdir -p /root/.m2/repository
 RUN mkdir -p /root/soft
 RUN mkdir -p /root/tools

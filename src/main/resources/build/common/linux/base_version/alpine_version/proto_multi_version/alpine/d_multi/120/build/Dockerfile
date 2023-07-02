@@ -7,6 +7,7 @@ RUN apk add wget
 RUN apk add vim
 RUN apk add net-tools
 RUN apk add bind-tools
+RUN apk add jq
 # telnet
 RUN apk add busybox-extras
 

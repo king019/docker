@@ -1,0 +1,56 @@
+# webapp-deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nacos-admin
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: nacos-admin
+  template:
+    metadata:
+      labels:
+        app: nacos-admin
+    spec:
+      containers:
+        - name: nacos-admin
+          image: docker:5000/king019/sshm_cloud_alibaba_nacos_admin_server
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8980
+
+
+# webapp-service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: nacos-admin
+spec:
+  ports:
+    - port: 8980
+      targetPort: 8980
+      protocol: TCP
+  selector:
+    app: nacos-admin
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: nacos-admin
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+spec:
+  rules:
+    - host: nacos-admin.k8s.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: nacos-admin
+                port:
+                  number: 8980

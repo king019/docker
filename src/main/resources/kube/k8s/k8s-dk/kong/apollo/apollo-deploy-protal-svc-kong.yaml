@@ -1,0 +1,68 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: apollo-protal
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: apollo-protal
+  template:
+    metadata:
+      labels:
+        app: apollo-protal
+    spec:
+      containers:
+        - name: apollo-protal
+          image: docker:5000/king019/apollo:protal
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 6123
+          env:
+            - name: DS_URL
+              value: "jdbc:mysql://mysql:3306/ApolloPortalDB"
+            - name: DS_USERNAME
+              value: root
+            - name: DS_PASSWORD
+              value: "111111"
+            - name: SERVER_PORT
+              value: "6123"
+            - name: DEV_MATA
+              value: "http://apollo-config:6121"
+            - name: JAVA_OPTS
+              value: " -Xms128m -Xmx128m -Xmn64m "
+
+# webapp-service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: apollo-protal
+spec:
+  #  type: NodePort
+  ports:
+    - port: 6123
+      targetPort: 6123
+      protocol: TCP
+  selector:
+    app: apollo-protal
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: apollo-protal
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+spec:
+  rules:
+    - host: apollo-protal.k8s.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: apollo-protal
+                port:
+                  number: 6123

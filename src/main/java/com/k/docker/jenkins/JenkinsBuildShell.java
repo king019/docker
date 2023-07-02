@@ -99,6 +99,10 @@ public class JenkinsBuildShell {
             configModel.setMaxIndex(maxIndex);
         }
         {
+            boolean dkCache = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.BUILD_CACHE, map));
+            configModel.setUseCache(dkCache);
+        }
+        {
             String val = JenkinsUtil.getVal(DockerParamEnum.INCLUDE, map);
             if (StringUtils.isNotBlank(val)) {
                 includes.addAll(Lists.newArrayList(val.split(",")));

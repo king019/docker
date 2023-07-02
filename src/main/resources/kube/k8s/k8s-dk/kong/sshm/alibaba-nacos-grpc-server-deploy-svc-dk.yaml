@@ -1,0 +1,44 @@
+# webapp-deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-grpc-nacos-server
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-grpc-nacos-server
+  template:
+    metadata:
+      labels:
+        app: k8s-grpc-nacos-server
+    spec:
+      containers:
+        - name: k8s-grpc-nacos-server
+          image: docker:5000/king019/sshm_cloud_alibaba_nacos_k8s_grpc_server
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: server.port
+              value: "8080"
+            - name: 'management.prometheus.metrics.export.pushgateway.groupingKey.instance'
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+
+
+# webapp-service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-grpc-nacos-server
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: k8s-grpc-nacos-server

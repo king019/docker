@@ -40,9 +40,13 @@ metadata:
 spec:
   #  type: NodePort
   ports:
-    - port: 8848
+    - name: p8848
+      port: 8848
       targetPort: 8848
-      #    nodePort: 30001
+      protocol: TCP
+    - name: p9848
+      port: 9848
+      targetPort: 9848
       protocol: TCP
   selector:
     app: nacos
@@ -52,7 +56,7 @@ kind: Ingress
 metadata:
   name: nacos
   annotations:
-    kubernetes.io/ingress.class: "nginx"
+    kubernetes.io/ingress.class: "kong"
 spec:
   rules:
     - host: nacos.k8s.com

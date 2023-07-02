@@ -17,7 +17,7 @@ spec:
       containers:
         - name: dubbo-server
           image: docker:5000/king019/dubbo:provider
-          imagePullPolicy: IfNotPresent
+          imagePullPolicy: Always
           ports:
             - containerPort: 8080
 
@@ -37,3 +37,22 @@ spec:
       protocol: TCP
   selector:
     app: dubbo-server
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: dubbo-server
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+spec:
+  rules:
+    - host: dubbo.server.k8s.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: dubbo-server
+                port:
+                  number: 8080

@@ -1,0 +1,57 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+spec:
+  ports:
+  - name: db
+    port: 9200
+    protocol: TCP
+    targetPort: 9200
+  - name: transport
+    port: 9300
+    protocol: TCP
+    targetPort: 9300
+  selector:
+    run: elasticsearch
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    run: elasticsearch
+  name: elasticsearch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      run: elasticsearch
+  template:
+    metadata:
+      labels:
+        run: elasticsearch
+    spec:
+      containers:
+        - name: elasticsearch
+          image: registry.cn-qingdao.aliyuncs.com/king019/elasticsearch:8.8.1
+          ports:
+            - name: db
+              containerPort: 9200
+              protocol: TCP
+            - name: tramsport
+              containerPort: 3200
+              protocol: TCP
+          env:
+            - name: discovery.type
+              value: "single-node"
+            - name: serviceDelay
+              value: "0"
+            - name: JAVA_OPTS
+              value: "-Xms64m -Xmx64m -Xmn32m"
+          resources:
+            limits:
+                cpu: 500m
+                memory: 1Gi
+            requests:
+                cpu: 500m
+                memory: 1Gi

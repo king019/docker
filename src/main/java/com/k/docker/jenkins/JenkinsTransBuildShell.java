@@ -18,7 +18,9 @@ public class JenkinsTransBuildShell {
             "registry.cn-beijing.aliyuncs.com",
             "swr.cn-east-2.myhuaweicloud.com",
             "registry.gitlab.cn",
-            "ghcr.io"
+            "ghcr.io",
+            "quay.io",
+            "skywalking.docker.scarf.sh"
     );
     private String targetReg = "registry.cn-qingdao.aliyuncs.com/king019";
     private String ignore = "@ignore";

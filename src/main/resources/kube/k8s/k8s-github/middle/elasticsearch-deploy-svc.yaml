@@ -1,0 +1,49 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: elasticsearch
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: elasticsearch
+  template:
+    metadata:
+      labels:
+        app: elasticsearch
+    spec:
+      containers:
+        - name: elasticsearch
+          image: registry.cn-qingdao.aliyuncs.com/king019/elasticsearch:8.8.1
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: p9920
+              containerPort: 9920
+              protocol: TCP
+            - name: p9930
+              containerPort: 9930
+              protocol: TCP
+          env:
+            - name: discovery.type
+              value: "single-node"
+            - name: serviceDelay
+              value: "0"
+            - name: JAVA_OPTS
+              value: "-Xms64m -Xmx64m -Xmn32m"
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: elasticsearch
+spec:
+  ports:
+    - name: p9920
+      port: 9920
+      targetPort: 9920
+      protocol: TCP
+    - name: p9930
+      port: 9930
+      targetPort: 9930
+      protocol: TCP
+  selector:
+    app: elasticsearch

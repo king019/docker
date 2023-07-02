@@ -4,6 +4,8 @@ FROM registry.cn-qingdao.aliyuncs.com/king019/rockylinux:9
 # FROM quay.io/centos/centos:stream9
 MAINTAINER king019
 
+ENV TZ=Asia/Shanghai
+
 RUN mkdir -p /root/.m2/repository
 RUN mkdir -p /root/soft
 RUN mkdir -p /root/tools

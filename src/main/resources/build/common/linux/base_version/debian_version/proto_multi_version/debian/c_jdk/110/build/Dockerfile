@@ -4,8 +4,8 @@ MAINTAINER king019
 
 
 #apt-cache search jdk
-RUN apt-get -y install  openjdk-8-jdk
-RUN apt-get -y install  openjdk-11-jdk
+#RUN apt-get -y install  openjdk-8-jdk
+#RUN apt-get -y install  openjdk-11-jdk
 RUN apt-get -y install  openjdk-17-jdk
 
 COPY config/jdk.sh /jdk.sh

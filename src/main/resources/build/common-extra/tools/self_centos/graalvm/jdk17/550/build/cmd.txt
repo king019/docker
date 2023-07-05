@@ -1,0 +1,12 @@
+docker pull registry.cn-beijing.aliyuncs.com/king019/centos:jdk17
+
+
+docker build -t registry.cn-beijing.aliyuncs.com/king019/graalvm:jdk17 .
+docker push registry.cn-beijing.aliyuncs.com/king019/graalvm:jdk17
+
+
+
+
+
+docker build -t docker:5000/king019/graalvm:jdk17 .
+docker push docker:5000/king019/graalvm:jdk17

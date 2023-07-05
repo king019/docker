@@ -39,3 +39,28 @@ kubectl delete all --all
 
 
 iptables -L -n
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+docker pull registry.cn-qingdao.aliyuncs.com/king019/kicbase_stable:v0.0.39
+docker tag registry.cn-qingdao.aliyuncs.com/king019/kicbase_stable:v0.0.39 docker:5000/king019/kicbase_stable:v0.0.39
+docker push docker:5000/king019/kicbase_stable:v0.0.39

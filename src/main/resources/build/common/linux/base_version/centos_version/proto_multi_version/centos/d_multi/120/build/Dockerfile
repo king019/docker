@@ -13,6 +13,8 @@ RUN dnf -y install  unzip
 RUN dnf -y install  which
 RUN dnf -y install  lsof
 RUN dnf -y install  jq
+RUN dnf -y install  gcc
+RUN dnf -y install  zlib-devel zlib
 
 RUN dnf -y install  telnet
 RUN dnf -y install  tcpdump

@@ -6,8 +6,8 @@ MAINTAINER king019
 RUN dnf -y install  maven
 
 
-RUN dnf -y install  java-1.8.0-openjdk
-RUN dnf -y install  java-11-openjdk-devel
+#RUN dnf -y install  java-1.8.0-openjdk
+#RUN dnf -y install  java-11-openjdk-devel
 RUN dnf -y install  java-17-openjdk-devel
 
 RUN chmod -R 777 /*.sh

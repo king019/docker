@@ -62,7 +62,7 @@ public class JenkinsUtil {
     }
 
     public List<DockerJenkinsModel> jenkinsWrite(DockerConfigModel model, DockerPlatformEnum platform) throws Exception {
-        String dockerDest = DockerBuildPathEnum.dockerDest.getPath() + platform.getPlatform() + "/";
+        String dockerDest = model.getBuildOut() + platform.getPlatform() + "/";
         List<DockerJenkinsModel> models = buildModel(dockerDest, model, platform);
         replaceDir(dockerDest, model);
         models = filter(models, model);
@@ -90,7 +90,7 @@ public class JenkinsUtil {
     }
 
     public List<DockerJenkinsModel> buildModel(DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
-        String dockerDest = "dockerDest/";
+        String dockerDest =configModel.getBuildOut() ;
         configModel.setReplaceGit(true);
         configModel.setReplaceSetting(true);
         //configModel.setInDocker(true);
@@ -98,7 +98,7 @@ public class JenkinsUtil {
     }
 
     public List<DockerJenkinsModel> buildModel(String dockerDest, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
-        String resource = PathUtil.getResource("build/common");
+        String resource = PathUtil.getResource(configModel.getBuildPath());
         File file = new File(resource);
         Map<DockerRegionEnum, File> map = Maps.newHashMap();
         copyFile(file, dockerDest, map, configModel, platform);
@@ -643,7 +643,7 @@ public class JenkinsUtil {
                 String doc = StringUtils.join(FileUtils.readLines(file, StandardCharsets.UTF_8), ",");
                 String path = file.getParentFile().getParentFile().getParentFile().getAbsolutePath();
                 String pathNext = file.getParentFile().getAbsolutePath();
-                int prePathIndex = path.indexOf(PathBaseUtil.PRE_PATH);
+                int prePathIndex = path.indexOf(configModel.getBuildOut());
                 path = path.substring(prePathIndex);
                 Map<String, Map<BuildItemEnum, String>> pathMap = map.computeIfAbsent(path, s -> Maps.newHashMap());
                 Map<BuildItemEnum, String> enumMap = pathMap.computeIfAbsent(pathNext, nextPath -> Maps.newHashMap());

@@ -53,19 +53,22 @@ spec:
                 port:
                   number: 9091
 ---
-apiVersion: batch/v2alpha1
+apiVersion: batch/v1
 kind: CronJob
 metadata:
-  name: pushgateway
+  name: pushgateway-cronjob
 spec:
   schedule: "*/1 * * * *"
   jobTemplate:
     spec:
-      containers:
-      - name: pushgateway
-        image: busybox
-        args:
-        - /bin/sh
-        - -c
-        - date;echo Hello from the Kubernetes cluster
-      restartPolicy: OnFailure
+      template:
+        spec:
+          containers:
+          - name: pushgateway
+            image: docker:5000/king019/alpine:pushgateway_delete
+            imagePullPolicy: IfNotPresent
+            command:
+            - /bin/sh
+            - -c
+            - sh /delete.sh
+          restartPolicy: OnFailure

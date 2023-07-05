@@ -84,7 +84,7 @@ public class JenkinsExtraBuildShell {
         configModel.setMulti(multi);
         configModel.setReplaceDockerGit(false);
         configModel.setBuildPath("build/common-extra");
-        configModel.setBuildOut( "extraDest/");
+        configModel.setBuildOut( "target/extraDest/");
         shell.jenkinsWrite(configModel);
     }
 

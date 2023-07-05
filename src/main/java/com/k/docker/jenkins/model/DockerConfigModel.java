@@ -31,7 +31,8 @@ public class DockerConfigModel {
     private int multi=1;
     private String transFrom;
     private String buildPath = "build/common";
-    private String buildOut = "dockerDest/";
+    private String buildOut = "target/dockerDest/";
+    private String buildOutDest =  buildOut.substring(buildOut.indexOf("/"))   ;
     private List<String> includes = Lists.newArrayList();
     private List<String> excludes = Lists.newArrayList();
 }

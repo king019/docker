@@ -62,7 +62,7 @@ public class JenkinsUtil {
     }
 
     public List<DockerJenkinsModel> jenkinsWrite(DockerConfigModel model, DockerPlatformEnum platform) throws Exception {
-        String dockerDest = model.getBuildOut() + platform.getPlatform() + "/";
+        String dockerDest = model.getBuildOutDest() + platform.getPlatform() + "/";
         List<DockerJenkinsModel> models = buildModel(dockerDest, model, platform);
         replaceDir(dockerDest, model);
         models = filter(models, model);
@@ -90,7 +90,7 @@ public class JenkinsUtil {
     }
 
     public List<DockerJenkinsModel> buildModel(DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
-        String dockerDest =configModel.getBuildOut() ;
+        String dockerDest =configModel.getBuildOutDest() ;
         configModel.setReplaceGit(true);
         configModel.setReplaceSetting(true);
         //configModel.setInDocker(true);

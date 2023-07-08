@@ -17,7 +17,7 @@ RUN ln -s /usr/lib/jvm/openjdk-17   /usr/lib/jvm/java-17-openjdk
 
 
 RUN apt-get -y install  maven
-
+RUN cp /usr/share/maven/bin/mvn /usr/share/maven/bin/mvn.bak
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk' >> /etc/profile
 RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 RUN echo '#jdk' >> /etc/profile

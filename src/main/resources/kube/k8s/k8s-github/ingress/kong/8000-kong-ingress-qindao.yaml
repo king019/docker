@@ -1617,20 +1617,18 @@ metadata:
   name: kong-proxy
   namespace: kong
 spec:
-  type: NodePort
   ports:
     - name: proxy
       port: 80
       protocol: TCP
       targetPort: 8000
-      nodePort: 31080
     - name: proxy-ssl
       port: 443
       protocol: TCP
       targetPort: 8443
-      nodePort: 32443
   selector:
     app: proxy-kong
+  type: LoadBalancer
 ---
 apiVersion: v1
 kind: Service

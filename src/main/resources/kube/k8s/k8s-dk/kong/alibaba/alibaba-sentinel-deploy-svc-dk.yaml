@@ -3,23 +3,23 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: admin
+  name: sentinel
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: admin
+      app: sentinel
   template:
     metadata:
       labels:
-        app: admin
+        app: sentinel
     spec:
       containers:
-        - name: admin
-          image: docker:5000/king019/sshm_cloud_alibaba_nacos_admin_server
+        - name: sentinel
+          image: docker:5000/king019/sentinel:dashbord
           imagePullPolicy: Always
           ports:
-            - containerPort: 8980
+            - containerPort: 8080
 
 
 # webapp-service.yaml
@@ -27,30 +27,30 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: admin
+  name: sentinel
 spec:
   ports:
-    - port: 8980
-      targetPort: 8980
+    - port: 9930
+      targetPort: 8080
       protocol: TCP
   selector:
-    app: admin
+    app: sentinel
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: admin
+  name: sentinel
   annotations:
     kubernetes.io/ingress.class: "kong"
 spec:
   rules:
-    - host: admin.k8s.com
+    - host: sentinel.k8s.com
       http:
         paths:
           - path: /
             pathType: ImplementationSpecific
             backend:
               service:
-                name: admin
+                name: sentinel
                 port:
-                  number: 8980
+                  number: 9930

@@ -4,6 +4,7 @@ MAINTAINER king019
 
 
 RUN dnf -y install  maven
+RUN cp /usr/share/maven/bin/mvn /usr/share/maven/bin/mvn.bak
 
 
 #RUN dnf -y install  java-1.8.0-openjdk

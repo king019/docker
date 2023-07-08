@@ -1617,20 +1617,18 @@ metadata:
   name: kong-proxy
   namespace: kong
 spec:
-  type: NodePort
   ports:
     - name: proxy
       port: 80
       protocol: TCP
       targetPort: 8000
-      nodePort: 31080
     - name: proxy-ssl
       port: 443
       protocol: TCP
       targetPort: 8443
-      nodePort: 32443
   selector:
     app: proxy-kong
+  type: LoadBalancer
 ---
 apiVersion: v1
 kind: Service
@@ -1686,7 +1684,7 @@ spec:
                 fieldRef:
                   apiVersion: v1
                   fieldPath: metadata.namespace
-          image: registry.cn-qingdao.aliyuncs.com/king019/kong_kubernetes-ingress-controller:2.10.0
+          image: kong/kubernetes-ingress-controller:2.10.0
           imagePullPolicy: IfNotPresent
           livenessProbe:
             failureThreshold: 3
@@ -1787,7 +1785,7 @@ spec:
               value: /dev/stderr
             - name: KONG_ROUTER_FLAVOR
               value: traditional
-          image: registry.cn-qingdao.aliyuncs.com/king019/kong:3.3
+          image: kong:3.3
           lifecycle:
             preStop:
               exec:

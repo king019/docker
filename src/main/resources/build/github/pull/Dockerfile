@@ -42,6 +42,10 @@ istio/proxyv2:1.16.2
 kong/kubernetes-ingress-controller:2.8.1
 kong:3.1
 
+kong/kubernetes-ingress-controller:2.10.0
+kong:3.3
+
+
 ghcr.io/graalvm/graalvm-ce:22
 
 prom/prometheus:v2.34.0

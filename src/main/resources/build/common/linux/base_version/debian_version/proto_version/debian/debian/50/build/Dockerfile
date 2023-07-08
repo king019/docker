@@ -1,6 +1,12 @@
 FROM registry.cn-qingdao.aliyuncs.com/king019/debian:11
 MAINTAINER king019
 
+
+RUN echo 'source /etc/profile' >> /root/.bashrc
+
+
+
+
 ENV DEBIAN_FRONTEND noninteractive
 
 ENV TZ=Asia/Shanghai

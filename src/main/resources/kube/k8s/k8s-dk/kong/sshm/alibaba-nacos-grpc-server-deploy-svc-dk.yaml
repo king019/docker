@@ -16,20 +16,45 @@ spec:
     spec:
       containers:
         - name: k8s-grpc-nacos-server
-          image: docker:5000/king019/sshm_cloud_alibaba_nacos_k8s_grpc_server
+          image: docker:5000/king019/sshm_cloud_alibaba_nacos_rpc_grpc_server
           imagePullPolicy: Always
           ports:
-            - containerPort: 8080
+            - name: http
+              containerPort: 8080
+              protocol: TCP
+            - name: grpc
+              containerPort: 8180
+              protocol: TCP
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
+          readinessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
+          startupProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 3
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
           env:
             - name: server.port
               value: "8080"
+            - name: grpc.server.port
+              value: "8180"
             - name: 'management.prometheus.metrics.export.pushgateway.groupingKey.instance'
               valueFrom:
                 fieldRef:
                   fieldPath: metadata.name
-
-
-# webapp-service.yaml
 ---
 apiVersion: v1
 kind: Service
@@ -37,8 +62,13 @@ metadata:
   name: k8s-grpc-nacos-server
 spec:
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: 8080
+      protocol: TCP
+    - name: grpc
+      port: 8180
+      targetPort: 8180
       protocol: TCP
   selector:
     app: k8s-grpc-nacos-server

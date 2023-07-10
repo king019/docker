@@ -11,7 +11,8 @@ RUN echo '#jdk11' >> /etc/profile
 
 RUN sed -i 's/^export JAVA_HOME/export JAVA_HOME=\/usr\/lib\/jvm\/java-11-openjdk/g'  /usr/share/maven/bin/mvn
 
-
+RUN rm -fr /etc/alternatives/java
+RUN ln -s /usr/lib/jvm/java-11-openjdk/bin/java /etc/alternatives/java
 
 RUN chmod 755 /*.sh
 CMD /docker.sh

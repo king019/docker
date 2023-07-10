@@ -16,10 +16,31 @@ spec:
     spec:
       containers:
         - name: k8s-grpc-nacos-consumer
-          image: docker:5000/king019/sshm_cloud_alibaba_nacos_k8s_grpc_consumer
+          image: docker:5000/king019/sshm_cloud_alibaba_nacos_rpc_grpc_consumer
           imagePullPolicy: Always
           ports:
             - containerPort: 8080
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
+          readinessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
+          startupProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 3
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
           env:
             - name: server.port
               value: "8080"
@@ -37,8 +58,28 @@ metadata:
   name: k8s-grpc-nacos-consumer
 spec:
   ports:
-    - port: 8080
+    - name: http
+      port: 8080
       targetPort: 8080
       protocol: TCP
   selector:
     app: k8s-grpc-nacos-consumer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: k8s-grpc-nacos-consumer
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+spec:
+  rules:
+    - host: nacos-grpc-consumer.k8s.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: k8s-grpc-nacos-consumer
+                port:
+                  number: 8080

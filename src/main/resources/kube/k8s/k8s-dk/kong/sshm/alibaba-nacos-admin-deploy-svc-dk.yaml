@@ -20,7 +20,27 @@ spec:
           imagePullPolicy: Always
           ports:
             - containerPort: 8980
-
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
+          readinessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
+          startupProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 3
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
 
 # webapp-service.yaml
 ---

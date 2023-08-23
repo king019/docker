@@ -1,0 +1,88 @@
+# webapp-deployment.yaml
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: k8s-feign-nacos-consumer
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: k8s-feign-nacos-consumer
+  template:
+    metadata:
+      labels:
+        app: k8s-feign-nacos-consumer
+    spec:
+      containers:
+        - name: k8s-feign-nacos-consumer
+          image: docker:5000/king019/sshm_cloud_alibaba_nacos_rpc_discovery_feign_consumer
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          env:
+            - name: server.port
+              value: "8080"
+            - name: 'management.prometheus.metrics.export.pushgateway.groupingKey.instance'
+              valueFrom:
+                fieldRef:
+                  fieldPath: metadata.name
+          livenessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 20
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
+          readinessProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 10
+            failureThreshold: 20
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
+          startupProbe:
+            initialDelaySeconds: 5
+            periodSeconds: 3
+            failureThreshold: 20
+            httpGet:
+              path: /actuator/health
+              port: 8080
+              scheme: HTTP
+
+
+
+# webapp-service.yaml
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: k8s-feign-nacos-consumer
+spec:
+  ports:
+    - port: 8080
+      targetPort: 8080
+      protocol: TCP
+  selector:
+    app: k8s-feign-nacos-consumer
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: k8s-feign-nacos-consumer
+  annotations:
+    kubernetes.io/ingress.class: "kong"
+spec:
+  rules:
+    - host: nacos-feign-consumer.k8s.com
+      http:
+        paths:
+          - path: /
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: k8s-feign-nacos-consumer
+                port:
+                  number: 8080

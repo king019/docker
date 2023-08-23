@@ -37,7 +37,7 @@ public class DockerQdTransBuildShell {
     public void test() throws Exception {
         String targetAliyunPath = FWPathUtil.getTargetPath("pull/aliyun_qingdao.sh");
         List<String> lines = readFrom();
-        lines = lines.stream().filter(s -> !StringUtils.startsWith(s, "#")).toList();
+        lines = lines.stream().filter(s -> !StringUtils.startsWith(s, "#")).collect(Collectors.toList());
         List<String> targetAliyunLines = Lists.newArrayList();
         aliyun(lines, targetAliyunLines, targetReg);
         FileUtils.writeLines(new File(targetAliyunPath), targetAliyunLines);

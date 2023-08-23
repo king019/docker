@@ -2,11 +2,13 @@ kicbase/stable:v0.0.39
 
 
 docker
-alpine:3.18
+alpine:3.17
 rockylinux:9
 debian:11
-#lunar-23
-ubuntu:lunar
+debian:stable
+ubuntu:23.10
+ubuntu:23.04
+ubuntu
 archlinux
 
 

@@ -436,7 +436,7 @@ public class JenkinsUtil {
             File replaceTxt = new File(dir + "/replace.txt");
             if (replaceTxt.exists()) {
                 List<String> lines = FileUtils.readLines(replaceTxt, Charset.defaultCharset());
-                lines = lines.stream().filter(s -> !StringUtils.startsWith(s, "#")).toList();
+                lines = lines.stream().filter(s -> !StringUtils.startsWith(s, "#")).collect(Collectors.toList());
                 map.put(DockerParamEnum.RP_TXT, lines);
             }
         }
@@ -444,7 +444,7 @@ public class JenkinsUtil {
             File replaceSettingTxt = new File(dir + "/replace_setting.txt");
             if (replaceSettingTxt.exists()) {
                 List<String> lines = FileUtils.readLines(replaceSettingTxt, Charset.defaultCharset());
-                lines = lines.stream().filter(s -> !StringUtils.startsWith(s, "#")).toList();
+                lines = lines.stream().filter(s -> !StringUtils.startsWith(s, "#")).collect(Collectors.toList());
                 map.put(DockerParamEnum.RP_SETTING, lines);
             }
 

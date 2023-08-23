@@ -11,6 +11,7 @@ import java.io.File;
 import java.nio.charset.Charset;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class JenkinsTransBuildShell {
     private Set<String> regSet = Set.of(
@@ -108,7 +109,7 @@ public class JenkinsTransBuildShell {
         String targetDk5001AliyunPath = FWPathUtil.getTargetPath("pull/dk5001aliyun.sh");
         File srcFile = new File(resource);
         List<String> lines = FileUtils.readLines(srcFile, Charset.defaultCharset());
-        lines = lines.stream().filter(s -> !StringUtils.startsWith(s, "#")).toList();
+        lines = lines.stream().filter(s -> !StringUtils.startsWith(s, "#")).collect(Collectors.toList());
         List<String> targetAliyunLines = Lists.newArrayList();
         List<String> targetDk5000Lines = Lists.newArrayList();
         List<String> targetDk5001Lines = Lists.newArrayList();

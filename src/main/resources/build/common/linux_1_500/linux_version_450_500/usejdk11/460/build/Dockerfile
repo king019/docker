@@ -1,4 +1,4 @@
-FROM king019/rhel:onlyjdk11
+FROM king019/alpine:onlyjdk11
 
 MAINTAINER king019
 

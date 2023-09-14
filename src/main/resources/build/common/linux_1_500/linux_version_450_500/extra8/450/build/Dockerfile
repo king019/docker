@@ -1,4 +1,4 @@
-FROM king019/centos:extra8
+FROM king019/alpine:extra8
 
 MAINTAINER king019
 

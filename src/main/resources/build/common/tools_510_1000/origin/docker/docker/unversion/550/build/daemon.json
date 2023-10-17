@@ -2,7 +2,7 @@
   "experimental": "enabled",
   "registry-mirrors": [
     "http://docker:5000",
-    "https://docker:5000",
+    "http://docker:5001",
     "https://msb3wa7d.mirror.aliyuncs.com",
     "https://docker.mirrors.ustc.edu.cn",
     "https://hub-mirror.c.163.com",
@@ -11,6 +11,7 @@
   ],
   "debug": true,
   "insecure-registries": [
-    "docker:5000"
+    "docker:5000",
+    "docker:5001"
   ]
 }

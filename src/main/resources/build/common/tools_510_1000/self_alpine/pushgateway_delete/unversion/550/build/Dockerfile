@@ -1,4 +1,4 @@
-FROM king019/alipine:p
+FROM king019/alpine:p
 
 
 

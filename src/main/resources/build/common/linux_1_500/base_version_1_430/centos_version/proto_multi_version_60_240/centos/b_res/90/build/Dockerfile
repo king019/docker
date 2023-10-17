@@ -1,4 +1,4 @@
-FROM king019/centos:s
+FROM king019/centos:runuse
 
 MAINTAINER king019
 

@@ -27,12 +27,14 @@ public enum DockerRegionEnum {
     //    LOCAL5001("local_5001", "docker:5001", "dk5001"),
     //SMP("smp", "docker:5000"),
     NEXUS_5000("nexus_5000", "nexus:5000", "nexus5000"),
-    DK5000("no_suffix", "docker:5000", "dk5000", true),
-    DOCKER_5000("docker_5000", "docker:5000", "lc");
+    DK5000("no_suffix", "docker:5000", "dk5000"),
+    DOCKER_5000("docker_5000", "docker:5000", "lc5000"),
+    DOCKER_5001("docker_5001", "docker:5001", "lc5001"),
+    ;
 
     private String region;
     private String host;
-    private boolean special;
+//    private boolean special;
     private String shortRegion;
 
 
@@ -42,16 +44,16 @@ public enum DockerRegionEnum {
         this.shortRegion = shortRegion;
     }
 
-    DockerRegionEnum(String region, String host, String shortRegion, boolean special) {
-        this.region = region;
-        this.host = host;
-        this.shortRegion = shortRegion;
-        this.special = special;
-    }
+//    DockerRegionEnum(String region, String host, String shortRegion, boolean special) {
+//        this.region = region;
+//        this.host = host;
+//        this.shortRegion = shortRegion;
+//        this.special = special;
+//    }
 
-    public static boolean filterSpecile(DockerRegionEnum region) {
-        return region.special;
-    }
+//    public static boolean filterSpecile(DockerRegionEnum region) {
+//        return region.special;
+//    }
 
     public static DockerRegionEnum getRegion(String region) {
         for (DockerRegionEnum value : DockerRegionEnum.values()) {

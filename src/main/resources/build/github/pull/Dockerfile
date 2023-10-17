@@ -3,7 +3,11 @@ kicbase/stable:v0.0.39
 
 docker
 alpine:3.17
+alpine:3.18
+alpine:3
 rockylinux:9
+almalinux:9
+oraclelinux:9
 debian:11
 debian:stable
 ubuntu:23.10

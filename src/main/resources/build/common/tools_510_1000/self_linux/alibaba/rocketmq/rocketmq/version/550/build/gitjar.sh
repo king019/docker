@@ -6,7 +6,7 @@ mkdir -p /opt/soft/version
 cd /opt/soft/version
 git clone https://gitee.com/apache/rocketmq.git
 cd rocketmq
-git checkout release-5.1.3
+git checkout release-5.1.4
 mvn versions:set -DnewVersion=release
 mvn -Prelease-all -DskipTests clean install
 

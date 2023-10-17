@@ -1,1 +1,2 @@
 king019/sentinel:dashbord_1.8.6
+king019/sentinel:dashbord

@@ -1,4 +1,4 @@
-FROM king019/linux:usejdk8
+FROM king019/linux:jdk8
 
 COPY gitjar.sh /gitjar.sh
 COPY docker.sh /docker.sh

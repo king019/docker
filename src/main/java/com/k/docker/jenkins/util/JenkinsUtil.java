@@ -1,12 +1,6 @@
 package com.k.docker.jenkins.util;
 
-import com.google.common.collect.ArrayListMultimap;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.ImmutableSet;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
 import com.k.docker.jenkins.model.DockerConfigModel;
 import com.k.docker.jenkins.model.DockerJenkinsModel;
 import com.k.docker.jenkins.model.emums.*;
@@ -21,15 +15,7 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.Arrays;
-import java.util.Collection;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Optional;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -207,9 +193,9 @@ public class JenkinsUtil {
 //        return models.stream().filter(model -> !DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
 //    }
 
-    private List<DockerJenkinsModel> filterSpecial(List<DockerJenkinsModel> models, DockerConfigModel configModel) {
-        return models.stream().filter(model -> DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
-    }
+//    private List<DockerJenkinsModel> filterSpecial(List<DockerJenkinsModel> models, DockerConfigModel configModel) {
+//        return models.stream().filter(model -> DockerRegionEnum.filterSpecile(model.getRegion())).collect(Collectors.toList());
+//    }
 
 //    private void writeLocal(DockerRegionEnum regionEnum, List<DockerJenkinsModel> models, boolean mix, int multi, boolean push, DockerConfigModel configModel, DockerPlatformEnum platform) {
 //    if(configModel.isLocalRegion()){

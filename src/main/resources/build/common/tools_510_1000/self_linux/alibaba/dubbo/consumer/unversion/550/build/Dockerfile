@@ -1,4 +1,4 @@
-FROM  king019/linux:usejdk17
+FROM  king019/linux:jdk17
 
 MAINTAINER king019
 

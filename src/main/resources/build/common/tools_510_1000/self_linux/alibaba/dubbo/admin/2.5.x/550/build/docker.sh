@@ -7,5 +7,6 @@ cd /opt/soft/tools/tomcat/bin
 
 sh shutdown.sh
 sh startup.sh
-
-tail -f /docker.sh
+sleep 10
+tail -f /opt/soft/tools/tomcat/logs/*
+#tail -f /docker.sh

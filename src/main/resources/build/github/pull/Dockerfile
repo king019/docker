@@ -1,3 +1,4 @@
+#k8s
 kicbase/stable:v0.0.39
 
 
@@ -6,8 +7,11 @@ alpine:3.17
 alpine:3.18
 alpine:3
 rockylinux:9
+rockylinux:9.3
 almalinux:9
+almalinux:9.3
 oraclelinux:9
+oraclelinux:9.3
 debian:11
 debian:stable
 ubuntu:23.10
@@ -15,13 +19,47 @@ ubuntu:23.04
 ubuntu
 archlinux
 
+sonarqube:9-community
+sonarqube:9-developer
+sonarqube:9-enterprise
 
+sonarqube:10-community
+sonarqube:10-developer
+sonarqube:10-enterprise
 
 
 registry
 xetusoss/archiva
 portainer/portainer:1.23.2
 paketobuildpacks/builder:base
+
+
+
+
+mysql:8.2
+mysql:8.0
+mysql:8
+mysql:5.7
+mysql:5
+
+mariadb:10
+mariadb:11
+
+
+redis:6
+redis:6.2
+redis:6.0
+redis:7
+redis:7.0
+redis:7.2
+
+
+
+
+
+
+
+
 
 
 

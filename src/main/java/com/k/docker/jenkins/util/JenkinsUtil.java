@@ -363,12 +363,13 @@ public class JenkinsUtil {
     private void copyFile(File srcfile, File destfile, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
         //String region = PathBaseUtil.REGION;
         //String region = "beijing";
-        String host = DockerRegionEnum.getRegion(region).getHost();
+        String hostBase = DockerRegionEnum.getRegion(region).getHost();
         List<String> lines = FileUtils.readLines(srcfile, StandardCharsets.UTF_8);
         Map<DockerParamEnum, List<String>> map = buildMap(srcfile);
         if (CollectionUtils.isNotEmpty(lines)) {
             if (srcfile.getName().equals("Dockerfile")) {
                 for (int i = lines.size() - 1; i >= 0; i--) {
+                    String host=hostBase;
                     String from = lines.get(i);
                     if (!from.startsWith("FROM")) {
                         continue;

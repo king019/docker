@@ -23,16 +23,19 @@ public class JenkinsTransBuildShell {
             "quay.io",
             "skywalking.docker.scarf.sh"
     );
-    private String targetReg = "registry.cn-qingdao.aliyuncs.com/king019";
+    private String targetQd = "registry.cn-qingdao.aliyuncs.com/king019";
     private String ignore = "@ignore";
 
-    private String docker5000 = "docker:5000";
-    private String docker5001 = "docker:5000";
+    private String docker5000 = "docker:5000/king019";
+    private String docker5001 = "docker:5001/king019";
     private int maxStep = 20;
     private int defStep = 1;
     private boolean arm = false;
+    //添加后缀
     private boolean subFix = false;
+    //并发执行
     private boolean parll = true;
+    //添加多系统执行
     private boolean manifest = true;
 
     public static void main(String[] args) throws Exception {
@@ -42,7 +45,7 @@ public class JenkinsTransBuildShell {
         shell.test();
     }
 
-    @Test
+    //@Test
     public void test3() throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
         shell.maxStep = 3;
@@ -50,7 +53,7 @@ public class JenkinsTransBuildShell {
         shell.test();
     }
 
-    @Test
+    //@Test
     public void testPar() throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
         shell.maxStep = 3;
@@ -58,7 +61,7 @@ public class JenkinsTransBuildShell {
         shell.test();
     }
 
-    @Test
+   //@Test
     public void testNoMulti() throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
         shell.maxStep = 3;
@@ -68,7 +71,7 @@ public class JenkinsTransBuildShell {
         shell.test();
     }
 
-    @Test
+    //@Test
     public void testMulti() throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
         shell.maxStep = 3;
@@ -79,7 +82,7 @@ public class JenkinsTransBuildShell {
     }
 
     //mvn test -Dtest=com.k.docker.jenkins.JenkinsTransBuildShell#testArm -DskipTests=true
-    @Test
+    //@Test
     public void testArm() throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
         shell.maxStep = 1;
@@ -90,17 +93,18 @@ public class JenkinsTransBuildShell {
     }
 
     @Test
-    public void testNoArm() throws Exception {
+    public void testX86() throws Exception {
         JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
         shell.maxStep = 1;
         shell.parll = false;
         shell.arm = false;
-        shell.manifest = false;
+        shell.manifest = true;
+        shell.subFix=true;
         shell.test();
     }
 
 
-    @Test
+    //@Test
     public void test() throws Exception {
         String resource = FWPathUtil.getTargetClassesPath("build/github/pull/Dockerfile");
         String targetAliyunPath = FWPathUtil.getTargetPath("pull/aliyun_qingdao.sh");
@@ -114,10 +118,14 @@ public class JenkinsTransBuildShell {
         List<String> targetDk5000Lines = Lists.newArrayList();
         List<String> targetDk5001Lines = Lists.newArrayList();
         List<String> targetDk5001AliyunLines = Lists.newArrayList();
-        aliyun(lines, targetAliyunLines, targetReg);
-        dkline(lines, targetDk5000Lines, docker5000);
+        aliyun(lines, targetAliyunLines, targetQd);
+        aliyun(lines, targetDk5000Lines, docker5000);
+        aliyun(lines, targetDk5001AliyunLines, docker5001);
+
+
+       // dkline(lines, targetDk5000Lines, docker5000);
         //dkline(lines, targetDk5001Lines, docker5001);
-        dkAliyunline(lines, targetDk5001AliyunLines, targetReg, docker5001);
+        //dkAliyunline(lines, targetDk5001AliyunLines, targetQd, docker5001);
         FileUtils.writeLines(new File(targetAliyunPath), targetAliyunLines);
         FileUtils.writeLines(new File(targetDk5000Path), targetDk5000Lines);
         //FileUtils.writeLines(new File(targetDk5001Path), targetDk5001Lines);
@@ -189,14 +197,16 @@ public class JenkinsTransBuildShell {
                 transSource = transSource.replace("/", "_");
             }
             String target;
+            targetDkLines.add("\n");
             targetDkLines.add("echo '" + line + "'");
             targetDkLines.add("docker pull " + line);
             String targetX86 = dockerHost + "/" + addSub(transSource, DockerPlatformEnum.ADM64.getPlatform(), subFix);
             String targetArm64 = dockerHost + "/" + addSub(transSource, DockerPlatformEnum.ARM64.getPlatform(), subFix);
             target = dockerHost + "/" + transSource;
-            targetDkLines.add("docker tag " + source + " " + targetX86);
-            targetDkLines.add("docker push " + targetX86);
-            if (arm) {
+            if(!arm){
+                targetDkLines.add("docker tag " + source + " " + targetX86);
+                targetDkLines.add("docker push " + targetX86);
+            }else {
                 targetDkLines.add("docker tag " + source + " " + targetArm64);
                 targetDkLines.add("docker push " + targetArm64);
             }

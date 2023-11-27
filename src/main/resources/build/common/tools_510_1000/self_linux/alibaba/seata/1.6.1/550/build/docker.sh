@@ -10,6 +10,6 @@ nohup mvn spring-boot:start > log.txt &
 sleep 10
 
 cd /opt/soft
-nohup java -jar /opt/soft/arthas-boot.jar &
-
-tail -f /docker.sh
+nohup java -jar /opt/soft/arthas-boot.jar >>log.txt &
+tail -f log.txt
+#tail -f /docker.sh

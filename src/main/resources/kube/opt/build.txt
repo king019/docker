@@ -73,6 +73,10 @@ minikube start --force  --insecure-registry=docker:5000 --driver=docker --kubern
 minikube start --force --insecure-registry=docker:5000,docker:5001 --driver=docker --kubernetes-version=v1.23.8  --memory=4096mb --extra-config=apiserver.service-node-port-range=1-65535 --image-mirror-country='cn' --registry-mirror=http://docker:5000,http://docker:5001,https://msb3wa7d.mirror.aliyuncs.com --iso-url=https://kubernetes.oss-cn-hangzhou.aliyuncs.com/minikube/iso/minikube-v1.25.0.iso --image-repository='registry.cn-hangzhou.aliyuncs.com/google_containers'
 3c-4g
 
+
+
+minikube delete
+
 3c-16g
 minikube start --force --insecure-registry=docker:5000,docker:5001 --driver=docker --kubernetes-version=v1.23.8 --cpus=3 --memory=16264mb --extra-config=apiserver.service-node-port-range=1-65535 --image-mirror-country='cn' --registry-mirror=http://docker:5000,http://docker:5001,https://msb3wa7d.mirror.aliyuncs.com --base-image="registry.cn-qingdao.aliyuncs.com/king019/kicbase_stable:v0.0.39"
 

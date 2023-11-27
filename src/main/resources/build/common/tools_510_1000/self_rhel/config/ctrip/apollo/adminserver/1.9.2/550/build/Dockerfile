@@ -1,4 +1,4 @@
-FROM  king019/rhel:usejdk8
+FROM  king019/rhel:jdk8
 
 MAINTAINER king019
 RUN mkdir -p /opt/soft/apollo-adminservice

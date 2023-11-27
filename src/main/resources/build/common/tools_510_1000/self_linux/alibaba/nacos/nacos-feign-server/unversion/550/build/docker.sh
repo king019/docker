@@ -4,5 +4,5 @@ source /etc/profile;java -version
 echo 'notice' >/opt/soft/notice.txt
 cd /opt/soft
 nohup java $JAVA_OPTS -jar /opt/soft/sshm_cloud_feign_nacos_server-release.jar >>log.txt &
-
-tail -f /docker.sh
+tail -f log.txt
+#tail -f /docker.sh

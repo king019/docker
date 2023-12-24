@@ -25,7 +25,7 @@ RUN mkdir -p /etc/docker
 #RUN sed -e 's|^mirrorlist=|#mirrorlist=|g'  -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://mirrors.aliyun.com/rockylinux|g'  -i.bak /etc/yum.repos.d/rocky*.repo
 
 
-#only almalinux
+#only almalinux:9
 RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^# baseurl=https://repo.almalinux.org|baseurl=https://mirrors.aliyun.com|g'  -i.bak  /etc/yum.repos.d/almalinux*.repo
 
 COPY docker.sh /docker.sh

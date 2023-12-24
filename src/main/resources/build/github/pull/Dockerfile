@@ -1,7 +1,26 @@
 #k8s
 kicbase/stable:v0.0.39
 
+gogs/gogs
+gitea/gitea
 
+fuzzle/docker-nfs-server
+
+drone/drone
+drone/drone-runner-docker
+drone/drone-runner-kube
+fogsyio/kafka:2.2.0
+scjtqs/kafka-manager
+bitnami/kafka:3.4
+prom/pushgateway:master
+
+apacherocketmq/rocketmq-dashboard
+
+elasticsearch:8.11.3
+kibana:8.11.3
+
+
+zookeeper:3.7
 docker
 alpine:3.17
 alpine:3.18
@@ -36,6 +55,19 @@ paketobuildpacks/builder:base
 
 
 
+eipwork/kuboard-agent:v3     kuboard-agent:v3
+eipwork/etcd-host:3.4.16-1   etcd-host:3.4.16-1
+eipwork/kuboard:v3           kuboard:v3
+questdb/questdb:6.0.4        questdb:6.0.4
+
+
+
+registry.k8s.io/coredns/coredns:v1.9.3
+
+paketobuildpacks/builder-jammy-tiny
+
+
+
 mysql:8.2
 mysql:8.0
 mysql:8
@@ -52,15 +84,16 @@ redis:6.0
 redis:7
 redis:7.0
 redis:7.2
+redislabs/redisinsight
+redislabs/redisinsight:1.14.0
 
 
 
 
+registry.gitlab.cn/omnibus/gitlab-jh
 
-
-
-
-
+minio/minio:RELEASE.2022-01-04T07-41-07Z
+minio/minio:RELEASE.2023-12-14T18-51-57Z
 
 
 grafana/grafana:9.4.3
@@ -82,6 +115,8 @@ tomcat:9
 istio/pilot:1.16.2
 istio/proxyv2:1.16.2
 
+istio/pilot:1.20.1
+istio/proxyv2:1.20.1
 
 kong/kubernetes-ingress-controller:2.8.1
 kong:3.1
@@ -90,7 +125,18 @@ kong/kubernetes-ingress-controller:2.10.0
 kong:3.3
 
 
+kong/kubernetes-ingress-controller:2.12
+kong:3.4
+
+
 ghcr.io/graalvm/graalvm-ce:22
+
+ghcr.io/stakater/reloader:v1.0.51
+
+openzipkin/zipkin
+openzipkin/zipkin:2
+openzipkin/zipkin:2.25
+
 
 prom/prometheus:v2.34.0
 jimmidyson/configmap-reload:v0.5.0

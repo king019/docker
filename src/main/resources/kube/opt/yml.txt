@@ -1,5 +1,0 @@
-spec.nodeName：Pod所在Node的名称；
-metadata.name：Pod名称；
-metadata.namespace：Pod所在命名空间的名称；
-status.podIP：Pod的IP地址；
-spec.serviceAccountName：Pod使用的ServiceAccount名称。

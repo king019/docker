@@ -1,5 +1,0 @@
-jenkins
-https://blog.csdn.net/liuchenbei/article/details/122226447
-
-最下面配置升级站点 URL 地址为 https://updates.jenkins-zh.cn/update-center.json（可能因为版本的问题会出现错误，
-可以尝试使用地址：https://cdn.jsdelivr.net/gh/jenkins-zh/update-center-mirror/tsinghua/dynamic-stable-2.277.1/update-center.json 进行测试），然后点击提交，

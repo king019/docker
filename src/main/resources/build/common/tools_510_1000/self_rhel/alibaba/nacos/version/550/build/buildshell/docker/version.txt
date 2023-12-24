@@ -1,2 +1,2 @@
-king019/nacos:2.2.4
+king019/nacos:2.3.0
 king019/nacos

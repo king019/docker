@@ -1,7 +1,0 @@
-
-
-#安装
- kubectl apply -f samples/addons/kiali.yaml 
- kubectl apply -f samples/addons/prometheus.yaml
-查看
-istioctl dashboard kiali

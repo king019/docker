@@ -4,7 +4,7 @@ MAINTAINER king019
 
 
 RUN dnf -y install  nodejs
-RUN npm config set registry https://registry.npm.taobao.org
+RUN npm config set registry http://registry.npmmirror.com
 RUN dnf -y install  nginx
 RUN dnf -y install  gdb
 RUN dnf -y install  strace

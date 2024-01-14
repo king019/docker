@@ -22,7 +22,7 @@ RUN apk add git
 RUN apk add  nodejs
 RUN apk add  npm
 
-RUN npm config set registry https://registry.npm.taobao.org
+RUN npm config set registry http://registry.npmmirror.com
 
 
 COPY docker.sh /docker.sh

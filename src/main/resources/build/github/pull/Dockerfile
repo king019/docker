@@ -16,8 +16,7 @@ prom/pushgateway:master
 
 apacherocketmq/rocketmq-dashboard
 
-elasticsearch:8.11.3
-kibana:8.11.3
+
 
 
 zookeeper:3.7
@@ -53,7 +52,7 @@ portainer/portainer:1.23.2
 paketobuildpacks/builder:base
 
 
-
+easysoft/zincsearch
 
 eipwork/kuboard-agent:v3     kuboard-agent:v3
 eipwork/etcd-host:3.4.16-1   etcd-host:3.4.16-1
@@ -89,6 +88,26 @@ redislabs/redisinsight:1.14.0
 
 
 
+elastic/kibana:8.11.3
+elastic/logstash:8.11.3
+elastic/elasticsearch:8.11.3
+elastic/filebeat:8.11.3
+
+
+
+
+
+
+
+
+nacos/nacos-server:v2.3.0-slim
+nacos/nacos-server:v2.2.0-slim
+nacos/nacos-server:v1.4.6-slim
+
+
+
+
+
 
 registry.gitlab.cn/omnibus/gitlab-jh
 
@@ -103,8 +122,7 @@ busybox:1.30
 skywalking.docker.scarf.sh/apache/skywalking-oap-server:9.3.0
 skywalking.docker.scarf.sh/apache/skywalking-ui:9.3.0
 openzipkin/zipkin-slim:2.23.16
-elasticsearch:8.8.1
-elasticsearch:7.17.10
+
 prom/pushgateway
 
 

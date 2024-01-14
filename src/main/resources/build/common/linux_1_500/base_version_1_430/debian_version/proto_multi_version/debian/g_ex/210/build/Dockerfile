@@ -5,7 +5,7 @@ MAINTAINER king019
 
 RUN apt-get -y install  nodejs
 RUN apt-get -y install  npm
-RUN npm config set registry https://registry.npm.taobao.org
+RUN npm config set registry http://registry.npmmirror.com
 RUN apt-get -y install  nginx
 RUN apt-get -y install  gdb
 RUN apt-get -y install  strace

@@ -26,7 +26,7 @@ RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk' >> /etc/profile
 RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 RUN echo '#jdk8' >> /etc/profile
 
-RUN npm config set registry https://registry.npm.taobao.org
+RUN npm config set registry http://registry.npmmirror.com
 
 
 COPY gitjar.sh /gitjar.sh

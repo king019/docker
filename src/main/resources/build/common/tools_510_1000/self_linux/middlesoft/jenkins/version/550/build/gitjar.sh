@@ -8,7 +8,7 @@ cd /opt/soft/version
 
 
 
-wget https://repo.huaweicloud.com/jenkins/war/2.410/jenkins.war
+wget https://repo.huaweicloud.com/jenkins/war/latest/jenkins.war
 
 cp jenkins.war /opt/soft/tools/jenkins.war
 ls /opt/soft/tools

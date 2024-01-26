@@ -1,4 +1,4 @@
-FROM registry.cn-qingdao.aliyuncs.com/king019/alpine:3.18
+FROM registry.cn-qingdao.aliyuncs.com/king019/alpine:3.19
 MAINTAINER king019
 ENV TZ=Asia/Shanghai
 

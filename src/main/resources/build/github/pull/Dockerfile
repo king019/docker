@@ -12,7 +12,6 @@ drone/drone-runner-kube
 fogsyio/kafka:2.2.0
 scjtqs/kafka-manager
 bitnami/kafka:3.4
-prom/pushgateway:master
 
 apacherocketmq/rocketmq-dashboard
 
@@ -23,6 +22,7 @@ zookeeper:3.7
 docker
 alpine:3.17
 alpine:3.18
+alpine:3.19
 alpine:3
 rockylinux:9
 rockylinux:9.3
@@ -123,7 +123,34 @@ skywalking.docker.scarf.sh/apache/skywalking-oap-server:9.3.0
 skywalking.docker.scarf.sh/apache/skywalking-ui:9.3.0
 openzipkin/zipkin-slim:2.23.16
 
+bitnami/kubectl
+bitnami/kubectl:1.29
+
+xuchengen/rocketmq
+
+
+bitnami/pushgateway
+bitnami/pushgateway:1.6.2
+bitnami/pushgateway:1
+bitnami/pushgateway:1.6.1
+
+
+
 prom/pushgateway
+prom/pushgateway:master
+prom/pushgateway:v1.7.0
+prom/pushgateway:v1.6.2
+prom/pushgateway:v1.6.1
+prom/pushgateway:v1.6.0
+prom/pushgateway:v1.5.1
+prom/pushgateway:v1.5.0
+prom/pushgateway:v1.4.3
+prom/pushgateway:v1.4.2
+prom/pushgateway:v1.4.1
+prom/pushgateway:v1.4.0
+prom/pushgateway:v1.3.1
+prom/pushgateway:v1.3.0
+prom/pushgateway:v1.2.0
 
 
 

@@ -1,1 +1,1 @@
-king019/sentinel:dashbord_2.0.0
+king019/sentinel:dashbord_1.8.7

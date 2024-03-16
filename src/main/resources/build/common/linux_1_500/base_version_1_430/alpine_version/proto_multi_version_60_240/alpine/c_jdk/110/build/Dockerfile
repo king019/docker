@@ -7,12 +7,13 @@ RUN apk add maven
 
 #RUN apk add openjdk8
 #RUN apk add openjdk11
-RUN apk add openjdk17
+#RUN apk add openjdk17
+RUN apk add openjdk21
 
 RUN chmod -R 777 /*.sh
 
 
-RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk' >> /etc/profile
+RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-21-openjdk' >> /etc/profile
 RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 RUN echo '#jdk' >> /etc/profile
 

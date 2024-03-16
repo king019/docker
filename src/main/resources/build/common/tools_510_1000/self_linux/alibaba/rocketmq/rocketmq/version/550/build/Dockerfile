@@ -13,6 +13,7 @@ RUN /gitjar.sh
 RUN cd /opt/soft/;unzip rocketmq-release.zip
 RUN cd /opt/soft/;mv rocketmq-release rocketmq
 #RUN cd /opt/soft/rocketmq/conf;echo "brokerIP1=rocketmq_broker" > broker.properties
+RUN cd /opt/soft/rocketmq/conf;echo "autoCreateTopicEnable=true" >> broker.properties
 
 
 

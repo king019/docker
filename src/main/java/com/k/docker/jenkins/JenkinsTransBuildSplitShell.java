@@ -1,6 +1,8 @@
 package com.k.docker.jenkins;
 
+import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Multimap;
 import com.k.dep.common.util.FWPathUtil;
 import com.k.docker.jenkins.model.emums.DockerPlatformEnum;
 import org.apache.commons.io.FileUtils;
@@ -9,11 +11,11 @@ import org.junit.Test;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.Collection;
 import java.util.List;
 import java.util.Set;
-import java.util.stream.Collectors;
 
-public class JenkinsTransBuildShell {
+public class JenkinsTransBuildSplitShell {
     private Set<String> regSet = Set.of(
             "registry.cn-hangzhou.aliyuncs.com",
             "registry.cn-beijing.aliyuncs.com",
@@ -40,15 +42,18 @@ public class JenkinsTransBuildShell {
     private boolean manifest = true;
 
     public static void main(String[] args) throws Exception {
-        JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
-        shell.arm = true;
+        JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
+        shell.maxStep = 1;
+        shell.parll = true;
+        shell.arm = false;
+        shell.manifest = true;
         shell.subFix = true;
         shell.test();
     }
 
     @Test
     public void testX86() throws Exception {
-        JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
+        JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
         shell.maxStep = 1;
         shell.parll = false;
         shell.arm = false;
@@ -59,8 +64,8 @@ public class JenkinsTransBuildShell {
 
     @Test
     public void testX86Parll() throws Exception {
-        JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
-        shell.maxStep = 7;
+        JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
+        shell.maxStep = 1;
         shell.parll = true;
         shell.arm = false;
         shell.manifest = true;
@@ -70,7 +75,7 @@ public class JenkinsTransBuildShell {
 
     //@Test
     public void test3() throws Exception {
-        JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
+        JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
         shell.maxStep = 3;
         shell.parll = false;
         shell.test();
@@ -78,7 +83,7 @@ public class JenkinsTransBuildShell {
 
     //@Test
     public void testPar() throws Exception {
-        JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
+        JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
         shell.maxStep = 3;
         shell.arm = true;
         shell.test();
@@ -86,7 +91,7 @@ public class JenkinsTransBuildShell {
 
     //@Test
     public void testNoMulti() throws Exception {
-        JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
+        JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
         shell.maxStep = 3;
         shell.parll = false;
         shell.arm = true;
@@ -96,7 +101,7 @@ public class JenkinsTransBuildShell {
 
     //@Test
     public void testMulti() throws Exception {
-        JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
+        JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
         shell.maxStep = 3;
         shell.parll = true;
         shell.arm = true;
@@ -107,7 +112,7 @@ public class JenkinsTransBuildShell {
     //mvn test -Dtest=com.k.docker.jenkins.JenkinsTransBuildShell#testArm -DskipTests=true
     //@Test
     public void testArm() throws Exception {
-        JenkinsTransBuildShell shell = new JenkinsTransBuildShell();
+        JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
         shell.maxStep = 1;
         shell.parll = false;
         shell.arm = true;
@@ -119,14 +124,37 @@ public class JenkinsTransBuildShell {
     //@Test
     public void test() throws Exception {
         String resource = FWPathUtil.getTargetClassesPath("build/github/pull/Dockerfile");
-        String targetAliyunPath = FWPathUtil.getTargetPath("pull/aliyun_qingdao.sh");
-        String targetDk5000Path = FWPathUtil.getTargetPath("pull/dk5000.sh");
-        //String targetDk5001Path = FWPathUtil.getTargetPath("pull/dk5001.sh");
-        String targetDk5000AliyunPath = FWPathUtil.getTargetPath("pull/dk5000aliyun.sh");
-        String targetDk5001AliyunPath = FWPathUtil.getTargetPath("pull/dk5001aliyun.sh");
         File srcFile = new File(resource);
         List<String> lines = FileUtils.readLines(srcFile, Charset.defaultCharset());
-        lines = lines.stream().filter(s -> !StringUtils.startsWith(s, "#")).collect(Collectors.toList());
+        Multimap<String, String> multimap = ArrayListMultimap.create();
+        String pre = "base";
+        String preFix = "@";
+        for (String line : lines) {
+            if (StringUtils.contains(line, ignore)) {
+                break;
+            }
+            if (StringUtils.contains(line, preFix)) {
+                pre = line.replaceAll(preFix, "").trim();
+            } else {
+                multimap.put(pre, line);
+            }
+        }
+        for (String key : multimap.keys()) {
+            test(multimap.get(key), key);
+        }
+    }
+
+    //@Test
+    public void test(Collection<String> lines, String pre) throws Exception {
+        String resource = FWPathUtil.getTargetClassesPath("build/github/pull/Dockerfile");
+        String targetAliyunPath = FWPathUtil.getTargetPath("pull/" + pre + "/aliyun_qingdao.sh");
+        String targetDk5000Path = FWPathUtil.getTargetPath("pull/" + pre + "/dk5000.sh");
+        //String targetDk5001Path = FWPathUtil.getTargetPath("pull/dk5001.sh");
+        String targetDk5000AliyunPath = FWPathUtil.getTargetPath("pull/" + pre + "/dk5000aliyun.sh");
+        String targetDk5001AliyunPath = FWPathUtil.getTargetPath("pull/" + pre + "/dk5001aliyun.sh");
+        File srcFile = new File(resource);
+        //List<String> lines = FileUtils.readLines(srcFile, Charset.defaultCharset());
+        //lines = lines.stream().filter(s -> !StringUtils.startsWith(s, "#")).collect(Collectors.toList());
         List<String> targetAliyunLines = Lists.newArrayList();
         List<String> targetDk5000Lines = Lists.newArrayList();
         List<String> targetDk5000AliyunLines = Lists.newArrayList();
@@ -186,7 +214,7 @@ public class JenkinsTransBuildShell {
 //        }
 //    }
 
-    private void aliyun(List<String> lines, List<String> targetDkLines, String dockerHost) {
+    private void aliyun(Collection<String> lines, List<String> targetDkLines, String dockerHost) {
         //dk
         int step = defStep;
         for (String line : lines) {
@@ -244,6 +272,7 @@ public class JenkinsTransBuildShell {
             if (step++ % maxStep == 0) {
                 if (parll) {
                     targetDkLines.add("wait");
+                    targetDkLines.add("docker image prune -a -f");
                 }
             }
         }
@@ -318,7 +347,7 @@ public class JenkinsTransBuildShell {
         targetLines.add("docker  manifest push -p --insecure " + target + "");
     }
 
-    private void dkAliyunline(List<String> lines, List<String> targetLines, String targetReg, String dockerHost) {
+    private void dkAliyunline(Collection<String> lines, List<String> targetLines, String targetReg, String dockerHost) {
         //dk
         int step = defStep;
         for (String line : lines) {
@@ -379,6 +408,7 @@ public class JenkinsTransBuildShell {
             if (step++ % maxStep == 0) {
                 if (parll) {
                     targetLines.add("wait");
+                    targetLines.add("docker image prune -a -f");
                 }
             }
         }

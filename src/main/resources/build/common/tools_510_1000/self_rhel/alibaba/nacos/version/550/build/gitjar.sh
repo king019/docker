@@ -5,7 +5,7 @@ mkdir -p /opt/soft/version
 cd /opt/soft/version
 git clone https://gitee.com/mirrors/Nacos.git nacos
 cd nacos
-git checkout 2.3.0
+git checkout 2.3.1
 
 cd console
 sed -i 's/<artifactId>spring-boot-maven-plugin<\/artifactId>/<artifactId>spring-boot-maven-plugin<\/artifactId><version>2.6.3<\/version>/' pom.xml
@@ -13,10 +13,10 @@ sed -i 's/<artifactId>spring-boot-maven-plugin<\/artifactId>/<artifactId>spring-
 cd ..
 mvn -Prelease-nacos -Dmaven.test.skip=true clean install
 
-find . -name nacos-server-2.3.0.zip | awk '{print "cp " $1  " /opt/soft/nacos-server-2.3.0.zip"}' | sh
+find . -name nacos-server-2.3.1.zip | awk '{print "cp " $1  " /opt/soft/nacos-server-2.3.1.zip"}' | sh
 mvn clean
 /mvnclean.sh
 
 cd /opt/soft
-unzip nacos-server-2.3.0.zip
+unzip nacos-server-2.3.1.zip
 cat /application.properties > /opt/soft/nacos/conf/application.properties

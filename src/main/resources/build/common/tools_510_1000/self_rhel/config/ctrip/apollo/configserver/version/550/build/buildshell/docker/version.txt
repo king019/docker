@@ -1,2 +1,2 @@
-king019/apollo:config_2.1.0
+king019/apollo:config_2.2.0
 king019/apollo:config

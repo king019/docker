@@ -41,6 +41,21 @@ RUN npm config set registry http://registry.npmmirror.com
 RUN apk add ca-certificates
 
 
+
+
+
+RUN apk add openjdk8
+RUN apk add openjdk11
+RUN apk add openjdk17
+RUN apk add openjdk21
+
+
+
+
+
+
+
+
 RUN chmod -R 777 /*.sh
 
 RUN apk add bash bash-doc bash-completion \

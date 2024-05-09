@@ -1,3 +1,4 @@
+@base
 #k8s
 kicbase/stable:v0.0.39
 
@@ -16,6 +17,30 @@ bitnami/kafka:3.4
 apacherocketmq/rocketmq-dashboard
 
 
+
+
+
+
+
+@dk
+
+
+
+
+
+
+
+
+sickcodes/docker-osx:naked-auto
+sickcodes/docker-osx:auto
+sickcodes/docker-osx:naked
+sickcodes/docker-osx:sonoma
+sickcodes/docker-osx:ventura
+sickcodes/docker-osx:monterey
+sickcodes/docker-osx:big-sur
+sickcodes/docker-osx:catalina
+sickcodes/docker-osx:mojave
+sickcodes/docker-osx:high-sierra
 
 
 zookeeper:3.7
@@ -49,6 +74,9 @@ sonarqube:10-enterprise
 registry
 xetusoss/archiva
 portainer/portainer:1.23.2
+portainer/portainer:1.25.0-alpine
+portainer/portainer:1.24.2-alpine
+portainer/portainer-ce:2.20.0-alpine
 paketobuildpacks/builder:base
 
 
@@ -77,12 +105,12 @@ mariadb:10
 mariadb:11
 
 
-redis:6
-redis:6.2
-redis:6.0
-redis:7
-redis:7.0
-redis:7.2
+redis:6-alpine
+redis:6.2-alpine
+redis:6.0-alpine
+redis:7-alpine
+redis:7.0-alpine
+redis:7.2-alpine
 redislabs/redisinsight
 redislabs/redisinsight:1.14.0
 

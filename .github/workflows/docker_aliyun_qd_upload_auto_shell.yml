@@ -27,8 +27,8 @@ jobs:
           password: ${{ secrets.ALIYUN_PASSWORD }}
       - name: maven
         run: cat /etc/docker/daemon.json;
-          cd /home/runner/work/docker-upload/docker-upload;
-          ls /home/runner/work/docker-upload/docker-upload;
+          cd /home/runner/work/docker/docker;
+          ls /home/runner/work/docker/docker;
           mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsTransBuildSplitShell";
       - name: build_aliyun_qingdao_upload
         run: cat /etc/docker/daemon.json;

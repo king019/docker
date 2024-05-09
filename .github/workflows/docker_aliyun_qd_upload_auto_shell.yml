@@ -1,0 +1,38 @@
+name: docker_aliyun_qingdao_upload
+
+on:
+  push:
+
+jobs:
+  buildx:
+    runs-on: ubuntu-20.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: use jdk
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt' # See https://github.com/actions/setup-java
+          java-version: '17'
+      - name: chche
+        uses: actions/cache@v2
+        with:
+          path: ~/.m2/repository
+          key: maven
+      - name: aliyun_qingdao
+        uses: docker/login-action@v1
+        with:
+          registry: registry.cn-qingdao.aliyuncs.com
+          username: ${{ secrets.ALIYUN_USERNAME }}
+          password: ${{ secrets.ALIYUN_PASSWORD }}
+      - name: maven
+        run: cat /etc/docker/daemon.json;
+          cd /home/runner/work/docker-upload/docker-upload;
+          ls /home/runner/work/docker-upload/docker-upload;
+          mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsTransBuildSplitShell";
+      - name: build_aliyun_qingdao_upload
+        run: cat /etc/docker/daemon.json;
+          cd ./;chmod -R 777 .;
+          pwd;
+          ls ./;
+          bash ./target/pull/base/aliyun_qingdao.sh;

@@ -1,5 +1,5 @@
 #FROM registry.cn-qingdao.aliyuncs.com/king019/rockylinux:9
-FROM registry.cn-qingdao.aliyuncs.com/king019/almalinux:9.3
+FROM registry.cn-qingdao.aliyuncs.com/king019/almalinux:9.4
 # FROM centos:8
 # FROM quay.io/centos/centos:stream9
 MAINTAINER king019
@@ -10,6 +10,7 @@ RUN echo 'source /etc/profile' >> /root/.bashrc
 ENV TZ=Asia/Shanghai
 
 RUN mkdir -p /root/.m2/repository
+RUN mkdir -p /root/.ssh
 RUN mkdir -p /root/soft
 RUN mkdir -p /root/tools
 RUN mkdir -p /opt/soft/version

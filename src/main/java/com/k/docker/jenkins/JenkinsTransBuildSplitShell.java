@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.nio.charset.Charset;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Set;
@@ -43,7 +44,7 @@ public class JenkinsTransBuildSplitShell {
 
     public static void main(String[] args) throws Exception {
         JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
-        shell.maxStep = 1;
+        shell.maxStep = 7;
         shell.parll = true;
         shell.arm = false;
         shell.manifest = true;
@@ -139,9 +140,15 @@ public class JenkinsTransBuildSplitShell {
                 multimap.put(pre, line);
             }
         }
-        for (String key : multimap.keys()) {
+        for (String key : multimap.keySet()) {
             test(multimap.get(key), key);
         }
+        List<String> shellLines = new ArrayList<>();
+        String shellFile = FWPathUtil.getTargetPath("aliyun_qingdao.sh");
+        for (String key : multimap.keySet()) {
+            shellLines.add("bash ./target/pull/" + key + "/aliyun_qingdao.sh;");
+        }
+        FileUtils.writeLines(new File(shellFile), shellLines);
     }
 
     //@Test

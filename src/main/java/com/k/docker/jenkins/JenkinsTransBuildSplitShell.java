@@ -29,6 +29,7 @@ public class JenkinsTransBuildSplitShell {
     );
     private String targetQd = "registry.cn-qingdao.aliyuncs.com/king019";
     private String ignore = "@ignore";
+    private String remark = "#";
 
     private String docker5000 = "docker:5000/king019";
     private String docker5001 = "docker:5001/king019";
@@ -134,6 +135,10 @@ public class JenkinsTransBuildSplitShell {
             if (StringUtils.contains(line, ignore)) {
                 break;
             }
+            if (StringUtils.contains(line, remark)) {
+                continue;
+            }
+
             if (StringUtils.contains(line, preFix)) {
                 pre = line.replaceAll(preFix, "").trim();
             } else {

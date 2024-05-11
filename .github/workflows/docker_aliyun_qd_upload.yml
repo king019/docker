@@ -34,5 +34,6 @@ jobs:
         run: cat /etc/docker/daemon.json;
           cd ./;chmod -R 777 .;
           pwd;
-          ls ./;
-          bash ./target/pull/base/aliyun_qingdao.sh;
+          ls ./target;
+          bash ./target/aliyun_qingdao.sh;
+#          bash ./target/pull/base/aliyun_qingdao.sh;

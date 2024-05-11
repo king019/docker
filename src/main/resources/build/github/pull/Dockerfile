@@ -1,5 +1,5 @@
 @prenew
-
+dockurr/windows
 @base
 #k8s
 
@@ -56,7 +56,7 @@ apacherocketmq/rocketmq-dashboard
 
 
 
-dockurr/windows
+
 
 
 

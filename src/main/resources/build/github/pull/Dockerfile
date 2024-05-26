@@ -7,6 +7,9 @@ dockurr/windows
 
 
 
+openanolis/anolisos
+openanolis/anolisos:8
+
 
 rockylinux:9
 rockylinux:9.3
@@ -30,6 +33,7 @@ archlinux
 alpine:3.17
 alpine:3.18
 alpine:3.19
+alpine:3.20
 alpine:3
 
 

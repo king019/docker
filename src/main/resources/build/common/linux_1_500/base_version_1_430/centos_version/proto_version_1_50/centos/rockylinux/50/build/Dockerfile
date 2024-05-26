@@ -1,5 +1,8 @@
 #FROM registry.cn-qingdao.aliyuncs.com/king019/rockylinux:9
-FROM registry.cn-qingdao.aliyuncs.com/king019/almalinux:9.4
+#FROM registry.cn-qingdao.aliyuncs.com/king019/almalinux:9.4
+FROM registry.cn-qingdao.aliyuncs.com/king019/openanolis_anolisos:8
+
+
 # FROM centos:8
 # FROM quay.io/centos/centos:stream9
 MAINTAINER king019
@@ -27,7 +30,7 @@ RUN mkdir -p /etc/docker
 
 
 #only almalinux:9
-RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^# baseurl=https://repo.almalinux.org|baseurl=https://mirrors.aliyun.com|g'  -i.bak  /etc/yum.repos.d/almalinux*.repo
+#RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^# baseurl=https://repo.almalinux.org|baseurl=https://mirrors.aliyun.com|g'  -i.bak  /etc/yum.repos.d/almalinux*.repo
 
 COPY docker.sh /docker.sh
 

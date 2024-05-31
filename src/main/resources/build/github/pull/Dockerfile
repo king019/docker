@@ -3,7 +3,14 @@ dockurr/windows
 @base
 #k8s
 
-
+budtmo/docker-android:genymotion
+budtmo/docker-android:emulator_9.0
+budtmo/docker-android:emulator_10.0
+budtmo/docker-android:emulator_11.0
+budtmo/docker-android:emulator_12.0
+budtmo/docker-android:emulator_13.0
+budtmo/docker-android:emulator_14.0
+budtmo/docker-android:genymotion
 
 
 

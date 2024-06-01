@@ -3,7 +3,7 @@ dockurr/windows
 @base
 #k8s
 
-budtmo/docker-android:genymotion
+
 budtmo/docker-android:emulator_9.0
 budtmo/docker-android:emulator_10.0
 budtmo/docker-android:emulator_11.0
@@ -12,10 +12,11 @@ budtmo/docker-android:emulator_13.0
 budtmo/docker-android:emulator_14.0
 budtmo/docker-android:genymotion
 
-
+postgres
 
 openanolis/anolisos
 openanolis/anolisos:8
+openanolis/anolisos:23
 
 
 rockylinux:9
@@ -100,6 +101,7 @@ sonarqube:10-enterprise
 registry
 xetusoss/archiva
 portainer/portainer:1.23.2
+portainer/portainer:1.25.0
 portainer/portainer:1.25.0-alpine
 portainer/portainer:1.24.2-alpine
 portainer/portainer-ce:2.20.0-alpine

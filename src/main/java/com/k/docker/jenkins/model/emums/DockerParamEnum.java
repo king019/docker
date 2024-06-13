@@ -18,6 +18,7 @@ public enum DockerParamEnum {
     PUSH("push", "false"),
     //IN_DOCKER("dk", "true"),
     EXCLUDE("ex", ""),
+    //替换本地git
     RP_GIT("rpgit", "false"),
     //执行replace.txt
     RP_TXT("rptxt", "false"),

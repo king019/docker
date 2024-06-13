@@ -68,26 +68,26 @@ RUN chmod -R 777 /*.sh
 
 
 
-RUN mvn dependency:get -DgroupId=org.eclipse.jetty -DartifactId=jetty-distribution -Dversion=9.4.49.v20220914 -Dpackaging=tar.gz;cp /root/.m2/repository/org/eclipse/jetty/jetty-distribution/9.4.49.v20220914/jetty-distribution-9.4.49.v20220914.tar.gz /opt/soft/tools
-RUN mvn dependency:get -DgroupId=org.apache.tomcat -DartifactId=tomcat -Dversion=9.0.68 -Dpackaging=tar.gz;cp /root/.m2/repository/org/apache/tomcat/tomcat/9.0.68/tomcat-9.0.68.tar.gz /opt/soft/tools
+RUN mvn dependency:get -DgroupId=org.eclipse.jetty -DartifactId=jetty-distribution -Dversion=9.4.49.v20220914 -Dpackaging=tar.gz;cp /root/.m2/repository/org/eclipse/jetty/jetty-distribution/9.4.49.v20220914/jetty-distribution-9.4.49.v20220914.tar.gz /opt/soft/tool
+RUN mvn dependency:get -DgroupId=org.apache.tomcat -DartifactId=tomcat -Dversion=9.0.68 -Dpackaging=tar.gz;cp /root/.m2/repository/org/apache/tomcat/tomcat/9.0.68/tomcat-9.0.68.tar.gz /opt/soft/tool
 
 
-RUN cd /opt/soft/tools/;tar -xzf jetty-distribution-9.4.49.v20220914.tar.gz
-RUN cd /opt/soft/tools/;mv jetty-distribution-9.4.49.v20220914 jetty
+RUN cd /opt/soft/tool/;tar -xzf jetty-distribution-9.4.49.v20220914.tar.gz
+RUN cd /opt/soft/tool/;mv jetty-distribution-9.4.49.v20220914 jetty
 
 
-RUN cd /opt/soft/tools;tar -xzf tomcat-9.0.68.tar.gz
-RUN cd /opt/soft/tools;mv apache-tomcat-9.0.68 tomcat
-RUN cd /opt/soft/tools/tomcat/webapps;rm -fr *
-RUN mkdir -p /opt/soft/tools/tomcat/webapps
+RUN cd /opt/soft/tool;tar -xzf tomcat-9.0.68.tar.gz
+RUN cd /opt/soft/tool;mv apache-tomcat-9.0.68 tomcat
+RUN cd /opt/soft/tool/tomcat/webapps;rm -fr *
+RUN mkdir -p /opt/soft/tool/tomcat/webapps
 
 
 
 
-#RUN echo 'export MAVEN_HOME=/opt/soft/tools/maven' >> /root/.bashrc
+#RUN echo 'export MAVEN_HOME=/opt/soft/tool/maven' >> /root/.bashrc
 #RUN echo 'export PATH=$MAVEN_HOME/bin:$PATH' >> /root/.bashrc
 
-# RUN echo 'export MAVEN_HOME=/opt/soft/tools/maven' >> /etc/profile
+# RUN echo 'export MAVEN_HOME=/opt/soft/tool/maven' >> /etc/profile
 # RUN echo 'export PATH=$MAVEN_HOME/bin:$PATH' >> /etc/profile
 
 

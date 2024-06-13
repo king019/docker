@@ -1,4 +1,4 @@
-FROM king019/alpine:runuse
+FROM king019/alpine:use
 
 MAINTAINER king019
 

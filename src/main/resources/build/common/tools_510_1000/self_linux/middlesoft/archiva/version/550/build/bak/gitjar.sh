@@ -19,9 +19,9 @@ mvn dependency:get -DgroupId=javax.activation -DartifactId=activation -Dversion=
 mvn dependency:get -DgroupId=javax.mail -DartifactId=mail -Dversion=1.4  -Dpackaging=jar;cp /root/.m2/repository/javax/mail/mail/1.4/mail-1.4.jar /opt/soft/
 
 
-cp /opt/soft/derby-10.10.1.1.jar  /opt/soft/tools/tomcat/lib
-cp /opt/soft/activation-1.1.1.jar  /opt/soft/tools/tomcat/lib
-cp /opt/soft/mail-1.4.jar  /opt/soft/tools/tomcat/lib
+cp /opt/soft/derby-10.10.1.1.jar  /opt/soft/tool/tomcat/lib
+cp /opt/soft/activation-1.1.1.jar  /opt/soft/tool/tomcat/lib
+cp /opt/soft/mail-1.4.jar  /opt/soft/tool/tomcat/lib
 
 
 
@@ -29,6 +29,6 @@ cp /opt/soft/mail-1.4.jar  /opt/soft/tools/tomcat/lib
 
 mvn dependency:get -DgroupId=org.apache.archiva -DartifactId=archiva-webapp -Dversion=2.2.10  -Dpackaging=war;cp /root/.m2/repository/org/apache/archiva/archiva-webapp/2.2.10/archiva-webapp-2.2.10.war /opt/soft/
 cp /opt/soft/archiva-webapp-2.2.10.war  /opt/soft/archiva-webapp.war
-mkdir -p /opt/soft/tools/tomcat/conf/Catalina/localhost
-cp /archiva.xml  /opt/soft/tools/tomcat/conf/Catalina/localhost/archiva.xml
-#cp /archiva.xml  /opt/soft/tools/tomcat/conf/archiva.xml
+mkdir -p /opt/soft/tool/tomcat/conf/Catalina/localhost
+cp /archiva.xml  /opt/soft/tool/tomcat/conf/Catalina/localhost/archiva.xml
+#cp /archiva.xml  /opt/soft/tool/tomcat/conf/archiva.xml

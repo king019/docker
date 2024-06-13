@@ -14,7 +14,7 @@ RUN sed -i 's/https/http/g' /etc/apk/repositories
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN mkdir -p /root/.m2
-RUN mkdir -p /opt/soft/tools/
+RUN mkdir -p /opt/soft/tool/
 
 
 RUN apk add git

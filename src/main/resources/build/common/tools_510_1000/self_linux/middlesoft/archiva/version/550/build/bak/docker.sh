@@ -12,7 +12,7 @@ export JAVA_OPTS="-Dappserver.home=/opt/soft/archiva -Dappserver.base=/opt/soft/
 
 
 
-cd /opt/soft/tools/tomcat/bin
+cd /opt/soft/tool/tomcat/bin
 ./shutdown.sh
 ./startup.sh
 

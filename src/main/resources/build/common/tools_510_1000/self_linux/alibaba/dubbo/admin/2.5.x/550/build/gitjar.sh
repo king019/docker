@@ -12,7 +12,7 @@ git checkout 2.5.x
 cd dubbo-admin
 
 mvn clean package -Dmaven.test.skip=true
-cp target/dubbo-admin-2.5.10.war /opt/soft/tools/tomcat/webapps/ROOT.war
+cp target/dubbo-admin-2.5.10.war /opt/soft/tool/tomcat/webapps/ROOT.war
 
 cd /opt/soft/version/dubbo
 cd dubbo-admin

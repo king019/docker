@@ -10,8 +10,8 @@ cd /opt/soft/version
 
 wget https://repo.huaweicloud.com/jenkins/war/2.399/jenkins.war
 
-cp jenkins.war /opt/soft/tools/jenkins.war
-ls /opt/soft/tools
-cp /opt/soft/tools/jenkins.war /opt/soft/tools/tomcat/webapps/ROOT.war
-ls /opt/soft/tools/tomcat/
-ls /opt/soft/tools/tomcat/webapps
+cp jenkins.war /opt/soft/tool/jenkins.war
+ls /opt/soft/tool
+cp /opt/soft/tool/jenkins.war /opt/soft/tool/tomcat/webapps/ROOT.war
+ls /opt/soft/tool/tomcat/
+ls /opt/soft/tool/tomcat/webapps

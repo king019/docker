@@ -19,8 +19,8 @@ export ONLINE_CONFIG_PATH
 export WAR_ROOT_PATH
 cd disconf-web
 sh deploy/deploy.sh
-cd /opt/soft/tools/tomcat/
-cd /opt/soft/tools/tomcat/conf
+cd /opt/soft/tool/tomcat/
+cd /opt/soft/tool/tomcat/conf
 sed -i 's/<\/Host>/<Context path="" docBase="\/war"\/><\/Host>/' server.xml
 
 #<Context path="" docBase="/war"></Context>

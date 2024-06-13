@@ -10,10 +10,8 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=Asia/Shanghai
 
 RUN mkdir -p /root/.m2/repository
-RUN mkdir -p /root/soft
-RUN mkdir -p /root/tools
 RUN mkdir -p /opt/soft/version
-RUN mkdir -p /opt/soft/tools
+RUN mkdir -p /opt/soft/tool
 RUN mkdir -p /root/.docker
 RUN mkdir -p /etc/docker
 

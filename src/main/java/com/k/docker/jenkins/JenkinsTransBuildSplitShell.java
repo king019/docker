@@ -45,7 +45,7 @@ public class JenkinsTransBuildSplitShell {
 
     public static void main(String[] args) throws Exception {
         JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
-        shell.maxStep = 7;
+        shell.maxStep = 1;
         shell.parll = true;
         shell.arm = false;
         shell.manifest = true;
@@ -394,7 +394,6 @@ public class JenkinsTransBuildSplitShell {
             String target;
             targetLines.add("\n");
             targetLines.add("#" + source);
-            String sourceDk;
             {
                 for (String reg : regSet) {
                     transSource = StringUtils.replace(transSource, reg + "/", "");

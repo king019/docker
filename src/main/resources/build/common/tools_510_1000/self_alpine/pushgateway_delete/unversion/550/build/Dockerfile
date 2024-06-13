@@ -14,7 +14,7 @@ COPY config/delete_all.sh /delete_all.sh
 
 
 RUN mkdir -p /root/.m2
-RUN mkdir -p /opt/soft/tools/
+RUN mkdir -p /opt/soft/tool/
 
 
 RUN apk add jq

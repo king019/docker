@@ -18,13 +18,15 @@ openanolis/anolisos
 openanolis/anolisos:8
 openanolis/anolisos:23
 
-
+rockylinux:8
 rockylinux:9
 rockylinux:9.3
 rockylinux:9.4
+almalinux:8
 almalinux:9
 almalinux:9.3
 almalinux:9.4
+oraclelinux:8
 oraclelinux:9
 oraclelinux:9.3
 oraclelinux:9.4
@@ -105,6 +107,11 @@ portainer/portainer:1.25.0
 portainer/portainer:1.25.0-alpine
 portainer/portainer:1.24.2-alpine
 portainer/portainer-ce:2.20.0-alpine
+portainer/portainer-ce:2.20.3
+portainer/portainer-ce:sts
+
+
+
 paketobuildpacks/builder:base
 
 

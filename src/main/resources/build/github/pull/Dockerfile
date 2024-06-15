@@ -109,7 +109,7 @@ portainer/portainer:1.24.2-alpine
 portainer/portainer-ce:2.20.0-alpine
 portainer/portainer-ce:2.20.3
 portainer/portainer-ce:sts
-
+portainer/portainer-ce:alpine-sts
 
 
 paketobuildpacks/builder:base

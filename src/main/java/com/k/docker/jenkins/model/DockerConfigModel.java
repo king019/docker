@@ -30,6 +30,7 @@ public class DockerConfigModel {
     private boolean replaceDockerGit;
     private int multi=1;
     private String transFrom;
+    private boolean prune=false;
     private String buildPath = "build/common";
     private String buildOut = "target/dockerDest/";
     private String buildOutDest =  buildOut.substring(buildOut.indexOf("/"))   ;

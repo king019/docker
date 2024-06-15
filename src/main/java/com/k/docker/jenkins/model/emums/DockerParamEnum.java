@@ -24,6 +24,7 @@ public enum DockerParamEnum {
     RP_TXT("rptxt", "false"),
     SUF("suf", "true"),
     MIX("mix", "true"),
+    PRUNE("prune", "false"),
     RP_SETTING("rpset", "false"),
     BUILD_CACHE("dkcache", "true")
     ;

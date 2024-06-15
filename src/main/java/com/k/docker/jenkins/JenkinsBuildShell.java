@@ -22,6 +22,7 @@ public class JenkinsBuildShell {
     static int maxIndex = 9999999;
     static boolean replace = false;
     static boolean push = true;
+    static boolean prune=false;
     static List<String> includes = Lists.newArrayList();
     static List<String> excludes = Lists.newArrayList();
     public static DockerConfigModel configModel = new DockerConfigModel();
@@ -97,6 +98,10 @@ public class JenkinsBuildShell {
         {
             maxIndex = Integer.parseInt(JenkinsUtil.getVal(DockerParamEnum.MAX_INDEX, map));
             configModel.setMaxIndex(maxIndex);
+        }
+        {
+            boolean prune = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.PRUNE, map));
+            configModel.setPrune(prune);
         }
         {
             boolean dkCache = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.BUILD_CACHE, map));

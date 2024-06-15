@@ -35,6 +35,5 @@ jobs:
           cd ./;chmod -R 777 .;
           pwd;
           ls ./target;
-          echo 'scan next';
           bash ./target/aliyun_qingdao.sh;
 #          bash ./target/pull/base/aliyun_qingdao.sh;

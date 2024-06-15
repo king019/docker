@@ -523,6 +523,9 @@ public class JenkinsUtil {
                     lines.add("}&");
                 }
                 lines.add("wait");
+                if (configModel.isPrune()) {
+                    lines.add("docker image prune -a -f");
+                }
                 //lines.add("sleep 1");
             }
         }

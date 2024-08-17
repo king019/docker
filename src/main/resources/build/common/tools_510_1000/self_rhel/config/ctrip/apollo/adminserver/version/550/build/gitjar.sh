@@ -6,7 +6,7 @@ mkdir -p /opt/soft/version
 cd /opt/soft/version
 git clone https://gitee.com/mirrors/apollo.git
 cd apollo
-git checkout v2.2.0
+git checkout v2.3.0
 mvn versions:set -DnewVersion=release
 cd scripts
 sh ./build.sh

@@ -3,7 +3,7 @@ dockurr/windows
 @base
 #k8s
 
-
+sonatype/nexus3
 budtmo/docker-android:emulator_9.0
 budtmo/docker-android:emulator_10.0
 budtmo/docker-android:emulator_11.0
@@ -40,6 +40,7 @@ ubuntu:23.04
 ubuntu
 archlinux
 
+alpine:3.10
 alpine:3.17
 alpine:3.18
 alpine:3.19
@@ -53,10 +54,12 @@ alpine:3
 kicbase/stable:v0.0.39
 
 gogs/gogs
+gogs/gogs:0.13
+gogs/gogs:0.12
 gitea/gitea
 
 fuzzle/docker-nfs-server
-
+drone/git
 drone/drone
 drone/drone-runner-docker
 drone/drone-runner-kube

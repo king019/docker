@@ -290,6 +290,9 @@ public class JenkinsUtil {
 
     private void copyDir(File dir, String src, String dest, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
         for (File listFile : Objects.requireNonNull(dir.listFiles())) {
+            if (dir.getName().equals("nouse")) {
+                continue;
+            }
             if (listFile.getName().equals("pull")) {
                 copyDirPull(listFile, src, dest, region, configModel);
                 continue;

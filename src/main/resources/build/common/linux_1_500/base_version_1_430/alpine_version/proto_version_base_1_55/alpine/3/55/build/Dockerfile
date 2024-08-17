@@ -1,2 +1,2 @@
-FROM king019/alpine:3.20
+FROM king019/alpine:p320
 CMD /docker.sh

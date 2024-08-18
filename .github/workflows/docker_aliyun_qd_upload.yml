@@ -1,7 +1,8 @@
 name: docker_aliyun_qingdao_upload
 
 on:
-  push:
+  - schedule: '30 5,17 * * *'
+  - push:
 
 jobs:
   buildx:

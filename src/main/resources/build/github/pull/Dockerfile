@@ -120,11 +120,12 @@ paketobuildpacks/builder:base
 
 easysoft/zincsearch
 
-eipwork/kuboard-agent:v3     kuboard-agent:v3
-eipwork/etcd-host:3.4.16-1   etcd-host:3.4.16-1
-eipwork/kuboard:v3           kuboard:v3
-questdb/questdb:6.0.4        questdb:6.0.4
 
+
+eipwork/kuboard-agent:v3
+eipwork/etcd-host:3.4.16-1
+eipwork/kuboard:v3
+questdb/questdb:6.0.5
 
 
 registry.k8s.io/coredns/coredns:v1.9.3

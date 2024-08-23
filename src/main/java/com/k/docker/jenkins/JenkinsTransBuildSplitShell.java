@@ -45,7 +45,7 @@ public class JenkinsTransBuildSplitShell {
 
     public static void main(String[] args) throws Exception {
         JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
-        shell.maxStep = 1;
+        shell.maxStep = 3;
         shell.parll = true;
         shell.arm = false;
         shell.manifest = true;

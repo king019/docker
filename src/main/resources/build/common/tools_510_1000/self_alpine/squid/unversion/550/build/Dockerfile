@@ -5,6 +5,6 @@ RUN echo 'http_upgrade_request_protocols WebSocket allow all' >> /etc/squid/squi
 
 
 EXPOSE 3128
-COPY docker.sh /docker.sh
+COPY dkrun.sh /dkrun.sh
 RUN chmod 755 /*.sh
 CMD /docker.sh

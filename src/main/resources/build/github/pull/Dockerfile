@@ -3,6 +3,24 @@ dockurr/windows
 @base
 #k8s
 
+
+
+
+node:12-alpine
+python:2.7.18-alpine
+
+
+
+
+
+
+
+
+
+
+
+reasonduan/redis-manager
+
 sonatype/nexus3
 budtmo/docker-android:emulator_9.0
 budtmo/docker-android:emulator_10.0

@@ -4,7 +4,7 @@ MAINTAINER king019
 
 
 COPY gitjar.sh /gitjar.sh
-COPY docker.sh /docker.sh
+COPY dkrun.sh /dkrun.sh
 COPY archiva.xml /archiva.xml
 RUN chmod 755 /*.sh
 RUN /gitjar.sh

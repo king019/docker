@@ -6,7 +6,7 @@ RUN mkdir -p /opt/soft/apollo-adminservice
 
 
 COPY gitjar.sh /gitjar.sh
-COPY docker.sh /docker.sh
+COPY dkrun.sh /dkrun.sh
 RUN chmod 755 /*.sh
 RUN /gitjar.sh
 

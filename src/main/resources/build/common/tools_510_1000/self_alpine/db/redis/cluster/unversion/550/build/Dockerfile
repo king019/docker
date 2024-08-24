@@ -23,7 +23,7 @@ ADD conf/7009/redis7009.conf /opt/soft/conf/7009/redis7009.conf
 
 
 
-COPY docker.sh /docker.sh
+COPY dkrun.sh /dkrun.sh
 COPY cluster.sh /cluster.sh
 RUN chmod 755 /*.sh
 CMD /docker.sh

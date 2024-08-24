@@ -7,7 +7,7 @@ MAINTAINER king019
 RUN mkdir -p /opt/soft/tunasync
 
 COPY tun_sync.sh /tun_sync.sh
-COPY docker.sh /docker.sh
+COPY dkrun.sh /dkrun.sh
 COPY manager.conf /opt/soft/tunasync/manager.conf
 COPY worker.conf /opt/soft/tunasync/worker.conf
 

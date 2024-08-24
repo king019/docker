@@ -6,9 +6,8 @@ source /etc/profile;java -version
 mkdir -p /opt/soft/version
 cd /opt/soft/version
 
-
-
-wget https://repo.huaweicloud.com/jenkins/war/latest/jenkins.war
+wget https://repo.huaweicloud.com/jenkins/war/2.471/jenkins.war
+#wget https://repo.huaweicloud.com/jenkins/war/latest/jenkins.war
 
 cp jenkins.war /opt/soft/tool/jenkins.war
 ls /opt/soft/tool

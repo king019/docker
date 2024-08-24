@@ -3,9 +3,7 @@ FROM  king019/linux:jdk8
 MAINTAINER king019
 
 COPY gitjar.sh /gitjar.sh
-COPY docker.sh /docker.sh
-COPY gitjar.sh /mqbroker.sh
-COPY docker.sh /mqnamesrv.sh
+COPY dkrun.sh /dkrun.sh
 RUN chmod 755 /*.sh
 RUN /gitjar.sh
 

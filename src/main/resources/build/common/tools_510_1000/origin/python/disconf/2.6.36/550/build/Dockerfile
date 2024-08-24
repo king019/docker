@@ -26,12 +26,7 @@ RUN apk add nginx
 
 
 
-
-
-COPY config/server.sh /server.sh
-
-RUN chmod 755 /*.sh
-RUN /server.sh
+COPY file server.sh
 
 
 

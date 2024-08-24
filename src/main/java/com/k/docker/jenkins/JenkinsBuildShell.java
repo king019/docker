@@ -16,16 +16,16 @@ import java.util.Map;
 import java.util.Objects;
 
 public class JenkinsBuildShell {
-    private static Map<DockerParamEnum, String> map = Maps.newHashMap();
+    public static DockerConfigModel configModel = new DockerConfigModel();
     static int multi = 1;
     static int minIndex = -999;
     static int maxIndex = 9999999;
     static boolean replace = false;
     static boolean push = true;
-    static boolean prune=false;
+    static boolean prune = false;
     static List<String> includes = Lists.newArrayList();
     static List<String> excludes = Lists.newArrayList();
-    public static DockerConfigModel configModel = new DockerConfigModel();
+    private static Map<DockerParamEnum, String> map = Maps.newHashMap();
 
     public static void main(String[] args) throws Exception {
         if (ArrayUtils.isNotEmpty(args)) {
@@ -55,6 +55,7 @@ public class JenkinsBuildShell {
         }
         {
             multi = Integer.parseInt(JenkinsUtil.getVal(DockerParamEnum.THREAD, map));
+            configModel.setMulti(multi);
         }
         {
             replace = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.REPLACE, map));
@@ -62,6 +63,7 @@ public class JenkinsBuildShell {
         }
         {
             push = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.PUSH, map));
+            configModel.setPush(push);
         }
         {
             minIndex = JenkinsUtil.getInt(DockerParamEnum.MIN_INDEX, map);
@@ -127,7 +129,7 @@ public class JenkinsBuildShell {
         configModel.setIncludes(includes);
         configModel.setExcludes(excludes);
         JenkinsUtil shell = new JenkinsUtil();
-        configModel.setPush(push);
+
         shell.jenkinsWrite(configModel);
     }
 

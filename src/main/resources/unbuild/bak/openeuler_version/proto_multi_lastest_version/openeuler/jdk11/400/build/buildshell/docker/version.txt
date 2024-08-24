@@ -1,2 +1,0 @@
-king019/openeuler:jdk11
-king019/openeuler

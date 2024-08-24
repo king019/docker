@@ -2,16 +2,18 @@ FROM  registry.cn-qingdao.aliyuncs.com/king019/docker
 
 MAINTAINER king019
 
-COPY config/settings.xml /root/.m2/settings.xml
-COPY config/trans_maven.sh /trans_maven.sh
 RUN echo 'trans_maven'
 
 
-COPY config/trans.sh /trans.sh
-COPY config/trans_repo_bak.sh /trans_repo_bak.sh
-COPY config/trans_repo_nexus.sh /trans_repo_nexus.sh
-COPY config/trans_maven.sh /trans_maven.sh
-COPY config/trans_repo.sh /trans_repo.sh
+COPY file trans.sh
+COPY file trans_repo_bak.sh
+COPY file trans_repo_nexus.sh
+COPY file trans_maven.sh
+COPY file trans_repo.sh
+COPY file settings.xml
+COPY file daemon.json
+COPY file config.json
+COPY file bashrc
 
 RUN sed -i 's/https/http/g' /etc/apk/repositories
 
@@ -35,10 +37,8 @@ RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 
 
 
-COPY config.json /config.json
 RUN mkdir -p /root/.docker;cp /config.json /root/.docker/config.json
 
-COPY daemon.json /daemon.json
 RUN mkdir -p /etc/docker;cp /daemon.json /etc/docker/daemon.json
 
 COPY docker.sh /docker.sh

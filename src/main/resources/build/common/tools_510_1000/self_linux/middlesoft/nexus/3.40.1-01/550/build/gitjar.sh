@@ -9,7 +9,7 @@ cd nexus-public
 
 nexus_version=3.40.1-01
 git checkout release-${nexus_version}
-sed -i 's/<\/yarnVersion>/<\/yarnVersion><nodeDownloadRoot>https:\/\/mirrors.ustc.edu.cn\/node\/<\/nodeDownloadRoot><npmDownloadRoot>https:\/\/mirrors.huaweicloud.com\/npm\/<\/npmDownloadRoot>/g' ./pom.xml
+sed -i 's/<\/yarnVersion>/<\/yarnVersion><nodeDownloadRoot>https:\/\/mirrors.huaweicloud.com\/nodejs\/<\/nodeDownloadRoot><npmDownloadRoot>https:\/\/mirrors.huaweicloud.com\/npm\/<\/npmDownloadRoot><yarnDownloadRoot>https:\/\/mirrors.huaweicloud.com\/yarn\/<\/yarnDownloadRoot>/g' ./pom.xml
 mvn clean install -DskipTests -Dmaven.javadoc.skip=true
 cp /opt/soft/version/nexus-public/assemblies/nexus-base-template/target/nexus-base-template-${nexus_version}.zip /opt/soft/nexus-base-template-${nexus_version}.zip
 mvn clean

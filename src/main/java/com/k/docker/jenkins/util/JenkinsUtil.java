@@ -76,7 +76,7 @@ public class JenkinsUtil {
     }
 
     public List<DockerJenkinsModel> buildModel(DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
-        String dockerDest =configModel.getBuildOutDest() ;
+        String dockerDest = configModel.getBuildOutDest();
         configModel.setReplaceGit(true);
         configModel.setReplaceSetting(true);
         //configModel.setInDocker(true);
@@ -124,10 +124,10 @@ public class JenkinsUtil {
             @Override
             public String apply(String line) {
                 line = line.trim();
-                if (line.startsWith("ADD")&&configModel.isReplaceDockerGit()) {
+                if (line.startsWith("ADD") && configModel.isReplaceDockerGit()) {
                     return startADD(line, configModel);
                 }
-                if (line.contains("git clone")&&configModel.isReplaceDockerGit()) {
+                if (line.contains("git clone") && configModel.isReplaceDockerGit()) {
                     return startGitClone(line, configModel);
                 }
                 if (line.contains("FROM")) {
@@ -289,7 +289,7 @@ public class JenkinsUtil {
     }
 
     private void copyDir(File dir, String src, String dest, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
-        for (File listFile : Objects.requireNonNull(dir.listFiles())) {
+        for (File listFile : Objects.requireNonNull(Arrays.stream(dir.listFiles()).sorted().toList())) {
             if (dir.getName().equals("nouse")) {
                 continue;
             }
@@ -358,12 +358,13 @@ public class JenkinsUtil {
 
     private void copyFile(File srcfile, String src, String dest, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
         String absolutePath = srcfile.getAbsolutePath();
+        String destDir = dest + region + "/";
         absolutePath = absolutePath.replace(src, dest + region + "/");
         File destfile = new File(absolutePath);
-        copyFile(srcfile, destfile, region, configModel, platform);
+        copyFile(srcfile, destfile, destDir, region, configModel, platform);
     }
 
-    private void copyFile(File srcfile, File destfile, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
+    private void copyFile(File srcfile, File destfile, String destDir, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
         //String region = PathBaseUtil.REGION;
         //String region = "beijing";
         String hostBase = DockerRegionEnum.getRegion(region).getHost();
@@ -372,33 +373,35 @@ public class JenkinsUtil {
         if (CollectionUtils.isNotEmpty(lines)) {
             if (srcfile.getName().equals("Dockerfile")) {
                 for (int i = lines.size() - 1; i >= 0; i--) {
-                    String host=hostBase;
-                    String from = lines.get(i);
-                    if (!from.startsWith("FROM")) {
-                        continue;
-                    }
-                    if (from.contains(DockerRegionEnum.QING_DAO.getHost())) {
-                        continue;
-                    }
-                    String prefix = "king019/";
-                    int index = from.indexOf(prefix);
-                    if (index > 0) {
-                        lines.remove(i);
-                        if (StringUtils.isNotBlank(host)) {
-                            host = host + "/" + from.substring(index);
-                        } else {
-                            host = host + from.substring(index);
-                        }
-                        from = from.substring(0, index) + host;
-                        if (configModel.isSuffix()) {
-                            if (from.indexOf(":") > 0) {
-                                from = from + platform.getFromSplit() + platform.getPlatform();
-                            } else {
-                                from = from + ":" + platform.getPlatform();
-                            }
-                        }
-                        lines.add(i, from);
-                    }
+//                    String host = hostBase;
+//                    String from = lines.get(i);
+//                    if (!from.startsWith("FROM")) {
+//                        continue;
+//                    }
+//                    if (from.contains(DockerRegionEnum.QING_DAO.getHost())) {
+//                        continue;
+//                    }
+//                    String prefix = "king019/";
+//                    int index = from.indexOf(prefix);
+//                    if (index > 0) {
+//                        lines.remove(i);
+//                        if (StringUtils.isNotBlank(host)) {
+//                            host = host + "/" + from.substring(index);
+//                        } else {
+//                            host = host + from.substring(index);
+//                        }
+//                        from = from.substring(0, index) + host;
+//                        if (configModel.isSuffix()) {
+//                            if (from.indexOf(":") > 0) {
+//                                from = from + platform.getFromSplit() + platform.getPlatform();
+//                            } else {
+//                                from = from + ":" + platform.getPlatform();
+//                            }
+//                        }
+//                        lines.add(i, from);
+//                    }
+                    handleDockerFileFrom(hostBase, lines, configModel, platform, i);
+                    handleDockerFileCopy(destfile, lines, destDir, i);
                 }
                 for (int i = lines.size() - 1; i >= 0; i--) {
                     judgeDockerFile(srcfile, lines, i, configModel);
@@ -416,6 +419,63 @@ public class JenkinsUtil {
 //            }
         }
         FileUtils.writeLines(destfile, lines);
+    }
+
+    private void handleDockerFileFrom(String hostBase, List<String> lines, DockerConfigModel configModel, DockerPlatformEnum platform, int i) {
+        String host = hostBase;
+        String from = lines.get(i);
+        if (!from.startsWith("FROM")) {
+            return;
+        }
+        if (from.contains(DockerRegionEnum.QING_DAO.getHost())) {
+            return;
+        }
+        String prefix = "king019/";
+        int index = from.indexOf(prefix);
+        if (index > 0) {
+            lines.remove(i);
+            if (StringUtils.isNotBlank(host)) {
+                host = host + "/" + from.substring(index);
+            } else {
+                host = host + from.substring(index);
+            }
+            from = from.substring(0, index) + host;
+            if (configModel.isSuffix()) {
+                if (from.indexOf(":") > 0) {
+                    from = from + platform.getFromSplit() + platform.getPlatform();
+                } else {
+                    from = from + ":" + platform.getPlatform();
+                }
+            }
+            lines.add(i, from);
+        }
+    }
+
+    private void handleDockerFileCopy(File destfile, List<String> lines, String destDir, int i) {
+        String from = lines.get(i);
+        String prefix = "COPY file";
+        if (!from.startsWith(prefix)) {
+            return;
+        }
+
+        int index = from.indexOf(prefix) + prefix.length();
+        String sub = from.substring(index).trim();
+        CommonFileEnum fileItem = CommonFileEnum.getItem(sub);
+        lines.remove(i);
+        if (fileItem.isRun()) {
+            lines.add(i, "RUN " + fileItem.getDestFile());
+            lines.add(i, "RUN chmod -R 777 " + fileItem.getDestFile());
+        }
+        lines.add(i, "COPY " + fileItem.getCopyFile() + " " + fileItem.getDestFile());
+        File nowDir = destfile.getParentFile();
+        String src = destDir + fileItem.getSrcFile();
+        String dest = nowDir.getAbsolutePath() + "/" + fileItem.getCopyFile();
+        copyRealFile(src, dest);
+    }
+
+    @SneakyThrows
+    private void copyRealFile(String src, String dest) {
+        FileUtils.copyFile(new File(src), new File(dest));
     }
 
     @SneakyThrows

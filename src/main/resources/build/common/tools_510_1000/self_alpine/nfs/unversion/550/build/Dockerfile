@@ -12,7 +12,7 @@ COPY nfsd.sh /nfsd.sh
 EXPOSE 2049
 
 EXPOSE 2049
-COPY docker.sh /docker.sh
+COPY dkrun.sh /dkrun.sh
 COPY exports /etc/exports
 RUN chmod 755 /*.sh
 CMD /docker.sh

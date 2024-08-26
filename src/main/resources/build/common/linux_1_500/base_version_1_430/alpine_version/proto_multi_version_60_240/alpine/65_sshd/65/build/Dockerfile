@@ -5,17 +5,10 @@ MAINTAINER king019
 
 
 
-
-
-
 COPY docker.sh /docker.sh
 COPY multi.sh /multi.sh
 COPY sshd.sh /sshd.sh
 COPY dkrun.sh /dkrun.sh
-
-
-
-
 
 
 

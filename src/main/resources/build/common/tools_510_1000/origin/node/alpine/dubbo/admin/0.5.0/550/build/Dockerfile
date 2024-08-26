@@ -9,17 +9,7 @@ RUN mkdir -p /root/.m2
 RUN mkdir -p /opt/soft/tool/
 
 
-COPY file trans.sh
-COPY file trans_repo_bak.sh
-COPY file trans_repo_nexus.sh
-COPY file trans_maven.sh
-COPY file trans_repo.sh
 
-COPY file settings.xml
-COPY file mvnclean.sh
-
-
-RUN echo 'trans_maven'
 
 
 
@@ -38,7 +28,17 @@ RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 RUN echo '#jdk8' >> /etc/profile
 
 RUN npm config set registry http://registry.npmmirror.com
+COPY file trans.sh
+COPY file trans_repo_bak.sh
+COPY file trans_repo_nexus.sh
+COPY file trans_maven.sh
+COPY file trans_repo.sh
 
+COPY file settings.xml
+COPY file mvnclean.sh
+
+
+RUN echo 'trans_maven'
 
 COPY gitjar.sh /gitjar.sh
 COPY docker.sh /docker.sh

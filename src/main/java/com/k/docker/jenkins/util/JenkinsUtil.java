@@ -57,9 +57,10 @@ public class JenkinsUtil {
             if (compare == 0) {
                 compare = StringUtils.compare(o1.getVersion(), o2.getVersion());
             }
+
             return compare;
         });
-        models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
+        //models.sort((o1, o2) -> NumberUtils.compare(o1.getIndex(), o2.getIndex()));
         writeNormal("", models, model, platform);
 //        if (model.isLocalRegion()) {
 //            writeLocal(DockerRegionEnum.LOCAL5000, models, false, multi, push, model, platform);
@@ -463,7 +464,11 @@ public class JenkinsUtil {
         CommonFileEnum fileItem = CommonFileEnum.getItem(sub);
         lines.remove(i);
         if (fileItem.isRun()) {
-            lines.add(i, "RUN " + fileItem.getDestFile());
+            if (fileItem.getPreIndex() >= 0) {
+                lines.add(lines.size() - fileItem.getPreIndex(), "RUN " + fileItem.getDestFile());
+            } else {
+                lines.add(i, "RUN " + fileItem.getDestFile());
+            }
             lines.add(i, "RUN chmod -R 777 " + fileItem.getDestFile());
         }
         lines.add(i, "COPY " + fileItem.getCopyFile() + " " + fileItem.getDestFile());
@@ -744,24 +749,17 @@ public class JenkinsUtil {
     }
 
     private void judgeDockerFile(File srcfile, List<String> lines, int index, DockerConfigModel configModel) {
-//        if (configModel.isNexusAlpine()) {
-//            String cmd = lines.get(index);
-//            if (StringUtils.contains(cmd, "s/dl-cdn.alpinelinux.org")) {
-//                lines.set(index, replaceAlpineNexus(cmd, "", configModel));
-//            }
+
+//        if (!configModel.isOrigin()) {
 //            return;
 //        }
-
-        if (!configModel.isOrigin()) {
-            return;
-        }
-        String cmd = lines.get(index);
-        if (StringUtils.contains(cmd, "s/dl-cdn.alpinelinux.org")) {
-            lines.set(index, replaceAlpineOrigin(cmd, "", configModel));
-        }
-        if (StringUtils.contains(cmd, "http://dl.rockylinux.org/$contentdir")) {
-            lines.set(index, replaceRockylinux(cmd, "", configModel));
-        }
+//        String cmd = lines.get(index);
+//        if (StringUtils.contains(cmd, "s/dl-cdn.alpinelinux.org")) {
+//            lines.set(index, replaceAlpineOrigin(cmd, "", configModel));
+//        }
+//        if (StringUtils.contains(cmd, "http://dl.rockylinux.org/$contentdir")) {
+//            lines.set(index, replaceRockylinux(cmd, "", configModel));
+//        }
     }
 
     private void judgeReplaceTxtDockerFile(Map<DockerParamEnum, List<String>> map, List<String> lines, int index, DockerConfigModel configModel) {

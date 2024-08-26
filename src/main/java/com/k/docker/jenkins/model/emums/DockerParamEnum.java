@@ -14,6 +14,7 @@ public enum DockerParamEnum {
     //LOCAL_REGION("local", "false"),
     THREAD("thread", "1"),
     INCLUDE("in", ""),
+    //替换docker中的git地址
     REPLACE("rep", "false"),
     PUSH("push", "false"),
     //IN_DOCKER("dk", "true"),
@@ -26,8 +27,7 @@ public enum DockerParamEnum {
     MIX("mix", "true"),
     PRUNE("prune", "false"),
     RP_SETTING("rpset", "false"),
-    BUILD_CACHE("dkcache", "true")
-    ;
+    BUILD_CACHE("dkcache", "true");
     private String cmd;
     private String def;
 

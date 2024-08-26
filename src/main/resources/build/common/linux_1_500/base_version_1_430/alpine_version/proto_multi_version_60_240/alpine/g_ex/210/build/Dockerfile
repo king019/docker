@@ -23,7 +23,6 @@ RUN echo "alias python='python3'" >> /etc/profile;source /etc/profile
 
 
 
-RUN apk add redis
 RUN apk add rsync
 
 RUN apk add procps

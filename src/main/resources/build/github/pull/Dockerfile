@@ -22,6 +22,9 @@ python:2.7.18-alpine
 reasonduan/redis-manager
 
 sonatype/nexus3
+sonatype/nexus3:3.41.1
+
+klo2k/nexus3
 budtmo/docker-android:emulator_9.0
 budtmo/docker-android:emulator_10.0
 budtmo/docker-android:emulator_11.0
@@ -143,7 +146,10 @@ easysoft/zincsearch
 eipwork/kuboard-agent:v3
 eipwork/etcd-host:3.4.16-1
 eipwork/kuboard:v3
+eipwork/kuboard:v3.5.2.6
+eipwork/kuboard:v3.5.2.7
 questdb/questdb:6.0.5
+questdb/questdb:6.0.4
 
 
 registry.k8s.io/coredns/coredns:v1.9.3
@@ -271,18 +277,6 @@ openzipkin/zipkin:2.25
 prom/prometheus:v2.34.0
 jimmidyson/configmap-reload:v0.5.0
 
-swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard-agent:v3
-swr.cn-east-2.myhuaweicloud.com/kuboard-dependency/questdb:6.0.4
-swr.cn-east-2.myhuaweicloud.com/kuboard/etcd-host:3.4.16-2
-swr.cn-east-2.myhuaweicloud.com/kuboard/kuboard:v3.5.2.0
-swr.cn-east-2.myhuaweicloud.com/kuboard-dependency/metrics-scraper:v1.0.8
-swr.cn-east-2.myhuaweicloud.com/kuboard-dependency/metrics-server:v0.6.2
-
-
-
-
-registry.cn-hangzhou.aliyuncs.com/google_containers/nginx-ingress-controller:v1.1.0
-registry.cn-hangzhou.aliyuncs.com/google_containers/kube-webhook-certgen:v1.1.1
 
 @ignore
 registry.cn-beijing.aliyuncs.com/king019/nacos:2.2.0

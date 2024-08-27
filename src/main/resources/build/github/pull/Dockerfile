@@ -145,7 +145,10 @@ easysoft/zincsearch
 
 eipwork/kuboard-agent:v3
 eipwork/etcd-host:3.4.16-1
+eipwork/etcd-host:3.4.16-2
 eipwork/kuboard:v3
+eipwork/kuboard:v3.5.2.4
+eipwork/kuboard:v3.5.2.5
 eipwork/kuboard:v3.5.2.6
 eipwork/kuboard:v3.5.2.7
 questdb/questdb:6.0.5

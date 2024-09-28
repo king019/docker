@@ -1,4 +1,4 @@
-FROM king019/alpine:sshd
+FROM king019/alpine:ssh
 
 MAINTAINER king019
 

@@ -23,10 +23,13 @@ public enum DockerParamEnum {
     RP_GIT("rpgit", "false"),
     //执行replace.txt
     RP_TXT("rptxt", "false"),
-    SUF("suf", "true"),
-    MIX("mix", "true"),
+    //添加x86、arm信息
+    SUF("suf", "false"),
+    //生成manifest的x86、arm信息
+    MIX("mix", "false"),
     PRUNE("prune", "false"),
     RP_SETTING("rpset", "false"),
+    BUILD_Path("buildpath", "build/common"),
     BUILD_CACHE("dkcache", "true");
     private String cmd;
     private String def;

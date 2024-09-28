@@ -23,7 +23,14 @@ public enum CommonFileEnum {
     settings("settings.xml", "config/config/settings.xml", "settings.xml", "/root/.m2/settings.xml", -1, false),
     mvnclean("mvnclean.sh", "config/shell/mvnclean.sh", "mvnclean.sh", "/mvnclean.sh", -1, false),
 
-
+    id_dsa("id_dsa", "config/config/ssh/id_dsa", "id_dsa", "/id_dsa", -1, false),
+    id_dsa_pub("id_dsa.pub", "config/config/ssh/id_dsa.pub", "id_dsa.pub", "/id_dsa.pub", -1, false),
+    id_ecdsa("id_ecdsa", "config/config/ssh/id_ecdsa", "id_ecdsa", "/id_ecdsa", -1, false),
+    id_ecdsa_pub("id_ecdsa.pub", "config/config/ssh/id_ecdsa.pub", "id_ecdsa.pub", "/id_ecdsa.pub", -1, false),
+    id_ed25519("id_ed25519", "config/config/ssh/id_ed25519", "id_ed25519", "/id_ed25519", -1, false),
+    id_ed25519_pub("id_ed25519.pub", "config/config/ssh/id_ed25519.pub", "id_ed25519.pub", "/id_ed25519.pub", -1, false),
+    id_rsa("id_rsa", "config/config/ssh/id_rsa", "id_rsa", "/id_rsa", -1, false),
+    id_rsa_pub("id_rsa.pub", "config/config/ssh/id_rsa.pub", "id_rsa.pub", "/id_rsa.pub", -1, false),
     ;
 
 

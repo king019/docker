@@ -1,16 +1,11 @@
-FROM  king019/rhel:jdk8
+FROM  king019/apollo:base
 
 MAINTAINER king019
 
-RUN mkdir -p /opt/soft/apollo-portal
-
-
-COPY gitjar.sh /gitjar.sh
 COPY dkrun.sh /dkrun.sh
+
+RUN mkdir -p /opt/soft/apollo-portal
 RUN chmod 755 /*.sh
-RUN /gitjar.sh
-
-
 
 RUN cp /opt/soft/apollo-portal-release-github.zip /opt/soft/apollo-portal/apollo-portal-release-github.zip
 RUN cd /opt/soft/apollo-portal;unzip apollo-portal-release-github.zip

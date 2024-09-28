@@ -2,11 +2,6 @@ FROM king019/centos:p9
 
 
 
-
-
-
-
-
 RUN echo 'source /etc/profile' >> /root/.bashrc
 
 ENV TZ=Asia/Shanghai

@@ -5,15 +5,32 @@ dockurr/windows
 
 
 
-
+node:14
 node:12-alpine
 python:2.7.18-alpine
 
 
 
-
-
-
+apache/iotdb-web-workbench:0.13.0-frontend
+apache/iotdb-web-workbench:0.13.0-backend
+apache/iotdb:1.3.2-standalone
+apache/iotdb:1.3.2-datanode
+apache/iotdb:1.3.2-confignode
+apache/iotdb:1.3.1-standalone
+apache/iotdb:1.3.1-datanode
+apache/iotdb:1.3.1-confignode
+apache/iotdb:1.3.0-standalone
+apache/iotdb:1.3.0-datanode
+apache/iotdb:1.3.0-confignode
+apache/iotdb:1.2.2-standalone
+apache/iotdb:1.2.2-datanode
+apache/iotdb:1.2.2-confignode
+apache/iotdb:1.1.2-standalone
+apache/iotdb:1.1.2-datanode
+apache/iotdb:1.1.2-confignode
+phpmyadmin
+rizo928/mywebsql-flex
+xuxueli/xxl-job-admin:2.4.1
 
 
 
@@ -77,11 +94,20 @@ kicbase/stable:v0.0.39
 gogs/gogs
 gogs/gogs:0.13
 gogs/gogs:0.12
+gogs/gogs:0.11.91
 gitea/gitea
 
 fuzzle/docker-nfs-server
 drone/git
-drone/drone
+drone/drone:2
+drone/drone:2.24
+drone/drone:2.23
+drone/drone:2.22
+drone/drone:2.21
+drone/drone:2.20
+drone/drone:2.19
+drone/drone:2.18
+drone/drone:2.17
 drone/drone-runner-docker
 drone/drone-runner-kube
 fogsyio/kafka:2.2.0
@@ -161,22 +187,26 @@ paketobuildpacks/builder-jammy-tiny
 
 
 
-mysql:8.2
+mysql:9.0
+mysql:8.4
+mysql:8.3
+mysql:8.1
 mysql:8.0
-mysql:8
-mysql:5.7
-mysql:5
+mysql:5.7.39
+mysql:5.7.29
+mysql:5.7.19
 
 mariadb:10
 mariadb:11
 
+redis/redisinsight
+redis:7
+redis:6
+redis:5
+redis:4
+redis:3.2
+redis:3
 
-redis:6-alpine
-redis:6.2-alpine
-redis:6.0-alpine
-redis:7-alpine
-redis:7.0-alpine
-redis:7.2-alpine
 redislabs/redisinsight
 redislabs/redisinsight:1.14.0
 
@@ -250,6 +280,8 @@ prom/pushgateway:v1.2.0
 
 
 tomcat:9
+tomcat:10
+jetty:9.4.56
 
 istio/pilot:1.16.2
 istio/proxyv2:1.16.2
@@ -271,6 +303,7 @@ kong:3.4
 ghcr.io/graalvm/graalvm-ce:22
 
 ghcr.io/stakater/reloader:v1.0.51
+ghcr.io/stakater/reloader:v1.0.121
 
 openzipkin/zipkin
 openzipkin/zipkin:2
@@ -279,8 +312,6 @@ openzipkin/zipkin:2.25
 
 prom/prometheus:v2.34.0
 jimmidyson/configmap-reload:v0.5.0
-
-
 @ignore
 registry.cn-beijing.aliyuncs.com/king019/nacos:2.2.0
 registry.cn-beijing.aliyuncs.com/king019/dubbo:consumer

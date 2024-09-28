@@ -110,11 +110,16 @@ public class JenkinsBuildShell {
             configModel.setUseCache(dkCache);
         }
         {
+            String buildPath = JenkinsUtil.getVal(DockerParamEnum.BUILD_Path, map);
+            configModel.setBuildPath(buildPath);
+        }
+        {
             String val = JenkinsUtil.getVal(DockerParamEnum.INCLUDE, map);
             if (StringUtils.isNotBlank(val)) {
                 includes.addAll(Lists.newArrayList(val.split(",")));
             }
         }
+
         {
             String val = JenkinsUtil.getVal(DockerParamEnum.EXCLUDE, map);
             if (StringUtils.isNotBlank(val)) {

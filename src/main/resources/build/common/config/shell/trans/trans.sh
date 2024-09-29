@@ -1,4 +1,4 @@
 #!/bin/bash
 set -x
-/trans_repo.sh
-/trans_maven.sh
+sh /trans_repo.sh
+sh /trans_maven.sh

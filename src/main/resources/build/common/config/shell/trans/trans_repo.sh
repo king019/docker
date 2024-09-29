@@ -1,4 +1,4 @@
 #!/bin/bash
 set -x
-/trans_repo_bak.sh
-/trans_repo_nexus.sh
+sh /trans_repo_bak.sh
+sh /trans_repo_nexus.sh

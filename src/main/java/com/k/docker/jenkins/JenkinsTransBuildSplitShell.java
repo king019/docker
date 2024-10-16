@@ -25,6 +25,7 @@ public class JenkinsTransBuildSplitShell {
             "ghcr.io",
             "quay.io",
             "skywalking.docker.scarf.sh",
+            "docker.elastic.co",
             "registry.k8s.io"
     );
     private String targetQd = "registry.cn-qingdao.aliyuncs.com/king019";

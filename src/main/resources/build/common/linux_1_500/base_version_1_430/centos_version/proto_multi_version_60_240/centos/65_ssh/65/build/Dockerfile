@@ -1,7 +1,7 @@
 FROM king019/centos:p
 
 MAINTAINER king019
-
+RUN mkdir -p /root/.ssh
 
 
 COPY docker.sh /docker.sh

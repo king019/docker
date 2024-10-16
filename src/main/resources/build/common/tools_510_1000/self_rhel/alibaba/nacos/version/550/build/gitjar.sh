@@ -10,7 +10,7 @@ git clone https://gitcode.com/gh_mirrors/na/nacos.git
 
 
 
-nacos_version=2.4.1
+nacos_version=2.4.3
 
 cd nacos
 git checkout ${nacos_version}

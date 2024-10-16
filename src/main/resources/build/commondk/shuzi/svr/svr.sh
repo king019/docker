@@ -31,9 +31,9 @@ cd ..
 cd ..
 
 cd sso
-mvn8 install
+mvn11 install
 cd sun-admin
-mvn8 clean compile jib:build -DsendCredentialsOverHttp
+mvn11 clean compile jib:build -DsendCredentialsOverHttp
 
 cd ..
 cd ..

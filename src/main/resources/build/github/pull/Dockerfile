@@ -210,18 +210,23 @@ redis:3
 redislabs/redisinsight
 redislabs/redisinsight:1.14.0
 
-
+samwaf/samwaf
 
 elastic/kibana:8.11.3
 elastic/logstash:8.11.3
 elastic/elasticsearch:8.11.3
 elastic/filebeat:8.11.3
 
+elastic/kibana:8.15.2
+elastic/logstash:8.15.2
+elastic/elasticsearch:8.15.2
+elastic/filebeat:8.15.2
 
 
-
-
-
+docker.elastic.co/kibana/kibana:8.15.2
+docker.elastic.co/kibana/logstash:8.15.2
+docker.elastic.co/kibana/elasticsearch:8.15.2
+docker.elastic.co/kibana/filebeat:8.15.2
 
 
 nacos/nacos-server:v2.3.0-slim

@@ -3,8 +3,20 @@ dockurr/windows
 @base
 #k8s
 
+apache/james:jpa-3.8.1
+apache/james:memory-3.8.1
 
 
+mailserver/docker-mailserver
+mailserver/docker-mailserver:14
+mailserver/docker-mailserver:13
+mailserver/docker-mailserver:12
+
+analogic/poste.io
+analogic/poste.io:2
+analogic/poste.io:2.4.8
+
+drillster/drone-email
 node:14
 node:12-alpine
 python:2.7.18-alpine

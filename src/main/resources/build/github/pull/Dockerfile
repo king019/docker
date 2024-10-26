@@ -2,7 +2,7 @@
 dockurr/windows
 @base
 #k8s
-
+plugins/webhook
 apache/james:jpa-3.8.1
 apache/james:memory-3.8.1
 

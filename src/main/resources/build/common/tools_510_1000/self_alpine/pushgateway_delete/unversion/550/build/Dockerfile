@@ -4,7 +4,7 @@ FROM king019/alpine:p
 
 COPY config/delete.sh /delete.sh
 
-COPY config/delete.sh /crontab.txt
+COPY config/dcrontab.txt /crontab.txt
 COPY config/delete_all.sh /delete_all.sh
 
 

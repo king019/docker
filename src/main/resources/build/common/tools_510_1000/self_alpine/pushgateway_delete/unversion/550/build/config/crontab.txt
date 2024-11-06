@@ -1,1 +1,2 @@
-*/5 * * * * /delete.sh
+0/1 * * * * /delete.sh
+0/1 * * * * /delete_all.sh

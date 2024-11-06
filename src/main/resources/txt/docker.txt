@@ -8,7 +8,7 @@ docker login --username=906451283@qq.com registry.cn-shanghai.aliyuncs.com
 docker login --username=906451283@qq.com registry.cn-huhehaote.aliyuncs.com
 docker login --username=906451283@qq.com registry.cn-shenzhen.aliyuncs.com
 docker login --username=906451283@qq.com registry.cn-qingdao.aliyuncs.com
-
+docker login --username=906451283@qq.com registry.cn-zhangjiakou.aliyuncs.com
 docker login --username=906451283@qq.com registry.cn-hangzhou.aliyuncs.com
 
 

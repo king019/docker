@@ -738,18 +738,6 @@ public class JenkinsUtil {
         }
     }
 
-    private void judgeSetting(File srcfile, List<String> lines, int index, DockerConfigModel configModel) {
-        if (!srcfile.getAbsolutePath().contains("settings.xml")) {
-            return;
-        }
-        if (!configModel.isReplaceSetting()) {
-            return;
-        }
-        String cmd = lines.get(index);
-        if (StringUtils.containsIgnoreCase(cmd, "repo.huaweicloud.com")) {
-            lines.set(index, replaceSetting(cmd, null, configModel));
-        }
-    }
 
     private void judgeDockerFile(File srcfile, List<String> lines, int index, DockerConfigModel configModel) {
 

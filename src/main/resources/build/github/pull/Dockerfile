@@ -7,6 +7,20 @@ apache/james:jpa-3.8.1
 apache/james:memory-3.8.1
 
 
+
+
+
+
+qingpan/rnacos:stable-alpine
+qingpan/rnacos:v0.6.5-alpine
+qingpan/rnacos:v0.6.5
+
+
+
+
+
+
+
 mailserver/docker-mailserver
 mailserver/docker-mailserver:14
 mailserver/docker-mailserver:13

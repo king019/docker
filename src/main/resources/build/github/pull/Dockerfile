@@ -94,6 +94,7 @@ almalinux:9
 almalinux:9.3
 almalinux:9.4
 almalinux:9.5
+almalinux:10-kitten
 oraclelinux:8
 oraclelinux:9
 oraclelinux:9.3
@@ -113,6 +114,7 @@ alpine:3.17
 alpine:3.18
 alpine:3.19
 alpine:3.20
+alpine:3.21
 alpine:3
 
 

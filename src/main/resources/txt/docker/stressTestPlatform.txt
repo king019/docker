@@ -4,7 +4,7 @@ git clone https://gitee.com/king019/stressTestPlatform.git
 cd stressTestPlatform
 registry.cn-hangzhou.aliyuncs.com/king019/renren-fast
 mvn clean package jib:build -am -Dmaven.test.skip=true -DsendCredentialsOverHttp
-
+mvn clean package jib:build -am -Dmaven.test.skip=true -DsendCredentialsOverHttp -Djib.to.auth.username=@qq.com -Djib.to.auth.password=pwd
 <plugin>
                 <groupId>com.google.cloud.tools</groupId>
                 <artifactId>jib-maven-plugin</artifactId>
@@ -12,14 +12,10 @@ mvn clean package jib:build -am -Dmaven.test.skip=true -DsendCredentialsOverHttp
                 <configuration>
                     <allowInsecureRegistries>true</allowInsecureRegistries>
                     <from>
-                        <!--                        <image>registry.cn-beijing.aliyuncs.com/king019/linux:jdk17</image>-->
-                        <image>registry.cn-beijing.aliyuncs.com/king019/linux:jdk17</image>
-                        <!--                        <image>docker:5000/king019/graalvm:jdk17</image>-->
+                        <image>registry.cn-beijing.aliyuncs.com/king019/linux:jdk8</image>
                     </from>
                     <container>
                         <jvmFlags>
-                            <!--                            <jvmFlag>-agentlib:jdwp=transport=dt_socket,address=9090,server=y,suspend=n</jvmFlag>-->
-                            <!--                            <jvmFlag>-Djava.security.egd=file:/dev/./urandom</jvmFlag>-->
                             <jvmFlag>-Xms128m</jvmFlag>
                             <jvmFlag>-Xmx128m</jvmFlag>
                             <jvmFlag>-Duser.timezone=GMT+08</jvmFlag>

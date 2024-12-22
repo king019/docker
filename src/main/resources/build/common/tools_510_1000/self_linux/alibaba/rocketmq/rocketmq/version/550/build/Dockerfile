@@ -4,6 +4,8 @@ MAINTAINER king019
 
 COPY gitjar.sh /gitjar.sh
 COPY dkrun.sh /dkrun.sh
+COPY mqbroker_nouse.sh /mqbroker_nouse.sh
+COPY mqnamesrv_nouse.sh /mqnamesrv_nouse.sh
 RUN chmod 755 /*.sh
 RUN /gitjar.sh
 

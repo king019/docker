@@ -50,4 +50,4 @@ jobs:
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           cd ./target;chmod -R 777 .;
-          bash ./aliyun_beijing_true.sh;
+          bash ./aliyun_beijing_false.sh;

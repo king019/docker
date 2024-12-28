@@ -1,1 +1,0 @@
-RUN echo 'trans_maven'   RUN sed -i 's/repo.huaweicloud.com/nexus:8081/g' /root/.m2/settings.xml

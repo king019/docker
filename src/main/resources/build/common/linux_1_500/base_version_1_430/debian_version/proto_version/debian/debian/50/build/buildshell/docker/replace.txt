@@ -1,2 +1,0 @@
-RUN sed -i "s@http://deb.debian.org@http://repo.huaweicloud.com@g" /etc/apt/sources.list          RUN sed -i "s@http://deb.debian.org@http://nexus:8081/repository@g" /etc/apt/sources.list
-RUN sed -i "s@http://security.debian.org@http://repo.huaweicloud.com@g" /etc/apt/sources.list     RUN sed -i "s@http://security.debian.org@http://nexus:8081/repository@g" /etc/apt/sources.list

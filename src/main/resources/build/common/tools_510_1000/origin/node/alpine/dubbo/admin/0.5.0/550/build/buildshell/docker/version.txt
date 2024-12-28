@@ -1,2 +1,0 @@
-king019/dubbo:admin_0.4.0
-king019/dubbo:admin

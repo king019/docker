@@ -1,1 +1,0 @@
-king019/centos:ex11_trans

@@ -1,0 +1,32 @@
+
+cd /root
+git clone https://gitee.com/king019/stressTestPlatform.git
+cd stressTestPlatform
+registry.cn-hangzhou.aliyuncs.com/king019/renren-fast
+mvn clean package jib:build -am -Dmaven.test.skip=true -DsendCredentialsOverHttp
+mvn clean package jib:build -am -Dmaven.test.skip=true -DsendCredentialsOverHttp -Djib.to.auth.username=@qq.com -Djib.to.auth.password=pwd
+<plugin>
+                <groupId>com.google.cloud.tools</groupId>
+                <artifactId>jib-maven-plugin</artifactId>
+                <version>3.3.2</version>
+                <configuration>
+                    <allowInsecureRegistries>true</allowInsecureRegistries>
+                    <from>
+                        <image>registry.cn-beijing.aliyuncs.com/king019/linux:jdk8</image>
+                    </from>
+                    <container>
+                        <jvmFlags>
+                            <jvmFlag>-Xms128m</jvmFlag>
+                            <jvmFlag>-Xmx128m</jvmFlag>
+                            <jvmFlag>-Duser.timezone=GMT+08</jvmFlag>
+                            <jvmFlag>-Dfile.encoding=UTF8</jvmFlag>
+                        </jvmFlags>
+                    </container>
+                    <to>
+                        <image>registry.cn-hangzhou.aliyuncs.com/king019/stress_test_platform</image>
+                        <tags>
+                            <tag>latest</tag>
+                        </tags>
+                    </to>
+                </configuration>
+            </plugin>

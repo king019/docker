@@ -7,6 +7,7 @@ RUN mkdir -p /root/.ssh
 
 COPY docker.sh /docker.sh
 COPY multi.sh /multi.sh
+COPY extra.sh /extra.sh
 COPY sshd.sh /sshd.sh
 COPY dkrun.sh /dkrun.sh
 

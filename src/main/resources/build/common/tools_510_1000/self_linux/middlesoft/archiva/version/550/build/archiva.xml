@@ -1,0 +1,13 @@
+<Context path="/"
+         docBase="/opt/soft/archiva-webapp.war">
+
+    <Resource name="jdbc/users" auth="Container" type="javax.sql.DataSource"
+              username="sa"
+              password=""
+              driverClassName="org.apache.derby.jdbc.EmbeddedDriver"
+              url="jdbc:derby:/opt/soft/users;create=true" />
+
+    <Resource name="mail/Session" auth="Container"
+              type="javax.mail.Session"
+              mail.smtp.host="localhost"/>
+</Context>

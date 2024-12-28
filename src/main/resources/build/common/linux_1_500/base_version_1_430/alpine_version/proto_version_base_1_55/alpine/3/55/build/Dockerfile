@@ -26,9 +26,8 @@ COPY file daemon.json
 COPY file config.json
 COPY file bashrc
 
-COPY glibc-2.35-r1.apk   /glibc-2.35-r1.apk
-RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
-RUN apk add /glibc-2.35-r1.apk
+#RUN wget -q -O /etc/apk/keys/sgerrand.rsa.pub https://alpine-pkgs.sgerrand.com/sgerrand.rsa.pub
+#RUN apk add /glibc-2.35-r1.apk
 
 
 

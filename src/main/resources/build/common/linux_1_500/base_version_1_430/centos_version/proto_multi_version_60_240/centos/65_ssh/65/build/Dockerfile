@@ -13,13 +13,12 @@ RUN dnf -y install  procps
 RUN dnf -y install  openssh-server
 
 RUN dnf -y install  openssh tzdata openssh-clients && \
-    \cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
+    cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime && \
     sed -i "s/#PermitRootLogin.*/PermitRootLogin yes/g" /etc/ssh/ssh_config && \
-       ssh-keygen -t dsa -P "" -f /etc/ssh/ssh_host_dsa_key && \
     ssh-keygen -t rsa -P "" -f /etc/ssh/ssh_host_rsa_key && \
     ssh-keygen -t ecdsa -P "" -f /etc/ssh/ssh_host_ecdsa_key && \
     ssh-keygen -t ed25519 -P "" -f /etc/ssh/ssh_host_ed25519_key
-
+#可用  ssh-keygen -t dsa -P "" -f /etc/ssh/ssh_host_dsa_key && \
 COPY file id_dsa
 COPY file id_rsa
 COPY file id_ecdsa

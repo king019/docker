@@ -11,6 +11,3 @@ mvn versions:set -DnewVersion=release
 mvn -Prelease-all -DskipTests clean install
 
 cp ./distribution/target/rocketmq-release.zip /opt/soft/rocketmq-release.zip
-
-mvn clean
-/mvnclean.sh

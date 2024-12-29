@@ -21,7 +21,7 @@ sed -i 's/<artifactId>spring-boot-maven-plugin<\/artifactId>/<artifactId>spring-
 cd ..
 mvn -Prelease-nacos -Dmaven.test.skip=true clean install
 
-find . -name nacos-server-${nacos_version}.zip | awk '{print "cp " $1  " /opt/soft/nacos-server-${nacos_version}.zip"}' | sh
+find . -name nacos-server-${nacos_version}.zip | awk -v nacos_version=${nacos_version}  '{print "cp " $1  " /opt/soft/nacos-server-"nacos_version".zip"}' | sh
 mvn clean
 /mvnclean.sh
 

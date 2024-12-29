@@ -1,6 +1,6 @@
 #!/bin/sh
 set -x
 source /etc/profile;echo ''
-chmod -R /*.sh
+chmod -R 777 /*.sh
 /multi.sh
 tail -f /docker.sh

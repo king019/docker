@@ -16,7 +16,7 @@ MAINTAINER king019
 
 
 #only almalinux:9
-RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^# baseurl=https://repo.almalinux.org|baseurl=https://mirrors.aliyun.com|g'  -i.bak  /etc/yum.repos.d/almalinux*.repo
+RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^# baseurl=https://repo.almalinux.org|baseurl=http://mirrors.aliyun.com|g'  -i.bak  /etc/yum.repos.d/almalinux*.repo
 
 
 #only openanolis_anolisos:8

@@ -4,11 +4,15 @@ MAINTAINER king019
 RUN mkdir -p /root/.ssh
 
 
-COPY docker.sh /docker.sh
-COPY dkrun.sh /dkrun.sh
-COPY extra.sh /extra.sh
-COPY sshd.sh /sshd.sh
-COPY multi.sh /multi.sh
+COPY shell/docker.sh /docker.sh
+COPY shell/multi.sh /multi.sh
+COPY shell/extra.sh /extra.sh
+COPY shell/sshd.sh /sshd.sh
+COPY shell/dkrun.sh /dkrun.sh
+
+
+
+
 RUN dnf -y install  procps
 RUN dnf -y install  openssh-server
 

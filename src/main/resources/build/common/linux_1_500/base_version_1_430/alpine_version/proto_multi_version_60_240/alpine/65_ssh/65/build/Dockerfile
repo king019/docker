@@ -5,11 +5,11 @@ RUN mkdir -p /root/.ssh
 
 
 
-COPY docker.sh /docker.sh
-COPY multi.sh /multi.sh
-COPY extra.sh /extra.sh
-COPY sshd.sh /sshd.sh
-COPY dkrun.sh /dkrun.sh
+COPY shell/docker.sh /docker.sh
+COPY shell/multi.sh /multi.sh
+COPY shell/extra.sh /extra.sh
+COPY shell/sshd.sh /sshd.sh
+COPY shell/dkrun.sh /dkrun.sh
 
 
 

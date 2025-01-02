@@ -39,8 +39,8 @@ jobs:
 
           run: |
             uname -aa
-            cd /home/runner/work/docker-upload/docker-upload;
-            ls /home/runner/work/docker-upload/docker-upload;
+            cd /home/runner/work/docker/docker-upload;
+            ls /home/runner/work/docker/docker-upload;
             mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsTransBuildSplitShell";
             cd ./;chmod -R 777 .;
             pwd;

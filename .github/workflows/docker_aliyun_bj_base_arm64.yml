@@ -40,7 +40,7 @@ jobs:
             cd /home/runner/work/docker/docker;
             ls /home/runner/work/docker/docker;
             mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=20@rep=false@push=true@in=king019/docker:build@origin=true@mix=true@suf=true";
-            cd ./;chmod -R 777 .;
+            cd ./target;chmod -R 777 .;
             pwd;
             ls ./;
             bash ./aliyun_beijing_true.sh;

@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Multimap;
 import com.k.dep.common.util.FWPathUtil;
 import com.k.docker.jenkins.model.emums.DockerPlatformEnum;
+import lombok.Data;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
@@ -16,6 +17,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Set;
 
+@Data
 public class JenkinsTransBuildSplitShell {
     private Set<String> regSet = Set.of(
             "registry.cn-hangzhou.aliyuncs.com",
@@ -48,20 +50,48 @@ public class JenkinsTransBuildSplitShell {
         JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
         shell.maxStep = 3;
         shell.parll = true;
-        shell.arm = false;
+        shell.arm = arch();
         shell.manifest = true;
         shell.subFix = true;
+        shell.test();
+    }
+
+    private static boolean arch() {
+        boolean arm = false;
+        String osArch = System.getProperty("os.arch");
+        System.out.println("系统架构原始值是:" + osArch);
+        if ("arm".equalsIgnoreCase(osArch) || "aarch64".equalsIgnoreCase(osArch)) {
+            System.out.println("系统架构是ARM");
+            arm = true;
+        } else if (Set.of("x86", "amd64", "x86_64").contains(osArch)) {
+            System.out.println("系统架构是X86");
+            arm = false;
+        } else {
+            System.out.println("未知的系统架构: " + osArch);
+        }
+        return arm;
+    }
+
+    //mvn test -Dtest=com.k.docker.jenkins.JenkinsTransBuildShell#testArm -DskipTests=true
+    @Test
+    public void testArm() throws Exception {
+        JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
+        shell.setMaxStep(3);
+        shell.setParll(true);
+        shell.setArm(true);
+        shell.setManifest(true);
+        shell.setSubFix(true);
         shell.test();
     }
 
     @Test
     public void testX86() throws Exception {
         JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
-        shell.maxStep = 1;
-        shell.parll = false;
-        shell.arm = false;
-        shell.manifest = true;
-        shell.subFix = true;
+        shell.setMaxStep(3);
+        shell.setParll(false);
+        shell.setArm(false);
+        shell.setManifest(true);
+        shell.setSubFix(true);
         shell.test();
     }
 
@@ -112,21 +142,10 @@ public class JenkinsTransBuildSplitShell {
         shell.test();
     }
 
-    //mvn test -Dtest=com.k.docker.jenkins.JenkinsTransBuildShell#testArm -DskipTests=true
-    //@Test
-    public void testArm() throws Exception {
-        JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
-        shell.maxStep = 1;
-        shell.parll = false;
-        shell.arm = true;
-        shell.subFix = true;
-        shell.test();
-    }
-
 
     //@Test
     public void test() throws Exception {
-        String resource = FWPathUtil.getTargetClassesPath("build/github/pull/Dockerfile");
+        String resource = FWPathUtil.getTargetClassesPath("build/common-other/github/pull/Dockerfile");
         File srcFile = new File(resource);
         List<String> lines = FileUtils.readLines(srcFile, Charset.defaultCharset());
         Multimap<String, String> multimap = ArrayListMultimap.create();
@@ -250,6 +269,7 @@ public class JenkinsTransBuildSplitShell {
             }
         }
     }
+
     private String addSub(String target, String sub, boolean subFix) {
         if (subFix) {
             //String sub= DockerPlatformEnum.ADM64.getPlatform();

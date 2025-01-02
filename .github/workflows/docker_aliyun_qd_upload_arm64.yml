@@ -1,0 +1,59 @@
+name: docker_aliyun_qd_upload_arm64.yml
+on:
+  push:
+jobs:
+  armv7_job:
+    # The host should always be Linux
+    runs-on: ubuntu-22.04
+    name: Build on ubuntu-18.04 armv7
+    steps:
+      - uses: actions/checkout@v4
+      - name: use jdk
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt' # See https://github.com/actions/setup-java
+          java-version: '17'
+      - name: aliyun_qingdao
+        uses: docker/login-action@v1
+        with:
+          registry: registry.cn-qingdao.aliyuncs.com
+          username: ${{ secrets.ALIYUN_USERNAME }}
+          password: ${{ secrets.ALIYUN_PASSWORD }}
+      - uses: uraimo/run-on-arch-action@v2
+        name: Run commands
+        id: runcmd
+        with:
+          arch: aarch64
+          distro: alpine_latest
+          # Not required, but speeds up builds by storing container images in
+          # a GitHub package registry.
+          githubToken: ${{ github.token }}
+          dockerRunArgs: |
+            --volume "~/.docker/config.json:/root/.docker/config.json"
+          install: |
+            apk add bash
+            apk add maven
+            apk add openjdk17
+            apk add docker
+          # Set an output parameter `uname` for use in subsequent steps
+
+          run: |
+            uname -aa
+            cd /home/runner/work/docker-upload/docker-upload;
+            ls /home/runner/work/docker-upload/docker-upload;
+            mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsTransBuildSplitShell";
+            cd ./;chmod -R 777 .;
+            pwd;
+            ls ./;
+            bash ./target/pull/base/aliyun_qingdao.sh;
+
+      - name: Get the output
+        # Echo the `uname` output parameter from the `runcmd` step
+        run: |
+          echo "The uname output was ${{ steps.runcmd.outputs.uname }}"
+      - name: docker
+        # Echo the `uname` output parameter from the `runcmd` step
+        run: |
+          mvn -v
+          cat /etc/docker/daemon.json;
+          docker info

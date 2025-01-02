@@ -1,4 +1,4 @@
-name: docker_aliyun_qingdao_upload
+name: docker_aliyun_qd_upload_amd64.yml
 
 on:
   push:
@@ -27,13 +27,12 @@ jobs:
           password: ${{ secrets.ALIYUN_PASSWORD }}
       - name: maven
         run: cat /etc/docker/daemon.json;
-          cd /home/runner/work/docker/docker;
-          ls /home/runner/work/docker/docker;
+          cd /home/runner/work/docker-upload/docker-upload;
+          ls /home/runner/work/docker-upload/docker-upload;
           mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsTransBuildSplitShell";
       - name: build_aliyun_qingdao_upload
         run: cat /etc/docker/daemon.json;
           cd ./;chmod -R 777 .;
           pwd;
-          ls ./target;
-          bash ./target/aliyun_qingdao.sh;
-#          bash ./target/pull/base/aliyun_qingdao.sh;
+          ls ./;
+          bash ./target/pull/base/aliyun_qingdao.sh;

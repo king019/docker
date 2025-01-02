@@ -1,4 +1,4 @@
-name: docker_aliyun_beijing
+name: docker_aliyun_bj_amd64.yml
 
 on:
   push:
@@ -50,4 +50,4 @@ jobs:
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           cd ./target;chmod -R 777 .;
-          bash ./aliyun_beijing_false.sh;
+          bash ./aliyun_beijing_true.sh;

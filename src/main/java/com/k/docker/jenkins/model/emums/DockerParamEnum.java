@@ -30,7 +30,9 @@ public enum DockerParamEnum {
     PRUNE("prune", "false"),
     RP_SETTING("rpset", "false"),
     BUILD_Path("buildpath", "build/common"),
-    BUILD_CACHE("dkcache", "true");
+    BUILD_CACHE("dkcache", "true"),
+    ARM("arm", "false"),
+    ;
     private String cmd;
     private String def;
 

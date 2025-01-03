@@ -15,33 +15,35 @@ import java.util.stream.Collectors;
  */
 @Getter
 public enum DockerRegionEnum {
-    QING_DAO("aliyun_qingdao", "registry.cn-qingdao.aliyuncs.com", "qd"),
-    HANG_ZHOU("aliyun_hangzhou", "registry.cn-hangzhou.aliyuncs.com", "hz"),
-    SHANG_HAI("aliyun_shanghai", "registry.cn-shanghai.aliyuncs.com", "sh"),
-    HUHEHAOTE("aliyun_huhehaote", "registry.cn-huhehaote.aliyuncs.com", "hhht"),
-    SHENZHEN("aliyun_shenzhen", "registry.cn-shenzhen.aliyuncs.com", "sz"),
-    BEI_JING("aliyun_beijing", "registry.cn-beijing.aliyuncs.com", "bj"),
-    TEN_BEI_JING("tenyun_beijing", "ccr.ccs.tencentyun.com", "tenbj"),
-    DOCKER("docker", "", "dk"),
+    QING_DAO("aliyun_qingdao", "registry.cn-qingdao.aliyuncs.com", "qd","king019"),
+    HANG_ZHOU("aliyun_hangzhou", "registry.cn-hangzhou.aliyuncs.com", "hz","king019"),
+    SHANG_HAI("aliyun_shanghai", "registry.cn-shanghai.aliyuncs.com", "sh","king019"),
+    HUHEHAOTE("aliyun_huhehaote", "registry.cn-huhehaote.aliyuncs.com", "hhht","king019"),
+    SHENZHEN("aliyun_shenzhen", "registry.cn-shenzhen.aliyuncs.com", "sz","king019"),
+    BEI_JING("aliyun_beijing", "registry.cn-beijing.aliyuncs.com", "bj","king019"),
+    TEN_BEI_JING("tenyun_beijing", "ccr.ccs.tencentyun.com", "tenbj","king019"),
+    DOCKER("docker", "", "dk","king019"),
 
     //    LOCAL5001("local_5001", "docker:5001", "dk5001"),
     //SMP("smp", "docker:5000"),
-    NEXUS_5000("nexus_5000", "nexus:5000", "nexus5000"),
-    DK5000("no_suffix", "docker:5000", "dk5000"),
-    DOCKER_5000("docker_5000", "docker:5000", "lc5000"),
-    DOCKER_5001("docker_5001", "docker:5001", "lc5001"),
+    NEXUS_5000("nexus_5000", "nexus:5000", "nexus5000","king019"),
+    DK5000("no_suffix", "docker:5000", "dk5000","king019"),
+    DOCKER_5000("docker_5000", "docker:5000", "lc5000","king019"),
+    DOCKER_5001("docker_5001", "docker:5001", "lc5001","king019"),
     ;
 
     private String region;
     private String host;
 //    private boolean special;
     private String shortRegion;
+    private String namespace;
 
 
-    DockerRegionEnum(String region, String host, String shortRegion) {
+    DockerRegionEnum(String region, String host, String shortRegion,String namespace) {
         this.region = region;
         this.host = host;
         this.shortRegion = shortRegion;
+        this.namespace=namespace;
     }
 
 //    DockerRegionEnum(String region, String host, String shortRegion, boolean special) {

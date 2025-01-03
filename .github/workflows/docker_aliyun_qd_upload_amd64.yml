@@ -29,10 +29,10 @@ jobs:
         run: cat /etc/docker/daemon.json;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
-          mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsTransBuildSplitShell";
+          mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsTransBuildSplitShell" -Dexec.args="arm=false"
       - name: build_aliyun_qingdao_upload
         run: cat /etc/docker/daemon.json;
           cd ./;chmod -R 777 .;
           pwd;
           ls ./;
-          bash ./target/pull/base/aliyun_qingdao.sh;
+          bash ./target/aliyun_qingdao.sh;

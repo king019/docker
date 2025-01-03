@@ -9,18 +9,21 @@ import java.util.stream.Collectors;
 
 @Getter
 public enum DockerPlatformEnum {
-    ARM64("aarch64", true, "_"),
-    ADM64("x86_64", true, "_"),
-    NO_SUFFIX("no_suffix", false, "_");
+    ARM64("aarch64", true, "_","linux/arm64/v8"),
+    ADM64("x86_64", true, "_","linux/amd64"),
+    NO_SUFFIX("no_suffix", false, "_",""),
+    ;
     private String platform;
     private String fromSplit;
+    private String osArch;
     private boolean suffix = true;
 
 
-    DockerPlatformEnum(String platform, boolean suffix, String fromSplit) {
+    DockerPlatformEnum(String platform, boolean suffix, String fromSplit,String osArch) {
         this.platform = platform;
         this.suffix = suffix;
         this.fromSplit = fromSplit;
+        this.osArch=osArch;
     }
 
     public static DockerPlatformEnum getPlatform(String platform) {

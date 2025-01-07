@@ -1,4 +1,4 @@
-name: docker_aliyun_qingdao_upload
+name: docker_aliyun_qd_upload_amd64.yml
 
 on:
   push:
@@ -29,11 +29,10 @@ jobs:
         run: cat /etc/docker/daemon.json;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
-          mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsTransBuildSplitShell";
+          mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsTransBuildSplitShell" -Dexec.args="arm=false"
       - name: build_aliyun_qingdao_upload
         run: cat /etc/docker/daemon.json;
           cd ./;chmod -R 777 .;
           pwd;
-          ls ./target;
+          ls ./;
           bash ./target/aliyun_qingdao.sh;
-#          bash ./target/pull/base/aliyun_qingdao.sh;

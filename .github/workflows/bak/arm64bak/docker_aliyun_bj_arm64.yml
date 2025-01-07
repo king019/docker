@@ -1,0 +1,46 @@
+name: docker_aliyun_bj_arm64.yml
+on:
+  push:
+jobs:
+  armv7_job:
+    # The host should always be Linux
+    runs-on: ubuntu-22.04
+    name: Build on ubuntu-22.04 aarch64
+    steps:
+      - uses: actions/checkout@v4
+      - name: use jdk
+        uses: actions/setup-java@v2
+        with:
+          distribution: 'adopt' # See https://github.com/actions/setup-java
+          java-version: '17'
+      - name: aliyun_beijing
+        uses: docker/login-action@v1
+        with:
+          registry: registry.cn-beijing.aliyuncs.com
+          username: ${{ secrets.ALIYUN_USERNAME }}
+          password: ${{ secrets.ALIYUN_PASSWORD }}
+      - uses: uraimo/run-on-arch-action@v2
+        name: Run commands
+        id: runcmd
+        with:
+          arch: aarch64
+          distro: alpine_latest
+          # Not required, but speeds up builds by storing container images in
+          # a GitHub package registry.
+          githubToken: ${{ github.token }}
+          dockerRunArgs: |
+            --volume "~/.docker/config.json:/root/.docker/config.json"
+          install: |
+            apk add bash
+            apk add maven
+            apk add openjdk17
+            apk add docker
+          # Set an output parameter `uname` for use in subsequent steps
+          run: |
+            cd /home/runner/work/docker/docker;
+            ls /home/runner/work/docker/docker;
+            mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=20@rep=false@push=true@origin=false@mix=true@suf=true";
+            cd ./target;chmod -R 777 .;
+            pwd;
+            ls ./;
+            bash ./aliyun_beijing_true.sh;

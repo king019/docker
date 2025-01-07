@@ -94,8 +94,8 @@ public class DockerJenkinsModel {
             sb.append(" ");
             sb.append(buildVersion(hostVersion, platform));
             //sb.append(" --os-features linux");
-            sb.append(" --os-features linux");
-            sb.append("/" + platform);
+            sb.append(" --os-features "+platform.getOsArch());
+//            sb.append("/" + platform);
             sb.append(nextLine);
         }
 

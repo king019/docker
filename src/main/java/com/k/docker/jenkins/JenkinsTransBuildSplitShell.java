@@ -2,20 +2,25 @@ package com.k.docker.jenkins;
 
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Multimap;
 import com.k.dep.common.util.FWPathUtil;
+import com.k.docker.jenkins.model.DockerPushModel;
+import com.k.docker.jenkins.model.emums.DockerParamEnum;
 import com.k.docker.jenkins.model.emums.DockerPlatformEnum;
+import com.k.docker.jenkins.model.emums.DockerRegionEnum;
+import lombok.Data;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
 import java.io.File;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
+@Data
 public class JenkinsTransBuildSplitShell {
     private Set<String> regSet = Set.of(
             "registry.cn-hangzhou.aliyuncs.com",
@@ -43,25 +48,68 @@ public class JenkinsTransBuildSplitShell {
     private boolean parll = true;
     //添加多系统执行
     private boolean manifest = true;
+    private String end = "endTag";
+    private static Map<DockerParamEnum, String> map = Maps.newHashMap();
 
     public static void main(String[] args) throws Exception {
+        if (ArrayUtils.isNotEmpty(args)) {
+            String arg = args[0];
+            String[] splits = StringUtils.split(arg, "@");
+            for (String split : splits) {
+                if (StringUtils.contains(split, "=")) {
+                    String[] splitInner = split.split("=");
+                    DockerParamEnum paramEnum = DockerParamEnum.getEnum(splitInner[0]);
+                    if (Objects.nonNull(paramEnum)) {
+                        map.put(paramEnum, splitInner[1]);
+                    }
+                }
+            }
+        }
         JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
         shell.maxStep = 3;
         shell.parll = true;
-        shell.arm = false;
+        shell.arm = BooleanUtils.toBoolean(map.get(DockerParamEnum.ARM));
         shell.manifest = true;
         shell.subFix = true;
+        shell.test();
+    }
+
+    private static boolean arch() {
+        boolean arm = false;
+        String osArch = System.getProperty("os.arch");
+        System.out.println("系统架构原始值是:" + osArch);
+        if ("arm".equalsIgnoreCase(osArch) || "aarch64".equalsIgnoreCase(osArch)) {
+            System.out.println("系统架构是ARM");
+            arm = true;
+        } else if (Set.of("x86", "amd64", "x86_64").contains(osArch)) {
+            System.out.println("系统架构是X86");
+            arm = false;
+        } else {
+            System.out.println("未知的系统架构: " + osArch);
+        }
+        return arm;
+    }
+
+    //mvn test -Dtest=com.k.docker.jenkins.JenkinsTransBuildShell#testArm -DskipTests=true
+    @Test
+    public void testArm() throws Exception {
+        JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
+        shell.setMaxStep(3);
+        shell.setParll(true);
+        shell.setArm(true);
+        shell.setManifest(true);
+        shell.setSubFix(true);
         shell.test();
     }
 
     @Test
     public void testX86() throws Exception {
         JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
-        shell.maxStep = 1;
-        shell.parll = false;
-        shell.arm = false;
-        shell.manifest = true;
-        shell.subFix = true;
+        shell.setMaxStep(3);
+        shell.setParll(false);
+        shell.setArm(false);
+        shell.setManifest(true);
+        shell.setSubFix(true);
         shell.test();
     }
 
@@ -112,24 +160,13 @@ public class JenkinsTransBuildSplitShell {
         shell.test();
     }
 
-    //mvn test -Dtest=com.k.docker.jenkins.JenkinsTransBuildShell#testArm -DskipTests=true
-    //@Test
-    public void testArm() throws Exception {
-        JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
-        shell.maxStep = 1;
-        shell.parll = false;
-        shell.arm = true;
-        shell.subFix = true;
-        shell.test();
-    }
-
 
     //@Test
     public void test() throws Exception {
-        String resource = FWPathUtil.getTargetClassesPath("build/github/pull/Dockerfile");
+        String resource = FWPathUtil.getTargetClassesPath("build/common-other/github/pull/Dockerfile");
         File srcFile = new File(resource);
         List<String> lines = FileUtils.readLines(srcFile, Charset.defaultCharset());
-        Multimap<String, String> multimap = ArrayListMultimap.create();
+        ArrayListMultimap<String, String> multimap = ArrayListMultimap.create();
         String pre = "base";
         String preFix = "@";
         for (String line : lines) {
@@ -147,7 +184,9 @@ public class JenkinsTransBuildSplitShell {
             }
         }
         for (String key : multimap.keySet()) {
-            test(multimap.get(key), key);
+            List<String> nowLines = multimap.get(key);
+            nowLines.add(end);
+            test(nowLines, key);
         }
         List<String> shellLines = new ArrayList<>();
         String shellFile = FWPathUtil.getTargetPath("aliyun_qingdao.sh");
@@ -168,12 +207,12 @@ public class JenkinsTransBuildSplitShell {
         File srcFile = new File(resource);
         //List<String> lines = FileUtils.readLines(srcFile, Charset.defaultCharset());
         //lines = lines.stream().filter(s -> !StringUtils.startsWith(s, "#")).collect(Collectors.toList());
-        List<String> targetAliyunLines = Lists.newArrayList();
+        List<String> targetAliyunLines = Lists.newArrayList("#!/bin/bash", "\n", "set -x");
         List<String> targetDk5000Lines = Lists.newArrayList();
         List<String> targetDk5000AliyunLines = Lists.newArrayList();
         List<String> targetDk5001AliyunLines = Lists.newArrayList();
-        aliyun(lines, targetAliyunLines, targetQd);
-        aliyun(lines, targetDk5000Lines, docker5000);
+        aliyun(lines, targetAliyunLines, DockerRegionEnum.QING_DAO);
+        aliyun(lines, targetDk5000Lines, DockerRegionEnum.DK5000);
         //aliyun(lines, targetDk5001AliyunLines, docker5001);
 
 
@@ -187,69 +226,55 @@ public class JenkinsTransBuildSplitShell {
         FileUtils.writeLines(new File(targetDk5001AliyunPath), targetDk5001AliyunLines);
     }
 
-    private void aliyun(Collection<String> lines, List<String> targetDkLines, String dockerHost) {
+    private void aliyun(Collection<String> lines, List<String> targetDkLines, DockerRegionEnum dockerRegionEnum) {
         //dk
         int step = defStep;
+        boolean endTag = false;
         for (String line : lines) {
-            if (StringUtils.isBlank(line)) {
-                continue;
-            }
-            if (StringUtils.startsWith(line, ignore)) {
-                break;
-            }
-
-
-            if (parll) {
-                targetDkLines.add("{");
-            }
-            String source = line;
-            String transSource = line;
-            String[] splits;
-            String specialName = null;
-            if (StringUtils.contains(line, " ")) {
-                splits = StringUtils.split(line);
-                source = splits[0];
-                transSource = splits[0];
-                specialName = splits[1];
-            }
-            for (String reg : regSet) {
-                transSource = StringUtils.replace(transSource, reg + "/", "");
-            }
-            if (StringUtils.contains(transSource, "/")) {
-                transSource = transSource.replace("/", "_");
-            }
-            if (StringUtils.isNotBlank(specialName)) {
-                transSource = specialName;
-            }
-
-            String target;
-            targetDkLines.add("\n");
-            targetDkLines.add("echo '" + source + "'");
-            targetDkLines.add("docker pull " + source);
-            String targetX86 = dockerHost + "/" + addSub(transSource, DockerPlatformEnum.ADM64.getPlatform(), subFix);
-            String targetArm64 = dockerHost + "/" + addSub(transSource, DockerPlatformEnum.ARM64.getPlatform(), subFix);
-            target = dockerHost + "/" + transSource;
-            if (!arm) {
-                targetDkLines.add("docker tag " + source + " " + targetX86);
-                targetDkLines.add("docker push " + targetX86);
-            } else {
-                targetDkLines.add("docker tag " + source + " " + targetArm64);
-                targetDkLines.add("docker push " + targetArm64);
-            }
-            if (manifest) {
-                manifest(target, targetX86, targetArm64, targetDkLines);
-            }
-            if (parll) {
-                targetDkLines.add("}&");
-            }
-            if (step++ % maxStep == 0) {
-                if (parll) {
-                    targetDkLines.add("wait");
-                    targetDkLines.add("docker image prune -a -f");
+            endTag = StringUtils.equals(line, end);
+            if (!endTag) {
+                if (StringUtils.isBlank(line)) {
+                    continue;
                 }
+                if (StringUtils.startsWith(line, ignore)) {
+                    break;
+                }
+                if (parll) {
+                    targetDkLines.add("{");
+                }
+                String source = line;
+                String[] splits;
+                String specialName = null;
+                if (StringUtils.contains(line, " ")) {
+                    splits = StringUtils.split(line);
+                    source = splits[0];
+                    specialName = splits[1];
+                }
+                DockerPushModel model = new DockerPushModel();
+                model.setPullImage(source);
+                model.setSubFix(subFix);
+                model.setPlatformEnum(arm ? DockerPlatformEnum.ARM64 : DockerPlatformEnum.ADM64);
+                model.setDockerRegionEnum(dockerRegionEnum);
+                model.setSpecialName(specialName);
+                targetDkLines.add("\n");
+                targetDkLines.add("echo '" + source + "'");
+                targetDkLines.add(model.toString());
+                if (parll) {
+                    targetDkLines.add("}&");
+                }
+                if (step++ % maxStep == 0) {
+                    if (parll) {
+                        targetDkLines.add("wait");
+                        targetDkLines.add("docker image prune -a -f");
+                    }
+                }
+            } else {
+                targetDkLines.add("wait");
+                targetDkLines.add("docker image prune -a -f");
             }
         }
     }
+
     private String addSub(String target, String sub, boolean subFix) {
         if (subFix) {
             //String sub= DockerPlatformEnum.ADM64.getPlatform();

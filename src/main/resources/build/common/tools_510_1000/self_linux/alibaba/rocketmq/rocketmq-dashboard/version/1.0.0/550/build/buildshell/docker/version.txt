@@ -1,2 +1,0 @@
-king019/rocketmq:dashboard_1.0.0
-king019/rocketmq:dashboard

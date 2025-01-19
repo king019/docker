@@ -1,0 +1,11 @@
+aliyun_hangzhou
+aliyun_shanghai
+aliyun_huhehaote
+aliyun_shenzhen
+aliyun_beijing
+tenyun_beijing
+docker_5000
+docker_5001
+no_suffix
+nexus_5000
+docker

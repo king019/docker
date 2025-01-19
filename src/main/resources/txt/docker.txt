@@ -1,0 +1,30 @@
+https://code.aliyun.com/king019/docker.git
+https://github.com/king019/docker.git
+
+docker exec -it jenkins /bin/sh
+
+jenkins
+docker login --username=906451283@qq.com registry.cn-shanghai.aliyuncs.com
+docker login --username=906451283@qq.com registry.cn-huhehaote.aliyuncs.com
+docker login --username=906451283@qq.com registry.cn-shenzhen.aliyuncs.com
+docker login --username=906451283@qq.com registry.cn-qingdao.aliyuncs.com
+docker login --username=906451283@qq.com registry.cn-zhangjiakou.aliyuncs.com
+docker login --username=906451283@qq.com registry.cn-hangzhou.aliyuncs.com
+
+
+docker login --username=906451283 ccr.ccs.tencentyun.com
+
+
+docker login --username=906451283@qq.com registry.cn-beijing.aliyuncs.com
+beijing
+docker login -u king019
+
+nexus
+docker login --username=king019 docker:5000
+
+
+docker login --username=king019 docker:5001
+
+https://console.cloud.tencent.com/tke2/registry/user/self?rid=1
+
+

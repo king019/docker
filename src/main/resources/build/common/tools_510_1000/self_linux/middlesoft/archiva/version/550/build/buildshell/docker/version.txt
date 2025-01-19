@@ -1,0 +1,2 @@
+king019/archiva:2.2.10
+king019/archiva

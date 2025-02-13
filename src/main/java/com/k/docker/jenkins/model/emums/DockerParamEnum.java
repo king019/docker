@@ -32,6 +32,7 @@ public enum DockerParamEnum {
     BUILD_Path("buildpath", "build/common"),
     BUILD_CACHE("dkcache", "true"),
     ARM("arm", "false"),
+    MAX_STEP("maxStep", "5"),
     ;
     private String cmd;
     private String def;

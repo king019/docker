@@ -3,7 +3,6 @@ package com.k.docker.jenkins;
 import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
 import com.k.dep.common.util.FWPathUtil;
 import com.k.docker.jenkins.model.DockerPushModel;
 import com.k.docker.jenkins.model.emums.DockerParamEnum;
@@ -14,6 +13,7 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.BooleanUtils;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.commons.lang3.math.NumberUtils;
 import org.junit.Test;
 
 import java.io.File;
@@ -66,7 +66,7 @@ public class JenkinsTransBuildSplitShell {
             }
         }
         JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
-        shell.maxStep = 3;
+        shell.maxStep = NumberUtils.toInt(map.get(DockerParamEnum.MAX_STEP));
         shell.parll = true;
         shell.arm = BooleanUtils.toBoolean(map.get(DockerParamEnum.ARM));
         shell.manifest = true;

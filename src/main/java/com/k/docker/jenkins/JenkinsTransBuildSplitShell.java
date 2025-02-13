@@ -8,6 +8,7 @@ import com.k.docker.jenkins.model.DockerPushModel;
 import com.k.docker.jenkins.model.emums.DockerParamEnum;
 import com.k.docker.jenkins.model.emums.DockerPlatformEnum;
 import com.k.docker.jenkins.model.emums.DockerRegionEnum;
+import com.k.docker.jenkins.util.JenkinsUtil;
 import lombok.Data;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.lang3.ArrayUtils;
@@ -66,9 +67,9 @@ public class JenkinsTransBuildSplitShell {
             }
         }
         JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
-        shell.maxStep = NumberUtils.toInt(map.get(DockerParamEnum.MAX_STEP));
+        shell.maxStep = NumberUtils.toInt(JenkinsUtil.getVal(DockerParamEnum.MAX_STEP, map));
         shell.parll = true;
-        shell.arm = BooleanUtils.toBoolean(map.get(DockerParamEnum.ARM));
+        shell.arm =  BooleanUtils.toBoolean(JenkinsUtil.getVal(DockerParamEnum.ARM, map));
         shell.manifest = true;
         shell.subFix = true;
         shell.test();

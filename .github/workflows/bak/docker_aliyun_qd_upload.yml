@@ -15,7 +15,7 @@ jobs:
           distribution: 'adopt' # See https://github.com/actions/setup-java
           java-version: '17'
       - name: chche
-        uses: actions/cache@v2
+        uses: actions/cache@v4
         with:
           path: ~/.m2/repository
           key: maven

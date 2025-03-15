@@ -11,6 +11,7 @@ RUN cp /usr/share/maven/bin/mvn /usr/share/maven/bin/mvn.bak
 #RUN dnf -y install  java-11-openjdk-devel
 #RUN dnf -y install  java-17-openjdk-devel
 RUN dnf -y install  java-21-openjdk-devel
+RUN dnf -y install go
 
 RUN chmod -R 777 /*.sh
 

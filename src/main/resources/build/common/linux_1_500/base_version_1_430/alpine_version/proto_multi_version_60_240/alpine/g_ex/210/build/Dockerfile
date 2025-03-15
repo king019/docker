@@ -11,7 +11,6 @@ RUN apk add protoc
 RUN apk add strace
 RUN apk add htop
 RUN apk add perf
-RUN apk add go
 RUN apk add thrift
 RUN apk add make
 RUN apk add autoconf

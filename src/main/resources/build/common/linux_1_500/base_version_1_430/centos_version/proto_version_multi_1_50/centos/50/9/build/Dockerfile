@@ -1,5 +1,5 @@
 #FROM registry.cn-qingdao.aliyuncs.com/king019/rockylinux:9
-FROM registry.cn-qingdao.aliyuncs.com/king019/almalinux:9.5
+FROM registry.cn-qingdao.aliyuncs.com/king019/almalinux:9
 #FROM registry.cn-qingdao.aliyuncs.com/king019/openanolis_anolisos:8
 # FROM centos:8
 # FROM quay.io/centos/centos:stream9

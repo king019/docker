@@ -14,7 +14,8 @@ RUN sed -i 's/https/http/g' /etc/apk/repositories
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories
 
 RUN apk add maven
-RUN apk add openjdk17
+RUN apk add openjdk21
+#RUN apk add openjdk17
 #RUN apk add openjdk11
 #RUN apk add openjdk8
 RUN apk add git
@@ -26,8 +27,8 @@ RUN apk add curl
 RUN which docker
 RUN mvn -v
 
-
-RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk' >> /etc/profile
+RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-21-openjdk' >> /etc/profile
+#RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk' >> /etc/profile
 #RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-11-openjdk' >> /etc/profile
 #RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-1.8-openjdk' >> /etc/profile
 RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile

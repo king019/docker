@@ -37,6 +37,10 @@ analogic/poste.io:2.4.8
 
 drillster/drone-email
 node:14
+node:16
+node:18
+node:20
+node:22
 node:12-alpine
 python:2.7.18-alpine
 
@@ -88,21 +92,16 @@ openanolis/anolisos:8
 openanolis/anolisos:23
 
 rockylinux:8
+rockylinux:8-minimal
 rockylinux:9
-rockylinux:9.3
-rockylinux:9.4
-rockylinux:9.5
+rockylinux:9-minimal
 almalinux:8
+almalinux:8-minimal
 almalinux:9
-almalinux:9.3
-almalinux:9.4
-almalinux:9.5
+almalinux:9-minimal
 almalinux:10-kitten
 oraclelinux:8
 oraclelinux:9
-oraclelinux:9.3
-oraclelinux:9.4
-oraclelinux:9.5
 
 
 debian:11
@@ -187,13 +186,8 @@ sonarqube:10-enterprise
 
 registry
 xetusoss/archiva
-portainer/portainer:1.23.2
-portainer/portainer:1.25.0
 portainer/portainer:1.25.0-alpine
-portainer/portainer:1.24.2-alpine
-portainer/portainer-ce:2.20.0-alpine
-portainer/portainer-ce:2.20.3
-portainer/portainer-ce:2.26.0
+portainer/portainer-ce:2.27.1-alpine
 portainer/portainer-ce:sts
 portainer/portainer-ce:alpine-sts
 
@@ -222,7 +216,9 @@ registry.k8s.io/coredns/coredns:v1.9.3
 paketobuildpacks/builder-jammy-tiny
 
 
-
+mysql:9
+mysql:8
+mysql:5
 mysql:9.0
 mysql:8.4
 mysql:8.3

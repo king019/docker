@@ -11,7 +11,6 @@ RUN dnf -y install  strace
 RUN dnf -y install  traceroute
 #RUN dnf -y --enablerepo=powertools install protobuf-devel
 RUN dnf -y install  perf
-RUN dnf -y install go
 RUN dnf -y install make
 RUN dnf -y install autoconf
 #python

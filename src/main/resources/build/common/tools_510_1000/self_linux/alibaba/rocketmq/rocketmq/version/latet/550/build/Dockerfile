@@ -6,7 +6,7 @@ COPY gitjar.sh /gitjar.sh
 RUN chmod 755 /*.sh
 RUN /gitjar.sh
 
-FROM  king019/linux:jdk17
+FROM  king019/linux:jdk8
 COPY --from=pre /opt/soft/rocketmq-release.zip /opt/soft/rocketmq-release.zip
 
 

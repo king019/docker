@@ -1,1 +1,5 @@
 RUN sed -i 's/dl-cdn.alpinelinux.org/mirrors.aliyun.com/g' /etc/apk/repositories    RUN sed -i 's/dl-cdn.alpinelinux.org/nexus:8081\/repository\/alpine/g' /etc/apk/repositories
+
+
+#goproxy
+RUN echo 'export GOPROXY=https://repo.huaweicloud.com/repository/goproxy/' >> /etc/profile   RUN echo 'export GOPROXY=http://nexus:8081/repository/go-public/' >> /etc/profile

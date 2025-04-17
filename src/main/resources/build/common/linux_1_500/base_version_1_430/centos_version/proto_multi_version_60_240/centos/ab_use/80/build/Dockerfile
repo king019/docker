@@ -1,4 +1,4 @@
-FROM king019/centos:git
+FROM king019/centos:go
 
 MAINTAINER king019
 

@@ -23,6 +23,11 @@ RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^# baseurl=https://repo.almalin
 #RUN echo 'openanolis_anolisos:8'
 
 
+#goproxy
+RUN echo 'export GO111MODULE=on' >> /etc/profile
+RUN echo 'export GOPROXY=https://repo.huaweicloud.com/repository/goproxy/' >> /etc/profile
+RUN echo 'export GONOSUMDB=*' >> /etc/profile
+
 
 
 

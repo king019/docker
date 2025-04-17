@@ -9,7 +9,7 @@ RUN apk add maven
 #RUN apk add openjdk11
 #RUN apk add openjdk17
 RUN apk add openjdk21
-RUN apk add go
+#RUN apk add go
 
 RUN chmod -R 777 /*.sh
 

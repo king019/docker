@@ -9,5 +9,10 @@ RUN sed -e 's|^mirrorlist=|#mirrorlist=|g'  -e 's|^#baseurl=http://dl.rockylinux
 #alma
 RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^# baseurl=https://repo.almalinux.org|baseurl=http://mirrors.aliyun.com|g'  -i.bak  /etc/yum.repos.d/almalinux*.repo  RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^# baseurl=https://repo.almalinux.org|baseurl=http://nexus:8081/repository|g'  -i.bak  /etc/yum.repos.d/almalinux*.repo
 
+
+#goproxy
+RUN echo 'export GOPROXY=https://repo.huaweicloud.com/repository/goproxy/' >> /etc/profile   RUN echo 'export GOPROXY=http://nexus:8081/repository/go-public/' >> /etc/profile
+
+
 #replace_anolisos_8.txt
 RUN echo 'openanolis_anolisos:8'    RUN sed -e 's|^baseurl=http://mirrors.openanolis.cn/|baseurl=http://nexus:8081/repository/openanolis/|g' -i.bak /etc/yum.repos.d/AnolisOS-*.repo

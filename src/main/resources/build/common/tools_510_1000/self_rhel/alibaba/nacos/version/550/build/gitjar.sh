@@ -3,14 +3,14 @@ set -x
 source /etc/profile;java -version
 mkdir -p /opt/soft/version
 cd /opt/soft/version
-git clone https://gitcode.com/gh_mirrors/na/nacos.git
-#git clone https://gitee.com/mirrors/Nacos.git nacos
+#git clone https://gitcode.com/gh_mirrors/na/nacos.git
+git clone https://gitee.com/mirrors/Nacos.git nacos
 #https://gitcode.com/gh_mirrors/na/nacos.git
 #https://hub.nuaa.cf/alibaba/nacos.git
 
 
 
-nacos_version=2.4.3
+nacos_version=2.5.1
 
 cd nacos
 git checkout ${nacos_version}

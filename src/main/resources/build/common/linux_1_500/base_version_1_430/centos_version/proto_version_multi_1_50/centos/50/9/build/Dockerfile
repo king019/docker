@@ -16,6 +16,10 @@ MAINTAINER king019
 #only almalinux:9
 RUN sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^# baseurl=https://repo.almalinux.org|baseurl=http://mirrors.aliyun.com|g'  -i.bak  /etc/yum.repos.d/almalinux*.repo
 
+#goproxy
+RUN echo 'export GO111MODULE=on' >> /etc/profile
+RUN echo 'export GOPROXY=https://repo.huaweicloud.com/repository/goproxy/' >> /etc/profile
+RUN echo 'export GONOSUMDB=*' >> /etc/profile
 
 #only openanolis_anolisos:8
 #RUN echo 'openanolis_anolisos:8'

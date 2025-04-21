@@ -26,12 +26,12 @@ jobs:
           username: ${{ secrets.ALIYUN_USERNAME }}
           password: ${{ secrets.ALIYUN_PASSWORD }}
       - name: maven
-        run: cat /etc/docker/daemon.json;
+        run: pwd;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsTransBuildSplitShell" -Dexec.args="arm=false@maxStep=20"
       - name: build_aliyun_qingdao_upload
-        run: cat /etc/docker/daemon.json;
+        run: pwd;
           cd ./;chmod -R 777 .;
           pwd;
           ls ./;

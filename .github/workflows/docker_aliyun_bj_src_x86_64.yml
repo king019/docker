@@ -43,18 +43,18 @@ jobs:
       - name: docker info
         run: docker info
       - name: maven
-        run: cat /etc/docker/daemon.json;
+        run: pwd;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           mvn compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsBuildShell" -Dexec.args="ws=/home/runner/work/docker/docker@thread=20@rep=false@push=true@in=king019/source@origin=false&prune=true@mix=true@suf=true";
       - name: build_aliyun_beijing_x86
-        run: cat /etc/docker/daemon.json;
+        run: pwd;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           cd ./target;chmod -R 777 .;
           bash ./platform/x86_64/x86_64_aliyun_beijing_true.sh;
       - name: build_docker_hub_x86
-        run: cat /etc/docker/daemon.json;
+        run: pwd;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
           cd ./target;chmod -R 777 .;

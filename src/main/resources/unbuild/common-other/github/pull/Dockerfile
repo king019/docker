@@ -111,6 +111,17 @@ ubuntu:23.04
 ubuntu
 archlinux
 
+
+
+
+gitea/runner-images:ubuntu-20.04
+gitea/runner-images:ubuntu-22.04
+gitea/runner-images:ubuntu-latest
+
+
+
+
+
 alpine:3.10
 alpine:3.17
 alpine:3.18
@@ -131,6 +142,9 @@ gogs/gogs:0.12
 gogs/gogs:0.11.91
 gitea/gitea
 
+
+gitea/act_runner:0.2.11
+
 fuzzle/docker-nfs-server
 drone/git
 drone/drone:2
@@ -147,6 +161,10 @@ drone/drone-runner-kube
 fogsyio/kafka:2.2.0
 scjtqs/kafka-manager
 bitnami/kafka:3.4
+
+
+
+
 
 apacherocketmq/rocketmq-dashboard
 

@@ -1,10 +1,13 @@
 package com.k.docker.jenkins.util;
 
 public class PathUtil {
+    private static String getBase() {
+        return PathUtil.class.getClassLoader().getResource("").getPath().replace("target/classes/", "");
+    }
 
     public static String getResource() {
         String res;
-        res = "src/main/resources/";
+        res = getBase() + "src/main/resources/";
         return res;
     }
 
@@ -16,7 +19,7 @@ public class PathUtil {
 
     public static String getTargetPath() {
         String res;
-        res = "target/";
+        res = getBase() + "target/";
         return res;
     }
 

@@ -14,7 +14,7 @@ COPY dkrun.sh /dkrun.sh
 
 RUN cd /opt/soft/;unzip rocketmq-release.zip
 RUN cd /opt/soft/;mv rocketmq-release rocketmq
-#RUN cd /opt/soft/rocketmq/conf;echo "brokerIP1=rocketmqbroker" > broker.properties
+RUN cd /opt/soft/rocketmq/conf;echo "brokerIP1=192.168.2.180" > broker.properties
 RUN cd /opt/soft/rocketmq/conf;echo "storePathRootDir = /opt/soft/rocketmq/store" >> broker.properties
 RUN cd /opt/soft/rocketmq/conf;echo "autoCreateTopicEnable=true" >> broker.properties
 

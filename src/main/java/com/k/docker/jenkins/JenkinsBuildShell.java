@@ -11,6 +11,9 @@ import org.apache.commons.lang3.ArrayUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.junit.Test;
 
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.util.Collections;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
@@ -25,6 +28,7 @@ public class JenkinsBuildShell {
     static boolean prune = false;
     static List<String> includes = Lists.newArrayList();
     static List<String> excludes = Lists.newArrayList();
+    static List<String> excludeBaseDirs = Lists.newArrayList();
     private static Map<DockerParamEnum, String> map = Maps.newHashMap();
 
     public static void main(String[] args) throws Exception {
@@ -42,7 +46,14 @@ public class JenkinsBuildShell {
             }
         }
 
-        DockerJenkinsModel.setWORKSPACE(JenkinsUtil.getVal(DockerParamEnum.WORK_SPACE, map));
+        String workSpace = JenkinsUtil.getVal(DockerParamEnum.WORK_SPACE, map);
+        {
+            if ("pwdCmd".equals(workSpace)) {
+                Path currentDirectory = Paths.get("");
+                workSpace = currentDirectory.toAbsolutePath().toString();
+            }
+        }
+        DockerJenkinsModel.setWORKSPACE(workSpace);
         {
             boolean origin = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.ORIGIN, map));
             //boolean nexusAlpine = StringUtils.equals("true", JenkinsUtil.getVal(DockerParamEnum.NEXUS_ALPINE, map));
@@ -131,10 +142,16 @@ public class JenkinsBuildShell {
             //excludes.add("centos");
             excludes.removeAll(includes);
         }
+
         configModel.setIncludes(includes);
         configModel.setExcludes(excludes);
+        {
+            String val = JenkinsUtil.getVal(DockerParamEnum.EXCLUDES_BASE_DIRS, map);
+            String[] split = StringUtils.split(val, ",");
+            Collections.addAll(excludeBaseDirs, split);
+            configModel.setExcludeBaseDirs(excludeBaseDirs);
+        }
         JenkinsUtil shell = new JenkinsUtil();
-
         shell.jenkinsWrite(configModel);
     }
 

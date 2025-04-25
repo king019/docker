@@ -69,7 +69,7 @@ public class JenkinsTransBuildSplitShell {
         JenkinsTransBuildSplitShell shell = new JenkinsTransBuildSplitShell();
         shell.maxStep = NumberUtils.toInt(JenkinsUtil.getVal(DockerParamEnum.MAX_STEP, map));
         shell.parll = true;
-        shell.arm =  BooleanUtils.toBoolean(JenkinsUtil.getVal(DockerParamEnum.ARM, map));
+        shell.arm = BooleanUtils.toBoolean(JenkinsUtil.getVal(DockerParamEnum.ARM, map));
         shell.manifest = true;
         shell.subFix = true;
         shell.test();
@@ -164,7 +164,7 @@ public class JenkinsTransBuildSplitShell {
 
     //@Test
     public void test() throws Exception {
-        String resource = FWPathUtil.getTargetClassesPath("build/common-other/github/pull/Dockerfile");
+        String resource = FWPathUtil.getTargetClassesPath("unbuild/common-other/github/pull/Dockerfile");
         File srcFile = new File(resource);
         List<String> lines = FileUtils.readLines(srcFile, Charset.defaultCharset());
         ArrayListMultimap<String, String> multimap = ArrayListMultimap.create();

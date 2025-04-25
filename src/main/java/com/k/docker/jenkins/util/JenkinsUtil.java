@@ -91,11 +91,6 @@ public class JenkinsUtil {
         copyFile(file, dockerDest, map, configModel, platform);
         List<DockerJenkinsModel> models = Lists.newArrayList();
         for (DockerRegionEnum regionEnum : map.keySet()) {
-//            if (!configModel.isInDocker()) {
-//                if (regionEnum.equals(DockerRegionEnum.DOCKER)) {
-//                    continue;
-//                }
-//            }
             for (File listFile : Objects.requireNonNull(map.get(regionEnum).listFiles())) {
                 models.addAll(readFirst(regionEnum, listFile, configModel));
             }
@@ -290,10 +285,21 @@ public class JenkinsUtil {
     }
 
     private void copyDir(File dir, String src, String dest, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
-        String path = dir.getAbsolutePath();
-        //System.out.println(path);
         File[] files = dir.listFiles();
-        for (File listFile : Objects.requireNonNull(Arrays.stream(files).sorted().toList())) {
+        List<File> fileList = new ArrayList<>();
+        List<String> exDirs = configModel.getExcludeBaseDirs();
+        for (File file : files) {
+            boolean filter = false;
+            for (String exDir : exDirs) {
+                if (StringUtils.equals(file.getName(), exDir)) {
+                    filter = true;
+                }
+            }
+            if (!filter) {
+                fileList.add(file);
+            }
+        }
+        for (File listFile : fileList.stream().sorted().toList()) {
             if (dir.getName().equals("nouse")) {
                 continue;
             }
@@ -369,41 +375,12 @@ public class JenkinsUtil {
     }
 
     private void copyFile(File srcfile, File destfile, String destDir, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
-        //String region = PathBaseUtil.REGION;
-        //String region = "beijing";
         String hostBase = DockerRegionEnum.getRegion(region).getHost();
         List<String> lines = FileUtils.readLines(srcfile, StandardCharsets.UTF_8);
         Map<DockerParamEnum, List<String>> map = buildMap(srcfile);
         if (CollectionUtils.isNotEmpty(lines)) {
             if (srcfile.getName().equals("Dockerfile")) {
                 for (int i = lines.size() - 1; i >= 0; i--) {
-//                    String host = hostBase;
-//                    String from = lines.get(i);
-//                    if (!from.startsWith("FROM")) {
-//                        continue;
-//                    }
-//                    if (from.contains(DockerRegionEnum.QING_DAO.getHost())) {
-//                        continue;
-//                    }
-//                    String prefix = "king019/";
-//                    int index = from.indexOf(prefix);
-//                    if (index > 0) {
-//                        lines.remove(i);
-//                        if (StringUtils.isNotBlank(host)) {
-//                            host = host + "/" + from.substring(index);
-//                        } else {
-//                            host = host + from.substring(index);
-//                        }
-//                        from = from.substring(0, index) + host;
-//                        if (configModel.isSuffix()) {
-//                            if (from.indexOf(":") > 0) {
-//                                from = from + platform.getFromSplit() + platform.getPlatform();
-//                            } else {
-//                                from = from + ":" + platform.getPlatform();
-//                            }
-//                        }
-//                        lines.add(i, from);
-//                    }
                     handleDockerFileFrom(hostBase, lines, configModel, platform, i);
                     handleDockerFileCopy(destfile, lines, destDir, i);
                 }

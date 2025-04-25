@@ -21,7 +21,6 @@ COPY file trans_maven.sh
 COPY file trans_repo.sh
 
 COPY file settings.xml
-COPY file settings.xml
 COPY file daemon.json
 COPY file config.json
 COPY file bashrc

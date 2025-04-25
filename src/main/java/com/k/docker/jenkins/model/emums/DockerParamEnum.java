@@ -29,10 +29,13 @@ public enum DockerParamEnum {
     MIX("mix", "false"),
     PRUNE("prune", "false"),
     RP_SETTING("rpset", "false"),
-    BUILD_Path("buildpath", "build/common"),
+    BUILD_Path("buildpath", "build"),
     BUILD_CACHE("dkcache", "true"),
     ARM("arm", "false"),
     MAX_STEP("maxStep", "5"),
+    EXCLUDES_BASE_DIRS("exBaseDirs", "common-action"),
+    //仅配置
+    Config_dir("", "aaconfig/"),
     ;
     private String cmd;
     private String def;

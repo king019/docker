@@ -2,15 +2,9 @@ FROM king019/alpine:use
 
 MAINTAINER king019
 
-RUN mkdir -p /root/.m2
-
 
 
 COPY file mvnclean.sh
-
-
-
-
 
 
 

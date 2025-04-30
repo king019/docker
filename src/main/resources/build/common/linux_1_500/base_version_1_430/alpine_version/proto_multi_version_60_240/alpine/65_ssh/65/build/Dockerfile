@@ -1,8 +1,6 @@
 FROM king019/alpine:p
 
 MAINTAINER king019
-RUN mkdir -p /root/.ssh
-
 
 
 COPY shell/docker.sh /docker.sh

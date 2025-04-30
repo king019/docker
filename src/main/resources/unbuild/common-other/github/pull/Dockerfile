@@ -106,8 +106,10 @@ oraclelinux:9
 
 debian:11
 debian:stable
-ubuntu:23.10
-ubuntu:23.04
+ubuntu:25.04
+ubuntu:24.04
+ubuntu:22.04
+ubuntu:20.04
 ubuntu
 archlinux
 

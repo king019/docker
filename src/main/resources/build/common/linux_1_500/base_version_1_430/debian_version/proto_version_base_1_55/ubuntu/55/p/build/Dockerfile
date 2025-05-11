@@ -1,4 +1,4 @@
-FROM king019/ubuntu:p
+FROM king019/ubuntu:24.04
 
 
 
@@ -15,9 +15,6 @@ RUN mkdir -p /opt/soft/version
 RUN mkdir -p /opt/soft/tool
 RUN mkdir -p /root/.docker
 RUN mkdir -p /etc/docker
-
-
-COPY docker.sh /docker.sh
 
 
 

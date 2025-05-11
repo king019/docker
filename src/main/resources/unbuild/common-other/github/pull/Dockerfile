@@ -119,7 +119,9 @@ archlinux
 gitea/runner-images:ubuntu-20.04
 gitea/runner-images:ubuntu-22.04
 gitea/runner-images:ubuntu-latest
-
+gitea/runner-images:ubuntu-20.04-slim
+gitea/runner-images:ubuntu-24.04-slim
+gitea/runner-images:ubuntu-latest-slim
 
 
 

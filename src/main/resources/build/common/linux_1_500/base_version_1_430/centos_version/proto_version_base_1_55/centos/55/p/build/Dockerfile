@@ -6,6 +6,7 @@ RUN echo 'source /etc/profile' >> /root/.bashrc
 
 ENV TZ=Asia/Shanghai
 
+RUN mkdir -p /root/.ssh
 RUN mkdir -p /root/.m2/repository
 RUN mkdir -p /root/.ssh
 RUN mkdir -p /opt/soft/version

@@ -7,12 +7,9 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=Asia/Shanghai
 
 
-RUN sed -i "s@http://.*archive.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list.d/ubuntu.sources
-RUN sed -i "s@http://.*security.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list.d/ubuntu.sources
-RUN sed -i "s@http://.*ports.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list.d/ubuntu.sources
-RUN apt-get update
+DKCONFIG sed_mirror ubuntu_24
 
-
+RUN apt update
 
 COPY docker.sh /docker.sh
 

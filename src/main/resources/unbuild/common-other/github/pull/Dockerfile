@@ -12,7 +12,7 @@ prom/mysqld-exporter:v0.16.0
 prom/mysqld-exporter:v0.15.1
 prom/mysqld-exporter:v0.14.0
 
-
+apache/dubbo-admin:0.6.0
 
 qingpan/rnacos:stable-alpine
 qingpan/rnacos:v0.6.5-alpine
@@ -42,9 +42,11 @@ node:18
 node:20
 node:22
 node:12-alpine
+node:9.1-alpine
+
 python:2.7.18-alpine
 
-
+container-registry.oracle.com/graalvm/native-image:21
 
 apache/iotdb-web-workbench:0.13.0-frontend
 apache/iotdb-web-workbench:0.13.0-backend
@@ -67,6 +69,11 @@ phpmyadmin
 rizo928/mywebsql-flex
 xuxueli/xxl-job-admin:2.4.1
 
+
+
+
+rabbitmq:3
+rabbitmq:3-management
 
 liwei2633/gopeed
 
@@ -99,7 +106,7 @@ almalinux:8
 almalinux:8-minimal
 almalinux:9
 almalinux:9-minimal
-almalinux:10-kitten
+almalinux:10
 oraclelinux:8
 oraclelinux:9
 
@@ -134,8 +141,8 @@ alpine:3.20
 alpine:3.21
 alpine:3
 
-
-
+ghcr.io/falcondev-oss/github-actions-cache-server
+ghcr.io/falcondev-oss/github-actions-cache-server:8.0.1
 
 
 kicbase/stable:v0.0.39

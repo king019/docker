@@ -1,4 +1,4 @@
-FROM  king019/linux:jdk8
+FROM  king019/linux:jdk8 as pre
 
 MAINTAINER king019
 

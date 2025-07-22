@@ -10,7 +10,7 @@ git clone https://gitee.com/mirrors/Nacos.git nacos
 
 
 
-nacos_version=2.5.1
+#nacos_version=2.5.1
 
 cd nacos
 git checkout ${nacos_version}
@@ -22,9 +22,3 @@ cd ..
 mvn -Prelease-nacos -Dmaven.test.skip=true clean install
 
 find . -name nacos-server-${nacos_version}.zip | awk -v nacos_version=${nacos_version}  '{print "cp " $1  " /opt/soft/nacos-server-"nacos_version".zip"}' | sh
-mvn clean
-/mvnclean.sh
-
-cd /opt/soft
-unzip nacos-server-${nacos_version}.zip
-cat /application.properties > /opt/soft/nacos/conf/application.properties

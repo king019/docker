@@ -4,8 +4,6 @@ MAINTAINER king019
 
 
 
-COPY file mvnclean.sh
-
 
 
 

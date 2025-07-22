@@ -20,16 +20,40 @@ public class DockerPushModel {
             "ghcr.io",
             "quay.io",
             "skywalking.docker.scarf.sh",
+            "container-registry.oracle.com",
             "docker.elastic.co",
             "registry.k8s.io"
-    );  private String specialName = null;
+    );
+    private String specialName = null;
     private String pullImage;
     private String tagImage;
     private String pushImage;
     private DockerRegionEnum dockerRegionEnum;
     private boolean subFix = false;
     private DockerPlatformEnum platformEnum;
+    private String line = null;
+    private boolean arm = false;
     private List<String> lines = new ArrayList<>();
+
+    public static DockerPushModel init(String line, boolean arm, boolean subFix, DockerRegionEnum dockerRegionEnum) {
+        DockerPushModel model = new DockerPushModel();
+        model.setLine(line);
+        model.setArm(arm);
+        String source = line;
+        String[] splits;
+        String specialName = null;
+        if (StringUtils.contains(line, " ")) {
+            splits = StringUtils.split(line);
+            source = splits[0];
+            specialName = splits[1];
+        }
+        model.setPullImage(source);
+        model.setSubFix(subFix);
+        model.setPlatformEnum(arm ? DockerPlatformEnum.ARM64 : DockerPlatformEnum.ADM64);
+        model.setDockerRegionEnum(dockerRegionEnum);
+        model.setSpecialName(specialName);
+        return model;
+    }
 
 
     private void buildPull() {
@@ -53,8 +77,9 @@ public class DockerPushModel {
         }
         return target;
     }
-    private void buildPushImage(){
-        String transSource=pullImage;
+
+    private void buildPushImage() {
+        String transSource = pullImage;
 
         for (String reg : regSet) {
             transSource = StringUtils.replace(transSource, reg + "/", "");
@@ -65,12 +90,12 @@ public class DockerPushModel {
         if (StringUtils.isNotBlank(specialName)) {
             transSource = specialName;
         }
-      String  dockerHost=dockerRegionEnum.getHost()+"/"+dockerRegionEnum.getNamespace();
+        String dockerHost = dockerRegionEnum.getHost() + "/" + dockerRegionEnum.getNamespace();
         pushImage = dockerHost + "/" + transSource;
     }
 
     private void buildTag() {
-          tagImage  = pushImage;
+        tagImage = pushImage;
         if (subFix) {
             tagImage = addSub(pushImage, platformEnum.getPlatform(), subFix);
         }

@@ -2,9 +2,6 @@ FROM king019/alpine:b
 
 MAINTAINER king019
 
-# COPY get-pip.py /opt/soft/get-pip.py
-
-RUN apk add nginx
 RUN apk add gdb
 RUN apk add protobuf
 RUN apk add protoc
@@ -16,10 +13,6 @@ RUN apk add make
 RUN apk add autoconf
 RUN apk add ttf-dejavu
 
-RUN apk add python3
-RUN apk add py3-pip
-RUN echo "alias python='python3'" >> /etc/profile;source /etc/profile
-
 
 
 RUN apk add rsync
@@ -27,9 +20,6 @@ RUN apk add rsync
 RUN apk add procps
 #gnu
 #RUN apk add gnupg
-
-#jenkins 需要这个
-#RUN apk add ttf-dejavu
 
 RUN apk add nodejs
 RUN apk add npm
@@ -42,10 +32,7 @@ RUN apk add ca-certificates
 
 
 
-RUN apk add openjdk8
-RUN apk add openjdk11
 RUN apk add openjdk17
-RUN apk add openjdk21
 
 
 

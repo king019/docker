@@ -23,15 +23,9 @@ RUN apk add openssh tzdata  openssh-client && \
 
 
 #    ssh-keygen -t dsa -P "" -f /etc/ssh/ssh_host_dsa_key && \
-COPY file id_dsa
-COPY file id_rsa
-COPY file id_ecdsa
-COPY file id_ed25519
 
-COPY file id_dsa.pub
-COPY file id_rsa.pub
-COPY file id_ecdsa.pub
-COPY file id_ed25519.pub
+
+
 
 #RUN ssh-keygen -t dsa -P "" -f /root/.ssh/id_dsa
 #RUN ssh-keygen -t rsa -P "" -f /root/.ssh/id_rsa

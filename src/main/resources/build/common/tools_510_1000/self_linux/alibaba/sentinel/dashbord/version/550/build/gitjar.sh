@@ -8,6 +8,3 @@ cd sentinel/sentinel-dashboard
 git checkout 1.8.9
 mvn clean install -DskipTests -Dmaven.javadoc.skip=true -Dgpg.skip
 find . -name sentinel-dashboard.jar | awk '{print "cp " $1  " /opt/soft/sentinel-dashboard.jar"}' | sh
-ls /opt/soft
-mvn clean
-/mvnclean.sh

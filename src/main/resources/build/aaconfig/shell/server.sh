@@ -1,8 +1,8 @@
 #!/bin/sh
 set -x
 
-jetty_version=9.4.55.v20240627
-tomcat_version=9.0.93
+jetty_version=9.4.57.v20241219
+tomcat_version=9.0.106
 
 
 mvn dependency:get -DgroupId=org.eclipse.jetty -DartifactId=jetty-distribution -Dversion=${jetty_version} -Dpackaging=tar.gz;cp /root/.m2/repository/org/eclipse/jetty/jetty-distribution/${jetty_version}/jetty-distribution-${jetty_version}.tar.gz /opt/soft/tool

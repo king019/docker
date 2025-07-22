@@ -8,9 +8,6 @@ COPY config/crontab.txt /crontab.txt
 COPY config/delete_all.sh /delete_all.sh
 
 
-RUN mkdir -p /opt/soft/tool/
-
-
 RUN apk add jq
 
 RUN apk add  curl

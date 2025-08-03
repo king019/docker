@@ -34,6 +34,13 @@ public enum CommonMirrorEnum {
     ubuntu_24_4("ubuntu_24_4", "ubuntu_24", "apt-get update", ""),
 
 
+    debian_11_1("debian_11_1", "debian_11", "sed -i \"s@http://deb.debian.org@http://repo.huaweicloud.com@g\" /etc/apt/sources.list", "sed -i \"s@http://deb.debian.org@http://nexus:8081/repository@g\" /etc/apt/sources.list"),
+    debian_11_2("debian_11_2", "debian_11", "apt-get update", ""),
+
+    debian_12_1("debian_12_1", "debian_12", "sed -i \"s@http://deb.debian.org@http://repo.huaweicloud.com@g\" /etc/apt/sources.list.d/debian.sources", "sed -i \"s@http://deb.debian.org@http://nexus:8081/repository@g\" /etc/apt/sources.list.d/debian.sources"),
+    debian_12_2("debian_12_2", "debian_12", "apt-get update", ""),
+
+
     //RUN echo 'export GO111MODULE=on' >> /etc/profile
     //RUN echo 'export GOPROXY=https://repo.huaweicloud.com/repository/goproxy/' >> /etc/profile
     //RUN echo 'export GONOSUMDB=*' >> /etc/profile

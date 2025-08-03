@@ -109,6 +109,7 @@ almalinux:9-minimal
 almalinux:10
 oraclelinux:8
 oraclelinux:9
+oraclelinux:10
 
 
 debian:11
@@ -260,6 +261,10 @@ mysql:5.7.19
 mariadb:10
 mariadb:11
 
+
+rustfs/rustfs
+
+
 redis/redisinsight
 redis:7
 redis:6
@@ -306,6 +311,8 @@ minio/minio:RELEASE.2023-12-14T18-51-57Z
 
 
 grafana/grafana:9.4.3
+grafana/grafana:11.2.2
+grafana/grafana:12.1.0
 quay.io/prometheus-operator/prometheus-config-reloader:v0.63.0
 quay.io/prometheus/prometheus:v2.43.0
 busybox:1.30

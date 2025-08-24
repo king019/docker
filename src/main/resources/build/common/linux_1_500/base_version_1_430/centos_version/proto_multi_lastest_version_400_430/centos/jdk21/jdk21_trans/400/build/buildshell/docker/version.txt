@@ -1,1 +1,0 @@
-king019/centos:jdk21_trans

@@ -32,7 +32,7 @@ public enum CommonDirEnum {
 
     static {
         for (CommonDirEnum fileEnum : ALL) {
-            MULTI_MAP.put(ConfigTypeEnum.mkdir_all_file.getCode(), fileEnum);
+            MULTI_MAP.put(DkConfigTypeEnum.mkdir_all_file.getCode(), fileEnum);
         }
     }
 

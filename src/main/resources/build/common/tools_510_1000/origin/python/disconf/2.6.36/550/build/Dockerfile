@@ -7,9 +7,7 @@ DKCONFIG sed_mirror alpine
 
 
 
-DKCONFIG mkdir_file dir_all
-DKCONFIG sed_mirror go_proxy
-DKCONFIG multi_file config_all
+DKCONFIG multi_config dk_config_all
 
 RUN apk add maven
 RUN apk add openjdk8

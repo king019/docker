@@ -9,7 +9,6 @@ ENV TZ=Asia/Shanghai
 
 DKCONFIG sed_mirror ubuntu_24
 
-RUN apt update
 
 COPY docker.sh /docker.sh
 

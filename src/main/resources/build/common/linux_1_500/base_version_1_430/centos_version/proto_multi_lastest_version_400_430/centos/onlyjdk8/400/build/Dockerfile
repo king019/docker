@@ -1,4 +1,4 @@
-FROM  king019/centos:res
+FROM  king019/centos:p9
 
 MAINTAINER king019
 

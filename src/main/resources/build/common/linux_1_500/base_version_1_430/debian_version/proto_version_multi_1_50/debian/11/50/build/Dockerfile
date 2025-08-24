@@ -9,7 +9,6 @@ ENV TZ=Asia/Shanghai
 
 DKCONFIG sed_mirror debian_11
 
-RUN apt update
 
 COPY docker.sh /docker.sh
 

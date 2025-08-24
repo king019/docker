@@ -12,7 +12,7 @@ mvn clean package jib:build -am -Dmaven.test.skip=true -DsendCredentialsOverHttp
                 <configuration>
                     <allowInsecureRegistries>true</allowInsecureRegistries>
                     <from>
-                        <image>registry.cn-beijing.aliyuncs.com/king019/linux:jdk17</image>
+                        <image>registry.cn-beijing.aliyuncs.com/king019/linux:jdk</image>
                     </from>
                     <container>
                         <jvmFlags>

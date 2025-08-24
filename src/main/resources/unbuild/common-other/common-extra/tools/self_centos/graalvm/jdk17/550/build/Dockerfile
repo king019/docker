@@ -1,4 +1,4 @@
-FROM docker:5000/king019/centos:jdk17
+FROM docker:5000/king019/centos:jdk
 MAINTAINER king019
 
 #RUN dnf -y install  gcc

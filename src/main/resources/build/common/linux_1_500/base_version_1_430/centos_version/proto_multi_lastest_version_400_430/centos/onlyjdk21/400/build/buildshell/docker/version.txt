@@ -1,1 +1,1 @@
-king019/centos:onlyjdk21
+king019/centos:onlyjdk

@@ -1,4 +1,4 @@
-FROM king019/linux:jdk17
+FROM king019/linux:jdk
 COPY gitjar.sh /gitjar.sh
 COPY dkrun.sh /dkrun.sh
 RUN chmod 755 /*.sh

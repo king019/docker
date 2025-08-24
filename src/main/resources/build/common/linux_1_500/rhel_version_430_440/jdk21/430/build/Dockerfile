@@ -1,4 +1,4 @@
-FROM king019/centos:jdk21
+FROM king019/centos:jdk
 
 MAINTAINER king019
 

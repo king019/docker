@@ -6,6 +6,8 @@ plugins/webhook
 apache/james:jpa-3.8.1
 apache/james:memory-3.8.1
 
+liteops/liteops:v2.0
+
 
 apache/rocketmq-exporter:0.0.2
 prom/mysqld-exporter:v0.16.0
@@ -113,7 +115,10 @@ oraclelinux:10
 
 
 debian:11
+debian:12
+debian:13
 debian:stable
+ubuntu:25.10
 ubuntu:25.04
 ubuntu:24.04
 ubuntu:22.04
@@ -140,6 +145,7 @@ alpine:3.18
 alpine:3.19
 alpine:3.20
 alpine:3.21
+alpine:3.22
 alpine:3
 
 ghcr.io/falcondev-oss/github-actions-cache-server
@@ -229,6 +235,13 @@ easysoft/zincsearch
 
 
 
+seataio/seata-server
+seataio/seata-server:1.8.0.2
+seataio/seata-server:2.0.0
+seataio/seata-server:1.6.1
+
+
+
 eipwork/kuboard-agent:v3
 eipwork/etcd-host:3.4.16-1
 eipwork/etcd-host:3.4.16-2
@@ -272,6 +285,8 @@ redis:5
 redis:4
 redis:3.2
 redis:3
+
+navicat/navicatmonitor
 
 redislabs/redisinsight
 redislabs/redisinsight:1.14.0
@@ -393,15 +408,27 @@ registry.cn-beijing.aliyuncs.com/king019/apollo:protal_2.0.1
 registry.cn-beijing.aliyuncs.com/king019/apollo:config_2.0.1
 registry.cn-beijing.aliyuncs.com/king019/apollo:admin_2.0.1
 registry.cn-beijing.aliyuncs.com/king019/linux
-registry.cn-beijing.aliyuncs.com/king019/linux:jdk11
-registry.cn-beijing.aliyuncs.com/king019/linux:jdk17
+registry.cn-beijing.aliyuncs.com/king019/linux:jdk
 registry.cn-beijing.aliyuncs.com/king019/centos
 registry.cn-beijing.aliyuncs.com/king019/alpine
 registry.cn-beijing.aliyuncs.com/king019/fedora
 registry.cn-beijing.aliyuncs.com/king019/jdk
-registry.cn-beijing.aliyuncs.com/king019/jdk:jdk11
-registry.cn-beijing.aliyuncs.com/king019/jdk:jdk17
+registry.cn-beijing.aliyuncs.com/king019/jdk:jdk
 registry.cn-beijing.aliyuncs.com/king019/ubuntu
 registry.cn-beijing.aliyuncs.com/king019/jenjins
 registry.cn-beijing.aliyuncs.com/king019/nexus
 registry.cn-beijing.aliyuncs.com/king019/docker:build
+
+
+
+docker.jianmuhub.com/jianmu/jianmu-server:v2.8.2
+docker.jianmuhub.com/jianmu/jianmu-worker-docker:v1.0.13
+docker.jianmuhub.com/jianmu/jianmu-ui:v2.8.2
+
+
+
+
+
+quay.io/argoproj/argocd:v3.1.0
+public.ecr.aws/docker/library/redis:7.2.7-alpine
+ghcr.io/dexidp/dex:v2.43.0

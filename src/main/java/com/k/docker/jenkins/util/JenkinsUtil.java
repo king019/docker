@@ -1,13 +1,14 @@
 package com.k.docker.jenkins.util;
 
 import com.google.common.collect.*;
-import com.k.docker.jenkins.model.DockerConfigModel;
-import com.k.docker.jenkins.model.DockerJenkinsModel;
-import com.k.docker.jenkins.model.emums.*;
-import com.k.docker.jenkins.model.emums.command.CommonDirEnum;
-import com.k.docker.jenkins.model.emums.command.CommonFileEnum;
-import com.k.docker.jenkins.model.emums.command.CommonMirrorEnum;
-import com.k.docker.jenkins.model.emums.command.CommonPrefixEnum;
+import com.k.docker.jenkins.model.docker.DockerConfigModel;
+import com.k.docker.jenkins.model.docker.DockerJenkinsModel;
+import com.k.docker.jenkins.model.emums.build.BuildItemEnum;
+import com.k.docker.jenkins.model.emums.command.*;
+import com.k.docker.jenkins.model.emums.constant.ConstantEnum;
+import com.k.docker.jenkins.model.emums.docker.*;
+import com.k.docker.jenkins.model.emums.git.GitRemoteEnum;
+import com.k.docker.jenkins.model.emums.trans.FromTransEnum;
 import lombok.SneakyThrows;
 import org.apache.commons.collections4.CollectionUtils;
 import org.apache.commons.io.FileUtils;
@@ -319,6 +320,9 @@ public class JenkinsUtil {
         if (CollectionUtils.isNotEmpty(lines)) {
             if (srcfile.getName().equals("Dockerfile")) {
                 for (int i = lines.size() - 1; i >= 0; i--) {
+                    handleDockerDkMultiConfigCopy(lines, i, configModel);
+                }
+                for (int i = lines.size() - 1; i >= 0; i--) {
                     handleDockerFileFrom(hostBase, lines, configModel, platform, i);
                     handleDockerFileCopy(destfile, lines, destDir, i);
                     handleDockerMultiFileCopy(destfile, lines, destDir, i, configModel);
@@ -413,6 +417,22 @@ public class JenkinsUtil {
         lines.remove(i);
         lines.add(i, "RUN mkdir -p " + StringUtils.join(fileItems.stream().map(CommonDirEnum::getCode).toArray(), " "));
 
+    }
+
+    private void handleDockerDkMultiConfigCopy(List<String> lines, int i, DockerConfigModel configModel) {
+        String from = lines.get(i);
+        String prefix = CommonPrefixEnum.multi_config.getCode();
+        if (!from.startsWith(prefix)) {
+            return;
+        }
+        lines.remove(i);
+        int index = from.indexOf(prefix) + prefix.length();
+        String sub = from.substring(index).trim();
+        List<DkConfigTypeEnum> fileItems = DkConfigTypeEnum.getMultiItem(sub);
+        for (DkConfigTypeEnum configType : fileItems) {
+            CommonPrefixEnum prefixEnum = configType.getPrefixEnum();
+            lines.add(i, prefixEnum.getCode() + " " + configType.getCode());
+        }
     }
 
     private void handleDockerMultiMirrorCopy(List<String> lines, int i, DockerConfigModel configModel) {

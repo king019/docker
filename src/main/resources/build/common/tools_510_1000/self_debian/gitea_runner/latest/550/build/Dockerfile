@@ -10,29 +10,13 @@ RUN apt-get -y install  git
 
 RUN apt-get -y install  golang
 
-#RUN echo 'export JAVA_HOME=/usr/lib/jvm/openjdk-21' >> /etc/profile
-#RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
-#RUN echo '#jdk' >> /etc/profile
-
-
 RUN apt-get -y install  curl
 
-
-RUN apt-get -y update
-RUN apt-get -y install apt-transport-https ca-certificates curl software-properties-common
-RUN curl -fsSL http://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | apt-key add -
-RUN add-apt-repository -y "deb [arch=amd64] http://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable"
-RUN apt-get -y update
+RUN apt-get -y install ca-certificates curl gnupg lsb-release
+RUN curl -fsSL https://mirrors.aliyun.com/docker-ce/linux/ubuntu/gpg | gpg --dearmor -o /usr/share/keyrings/aliyun-docker-archive-keyring.gpg
+RUN echo "deb [arch=$(dpkg --print-architecture) signed-by=/usr/share/keyrings/aliyun-docker-archive-keyring.gpg] https://mirrors.aliyun.com/docker-ce/linux/ubuntu $(lsb_release -cs) stable" | tee /etc/apt/sources.list.d/docker.list > /dev/null
+RUN apt-get update
 RUN apt-get -y install docker-ce
-
-
-
-
-
-
-
-
-
 
 
 

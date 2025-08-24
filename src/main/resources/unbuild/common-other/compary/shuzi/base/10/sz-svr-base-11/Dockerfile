@@ -1,4 +1,4 @@
-FROM registry.cn-beijing.aliyuncs.com/king019/linux:jdk11
+FROM registry.cn-beijing.aliyuncs.com/king019/linux:jdk
 MAINTAINER king019
 
 COPY docker.sh /docker.sh

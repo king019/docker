@@ -1,1 +1,1 @@
-king019/graalvm:jdk17
+king019/graalvm:jdk

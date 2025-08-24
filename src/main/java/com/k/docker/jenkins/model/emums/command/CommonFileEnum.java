@@ -10,7 +10,7 @@ import java.util.Collection;
 import java.util.Map;
 import java.util.Objects;
 
-import static com.k.docker.jenkins.model.emums.DockerParamEnum.Config_dir;
+import static com.k.docker.jenkins.model.emums.docker.DockerParamEnum.Config_dir;
 
 @Getter
 public enum CommonFileEnum {
@@ -52,7 +52,7 @@ public enum CommonFileEnum {
                 continue;
             }
             MULTI_MAP.put(configTypeEnum.getCode(), value);
-            MULTI_MAP.put(ConfigTypeEnum.config_all.getCode(), value);
+            MULTI_MAP.put(DkConfigTypeEnum.config_all.getCode(), value);
         }
     }
 

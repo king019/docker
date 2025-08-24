@@ -10,6 +10,7 @@ public enum CommonPrefixEnum {
     multi_file("DKCONFIG multi_file", "COPY"),
     sed_mirror("DKCONFIG sed_mirror", "RUN"),
     file("DKCONFIG file", "COPY"),
+    multi_config("DKCONFIG multi_config", ""),
 
     ;
     private String code;

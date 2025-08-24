@@ -2,8 +2,8 @@ package com.k.docker.jenkins.test;
 
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import com.k.docker.jenkins.model.DockerJenkinsModel;
-import com.k.docker.jenkins.model.emums.DockerPlatformEnum;
+import com.k.docker.jenkins.model.docker.DockerJenkinsModel;
+import com.k.docker.jenkins.model.emums.docker.DockerPlatformEnum;
 import com.k.docker.jenkins.util.JenkinsUtil;
 import com.k.docker.jenkins.util.PathUtil;
 import org.apache.commons.collections4.ListUtils;
@@ -29,7 +29,7 @@ public class JenkinsBuildFile {
     @Test
     public void testADD() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        List<DockerJenkinsModel> models = shell.buildModel(configModel,DockerPlatformEnum.ARM64);
+        List<DockerJenkinsModel> models = shell.buildModel(configModel, DockerPlatformEnum.ARM64);
         Set<String> lines = Sets.newHashSet();
         for (DockerJenkinsModel model : models) {
             ListUtils.emptyIfNull(model.getDockerLines()).stream().filter(line -> line.startsWith("ADD")).forEach(lines::add);
@@ -49,7 +49,7 @@ public class JenkinsBuildFile {
     @Test
     public void testGitClone() throws Exception {
         JenkinsUtil shell = new JenkinsUtil();
-        List<DockerJenkinsModel> models = shell.buildModel(configModel, DockerPlatformEnum.ADM64 );
+        List<DockerJenkinsModel> models = shell.buildModel(configModel, DockerPlatformEnum.ADM64);
         Set<String> lines = Sets.newHashSet();
         for (DockerJenkinsModel model : models) {
             ListUtils.emptyIfNull(model.getDockerLines()).stream().filter(new Predicate<String>() {

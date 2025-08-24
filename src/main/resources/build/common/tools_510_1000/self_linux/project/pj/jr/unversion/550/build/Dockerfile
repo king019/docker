@@ -1,4 +1,4 @@
-FROM  king019/linux:jdk11 as pre
+FROM  king019/linux:jdk as pre
 
 MAINTAINER king019
 
@@ -13,7 +13,7 @@ CMD /docker.sh
 
 
 
-FROM  king019/linux:jdk11
+FROM  king019/linux:jdk
 
 COPY --from=pre /opt/soft/JrebelBrainsLicenseServerforJava-release.jar /opt/soft/JrebelBrainsLicenseServerforJava-release.jar
 

@@ -11,7 +11,7 @@ ENV DEBIAN_FRONTEND noninteractive
 
 ENV TZ=Asia/Shanghai
 
-DKCONFIG mkdir_file dir_all
+DKCONFIG multi_config dk_config_all
 
 RUN echo "deb http://security.debian.org/debian-security stretch/updates main"  >> /etc/apt/sources.list
 RUN sed -i "s@http://deb.debian.org@http://repo.huaweicloud.com@g" /etc/apt/sources.list
@@ -27,12 +27,6 @@ RUN apt-get -y install expect
 
 COPY docker.sh /docker.sh
 
-DKCONFIG multi_file config_all
-
-
-
-RUN mkdir -p /root/.docker;cp /config.json /root/.docker/config.json
-RUN mkdir -p /etc/docker;cp /daemon.json /etc/docker/daemon.json
 
 
 

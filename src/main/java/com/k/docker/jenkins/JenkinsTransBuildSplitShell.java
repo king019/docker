@@ -4,10 +4,10 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.k.dep.common.util.FWPathUtil;
-import com.k.docker.jenkins.model.DockerPushModel;
-import com.k.docker.jenkins.model.DockerPushTransModel;
-import com.k.docker.jenkins.model.emums.DockerParamEnum;
-import com.k.docker.jenkins.model.emums.DockerRegionEnum;
+import com.k.docker.jenkins.model.docker.DockerPushModel;
+import com.k.docker.jenkins.model.docker.DockerPushTransModel;
+import com.k.docker.jenkins.model.emums.docker.DockerParamEnum;
+import com.k.docker.jenkins.model.emums.docker.DockerRegionEnum;
 import com.k.docker.jenkins.util.JenkinsUtil;
 import lombok.Data;
 import org.apache.commons.io.FileUtils;
@@ -24,23 +24,8 @@ import java.util.*;
 @Data
 public class JenkinsTransBuildSplitShell {
     private static Map<DockerParamEnum, String> map = Maps.newHashMap();
-    private Set<String> regSet = Set.of(
-            "registry.cn-hangzhou.aliyuncs.com",
-            "registry.cn-beijing.aliyuncs.com",
-            "swr.cn-east-2.myhuaweicloud.com",
-            "registry.gitlab.cn",
-            "ghcr.io",
-            "quay.io",
-            "skywalking.docker.scarf.sh",
-            "docker.elastic.co",
-            "container-registry.oracle.com",
-            "registry.k8s.io"
-    );
-    private String targetQd = "registry.cn-qingdao.aliyuncs.com/king019";
     private String ignore = "@ignore";
     private String remark = "#";
-    private String docker5000 = "docker:5000/king019";
-    private String docker5001 = "docker:5001/king019";
     private int maxStep = 20;
     private int defStep = 1;
     private boolean arm = false;

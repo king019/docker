@@ -1,2 +1,2 @@
-king019/rhel:jdk21
+king019/rhel:jdk
 king019/rhel

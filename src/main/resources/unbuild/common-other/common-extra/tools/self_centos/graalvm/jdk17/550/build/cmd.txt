@@ -1,22 +1,22 @@
-docker pull registry.cn-beijing.aliyuncs.com/king019/centos:jdk17
+docker pull registry.cn-beijing.aliyuncs.com/king019/centos:jdk
 
 
 
-docker tag registry.cn-beijing.aliyuncs.com/king019/centos:jdk17 docker:5000/king019/centos:jdk17
-docker push docker:5000/king019/centos:jdk17
+docker tag registry.cn-beijing.aliyuncs.com/king019/centos:jdk docker:5000/king019/centos:jdk
+docker push docker:5000/king019/centos:jdk
 
-docker pull registry.cn-beijing.aliyuncs.com/king019/linux:jdk17
-docker tag registry.cn-beijing.aliyuncs.com/king019/linux:jdk17 docker:5000/king019/linux:jdk17
-docker push docker:5000/king019/linux:jdk17
-
-
-
-docker build -t registry.cn-beijing.aliyuncs.com/king019/graalvm:jdk17 .
-docker push registry.cn-beijing.aliyuncs.com/king019/graalvm:jdk17
+docker pull registry.cn-beijing.aliyuncs.com/king019/linux:jdk
+docker tag registry.cn-beijing.aliyuncs.com/king019/linux:jdk docker:5000/king019/linux:jdk
+docker push docker:5000/king019/linux:jdk
 
 
 
+docker build -t registry.cn-beijing.aliyuncs.com/king019/graalvm:jdk .
+docker push registry.cn-beijing.aliyuncs.com/king019/graalvm:jdk
 
 
-docker build -t docker:5000/king019/graalvm:jdk17 .
-docker push docker:5000/king019/graalvm:jdk17
+
+
+
+docker build -t docker:5000/king019/graalvm:jdk .
+docker push docker:5000/king019/graalvm:jdk

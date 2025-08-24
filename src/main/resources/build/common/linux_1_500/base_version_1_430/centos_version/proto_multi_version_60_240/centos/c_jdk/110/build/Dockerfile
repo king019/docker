@@ -7,15 +7,11 @@ RUN dnf -y install  maven
 RUN cp /usr/share/maven/bin/mvn /usr/share/maven/bin/mvn.bak
 
 
-#RUN dnf -y install  java-1.8.0-openjdk
-#RUN dnf -y install  java-11-openjdk-devel
-#RUN dnf -y install  java-17-openjdk-devel
 RUN dnf -y install  java-21-openjdk-devel
 #RUN dnf -y install go
 
 RUN chmod -R 777 /*.sh
 
-#RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-17-openjdk' >> /etc/profile
 RUN echo 'export JAVA_HOME=/usr/lib/jvm/java-21-openjdk' >> /etc/profile
 RUN echo 'export PATH=$JAVA_HOME/bin:$PATH' >> /etc/profile
 RUN echo '#jdk' >> /etc/profile

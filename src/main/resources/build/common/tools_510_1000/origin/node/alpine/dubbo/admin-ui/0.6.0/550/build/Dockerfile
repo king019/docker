@@ -14,9 +14,7 @@ RUN /gitjar.sh
 FROM registry.cn-qingdao.aliyuncs.com/king019/node:9.1-alpine  as pre
 
 
-DKCONFIG mkdir_file dir_all
-DKCONFIG sed_mirror go_proxy
-DKCONFIG multi_file config_all
+DKCONFIG multi_config dk_config_all
 
 COPY --from=base /opt/soft/version/dubbo-admin /opt/soft/version/dubbo-admin
 

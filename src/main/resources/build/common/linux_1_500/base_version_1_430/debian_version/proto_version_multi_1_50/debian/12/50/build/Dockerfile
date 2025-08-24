@@ -8,7 +8,6 @@ ENV TZ=Asia/Shanghai
 
 DKCONFIG sed_mirror debian_12
 
-RUN apt update
 
 COPY docker.sh /docker.sh
 

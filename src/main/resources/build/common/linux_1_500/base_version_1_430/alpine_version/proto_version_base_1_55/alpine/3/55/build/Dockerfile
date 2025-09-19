@@ -1,4 +1,4 @@
-FROM king019/alpine:p322
+FROM king019/alpine:p3
 
 ENV TZ=Asia/Shanghai
 

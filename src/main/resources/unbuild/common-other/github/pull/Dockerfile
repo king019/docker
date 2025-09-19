@@ -150,7 +150,7 @@ alpine:3
 
 ghcr.io/falcondev-oss/github-actions-cache-server
 ghcr.io/falcondev-oss/github-actions-cache-server:8.0.1
-
+ghcr.io/falcondev-oss/github-actions-cache-server:8.1.3
 
 kicbase/stable:v0.0.39
 
@@ -162,6 +162,7 @@ gitea/gitea
 
 
 gitea/act_runner:0.2.11
+gitea/act_runner:nightly
 
 fuzzle/docker-nfs-server
 drone/git
@@ -181,7 +182,7 @@ scjtqs/kafka-manager
 bitnami/kafka:3.4
 
 
-
+quay.io/honestbee/drone-kubernetes
 
 
 apacherocketmq/rocketmq-dashboard

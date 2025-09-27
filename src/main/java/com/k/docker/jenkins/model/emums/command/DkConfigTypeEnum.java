@@ -21,7 +21,7 @@ public enum DkConfigTypeEnum {
 
     alpine("alpine", CommonPrefixEnum.sed_mirror),
     almalinux_9("almalinux_9", CommonPrefixEnum.sed_mirror),
-
+    openeuler_20("openeuler_20", CommonPrefixEnum.sed_mirror),
     debian_11("debian_11", CommonPrefixEnum.sed_mirror),
     debian_12("debian_12", CommonPrefixEnum.sed_mirror),
     ubuntu_22("ubuntu_22", CommonPrefixEnum.sed_mirror),

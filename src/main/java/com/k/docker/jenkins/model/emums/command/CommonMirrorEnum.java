@@ -13,13 +13,19 @@ import java.util.Collection;
 @AllArgsConstructor
 public enum
 CommonMirrorEnum {
-    rockylinux_8("rockylinux_8", DkConfigTypeEnum.rockylinux_8.getCode(), "sed -e's|^mirrorlist=|#mirrorlist=|g'-e's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://mirrors.aliyun.com/rockylinux|g'-i.bak/etc/yum.repos.d/Rocky-*.repo", "sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://nexus:8081/repository/rockylinux|g' -i.bak /etc/yum.repos.d/Rocky-*.repo"),
-    rockylinux_9("rockylinux_9", DkConfigTypeEnum.rockylinux_9.getCode(), "sed -e's|^mirrorlist=|#mirrorlist=|g'-e's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://mirrors.aliyun.com/rockylinux|g'-i.bak/etc/yum.repos.d/rocky*.repo", "sed -e 's|^mirrorlist=|#mirrorlist=|g'  -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://nexus:8081/repository/rockylinux|g'  -i.bak /etc/yum.repos.d/rocky*.repo"),
+    rockylinux_8("rockylinux_8", DkConfigTypeEnum.rockylinux_8.getCode(), "sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://mirrors.aliyun.com/rockylinux|g' -i.bak /etc/yum.repos.d/Rocky-*.repo", "sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://nexus:8081/repository/rockylinux|g' -i.bak /etc/yum.repos.d/Rocky-*.repo"),
+    rockylinux_9("rockylinux_9", DkConfigTypeEnum.rockylinux_9.getCode(), "sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://mirrors.aliyun.com/rockylinux|g' -i.bak /etc/yum.repos.d/rocky*.repo", "sed -e 's|^mirrorlist=|#mirrorlist=|g'  -e 's|^#baseurl=http://dl.rockylinux.org/$contentdir|baseurl=http://nexus:8081/repository/rockylinux|g'  -i.bak /etc/yum.repos.d/rocky*.repo"),
 
     almalinux_9("almalinux_9", DkConfigTypeEnum.almalinux_9.getCode(), "sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^# baseurl=https://repo.almalinux.org|baseurl=https://mirrors.aliyun.com|g' -i.bak /etc/yum.repos.d/almalinux*.repo", "sed -e 's|^mirrorlist=|#mirrorlist=|g' -e 's|^# baseurl=https://repo.almalinux.org|baseurl=http://nexus:8081/repository|g' -i.bak /etc/yum.repos.d/almalinux*.repo"),
 
 
-    anolisos_8("anolisos_8", DkConfigTypeEnum.anolisos_8.getCode(), "echo 'openanolis_anolisos:8'", "sed -e 's|^baseurl=http://mirrors.openanolis.cn/|baseurl=http://nexus:8081/repository/openanolis/|g' -i.bak /etc/yum.repos.d/AnolisOS-*.repo"),
+    anolisos_8_1("anolisos_8_1", DkConfigTypeEnum.anolisos_8.getCode(), "echo 'openanolis_anolisos:8'", "sed -e 's|^baseurl=http://mirrors.openanolis.cn/|baseurl=http://nexus:8081/repository/openanolis/|g' -i.bak /etc/yum.repos.d/AnolisOS*.repo"),
+    anolisos_8_2("anolisos_8_2", DkConfigTypeEnum.anolisos_8.getCode(), "echo 'openanolis_anolisos:8'", "sed -e 's|^baseurl=https://mirrors.openanolis.cn/|baseurl=http://nexus:8081/repository/openanolis/|g' -i.bak /etc/yum.repos.d/AnolisOS*.repo"),
+
+
+    openeuler_20_1("openeuler_20_1", DkConfigTypeEnum.openeuler_20.getCode(), "echo 'openeuler_20'", "sed -e 's|^baseurl=https://repo.openeuler.org/|baseurl=http://nexus:8081/repository/openeuler/|g' -i.bak /etc/yum.repos.d/openEuler*.repo"),
+    openeuler_20_2("openeuler_20_2", DkConfigTypeEnum.openeuler_20.getCode(), "echo 'openeuler_20'", "sed -e 's|^gpgkey=http://repo.openeuler.org/|gpgkey=http://nexus:8081/repository/openeuler/|g' -i.bak /etc/yum.repos.d/openEuler*.repo"),
+//    openeuler_20_3("openeuler_20_3", DkConfigTypeEnum.openeuler_20.getCode(), "echo 'openeuler_20'", "sed -e 's|^metalink=https://mirrors.openeuler.org/|metalink=http://nexus:8081/repository/openeuler/|g' -i.bak /etc/yum.repos.d/openEuler*.repo"),
 
 
     alpine_1("alpine_1", DkConfigTypeEnum.alpine.getCode(), "sed -i 's/https/http/g' /etc/apk/repositories", ""),

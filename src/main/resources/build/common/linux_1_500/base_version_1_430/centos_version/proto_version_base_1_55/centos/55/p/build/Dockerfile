@@ -1,4 +1,4 @@
-FROM king019/centos:p10
+FROM king019/almalinux:p10
 
 
 
@@ -9,7 +9,6 @@ ENV TZ=Asia/Shanghai
 DKCONFIG multi_config dk_config_all
 
 WORKDIR /app
-
 
 
 

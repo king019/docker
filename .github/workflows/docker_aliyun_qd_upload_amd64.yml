@@ -29,7 +29,7 @@ jobs:
         run: pwd;
           cd /home/runner/work/docker/docker;
           ls /home/runner/work/docker/docker;
-          mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsTransBuildSplitShell" -Dexec.args="arm=false@maxStep=20"
+          mvn clean compile exec:java -Dexec.mainClass="com.k.docker.jenkins.JenkinsTransBuildSplitShell" -Dexec.args="arm=false@maxStep=2"
       - name: build_aliyun_qingdao_upload
         run: pwd;
           cd ./;chmod -R 777 .;

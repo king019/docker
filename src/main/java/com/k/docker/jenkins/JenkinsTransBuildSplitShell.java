@@ -4,6 +4,7 @@ import com.google.common.collect.ArrayListMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.k.dep.common.util.FWPathUtil;
+import com.k.docker.jenkins.consts.DockerConstans;
 import com.k.docker.jenkins.model.docker.DockerPushModel;
 import com.k.docker.jenkins.model.docker.DockerPushTransModel;
 import com.k.docker.jenkins.model.emums.docker.DockerParamEnum;
@@ -19,7 +20,12 @@ import org.junit.Test;
 
 import java.io.File;
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 
 @Data
 public class JenkinsTransBuildSplitShell {
@@ -238,12 +244,14 @@ public class JenkinsTransBuildSplitShell {
                 if (step++ % maxStep == 0) {
                     if (parll) {
                         targetDkLines.add("wait");
-                        targetDkLines.add("docker image prune -a -f");
+                        targetDkLines.addAll(DockerConstans.prunes);
+//                        targetDkLines.add("docker image prune -a -f");
                     }
                 }
             } else {
                 targetDkLines.add("wait");
-                targetDkLines.add("docker image prune -a -f");
+                targetDkLines.addAll(DockerConstans.prunes);
+//                targetDkLines.add("docker image prune -a -f");
             }
         }
     }
@@ -270,7 +278,8 @@ public class JenkinsTransBuildSplitShell {
             if (step++ % maxStep == 0) {
                 if (parll) {
                     targetLines.add("wait");
-                    targetLines.add("docker image prune -a -f");
+                    targetLines.addAll(DockerConstans.prunes);
+//                    targetLines.add("docker image prune -a -f");
                 }
             }
         }

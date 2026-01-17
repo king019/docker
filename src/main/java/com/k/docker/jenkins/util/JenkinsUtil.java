@@ -1,6 +1,12 @@
 package com.k.docker.jenkins.util;
 
-import com.google.common.collect.*;
+import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
+import com.k.docker.jenkins.consts.DockerConstans;
 import com.k.docker.jenkins.model.docker.CmdModel;
 import com.k.docker.jenkins.model.docker.DockerConfigModel;
 import com.k.docker.jenkins.model.docker.DockerJenkinsModel;
@@ -9,7 +15,11 @@ import com.k.docker.jenkins.model.emums.command.CommonPrefixEnum;
 import com.k.docker.jenkins.model.emums.command.cmd.base.CmdTypeEnum;
 import com.k.docker.jenkins.model.emums.command.cmd.base.CommonRunCmdEnum;
 import com.k.docker.jenkins.model.emums.constant.ConstantEnum;
-import com.k.docker.jenkins.model.emums.docker.*;
+import com.k.docker.jenkins.model.emums.docker.DockerBuildPathEnum;
+import com.k.docker.jenkins.model.emums.docker.DockerFunctionEnum;
+import com.k.docker.jenkins.model.emums.docker.DockerParamEnum;
+import com.k.docker.jenkins.model.emums.docker.DockerPlatformEnum;
+import com.k.docker.jenkins.model.emums.docker.DockerRegionEnum;
 import com.k.docker.jenkins.model.emums.git.GitRemoteEnum;
 import com.k.docker.jenkins.model.emums.trans.FromTransEnum;
 import lombok.SneakyThrows;
@@ -23,7 +33,15 @@ import java.io.File;
 import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.List;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Optional;
+import java.util.Set;
 import java.util.function.BiConsumer;
 import java.util.function.Consumer;
 import java.util.function.Function;
@@ -557,7 +575,8 @@ public class JenkinsUtil {
                 }
                 lines.add("wait");
                 if (configModel.isPrune()) {
-                    lines.add("docker image prune -a -f");
+                    lines.addAll(DockerConstans.prunes);
+//                    lines.add("docker image prune -a -f");
                 }
                 //lines.add("sleep 1");
             }

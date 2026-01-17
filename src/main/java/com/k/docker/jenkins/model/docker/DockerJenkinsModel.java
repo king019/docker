@@ -21,7 +21,7 @@ public class DockerJenkinsModel {
     private static String EXPERIMENTAL;
     private String path;
     //private String host;
-    private String version;
+    private List<String> versions;
     private int index;
     private DockerPlatformEnum platform;
     private Set<DockerPlatformEnum> platforms;
@@ -47,22 +47,39 @@ public class DockerJenkinsModel {
         }
         sb.append(path);
         sb.append(nextLine);
+        int index = 0;
+        String firstVersion = null;
+        String firstBuildVersion = null;
+        String mainfest = "";
+        for (String version : versions) {
+            if (index == 0) {
+                index++;
+                firstVersion = getWriteVersion(version);
+                firstBuildVersion = buildVersion(firstVersion, platform);
+                {
+                    sb.append("docker build " + (useCache ? "" : "--no-cache ") + " -t ");
+                    sb.append(firstBuildVersion);
+                    sb.append(" .");
+                    sb.append(nextLine);
+                }
+                mainfest = buildMainfest(firstVersion);
 
-        {
-            sb.append("docker build " + (useCache ? "" : "--no-cache ") + " -t ");
-            sb.append(buildVersion(getWriteVersion(), platform));
-            sb.append(" .");
-            sb.append(nextLine);
+            } else {
+                String nextVersion = getWriteVersion(version);
+                String nextBuildVersion = buildVersion(nextVersion, platform);
+                sb.append("docker tag " + firstBuildVersion + " " + nextBuildVersion + "  ");
+                mainfest += buildMainfest(nextVersion);
+            }
         }
-        map.put(platform, buildMainfest(getWriteVersion()));
+        map.put(platform, mainfest);
         return sb.toString();
     }
 
     public String buildPush() {
         StringBuilder sb = new StringBuilder();
-        {
+        for (String version : versions) {
             sb.append("docker push --disable-content-trust ");
-            sb.append(buildVersion(getWriteVersion(), platform));
+            sb.append(buildVersion(getWriteVersion(version), platform));
             sb.append(nextLine);
         }
         return sb.toString();
@@ -133,10 +150,10 @@ public class DockerJenkinsModel {
         return suffix ? ":" + platform.getPlatform() : "";
     }
 
-    private String getWriteVersion() {
-        String writeVersion = version;
+    private String getWriteVersion(String versionInner) {
+        String writeVersion = versionInner;
         if (StringUtils.isNotBlank(region.getHost())) {
-            writeVersion = region.getHost() + "/" + version;
+            writeVersion = region.getHost() + "/" + versionInner;
         }
         return writeVersion;
     }

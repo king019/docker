@@ -1,0 +1,11 @@
+
+sed -i 's/dl-cdn.alpinelinux.org/nexus:8081\/repository\/alpine/g' /etc/apk/repositories
+
+
+
+sed -i 's/dl-cdn.alpinelinux.org/nexus:8081\/repository\/alpine/g' /etc/apk/repositories
+
+
+
+http://nexus:8081/repository/alpine/alpine/v3.10/main
+http://nexus:8081/repository/alpine/alpine/v3.10/community

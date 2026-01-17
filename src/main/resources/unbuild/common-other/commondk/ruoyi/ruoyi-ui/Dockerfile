@@ -1,5 +1,5 @@
-FROM registry.cn-qingdao.aliyuncs.com/king019/node:14
-
+#FROM registry.cn-qingdao.aliyuncs.com/king019/node:14
+FROM king019/node:14
 
 MAINTAINER king019
 

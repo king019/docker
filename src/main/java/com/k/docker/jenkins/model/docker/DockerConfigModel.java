@@ -30,7 +30,7 @@ public class DockerConfigModel {
     private int multi = 1;
     private String transFrom;
     private boolean prune = false;
-    private String buildPath = DockerParamEnum.BUILD_Path.getDef();
+    private String buildPath = DockerParamEnum.BUILD_PATH.getDef();
     private String buildOut = "target/dockerDest/";
     private String buildOutDest = buildOut.substring(buildOut.indexOf("/") + 1);
     private List<String> includes = Lists.newArrayList();

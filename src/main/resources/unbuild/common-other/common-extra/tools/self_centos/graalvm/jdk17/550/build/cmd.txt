@@ -1,13 +1,13 @@
-docker pull registry.cn-beijing.aliyuncs.com/king019/centos:jdk
+docker pull registry.cn-beijing.aliyuncs.com/king019/rhel:jdk
 
 
 
-docker tag registry.cn-beijing.aliyuncs.com/king019/centos:jdk docker:5000/king019/centos:jdk
-docker push docker:5000/king019/centos:jdk
+docker tag registry.cn-beijing.aliyuncs.com/king019/rhel:jdk docker:5000/king019/rhel:jdk
+docker push docker:5000/king019/rhel:jdk
 
-docker pull registry.cn-beijing.aliyuncs.com/king019/linux:jdk
-docker tag registry.cn-beijing.aliyuncs.com/king019/linux:jdk docker:5000/king019/linux:jdk
-docker push docker:5000/king019/linux:jdk
+docker pull registry.cn-beijing.aliyuncs.com/king019/rhel:jdk
+docker tag registry.cn-beijing.aliyuncs.com/king019/rhel:jdk docker:5000/king019/rhel:jdk
+docker push docker:5000/king019/rhel:jdk
 
 
 

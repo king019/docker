@@ -83,3 +83,8 @@ docker builder prune -f
 docker images |awk '{print "docker rmi -f  " $3}'|sh
 
 
+
+
+docker images|grep qingdao |awk '{print "docker rmi -f  " $3}'|sh
+
+

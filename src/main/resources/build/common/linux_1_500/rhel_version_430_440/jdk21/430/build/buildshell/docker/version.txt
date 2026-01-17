@@ -1,2 +1,0 @@
-king019/rhel:jdk
-king019/rhel

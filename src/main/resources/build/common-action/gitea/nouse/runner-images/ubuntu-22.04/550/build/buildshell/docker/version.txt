@@ -1,1 +1,0 @@
-king019/gitea_runner-images:ubuntu-22.04

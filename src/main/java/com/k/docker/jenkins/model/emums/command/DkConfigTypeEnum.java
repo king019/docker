@@ -1,47 +1,32 @@
 package com.k.docker.jenkins.model.emums.command;
 
 import com.google.common.collect.ArrayListMultimap;
+import com.google.common.collect.ListMultimap;
 import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import org.apache.commons.collections4.CollectionUtils;
 
 import java.util.*;
 
+//DKCONFIG multi_config
 @Getter
 @AllArgsConstructor
 public enum DkConfigTypeEnum {
-    mkdir_all_file("dir_all", CommonPrefixEnum.mkdir_file, 1),
-    go_proxy("go_proxy", CommonPrefixEnum.sed_mirror, 2),
-    //CommonFileEnum
-    config_all("config_all", CommonPrefixEnum.multi_file, 3),
-    docker("docker", CommonPrefixEnum.sed_mirror, 4),
+    baseEnv("baseEnv", CommonPrefixEnum.multi_run_cmd, 10),
+    dockerInit("dockerInit", CommonPrefixEnum.multi_run_cmd, 30),
+    mkdir_all_file("dir_all", CommonPrefixEnum.multi_run_cmd, 100),
+    config_all("config_all", CommonPrefixEnum.multi_run_cmd, 400),
+    docker("docker", CommonPrefixEnum.multi_run_cmd, 500),
+    settings("settings", CommonPrefixEnum.multi_run_cmd, 600),
+    go_proxy("go_proxy", CommonPrefixEnum.multi_run_cmd, 700),
+    linux_init("linux_init", CommonPrefixEnum.multi_run_cmd, 900),
 
 
-    alpine("alpine", CommonPrefixEnum.sed_mirror),
-    almalinux_9("almalinux_9", CommonPrefixEnum.sed_mirror),
-    openeuler_20("openeuler_20", CommonPrefixEnum.sed_mirror),
-    debian_11("debian_11", CommonPrefixEnum.sed_mirror),
-    debian_12("debian_12", CommonPrefixEnum.sed_mirror),
-    ubuntu_22("ubuntu_22", CommonPrefixEnum.sed_mirror),
-    ubuntu_24("ubuntu_24", CommonPrefixEnum.sed_mirror),
-    //待使用开始
-    rockylinux_8("rockylinux_8", CommonPrefixEnum.sed_mirror),
-    rockylinux_9("rockylinux_9", CommonPrefixEnum.sed_mirror),
-    anolisos_8("anolisos_8", CommonPrefixEnum.sed_mirror),
-//待使用结束
-
-    server("server", CommonPrefixEnum.file),
-
-
-    //DKCONFIG mkdir_file dir_all
-    //DKCONFIG sed_mirror go_proxy
-    //DKCONFIG multi_file config_all
     dk_config_all("dk_config_all", CommonPrefixEnum.multi_config),
     ;
 
-    public static Multimap<String, DkConfigTypeEnum> MULTI_MAP = ArrayListMultimap.create();
+    public static ListMultimap<String, DkConfigTypeEnum> MULTI_MAP = ArrayListMultimap.create();
     public static Map<String, DkConfigTypeEnum> MAP = Maps.newHashMap();
 
     static {
@@ -49,10 +34,10 @@ public enum DkConfigTypeEnum {
         MULTI_MAP.put(dk_config_all.getCode(), go_proxy);
         MULTI_MAP.put(dk_config_all.getCode(), config_all);
         MULTI_MAP.put(dk_config_all.getCode(), docker);
-        for (DkConfigTypeEnum value : DkConfigTypeEnum.values()) {
-            MAP.put(value.getCode(), value);
-        }
-
+        MULTI_MAP.put(dk_config_all.getCode(), settings);
+        MULTI_MAP.put(dk_config_all.getCode(), baseEnv);
+        MULTI_MAP.put(dk_config_all.getCode(), linux_init);
+        MULTI_MAP.put(dk_config_all.getCode(), dockerInit);
     }
 
 

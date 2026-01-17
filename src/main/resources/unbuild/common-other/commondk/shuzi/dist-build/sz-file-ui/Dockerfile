@@ -1,3 +1,3 @@
-FROM registry.cn-qingdao.aliyuncs.com/king019/nginx:stable-alpine
+FROM king019/alpine:nginx
 LABEL Author king019
 COPY dist /usr/share/nginx/html

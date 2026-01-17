@@ -1,0 +1,2 @@
+king019/dubbo:admin-ui_0.6.0
+king019/dubbo:admin-ui

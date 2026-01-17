@@ -121,7 +121,7 @@ public class JenkinsBuildShell {
             configModel.setUseCache(dkCache);
         }
         {
-            String buildPath = JenkinsUtil.getVal(DockerParamEnum.BUILD_Path, map);
+            String buildPath = JenkinsUtil.getVal(DockerParamEnum.BUILD_PATH, map);
             configModel.setBuildPath(buildPath);
         }
         {

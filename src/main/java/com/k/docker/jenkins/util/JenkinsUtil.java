@@ -1,10 +1,13 @@
 package com.k.docker.jenkins.util;
 
 import com.google.common.collect.*;
+import com.k.docker.jenkins.model.docker.CmdModel;
 import com.k.docker.jenkins.model.docker.DockerConfigModel;
 import com.k.docker.jenkins.model.docker.DockerJenkinsModel;
 import com.k.docker.jenkins.model.emums.build.BuildItemEnum;
-import com.k.docker.jenkins.model.emums.command.*;
+import com.k.docker.jenkins.model.emums.command.CommonPrefixEnum;
+import com.k.docker.jenkins.model.emums.command.cmd.base.CmdTypeEnum;
+import com.k.docker.jenkins.model.emums.command.cmd.base.CommonRunCmdEnum;
 import com.k.docker.jenkins.model.emums.constant.ConstantEnum;
 import com.k.docker.jenkins.model.emums.docker.*;
 import com.k.docker.jenkins.model.emums.git.GitRemoteEnum;
@@ -18,6 +21,7 @@ import org.apache.commons.lang3.math.NumberUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 import java.util.function.BiConsumer;
@@ -45,7 +49,7 @@ public class JenkinsUtil {
             models = jenkinsWrite(model, platformEnum);
         }
         Set<String> regions = Sets.newHashSet();
-        models.forEach(jenkinsModel -> regions.add(jenkinsModel.getRegion().getRegion()));
+        Objects.requireNonNull(models).forEach(jenkinsModel -> regions.add(jenkinsModel.getRegion().getRegion()));
         String dir = model.getDirPath();
         regions.forEach(region -> writePlat(dir, DockerBuildPathEnum.platform.getPath(), region, model.getMix()));
         //regions.forEach(region -> writePlat(dir, DockerBuildPathEnum.platform.getPath(), region, false));
@@ -59,7 +63,7 @@ public class JenkinsUtil {
         models.sort((o1, o2) -> {
             int compare = NumberUtils.compare(o1.getIndex(), o2.getIndex());
             if (compare == 0) {
-                compare = StringUtils.compare(o1.getVersion(), o2.getVersion());
+                compare = StringUtils.compare(o1.getVersions().get(0), o2.getVersions().get(0));
             }
 
             return compare;
@@ -200,13 +204,13 @@ public class JenkinsUtil {
         List<String> excludes = model.getExcludes();
         if (CollectionUtils.isNotEmpty(includes)) {
             models = models.stream().filter(jenkinsModel -> {
-                boolean exist = StringUtils.indexOfAny(jenkinsModel.getVersion(), includes.stream().toArray(value -> new String[includes.size()])) >= 0;
+                boolean exist = StringUtils.indexOfAny(jenkinsModel.getVersions().get(0), includes.stream().toArray(value -> new String[includes.size()])) >= 0;
                 return exist;
             }).collect(Collectors.toList());
         }
         if (CollectionUtils.isNotEmpty(excludes)) {
             models = models.stream().filter(jenkinsModel -> {
-                boolean exist = StringUtils.indexOfAny(jenkinsModel.getVersion(), excludes.stream().toArray(value -> new String[excludes.size()])) >= 0;
+                boolean exist = StringUtils.indexOfAny(jenkinsModel.getVersions().get(0), excludes.stream().toArray(value -> new String[excludes.size()])) >= 0;
                 return !exist;
             }).collect(Collectors.toList());
         }
@@ -220,12 +224,13 @@ public class JenkinsUtil {
             DockerRegionEnum regionEnum = DockerRegionEnum.getRegion(region);
             String copyDest = PathUtil.getTargetPath(dockerDest);
             File copyDestFile = new File(copyDest + "/" + regionEnum.getRegion());
-            copyDir(file, file.getAbsolutePath() + "/", copyDest, regionEnum.getRegion(), configModel, platform);
+            String buildDir = file.getAbsolutePath() + "/";
+            copyDir(file, buildDir, copyDest, regionEnum.getRegion(), configModel, platform);
             map.put(regionEnum, copyDestFile);
         }
     }
 
-    private void copyDir(File dir, String src, String dest, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
+    private void copyDir(File dir, String buildDir, String dest, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
         File[] files = dir.listFiles();
         List<File> fileList = new ArrayList<>();
         List<String> exDirs = configModel.getExcludeBaseDirs();
@@ -245,14 +250,14 @@ public class JenkinsUtil {
                 continue;
             }
             if (listFile.getName().equals("pull")) {
-                copyDirPull(listFile, src, dest, region, configModel);
+                copyDirPull(listFile, buildDir, dest, region, configModel);
                 continue;
             }
 
             if (listFile.isFile()) {
-                copyFile(listFile, src, dest, region, configModel, platform);
+                copyFile(listFile, buildDir, dest, region, configModel, platform);
             } else {
-                copyDir(listFile, src, dest, region, configModel, platform);
+                copyDir(listFile, buildDir, dest, region, configModel, platform);
             }
         }
     }
@@ -306,34 +311,30 @@ public class JenkinsUtil {
         FileUtils.writeLines(versionFile, Lists.newArrayList(version));
     }
 
-    private void copyFile(File srcfile, String src, String dest, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
+    private void copyFile(File srcfile, String buildDir, String dest, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
         String absolutePath = srcfile.getAbsolutePath();
         String destDir = dest + region + "/";
-        absolutePath = absolutePath.replace(src, dest + region + "/");
+        absolutePath = absolutePath.replace(buildDir, dest + region + "/");
         File destfile = new File(absolutePath);
-        copyFile(srcfile, destfile, destDir, region, configModel, platform);
+        copyFile(srcfile, destfile, buildDir, destDir, region, configModel, platform);
     }
 
-    private void copyFile(File srcfile, File destfile, String destDir, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
+    private void copyFile(File srcfile, File destfile, String buildDir, String destDir, String region, DockerConfigModel configModel, DockerPlatformEnum platform) throws Exception {
         String hostBase = DockerRegionEnum.getRegion(region).getHost();
         List<String> lines = FileUtils.readLines(srcfile, StandardCharsets.UTF_8);
         if (CollectionUtils.isNotEmpty(lines)) {
             if (srcfile.getName().equals("Dockerfile")) {
-                for (int i = lines.size() - 1; i >= 0; i--) {
-                    handleDockerDkMultiConfigCopy(lines, i, configModel);
-                }
+//                for (int i = lines.size() - 1; i >= 0; i--) {
+//                    handleDockerDkMultiConfigCopy(lines, i, configModel);
+//                }
                 for (int i = lines.size() - 1; i >= 0; i--) {
                     handleDockerFileFrom(hostBase, lines, configModel, platform, i);
-                    handleDockerFileCopy(destfile, lines, destDir, i);
-                    handleDockerMultiFileCopy(destfile, lines, destDir, i, configModel);
-                    handleDockerMultiDirCopy(lines, i);
-                    handleDockerMultiMirrorCopy(lines, i, configModel);
-                    //handleDockerMultiSettingsCopy(lines, i, configModel);
+                    handleDockerRunCmdCopy(destfile, lines, destDir, i, configModel);
+//                    handleDockerRunFileCopy(srcfile, destfile, lines, buildDir, i);
+//                    handleDockerMultiFileCopy(srcfile, destfile, lines, buildDir, i, configModel);
+//                    handleDockerMultiDirCopy(lines, i);
+//                    handleDockerMultiMirrorCopy(lines, i, configModel);
                 }
-//                for (int i = lines.size() - 1; i >= 0; i--) {
-////                    judgeDockerFile(srcfile, lines, i, configModel);
-//                    judgeReplaceTxtDockerFile(map, lines, i, configModel);
-//                }
             } else if (srcfile.getName().endsWith(".sh")) {
                 for (int i = lines.size() - 1; i >= 0; i--) {
                     judgeGit(srcfile, lines, i, configModel);
@@ -373,119 +374,110 @@ public class JenkinsUtil {
         }
     }
 
-    private void handleDockerFileCopy(File destfile, List<String> lines, String destDir, int i) {
+    private void handleDockerRunCmdCopy(File destfile, List<String> lines, String destDir, int i, DockerConfigModel configModel) {
         String from = lines.get(i);
-        String prefix = CommonPrefixEnum.file.getCode();
+        String prefix = CommonPrefixEnum.multi_run_cmd.getCode();
         if (!from.startsWith(prefix)) {
             return;
         }
 
         int index = from.indexOf(prefix) + prefix.length();
         String sub = from.substring(index).trim();
-        CommonFileEnum fileItem = CommonFileEnum.getItem(sub);
+        List<CmdModel> multiItems = Lists.newArrayList(CommonRunCmdEnum.getMultiItem(sub));
         lines.remove(i);
-        handleFileItem(fileItem, lines, i, destDir, destfile);
-    }
-
-    private void handleDockerMultiFileCopy(File destfile, List<String> lines, String destDir, int i, DockerConfigModel configModel) {
-        String from = lines.get(i);
-        String prefix = CommonPrefixEnum.multi_file.getCode();
-        if (!from.startsWith(prefix)) {
-            return;
-        }
-        int index = from.indexOf(prefix) + prefix.length();
-        String sub = from.substring(index).trim();
-        Collection<CommonFileEnum> fileItems = CommonFileEnum.getMultiItem(sub);
-        lines.remove(i);
-        handleDockerMultiSettingsCopy(lines, i, configModel);
-        fileItems = fileItems.stream().sorted(Comparator.comparingInt(CommonFileEnum::getPreIndex)).toList();
-        for (CommonFileEnum fileItem : fileItems) {
-            handleFileItem(fileItem, lines, i, destDir, destfile);
-        }
-
-    }
-
-    private void handleDockerMultiDirCopy(List<String> lines, int i) {
-        String from = lines.get(i);
-        String prefix = CommonPrefixEnum.mkdir_file.getCode();
-        if (!from.startsWith(prefix)) {
-            return;
-        }
-        int index = from.indexOf(prefix) + prefix.length();
-        String sub = from.substring(index).trim();
-        Collection<CommonDirEnum> fileItems = CommonDirEnum.getMultiItem(sub);
-        lines.remove(i);
-        lines.add(i, "RUN mkdir -p " + StringUtils.join(fileItems.stream().map(CommonDirEnum::getCode).toArray(), " "));
-
-    }
-
-    private void handleDockerDkMultiConfigCopy(List<String> lines, int i, DockerConfigModel configModel) {
-        String from = lines.get(i);
-        String prefix = CommonPrefixEnum.multi_config.getCode();
-        if (!from.startsWith(prefix)) {
-            return;
-        }
-        lines.remove(i);
-        int index = from.indexOf(prefix) + prefix.length();
-        String sub = from.substring(index).trim();
-        List<DkConfigTypeEnum> fileItems = DkConfigTypeEnum.getMultiItem(sub);
-        for (DkConfigTypeEnum configType : fileItems) {
-            CommonPrefixEnum prefixEnum = configType.getPrefixEnum();
-            lines.add(i, prefixEnum.getCode() + " " + configType.getCode());
-        }
-    }
-
-    private void handleDockerMultiMirrorCopy(List<String> lines, int i, DockerConfigModel configModel) {
-        String from = lines.get(i);
-        String prefix = CommonPrefixEnum.sed_mirror.getCode();
-        if (!from.startsWith(prefix)) {
-            return;
-        }
-        lines.remove(i);
-        boolean replaceTxt = configModel.isReplaceTxt();
-        int index = from.indexOf(prefix) + prefix.length();
-        String sub = from.substring(index).trim();
-        Collection<CommonMirrorEnum> fileItems = CommonMirrorEnum.getMultiItem(sub);
-        for (CommonMirrorEnum fileItem : fileItems) {
-            if (!replaceTxt) {
-                lines.add(i, "RUN " + fileItem.getSrcCmd());
-            } else {
-                lines.add(i, "RUN " + StringUtils.defaultIfBlank(fileItem.getDestCmd(), fileItem.getSrcCmd()));
+        Collections.reverse(multiItems);
+        for (CmdModel runCmdEnum : multiItems) {
+            CmdTypeEnum cmdType = runCmdEnum.getCmdType();
+//            String cmd = CommonPrefixEnum.multi_run_cmd.getCmd();
+            String cmdPre = runCmdEnum.getCmdPre();
+//            StringUtils.defaultIfBlank(runCmdEnum.getCmdPre(), cmd);
+            String cmd = null;
+            switch (cmdType) {
+                case mirror:
+                    boolean replaceTxt = configModel.isReplaceTxt();
+                    if (!replaceTxt) {
+                        cmd = runCmdEnum.getCmdSrc();
+                    } else {
+                        cmd = StringUtils.defaultIfBlank(runCmdEnum.getCmdDest(), runCmdEnum.getCmdSrc());
+                    }
+                    lines.add(i, cmdPre + " " + cmd);
+                    break;
             }
-        }
-    }
 
-    private void handleDockerMultiSettingsCopy(List<String> lines, int i, DockerConfigModel configModel) {
-        boolean replaceSetting = configModel.isReplaceSetting();
-        Collection<CommonMirrorEnum> fileItems = CommonMirrorEnum.getMultiItem(CommonMirrorEnum.settings.getCode());
-        for (CommonMirrorEnum fileItem : fileItems) {
-            if (!replaceSetting) {
-                lines.add(i, "RUN " + fileItem.getSrcCmd());
-            } else {
-                lines.add(i, "RUN " + fileItem.getDestCmd());
-            }
         }
     }
-
-    private void handleFileItem(CommonFileEnum fileItem, List<String> lines, int i, String destDir, File destfile) {
-        if (fileItem.isRun()) {
-            lines.add(i, "RUN " + fileItem.getDestFile());
-            lines.add(i, "RUN chmod -R 777 " + fileItem.getDestFile());
-        }
-        lines.add(i, "COPY " + fileItem.getCopyFile() + " " + fileItem.getDestFile());
-        File nowDir = destfile.getParentFile();
-        String src = destDir + fileItem.getSrcFile();
-        String dest = nowDir.getAbsolutePath() + "/" + fileItem.getCopyFile();
-        copyRealFile(src, dest);
-    }
+//
+//
+//    private void handleConfigFileItem(CopyTypeEnum copy, String copyFile, String destFile, String
+//            srcFile, List<String> lines, int i, String buildDir, File destfile) {
+//        String src = buildDir + srcFile;
+//        switch (copy) {
+//            case copy_file:
+//                lines.add(i, "COPY " + copyFile + " " + destFile);
+//                File nowDir = destfile.getParentFile();
+//                String dest = nowDir.getAbsolutePath() + "/" + copyFile;
+//                copyRealFile(src, dest);
+////                lines.add(i, "ADD file://" + src + " " + destFile);
+//                break;
+//            case copy_txt:
+//                handleConfigFileItem(i, src, lines, destFile);
+//                break;
+//        }
+//
+//    }
 
     @SneakyThrows
-    private void copyRealFile(String src, String dest) {
-        FileUtils.copyFile(new File(src), new File(dest));
+    private void handleConfigFileItem(int i, String src, List<String> lines, String destFile) {
+        List<String> fileLines = FileUtils.readLines(new File(src), Charset.defaultCharset());
+        String line = StringUtils.join(fileLines, "\\n");
+        String start = "'";
+        if (!StringUtils.contains(line, "\"")) {
+            start = "\"";
+        }
+        if (StringUtils.contains(line, "'") && StringUtils.contains(line, "\"")) {
+            throw new RuntimeException(line);
+        }
+
+        lines.add(i, "RUN echo -e " + start + "" + line + start + " > " + destFile);
     }
 
 
-    private void writePlat(String dir, String subDir, String plat, Collection<DockerJenkinsModel> models, DockerConfigModel configModel) {
+//    @SneakyThrows
+//    private void handleConfigFileItem(int i, String src, List<String> lines, String destFile) {
+//        lines.add(i, "EOF");
+//               List<String> fileLines = FileUtils.readLines(new File(src), Charset.defaultCharset());
+//       String line = StringUtils.join(fileLines, "\\n");
+//        lines.add(i, line);
+//        lines.add(i, "RUN cat <<EOF > " + destFile);
+//    }
+
+
+//    @SneakyThrows
+//    private void handleConfigFileItem(int i, String src, List<String> lines, String destFile) {
+//        List<String> fileLines = FileUtils.readLines(new File(src), Charset.defaultCharset());
+//        lines.add(i, "EOF");
+//        fileLines = new ArrayList<>(fileLines);
+//        Collections.reverse(fileLines);
+//        //        List<String> fileLines = FileUtils.readLines(new File(src), Charset.defaultCharset());
+////        String line = StringUtils.join(fileLines, "\\n");
+//        for (String fileLine : fileLines) {
+//            lines.add(i, fileLine);
+//        }
+//        lines.add(i, "RUN cat <<EOF > " + destFile);
+//    }
+
+//
+//    @SneakyThrows
+//    private void copyRealFile(String src, String dest) {
+////        Path sourcePath = Paths.get(src);
+////        Path destinationPath = Paths.get(dest);
+////        Files.copy(sourcePath, destinationPath, StandardCopyOption.REPLACE_EXISTING);
+//        FileUtils.copyFile(new File(src), new File(dest), true);
+//    }
+
+
+    private void writePlat(String dir, String subDir, String
+            plat, Collection<DockerJenkinsModel> models, DockerConfigModel configModel) {
         List<String> lines = Lists.newArrayList();
         lines.add("#!/bin/sh");
         lines.add("set -x");
@@ -546,12 +538,14 @@ public class JenkinsUtil {
         }
     }
 
-    private void buildBuildLines(List<String> lines, Map<Integer, List<DockerJenkinsModel>> map, BiConsumer<List<String>, DockerJenkinsModel> consumer, DockerConfigModel configModel) {
+    private void buildBuildLines
+            (List<String> lines, Map<Integer, List<DockerJenkinsModel>> map, BiConsumer<List<String>, DockerJenkinsModel> consumer, DockerConfigModel
+                    configModel) {
         List<Integer> indexs = Lists.newArrayList(map.keySet());
         Collections.sort(indexs);
         for (Integer index : indexs) {
             List<DockerJenkinsModel> indexModels = map.get(index);
-            indexModels.sort((o1, o2) -> StringUtils.compare(o1.getVersion(), o2.getVersion()));
+            indexModels.sort((o1, o2) -> StringUtils.compare(o1.getVersions().get(0), o2.getVersions().get(0)));
             List<List<DockerJenkinsModel>> partitionss = Lists.partition(indexModels, configModel.getMulti());
             for (List<DockerJenkinsModel> partitions : partitionss) {
                 for (DockerJenkinsModel model : partitions) {
@@ -570,13 +564,16 @@ public class JenkinsUtil {
         }
     }
 
-    private List<DockerJenkinsModel> readFirst(DockerRegionEnum regionEnum, File file, DockerConfigModel configModel) throws Exception {
+    private List<DockerJenkinsModel> readFirst(DockerRegionEnum regionEnum, File file, DockerConfigModel
+            configModel) throws Exception {
         Map<String, Map<String, Map<BuildItemEnum, String>>> map = Maps.newLinkedHashMap();
         readDir(file, map, configModel);
         return writeLines(regionEnum, map, file, configModel);
     }
 
-    private List<DockerJenkinsModel> writeLines(DockerRegionEnum regionEnum, Map<String, Map<String, Map<BuildItemEnum, String>>> map, File firstFile, DockerConfigModel configModel) {
+    private List<DockerJenkinsModel> writeLines(DockerRegionEnum
+                                                        regionEnum, Map<String, Map<String, Map<BuildItemEnum, String>>> map, File firstFile, DockerConfigModel
+                                                        configModel) {
         List<DockerJenkinsModel> models = Lists.newArrayList();
         map.forEach((path, pathMap) -> pathMap.forEach((nextPath, enumMap) -> {
             if (Objects.nonNull(enumMap.get(BuildItemEnum.IGNORE))) {
@@ -604,22 +601,30 @@ public class JenkinsUtil {
                     functionSplits.addAll(Sets.newHashSet(StringUtils.split(functions, ",")));
                 }
             }
-            Arrays.stream(versionSplits).forEach(new Consumer<>() {
+            Arrays.stream(plats).forEach(new Consumer<>() {
                 @Override
-                public void accept(String version) {
-                    Arrays.stream(plats).forEach(new Consumer<>() {
-                        @Override
-                        public void accept(String plat) {
-                            models.add(buildModel(path, plats, plat, version, enumMap, regionEnum.getRegion(), ignoreRegionSplits, functionSplits, configModel));
-                        }
-                    });
+                public void accept(String plat) {
+                    models.add(buildModel(path, plats, plat, versionSplits, enumMap, regionEnum.getRegion(), ignoreRegionSplits, functionSplits, configModel));
                 }
             });
+//            Arrays.stream(versionSplits).forEach(new Consumer<>() {
+//                @Override
+//                public void accept(String version) {
+//                    Arrays.stream(plats).forEach(new Consumer<>() {
+//                        @Override
+//                        public void accept(String plat) {
+//                            models.add(buildModel(path, plats, plat, version, enumMap, regionEnum.getRegion(), ignoreRegionSplits, functionSplits, configModel));
+//                        }
+//                    });
+//                }
+//            });
         }));
         return models;
     }
 
-    private DockerJenkinsModel buildModel(String path, String[] plats, String plat, String version, Map<BuildItemEnum, String> enumMap, String region, Set<String> ignoreRegions, Set<String> functionSplits, DockerConfigModel configModel) {
+    private DockerJenkinsModel buildModel(String path, String[] plats, String plat, String[]
+            versions, Map<BuildItemEnum, String> enumMap, String
+                                                  region, Set<String> ignoreRegions, Set<String> functionSplits, DockerConfigModel configModel) {
         DockerJenkinsModel model = new DockerJenkinsModel();
         model.setPath(path);
         model.setIndex(Integer.parseInt(enumMap.getOrDefault(BuildItemEnum.INDEX, BuildItemEnum.INDEX.getDef())));
@@ -627,7 +632,7 @@ public class JenkinsUtil {
         //model.setHost(DockerRegionEnum.getRegion(region).getHost());
         model.setRegion(DockerRegionEnum.getRegion(region));
         model.setPlatform(DockerPlatformEnum.getPlatform(plat));
-        model.setVersion(version);
+        model.setVersions(Arrays.stream(versions).toList());
         model.setPlatforms(DockerPlatformEnum.getPlatforms(plats));
         model.setIgnoreRegions(DockerRegionEnum.getRegions(ignoreRegions));
         model.setFunctions(DockerFunctionEnum.getFunctions(functionSplits));
@@ -658,7 +663,9 @@ public class JenkinsUtil {
         return StringUtils.split(plat, ",");
     }
 
-    private void readDir(File file, Map<String, Map<String, Map<BuildItemEnum, String>>> map, DockerConfigModel configModel) throws Exception {
+    private void readDir(File
+                                 file, Map<String, Map<String, Map<BuildItemEnum, String>>> map, DockerConfigModel configModel) throws
+            Exception {
         if (Objects.isNull(file)) {
             return;
         }

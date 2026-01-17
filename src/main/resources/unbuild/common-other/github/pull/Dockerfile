@@ -2,6 +2,73 @@
 dockurr/windows
 @base
 #k8s
+
+
+
+
+alpine:3.11
+alpine:3.14
+alpine:3.16
+alpine:3.17
+alpine:3.18
+alpine:3.19
+alpine:3.20
+alpine:3.21
+alpine:3.22
+alpine:3.23
+alpine:3
+
+
+debian:11
+debian:12
+debian:13
+debian:stable
+
+
+
+ubuntu:26.04
+ubuntu:24.04
+ubuntu:22.04
+ubuntu:20.04
+ubuntu
+
+almalinux:8
+almalinux:8-minimal
+almalinux:9
+almalinux:9-minimal
+almalinux:10
+almalinux:10-minimal
+
+openanolis/anolisos
+openanolis/anolisos:8
+openanolis/anolisos:23
+
+rockylinux/rockylinux:8
+rockylinux/rockylinux:9
+rockylinux/rockylinux:10
+rockylinux/rockylinux:8-minimal
+rockylinux/rockylinux:9-minimal
+rockylinux/rockylinux:10-minimal
+
+
+
+openeuler/openeuler:24.03
+openeuler/openeuler:22.03
+openeuler/openeuler:20.03
+
+
+
+
+
+
+
+
+
+
+
+
+
+pubuzhixing/drawnix
 plugins/webhook
 apache/james:jpa-3.8.1
 apache/james:memory-3.8.1
@@ -96,36 +163,39 @@ budtmo/docker-android:genymotion
 
 postgres
 
-openanolis/anolisos
-openanolis/anolisos:8
-openanolis/anolisos:23
 
-rockylinux:8
-rockylinux:8-minimal
-rockylinux:9
-rockylinux:9-minimal
-almalinux:8
-almalinux:8-minimal
-almalinux:9
-almalinux:9-minimal
-almalinux:10
+
+
+
+
+
+
 oraclelinux:8
 oraclelinux:9
 oraclelinux:10
 
 
-debian:11
-debian:12
-debian:13
-debian:stable
-ubuntu:25.10
-ubuntu:25.04
-ubuntu:24.04
-ubuntu:22.04
-ubuntu:20.04
-ubuntu
+
+
+
+
+
+
+
+
 archlinux
 
+
+
+
+
+
+
+
+
+
+mongo
+mongo:8
 
 
 
@@ -138,17 +208,8 @@ gitea/runner-images:ubuntu-latest-slim
 
 
 
-
-alpine:3.10
-alpine:3.17
-alpine:3.18
-alpine:3.19
-alpine:3.20
-alpine:3.21
-alpine:3.22
-alpine:3
-
 ghcr.io/falcondev-oss/github-actions-cache-server
+ghcr.io/falcondev-oss/github-actions-cache-server:dev
 ghcr.io/falcondev-oss/github-actions-cache-server:8.0.1
 ghcr.io/falcondev-oss/github-actions-cache-server:8.1.3
 
@@ -272,9 +333,10 @@ mysql:5.7.39
 mysql:5.7.29
 mysql:5.7.19
 
+
 mariadb:10
 mariadb:11
-
+mariadb:12
 
 rustfs/rustfs
 
@@ -331,6 +393,7 @@ grafana/grafana:11.2.2
 grafana/grafana:12.1.0
 quay.io/prometheus-operator/prometheus-config-reloader:v0.63.0
 quay.io/prometheus/prometheus:v2.43.0
+quay.io/prometheus/prometheus:v3.9.1
 busybox:1.30
 skywalking.docker.scarf.sh/apache/skywalking-oap-server:9.3.0
 skywalking.docker.scarf.sh/apache/skywalking-ui:9.3.0
@@ -433,3 +496,19 @@ docker.jianmuhub.com/jianmu/jianmu-ui:v2.8.2
 quay.io/argoproj/argocd:v3.1.0
 public.ecr.aws/docker/library/redis:7.2.7-alpine
 ghcr.io/dexidp/dex:v2.43.0
+
+
+
+
+ghcr.io/drawdb-io/drawdb
+ghcr.io/drawdb-io/drawdb:v1.5.0
+ghcr.io/chartdb/chartdb
+ghcr.io/chartdb/chartdb:1.19.0
+
+
+
+
+
+victoriametrics/victoria-metrics:v1.79.12
+victoriametrics/victoria-metrics
+flashcatcloud/nightingale

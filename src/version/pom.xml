@@ -10,13 +10,16 @@
     <properties>
         <jdk.version>17</jdk.version>
         <jdk.encoding>UTF-8</jdk.encoding>
-        <arthas.version>4.0.5</arthas.version>
-        <apollo.version>2.4.0</apollo.version>
-        <rocketmq-client.version>5.3.2</rocketmq-client.version>
-        <sentinel.version>1.8.8</sentinel.version>
-        <nacos-client.version>2.5.1</nacos-client.version>
+        <arthas.version>4.1.4</arthas.version>
+        <apollo.version>3.1.1</apollo.version>
+        <rocketmq-client.version>5.4.0</rocketmq-client.version>
+        <sentinel.version>1.8.9</sentinel.version>
+        <nacos-client.version>3.1.1</nacos-client.version>
         <disconf.version>2.6.36</disconf.version>
         <nexus.version>3.70.1-02</nexus.version>
+        <archiva-jetty.version>2.2.10</archiva-jetty.version>
+        <disconf-client.version>2.6.36</disconf-client.version>
+        <jenkins.version>xxxx</jenkins.version>
     </properties>
     <dependencyManagement>
         <dependencies>
@@ -54,6 +57,16 @@
                 <groupId>org.sonatype.nexus</groupId>
                 <artifactId>nexus-base</artifactId>
                 <version>${nexus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.apache.archiva</groupId>
+                <artifactId>archiva-jetty</artifactId>
+                <version>${archiva-jetty.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baidu.disconf</groupId>
+                <artifactId>disconf-client</artifactId>
+                <version>${disconf-client.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>

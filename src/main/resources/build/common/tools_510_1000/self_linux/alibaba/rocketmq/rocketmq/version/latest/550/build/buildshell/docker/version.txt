@@ -1,2 +1,0 @@
-king019/rocketmq:5.3.2
-king019/rocketmq

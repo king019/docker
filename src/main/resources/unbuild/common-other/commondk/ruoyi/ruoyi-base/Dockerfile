@@ -1,4 +1,4 @@
-FROM docker:5000/king019/centos:jdk
+FROM docker:5000/king019/rhel:jdk
 
 
 MAINTAINER king019

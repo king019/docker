@@ -1,3 +1,0 @@
-RUN sed -i "s@http://.*archive.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list   RUN sed -i "s@http://.*archive.ubuntu.com@http://nexus:8081/repository@g" /etc/apt/sources.list
-RUN sed -i "s@http://.*security.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list  RUN sed -i "s@http://.*security.ubuntu.com@http://nexus:8081/repository@g" /etc/apt/sources.list
-RUN sed -i "s@http://.*ports.ubuntu.com@http://repo.huaweicloud.com@g" /etc/apt/sources.list     RUN sed -i "s@http://.*ports.ubuntu.com@http://nexus:8081/repository@g" /etc/apt/sources.list

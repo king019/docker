@@ -7,6 +7,6 @@ COPY docker.sh /docker.sh
 COPY git.sh /git.sh
 RUN chmod -R 777 /*.sh
 RUN /git.sh
-FROM registry.cn-qingdao.aliyuncs.com/king019/nginx:stable-alpine
+FROM king019/alpine:nginx
 COPY ./nginx.conf /etc/nginx/nginx.conf
 COPY --from=ui /dist /usr/share/nginx/html
